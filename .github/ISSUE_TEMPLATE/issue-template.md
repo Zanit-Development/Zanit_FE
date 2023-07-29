@@ -1,7 +1,4 @@
-# 이슈템플릿
-
 ---
-
 name: issue template
 about: github issue 등록을 위한 템플릿
 title: "이슈 제목"
