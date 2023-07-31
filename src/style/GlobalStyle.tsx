@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: var(--font--Regular);
     background: #D9D9D9;
+    color: #121212;
   }
 
   input {
