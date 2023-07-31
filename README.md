@@ -13,8 +13,8 @@
 
 ### commit
 
-```
-`git commit -m "(#issue_number) Feat : 팔로우 버튼 기능 구현 "`
+```powershell
+git commit -m "(#issue_number) Feat : 팔로우 버튼 기능 구현 "
 ```
 
 ```
