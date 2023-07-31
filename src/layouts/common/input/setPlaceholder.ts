@@ -1,4 +1,4 @@
-import { INPUT } from "../../../../constants/messages/placeholder";
+import { INPUT } from "../../../libs/constants/messages/placeholder";
 
 export const setPlaceholder = (type: string): string => {
   let message = "";
