@@ -20,8 +20,8 @@ export interface InputProps {
   typeVariants: INPUT_TYPE_VARIANTS;
   sizeVariants: INPUT_SIZE_VARIANTS;
   type: string;
-  minLength: number;
-  maxLength: number;
   placeholder: string;
+  minLength?: number;
+  maxLength?: number;
   onChange: () => void;
 }
