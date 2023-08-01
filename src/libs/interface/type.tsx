@@ -4,4 +4,5 @@
 
 export type BUTTON_TYPE_VARIANTS = "primary" | "secondary";
 export type BUTTON_SIZE_VARIANTS = "large" | "small";
-export type INPUT_TYPE_VARIANTS = "user" | "search" | "admin";
+export type INPUT_TYPE_VARIANTS = "primary" | "secondary";
+export type INPUT_SIZE_VARIANTS = "large" | "medium" | "small";
