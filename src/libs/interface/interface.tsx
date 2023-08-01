@@ -2,10 +2,16 @@
  * 인터페이스
  */
 
-import { InputHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { TYPE_VARIANTS, SIZE_VARIANTS } from "./type";
 
-export interface InputType extends InputHTMLAttributes<HTMLInputElement> {
-  type: string;
+export interface AxiosOptions {
+  timeout?: number;
 }
 
-export interface ButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface ButtonProps {
+  typeVariants: TYPE_VARIANTS;
+  sizeVariants: SIZE_VARIANTS;
+  value: string;
+  disabled: boolean;
+  onClick: () => void;
+}

@@ -2,11 +2,5 @@
  * 타입
  */
 
-export type user = {
-  userName: string;
-  userPhone: string;
-  userEmail: string;
-  userPassword: string;
-};
-
-export type axiosOptions = {};
+export type TYPE_VARIANTS = "primary" | "secondary";
+export type SIZE_VARIANTS = "large" | "small";
