@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonProps } from "../../../libs/interface/interface";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 
 export const Button = ({ typeVariants = "primary", sizeVariants = "large", ...props }: ButtonProps) => {
   return (

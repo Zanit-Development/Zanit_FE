@@ -3,10 +3,10 @@
  */
 
 import axios from "axios";
-import { axiosOptions } from "../interface/type";
 import { authToken } from "../../auth/token";
+import { AxiosOptions } from "../interface/interface";
 
-export const axiosApi = (url: string, options: axiosOptions) => {
+export const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
     baseURL: url,
     ...options,
@@ -15,7 +15,7 @@ export const axiosApi = (url: string, options: axiosOptions) => {
   return instance;
 };
 
-export const axiosAuthApi = (url: string, options: axiosOptions) => {
+export const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const token = authToken;
   const instance = axios.create({
     baseURL: url,
