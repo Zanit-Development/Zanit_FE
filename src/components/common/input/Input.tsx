@@ -20,6 +20,10 @@ const StyledInput = styled.input<InputProps>`
   &:focus {
     outline: 1px solid var(--main-color);
   }
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const TYPE_VARIANTS = {
