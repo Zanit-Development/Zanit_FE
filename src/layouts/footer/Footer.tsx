@@ -10,9 +10,9 @@ export const Footer = () => {
   return (
     <FooterContainer>
       <img src={Logo} alt="Zanit" />
+      <p>대표이사 : 정태송</p>
+      <p>206-55-98984</p>
       <div>
-        <p>대표이사 정태송</p>
-        <span>206-55-98984</span>
         <Link to="/">
           <img src={kakao} alt="카카오톡" />
         </Link>
@@ -47,21 +47,19 @@ const FooterContainer = styled.footer`
     margin-bottom: 12px;
   }
 
-  div {
+  p {
     font-weight: var(--font--Medium);
-    margin-bottom: 12px;
     padding: 5px 0;
     font-size: 12px;
+  }
 
-    p {
-      margin-bottom: 7px;
-    }
+  div {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0 12px;
 
     a {
       width: 16px;
-      display: inline-block;
-      margin-left: 8px;
-
       img {
         vertical-align: text-top;
       }
