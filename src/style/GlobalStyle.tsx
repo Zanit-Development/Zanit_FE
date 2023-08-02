@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+  }
 
   button {
     all: unset;
