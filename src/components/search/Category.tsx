@@ -1,47 +1,39 @@
 import React from "react";
 import { styled } from "styled-components";
+import { CategoryProps } from "../../libs/interface/interfaceCommon";
 
-interface CategoryProps {
-  categorys: string[];
-}
+export const Category = ({ ...props }: CategoryProps) => {
+  const menu = props.menu;
+  const idx = props.idx;
+  const hadleMenu = props.onChange;
 
-export const Category = ({ categorys = [] }: CategoryProps) => {
   return (
-    <CategoryContainer>
-      {categorys.map((item, idx) => {
-        console.log(item);
-        return (
-          <li>
-            <input type="radio" id={`cate_${idx}`} name="menu" key={idx} />
-            <label htmlFor={`cate_${idx}`}>{item}</label>
-          </li>
-        );
-      })}
-    </CategoryContainer>
+    <MenuContainer>
+      <StyledInput type="radio" id={`menu_${idx}`} value={menu} name="menu" defaultChecked={idx === 0 ? true : false} onChange={hadleMenu} />
+      <StyledLabel htmlFor={`menu_${idx}`}>{menu}</StyledLabel>
+    </MenuContainer>
   );
 };
 
-const CategoryContainer = styled.ul`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  margin: 20px;
+const MenuContainer = styled.div``;
 
-  & label {
-    display: inline-block;
-    width: 50px;
-    height: 27px;
-    font-family: var(--font--Medium);
-    font-size: 1rem;
-    text-align: center;
-    line-height: 27px;
-    color: #ababab;
-    cursor: pointer;
-  }
+const StyledInput = styled.input`
+  display: none;
 
-  & input:checked + label {
+  &:checked + label {
     color: var(--black-color);
     border-bottom: 1px solid var(--main-color);
   }
+`;
+
+const StyledLabel = styled.label`
+  display: inline-block;
+  width: 50px;
+  height: 27px;
+  font-family: var(--font--Medium);
+  font-size: 1rem;
+  text-align: center;
+  line-height: 27px;
+  color: #ababab;
+  cursor: pointer;
 `;
