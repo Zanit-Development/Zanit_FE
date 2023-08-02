@@ -1,0 +1,60 @@
+import React from "react";
+import { css, styled } from "styled-components";
+import { TagProps } from "../../libs/interface/interfaceCommon";
+
+export const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
+  const tagDisabled = typeVariants === "primary" ? false : true;
+  return (
+    <TagContainer typeVariants={typeVariants} {...props}>
+      <input type="checkbox" id={props.tagId} disabled={tagDisabled} />
+      <label htmlFor={props.tagId}>&#35;{props.value}</label>
+    </TagContainer>
+  );
+};
+
+const TYPE_VARIANTS = {
+  primary: css`
+    padding: 8px;
+    background-color: var(--gray100-color);
+    font-family: var(--font--Medium);
+    color: var(--black-color);
+  `,
+
+  secondary: css`
+    padding: 3px;
+    background-color: var(--main-color);
+    font-family: var(--font--Bold);
+    color: white;
+  `,
+
+  tertiary: css`
+    padding: 3px;
+    background-color: transparent;
+    outline: 2px solid var(--gray500-color);
+    font-family: var(--font--Bold);
+    color: var(--gray500-color);
+  `,
+};
+
+const TagContainer = styled.div<TagProps>`
+  & > input {
+    display: none;
+  }
+
+  & > input:checked + label {
+    background-color: var(--main-color);
+    color: white;
+  }
+
+  & > label {
+    display: inline-block;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-size: 12px;
+    line-height: 20px;
+    user-select: none;
+    cursor: pointer;
+
+    ${(props) => TYPE_VARIANTS[props.typeVariants]}
+  }
+`;

@@ -1,6 +1,6 @@
 import React from "react";
-import { InputProps } from "../../../libs/interface/interface";
 import { styled } from "styled-components";
+import { InputProps } from "../../../libs/interface/interfaceCommon";
 
 export const Input = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
   return <StyledInput typeVariants={typeVariants} sizeVariants={sizeVariants} {...props} />;
