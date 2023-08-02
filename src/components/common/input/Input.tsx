@@ -7,9 +7,10 @@ export const Input = ({ typeVariants = "primary", sizeVariants = "large", ...pro
 };
 
 const StyledInput = styled.input<InputProps>`
-  max-width: 100%;
+  width: 100%;
   height: ${(props) => SIZE_VARIANTS[props.sizeVariants]};
-  padding: 5px;
+  padding: 20px;
+  background-color: white;
   border-radius: ${(props) => TYPE_VARIANTS[props.typeVariants]};
   box-sizing: border-box;
   font-family: var(--font-Medium);
