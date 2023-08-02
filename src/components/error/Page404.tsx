@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 
 import { Button } from "../../components/common/button/Button";
-import { ButtonProps } from "../../libs/interface/interface";
+import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
 export const Page404: React.FC = () => {
   const navigate = useNavigate();
