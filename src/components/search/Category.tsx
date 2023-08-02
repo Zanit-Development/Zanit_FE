@@ -5,11 +5,11 @@ import { CategoryProps } from "../../libs/interface/interfaceCommon";
 export const Category = ({ ...props }: CategoryProps) => {
   const menu = props.menu;
   const idx = props.idx;
-  const hadleMenu = props.onChange;
+  const handleMenu = props.onChange;
 
   return (
     <MenuContainer>
-      <StyledInput type="radio" id={`menu_${idx}`} value={menu} name="menu" defaultChecked={idx === 0 ? true : false} onChange={hadleMenu} />
+      <StyledInput type="radio" id={`menu_${idx}`} value={menu} name="menu" defaultChecked={idx === 0 ? true : false} onChange={handleMenu} />
       <StyledLabel htmlFor={`menu_${idx}`}>{menu}</StyledLabel>
     </MenuContainer>
   );
