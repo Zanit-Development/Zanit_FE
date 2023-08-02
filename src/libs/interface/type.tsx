@@ -2,11 +2,7 @@
  * 타입
  */
 
-export type user = {
-  userName: string;
-  userPhone: string;
-  userEmail: string;
-  userPassword: string;
-};
-
-export type axiosOptions = {};
+export type BUTTON_TYPE_VARIANTS = "primary" | "secondary";
+export type BUTTON_SIZE_VARIANTS = "large" | "small";
+export type INPUT_TYPE_VARIANTS = "primary" | "secondary";
+export type INPUT_SIZE_VARIANTS = "large" | "medium" | "small";
