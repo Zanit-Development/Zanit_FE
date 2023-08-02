@@ -18,7 +18,7 @@ export const Layout: React.FC<WrapperProps> = ({ children }) => {
 };
 
 const LayoutWrap = styled.div`
-  min-width: 390px;
+  max-width: 390px;
   margin: 0 auto;
   background-color: #fff;
 `;
