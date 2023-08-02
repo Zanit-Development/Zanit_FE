@@ -2,7 +2,7 @@
  * 인터페이스
  */
 
-import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, TAG_COLOR_VARIANTS } from "./typeCommon";
+import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS } from "./typeCommon";
 
 export interface AxiosOptions {
   timeout?: number;
@@ -28,7 +28,6 @@ export interface InputProps {
 
 export interface TagProps {
   typeVariants: TAG_TYPE_VARIANTS;
-  colorVariants: TAG_COLOR_VARIANTS;
   value: string;
-  onChange: () => void;
+  tagId: string;
 }
