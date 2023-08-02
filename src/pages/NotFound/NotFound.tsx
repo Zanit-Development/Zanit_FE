@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Layout } from "../../layouts/Layout";
 import { Page404 } from "../../components/error/Page404";
 

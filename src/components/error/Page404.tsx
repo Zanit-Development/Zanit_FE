@@ -1,8 +1,9 @@
 import React from "react";
-import { Button } from "../../components/common/button/Button";
-import { ButtonProps } from "../../libs/interface/interface";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
+
+import { Button } from "../../components/common/button/Button";
+import { ButtonProps } from "../../libs/interface/interface";
 
 export const Page404: React.FC = () => {
   const navigate = useNavigate();
