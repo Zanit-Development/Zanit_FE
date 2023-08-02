@@ -6,3 +6,5 @@ export type BUTTON_TYPE_VARIANTS = "primary" | "secondary";
 export type BUTTON_SIZE_VARIANTS = "large" | "small";
 export type INPUT_TYPE_VARIANTS = "primary" | "secondary";
 export type INPUT_SIZE_VARIANTS = "large" | "medium" | "small";
+export type TAG_TYPE_VARIANTS = "primary" | "secondary";
+export type TAG_COLOR_VARIANTS = "main" | "sub";

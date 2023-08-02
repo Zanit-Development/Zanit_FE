@@ -4,7 +4,7 @@
 
 import axios from "axios";
 import { authToken } from "../../auth/token";
-import { AxiosOptions } from "../interface/interface";
+import { AxiosOptions } from "../interface/interfaceCommon";
 
 export const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
