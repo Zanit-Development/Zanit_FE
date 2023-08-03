@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { Input } from "../../components/common/input/Input";
-import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
+import { CategoryProps, InputProps, ItemProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
 import { Category } from "../../components/search/Category";
 import { Tag } from "../../components/tag/Tag";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
+import { Item } from "../../components/common/item/Item";
+import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -30,6 +32,13 @@ export const Search = () => {
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
     onChange: handleSearch,
+  };
+
+  const itemOptions: ItemProps = {
+    typeVariants: "primary",
+    link: "#",
+    url: sampleImg,
+    name: "임시",
   };
 
   const categorys = ["전체", "칵테일", "분위기", "지역"];
@@ -65,7 +74,14 @@ export const Search = () => {
           })}
         </TagSection>
       </CategoryContainer>
-      <ListContainer></ListContainer>
+      <ListContainer>
+        <Item {...itemOptions} />
+        <Item {...itemOptions} />
+        <Item {...itemOptions} />
+        <Item {...itemOptions} />
+        <Item {...itemOptions} />
+        <Item {...itemOptions} />
+      </ListContainer>
     </Layout>
   );
 };
@@ -128,4 +144,9 @@ const TagSection = styled.section`
   }
 `;
 
-const ListContainer = styled.section``;
+const ListContainer = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 20px;
+`;
