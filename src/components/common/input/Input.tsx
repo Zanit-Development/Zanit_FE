@@ -2,8 +2,8 @@ import React from "react";
 import { styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 
-export const Input = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
-  return <StyledInput typeVariants={typeVariants} sizeVariants={sizeVariants} {...props} />;
+export const Input = ({ typeVariants = "primary", sizeVariants = "large", hasBorder = "yes", ...props }: InputProps) => {
+  return <StyledInput typeVariants={typeVariants} sizeVariants={sizeVariants} hasBorder={hasBorder} {...props} />;
 };
 
 const StyledInput = styled.input<InputProps>`
@@ -16,6 +16,7 @@ const StyledInput = styled.input<InputProps>`
   font-family: var(--font-Medium);
   font-size: 0.8rem;
   color: var(--black-color);
+  border: ${(props) => BORDER_VARIANTS[props.hasBorder]};
 
   &:hover,
   &:focus {
@@ -36,4 +37,9 @@ const SIZE_VARIANTS = {
   large: "50px",
   medium: "46px",
   small: "41px",
+};
+
+const BORDER_VARIANTS = {
+  yes: "1px solid #eee",
+  no: "none",
 };
