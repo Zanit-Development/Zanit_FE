@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { Input } from "../../components/common/input/Input";
 import SectionTitle from "./SectionTitle";
-import Subscribe from "./SubscribeBox";
+import SubscribeBox from "./SubscribeBox";
 import TagList from "./TagList";
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import ItemSection from "./ItemSection";
