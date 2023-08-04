@@ -3,8 +3,8 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
-import kakao from "../../assets/icon/sns_Default.svg";
-import instar from "../../assets/icon/sns_Default_instar.svg";
+import kakao from "../../assets/icon/icon_sns_kakao.svg";
+import instar from "../../assets/icon/icon_sns_instar.svg";
 
 export const Footer = () => {
   return (
