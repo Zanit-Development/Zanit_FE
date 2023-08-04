@@ -16,10 +16,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-    --font--Bold: 'Noto-Sans-Bold';
-    --font--semibold: 'Noto-Sans-semiBold';
-    --font--Medium: 'Noto-Sans-Medium';
-    --font--Regular: 'Noto-Sans-Regular';
+    --font--Bold: 'Noto-Sans-700';
+    --font--semibold: 'Noto-Sans-500';
+    --font--Medium: 'Noto-Sans-400';
+    --font--Regular: 'Noto-Sans-300';
   }
 
   ${reset}

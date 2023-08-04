@@ -34,7 +34,7 @@ const Ul = styled.ul`
   a {
     display: inline-block;
     padding: 10px;
-    font-family: var(--font--Medium);
+    font-family: var(--font--semibold);
     color: var(--gray500-color);
     font-size: 1rem;
   }
