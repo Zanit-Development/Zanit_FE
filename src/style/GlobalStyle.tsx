@@ -16,10 +16,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-    --font--Bold: 'Pretendard-Bold';
-    --font--semibold: 'Pretendard-semiBold';
-    --font--Medium: 'Pretendard-Medium';
-    --font--Regular: 'Pretendard-Regular';
+    --font--Bold: 'Noto-Sans-700';
+    --font--semibold: 'Noto-Sans-500';
+    --font--Medium: 'Noto-Sans-400';
+    --font--Regular: 'Noto-Sans-300';
   }
 
   ${reset}
@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: var(--font--Regular);
     background: #D9D9D9;
+    color: #121212;
   }
 
   input {
@@ -37,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+  }
 
   button {
     all: unset;
@@ -50,6 +51,10 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: var(--black-color);
     text-decoration: none;
+  }
+
+  li {
+    list-style: none;
   }
 
   .a11y-hidden {
