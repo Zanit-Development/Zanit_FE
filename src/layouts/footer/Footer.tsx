@@ -13,25 +13,25 @@ export const Footer = () => {
       <p>대표이사 : 정태송</p>
       <p>206-55-98984</p>
       <div>
-        <Link to="/">
+        <a href="">
           <img src={kakao} alt="카카오톡" />
-        </Link>
-        <Link to="/">
+        </a>
+        <a href="">
           <img src={instar} alt="인스타그램" />
-        </Link>
+        </a>
       </div>
       <UnorderList>
         <li>
-          <Link to="/">이용안내</Link>
+          <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b">이용안내</a>
         </li>
         <li>
-          <Link to="/">정책</Link>
+          <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b">정책</a>
         </li>
         <li>
-          <Link to="/">비즈니스 제안</Link>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqOnIIhwyT6We1MkT1OuQ90cEw-pOdWAxBTvjStaSnBIB-mg/viewform">비즈니스 제안</a>
         </li>
         <li>
-          <Link to="/">CS</Link>
+          <a href="https://pf.kakao.com/_QxdiAG">CS</a>
         </li>
       </UnorderList>
     </FooterContainer>
