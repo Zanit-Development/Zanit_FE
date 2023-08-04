@@ -53,6 +53,10 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  li {
+    list-style: none;
+  }
+
   .a11y-hidden {
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
