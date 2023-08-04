@@ -12,17 +12,19 @@ import { Subscribe } from "./pages/subscribe/Subscribe";
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/subscribe" element={<Subscribe />} />
-        <Route path="/404" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/404" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
