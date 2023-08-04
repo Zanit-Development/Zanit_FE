@@ -17,6 +17,7 @@ const StyledInput = styled.input<InputProps>`
   font-size: 0.8rem;
   color: var(--black-color);
   border: ${(props) => BORDER_VARIANTS[props.hasBorder]};
+  margin: ${(props) => props.margin || "none"};
 
   &:hover,
   &:focus {
