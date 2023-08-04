@@ -7,7 +7,7 @@ import { Button } from "../../components/common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
-const Subscribe: React.FC = () => {
+const SubscribeBox: React.FC = () => {
   const navigate = useNavigate();
 
   const options: ButtonProps = {
@@ -66,4 +66,4 @@ const Container = styled.div`
   }
 `;
 
-export default Subscribe;
+export default SubscribeBox;
