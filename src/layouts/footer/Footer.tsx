@@ -13,10 +13,10 @@ export const Footer = () => {
       <p>대표이사 : 정태송</p>
       <p>206-55-98984</p>
       <div>
-        <a href="">
+        <a href="https://pf.kakao.com/_QxdiAG">
           <img src={kakao} alt="카카오톡" />
         </a>
-        <a href="">
+        <a href="https://www.instagram.com/zanit.official/">
           <img src={instar} alt="인스타그램" />
         </a>
       </div>
