@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "../../libs/interface/navMenu";
 import { styled } from "styled-components";
 
-type NavProps = {
-  activeMenu: string;
-  onMenuClick: (menu: Menu) => void;
-};
-
-const Nav: React.FC<NavProps> = ({ activeMenu, onMenuClick }) => {
+const Nav: React.FC = () => {
+  // 로그인 전 상태
   return (
     <nav>
       <Ul>
-        <li onClick={() => onMenuClick("bar 검색")}>bar 검색</li>
-        <li onClick={() => onMenuClick("구독하기")}>구독하기</li>
-        <li onClick={() => onMenuClick("회원가입")}>회원가입</li>
-        <li onClick={() => onMenuClick("로그인")}>로그인</li>
+        <li>
+          <Link to="/search">bar 검색</Link>
+        </li>
+        <li>
+          <Link to="/subscribe">구독하기</Link>
+        </li>
+        <li>
+          <Link to="/signUp">회원가입</Link>
+        </li>
+        <li>
+          <Link to="/signIn">로그인</Link>
+        </li>
       </Ul>
     </nav>
   );
@@ -26,12 +29,13 @@ export default Nav;
 const Ul = styled.ul`
   display: flex;
   justify-content: space-evenly;
-  font-family: var(--font--Medium);
-  color: var(--gray500-color);
-  font-size: 1rem;
+  margin-bottom: 10px;
 
-  li {
+  a {
+    display: inline-block;
     padding: 10px;
-    cursor: pointer;
+    font-family: var(--font--Medium);
+    color: var(--gray500-color);
+    font-size: 1rem;
   }
 `;
