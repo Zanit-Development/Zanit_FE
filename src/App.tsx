@@ -3,7 +3,7 @@ import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
-import { Home } from "./pages/Home";
+import { Home } from "./pages/home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
