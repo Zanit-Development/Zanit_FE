@@ -23,19 +23,16 @@ export const SignIn: React.FC = () => {
     id: "email",
     typeVariants: "primary",
     sizeVariants: "large",
-    hasBorder: "yes",
     type: "email",
     placeholder: "이메일",
     onChange: handleInputChange,
     value: emailValue,
-    margin: "0 0 12px 0",
   };
 
   const passwordOptions: InputProps = {
     id: "password",
     typeVariants: "primary",
     sizeVariants: "large",
-    hasBorder: "yes",
     type: "string",
     placeholder: "비밀번호",
     onChange: handleInputChange,

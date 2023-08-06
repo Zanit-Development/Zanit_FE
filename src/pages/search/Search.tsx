@@ -26,10 +26,8 @@ export const Search = () => {
   };
 
   const inputOptions: InputProps = {
-    id: "search",
     typeVariants: "secondary",
     sizeVariants: "medium",
-    hasBorder: "no",
     value: inputValue,
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",

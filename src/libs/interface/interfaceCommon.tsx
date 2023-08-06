@@ -18,16 +18,14 @@ export interface ButtonProps {
 }
 
 export interface InputProps {
-  id: string;
   typeVariants: INPUT_TYPE_VARIANTS;
   sizeVariants: INPUT_SIZE_VARIANTS;
-  hasBorder: INPUT_BORDER_VARIANTS;
   type: string;
   value: string;
   placeholder: string;
+  id?: string;
   minLength?: number;
   maxLength?: number;
-  margin?: string;
   onChange: (e: INPUT_EVENT) => void;
 }
 
