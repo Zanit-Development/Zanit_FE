@@ -2,7 +2,7 @@
  * 인터페이스
  */
 
-import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS } from "./typeCommon";
+import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, INPUT_BORDER_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS } from "./typeCommon";
 import { BUTTON_EVENT, INPUT_EVENT } from "./typeEvent";
 
 export interface AxiosOptions {
@@ -23,6 +23,7 @@ export interface InputProps {
   type: string;
   value: string;
   placeholder: string;
+  id?: string;
   minLength?: number;
   maxLength?: number;
   onChange: (e: INPUT_EVENT) => void;
