@@ -33,7 +33,7 @@ export const SignIn: React.FC = () => {
     id: "password",
     typeVariants: "primary",
     sizeVariants: "large",
-    type: "text",
+    type: "password",
     placeholder: "비밀번호",
     onChange: handleInputChange,
     value: passwordValue,

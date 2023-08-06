@@ -40,12 +40,14 @@ export const SignUp = () => {
 
   const passwordInputOptions = {
     ...inputOptionsBase,
+    type: "password",
     placeholder: "비밀번호를 입력해주세요",
     id: "password",
   };
 
   const passwordCheckInputOptions = {
     ...inputOptionsBase,
+    type: "password",
     placeholder: "비밀번호를 한번 더 입력해주세요",
     id: "passwordCheck",
   };
