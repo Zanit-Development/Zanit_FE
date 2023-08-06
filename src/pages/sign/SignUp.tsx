@@ -12,7 +12,7 @@ export const SignUp = () => {
   const inputOptionsBase: InputProps = {
     typeVariants: "primary",
     sizeVariants: "large",
-    type: "string",
+    type: "text",
     value: "",
     placeholder: "",
     onChange: () => {},
@@ -33,9 +33,9 @@ export const SignUp = () => {
 
   const emailInputOptions = {
     ...inputOptionsBase,
+    type: "email",
     placeholder: "이메일을 입력해주세요",
     id: "email",
-    type: "email",
   };
 
   const passwordInputOptions = {
