@@ -83,6 +83,14 @@ const SignInSection = styled.section`
 `;
 
 const SignInForm = styled.form`
+  input {
+    border: 1px solid #eee;
+
+    &:nth-of-type(2) {
+      margin-top: 12px;
+    }
+  }
+
   button {
     width: 100%;
     margin: 50px 0 24px;
