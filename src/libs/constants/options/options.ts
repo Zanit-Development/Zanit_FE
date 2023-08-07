@@ -39,6 +39,11 @@ export const BUTTON_OPTIONS = {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.PAYMENT.DISCOUNT("3개월", 25),
   },
+  
+  HOW_TO_USE: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SEARCH_BAR,
+  }
 };
 
 export const SIGNIN_OPTIONS = {
