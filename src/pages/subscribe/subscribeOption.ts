@@ -23,20 +23,18 @@ export const EVENT = {
   DATE_OUTPUT_WEEK: "목",
 };
 
-export const ALERT_PAYMENT_MANUAL = `
-  현재 결제 방법은 무통장입금을 지원하고 있습니다. 
+export const ALERT_PAYMENT_MANUAL = `현재 결제 방법은 무통장입금을 지원하고 있습니다. 
   멤버십 만료일은 결제일로부터 3개월 뒤입니다.
 `;
-export const ALERT_PAYMENT_GUIDE = `
-  쟈닛 멤버십은 ${EVENT.DATE_OUTPUT_DATE}(${EVENT.DATE_OUTPUT_WEEK})부터 이용이 가능해요.
-  Zanit 카카오 플러스 채널을 통해 당일부터 바로 이용할 수 있도록 알림을 보내드릴게요 :)
+export const ALERT_PAYMENT_GUIDE = `쟈닛 멤버십은 ${EVENT.DATE_OUTPUT_DATE}(${EVENT.DATE_OUTPUT_WEEK})부터 이용이 가능해요.
+  Zanit 카카오 플러스 채널을 통해 당일부터
+  바로 이용할 수 있도록 알림을 보내드릴게요 :)
 `;
 
 export const CONTENT1 = {
   title: "합리적인 가격",
   src: usd,
-  content: `
-    월 ${COST}원이라는 얼리버드 특가를 통해 
+  content: `월 ${COST}원이라는 얼리버드 특가를 통해 
     매주 한 잔의 새로운 칵테일을 즐겨봐요
   `,
 };
@@ -44,8 +42,7 @@ export const CONTENT1 = {
 export const CONTENT2 = {
   title: "칵테일과 바(Bar)에 대한 다양한 정보",
   src: list,
-  content: `
-    특별한 칵테일과 높은 접근성을 가졌지만 
+  content: `특별한 칵테일과 높은 접근성을 가졌지만 
     차별화된 분위기의 바를 큐레이션 해드려요
   `,
 };
@@ -53,8 +50,7 @@ export const CONTENT2 = {
 export const CONTENT3 = {
   title: "쉬워지는 칵테일 생활",
   src: smile,
-  content: `
-    매주 찾아오는 칵테일 한 잔을 경험하며
+  content: `매주 찾아오는 칵테일 한 잔을 경험하며
     칵테일과 친해질 수 있어요.
   `,
 };

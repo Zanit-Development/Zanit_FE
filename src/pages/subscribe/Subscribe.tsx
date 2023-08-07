@@ -112,6 +112,7 @@ const Container = css`
     font-family: var(--font--Medium);
     font-size: 14px;
     line-height: 18px;
+    white-space: pre-line;
   }
 
   & button {
@@ -153,6 +154,7 @@ const StyledSectionMiddle = styled.section`
       color: #404040;
       text-align: left;
       line-height: 13px;
+      white-space: pre-line;
     }
   }
 
@@ -160,6 +162,7 @@ const StyledSectionMiddle = styled.section`
     margin-bottom: 20px;
     font-family: var(--font--Bold);
     text-align: center;
+    white-space: pre-line;
 
     & strong {
       color: var(--main-color);
