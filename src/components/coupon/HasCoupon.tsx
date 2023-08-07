@@ -27,7 +27,7 @@ export const HasCoupon = () => {
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
-        <Link to="">ZAN 쿠폰 사용이 처음이신가요?</Link>
+        <Link to="/how-to-use">ZAN 쿠폰 사용이 처음이신가요?</Link>
       </CouponBottomSection>
     </>
   );
