@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Nav: React.FC = () => {
-  // 로그인 전 상태
   return (
     <nav>
       <Ul>
@@ -13,11 +12,19 @@ const Nav: React.FC = () => {
         <li>
           <Link to="/subscribe">구독하기</Link>
         </li>
-        <li>
+        {/* 로그인 전 상태 */}
+        {/* <li>
           <Link to="/signUp">회원가입</Link>
         </li>
         <li>
           <Link to="/signIn">로그인</Link>
+        </li> */}
+        {/* 로그인 후 */}
+        <li>
+          <Link to="/">로그아웃</Link>
+        </li>
+        <li>
+          <Link to="/myCoupon">내 쿠폰함</Link>
         </li>
       </Ul>
     </nav>
