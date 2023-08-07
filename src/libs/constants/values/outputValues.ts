@@ -16,7 +16,7 @@ export const BUTTON_VALUE = {
   PAYMENT: {
     CONFIRM: "입금 확인 요청하기",
     APPROVE: "결제 승인하기",
-    DISCOUNT: (period: number, rate: number) => `${period}간 ${rate}% 할인받기`,
+    DISCOUNT: (period: string, rate: number) => `${period}간 ${rate}% 할인받기`,
   },
 
   ADMIN: {
