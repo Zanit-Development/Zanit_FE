@@ -6,7 +6,7 @@ import { Button } from "../../components/common/button/Button";
 
 import icon_check from "../../assets/icon/check.svg";
 import { Link } from "react-router-dom";
-import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "./signOptions";
+import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 
 export const SignUp = () => {
   return (
