@@ -19,6 +19,33 @@ const BUTTON_OPTIONS_BASE: ButtonProps = {
   onClick: () => {},
 };
 
+export const BUTTON_OPTIONS = {
+  SIGNIN: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SIGN.IN,
+  },
+
+  SIGNUP: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SIGN.UP,
+  },
+
+  SUBSCRIBE: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SUBSCRIBE,
+  },
+
+  DISCOUNT: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.PAYMENT.DISCOUNT("3개월", 25),
+  },
+  
+  HOW_TO_USE: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SEARCH_BAR,
+  }
+};
+
 export const SIGNIN_OPTIONS = {
   EMAIL: {
     ...INPUT_OPTIONS_BASE,
@@ -68,32 +95,5 @@ export const SIGNUP_OPTIONS = {
     type: "password",
     placeholder: PLACEHOLDER_SIGN.UP.PASSWORD2,
     id: "passwordCheck",
-  },
-};
-
-export const BUTTON_OPTIONS = {
-  SIGNIN: {
-    ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.SIGN.IN,
-  },
-
-  SIGNUP: {
-    ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.SIGN.UP,
-  },
-
-  COUPON: {
-    ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.COUPON.USE,
-  },
-
-  HOWTOUSE: {
-    ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.SEARCH_BAR,
-  },
-
-  NOWSUB: {
-    ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.SUBSCRIBES,
   },
 };
