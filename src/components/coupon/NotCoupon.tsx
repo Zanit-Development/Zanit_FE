@@ -9,7 +9,7 @@ export const NotCoupon = () => {
     <NotCouponSection>
       <strong>아직 멤버십을 구독하지 않았어요</strong>
       <p>Zanit을 통해 새로운 칵테일 경험을 시작해봐요!</p>
-      <Button {...BUTTON_OPTIONS.NOWSUB} />
+      <Button {...BUTTON_OPTIONS.SUBSCRIBE} />
     </NotCouponSection>
   );
 };

@@ -18,7 +18,7 @@ export const HowToUse = () => {
           <li>결제 시, &#91;내 쿠폰함&#93;에 들어가 &#91;쿠폰 바로 사용하기&#93;를 누르고 방문한 Bar와 마신 칵테일을 선택해주세요</li>
           <li>사장님께 화면을 제시해 결제를 완료하면 끝!</li>
         </ol>
-        <Button {...BUTTON_OPTIONS.HOWTOUSE} />
+        <Button {...BUTTON_OPTIONS.HOW_TO_USE} />
       </DesSection>
     </Layout>
   );
