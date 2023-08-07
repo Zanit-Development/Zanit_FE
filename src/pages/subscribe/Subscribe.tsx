@@ -3,19 +3,23 @@ import { Button } from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { COST, INFO, LIFE } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
+import promotion from "../../assets/promo.png";
+import coupon from "../../assets/subscribe.svg";
+import subtract from "../../assets/icon/icon_subtract.svg";
+import { css, styled } from "styled-components";
 
 export const Subscribe = () => {
   return (
     <>
-      <section>
-        <h2>
+      <StyledSectionTop>
+        <Title>
           Zanit,
           <br />
-          새로 칵테일 경험의 시작
-        </h2>
+          새로운 칵테일 경험의 시작
+        </Title>
 
         <figure>
-          <img src="" alt="" />
+          <img src={promotion} alt="프로모션 이미지" />
         </figure>
 
         <section>
@@ -40,28 +44,32 @@ export const Subscribe = () => {
         </section>
 
         <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
-      </section>
-      <section>
-        <h2>
+      </StyledSectionTop>
+
+      <StyledSectionMiddle>
+        <Title>
           Our Service,
           <br />
           Zanit은 어떤 서비스인가요?
-        </h2>
+        </Title>
 
-        <section>
+        <p>
           쟈닛은 구독형 칵테일 멤버십 서비스로,
           <br />
           월 29,000원에 서울 25개 바에서
           <br />
           매주 1잔, 한 달 4잔의 칵테일을 무료로 즐길 수 있어요
-        </section>
+        </p>
 
         <figure>
-          <img src="" alt="" />
+          <img src={coupon} alt="" />
           <figcaption>
-            원활한 서비스 이용을 위해 1회 결제 시
-            <br />
-            3개월 멤버십 비용&#40;￦ 87,000원&#41;이 한 번에 결제돼요
+            <img src={subtract} alt="" />
+            <p>
+              원활한 서비스 이용을 위해 1회 결제 시
+              <br />
+              3개월 멤버십 비용&#40;￦ 87,000원&#41;이 한 번에 결제돼요
+            </p>
           </figcaption>
         </figure>
 
@@ -77,13 +85,88 @@ export const Subscribe = () => {
         </article>
 
         <Button {...BUTTON_OPTIONS.DISCOUNT} />
-      </section>
+      </StyledSectionMiddle>
 
-      <section>
+      <StyledSectionBottom>
         <SubscribeInfo {...COST} />
         <SubscribeInfo {...INFO} />
         <SubscribeInfo {...LIFE} />
-      </section>
+
+        <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
+      </StyledSectionBottom>
     </>
   );
 };
+
+const Container = css`
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  & figure {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  & p {
+    margin-bottom: 15px;
+    font-family: var(--font--Medium);
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  & button {
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
+
+const Title = styled.h2`
+  margin-bottom: 20px;
+  font-family: var(--font--Bold);
+  font-size: 18px;
+`;
+
+const StyledSectionTop = styled.section`
+  ${Container}
+  & figure {
+    margin-left: -10px;
+  }
+`;
+const StyledSectionMiddle = styled.section`
+  ${Container}
+  background-color: #f0f0f0;
+
+  & figure {
+    width: 100%;
+    & > img {
+      width: 100%;
+    }
+
+    & > figcaption {
+      text-align: left;
+    }
+
+    & > figcaption > p {
+      display: inline-block;
+      padding-left: 5px;
+      font-size: 11px;
+      color: #404040;
+      text-align: left;
+      line-height: 13px;
+    }
+  }
+
+  & > article > p {
+    margin-bottom: 20px;
+    font-family: var(--font--Bold);
+    text-align: center;
+
+    & strong {
+      color: var(--main-color);
+    }
+  }
+`;
+const StyledSectionBottom = styled.section`
+  ${Container}
+`;
