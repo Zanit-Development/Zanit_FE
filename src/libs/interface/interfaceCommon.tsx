@@ -23,6 +23,7 @@ export interface InputProps {
   type: string;
   value: string;
   placeholder: string;
+  id?: string;
   minLength?: number;
   maxLength?: number;
   onChange: (e: INPUT_EVENT) => void;

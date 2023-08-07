@@ -1,21 +1,19 @@
-import { INPUT } from "../../../libs/constants/messages/placeholder";
+import { PLACEHOLDER_SIGN } from "../../../libs/constants/values/placeholder";
 
 export const setPlaceholder = (type: string): string => {
-  let message = "";
+  let placeholder = "";
 
   if (type === "name") {
-    message = INPUT.NAME;
+    placeholder = PLACEHOLDER_SIGN.UP.NAME;
   } else if (type === "phone") {
-    message = INPUT.PHONE;
+    placeholder = PLACEHOLDER_SIGN.UP.PHONE;
   } else if (type === "email") {
-    message = INPUT.EMAIL;
+    placeholder = PLACEHOLDER_SIGN.UP.EMAIL;
   } else if (type === "password") {
-    message = INPUT.PASSWORD;
+    placeholder = PLACEHOLDER_SIGN.UP.PASSWORD;
   } else if (type === "password2") {
-    message = INPUT.PASSWORD2;
-  } else {
-    return message;
+    placeholder = PLACEHOLDER_SIGN.UP.PASSWORD2;
   }
 
-  return message;
+  return placeholder;
 };
