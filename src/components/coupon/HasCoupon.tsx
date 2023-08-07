@@ -23,7 +23,7 @@ export const HasCoupon = () => {
             </p>
           </TextDiv>
         </article>
-        <Button {...BUTTON_OPTIONS.COUPON} />
+        <Button {...BUTTON_OPTIONS.USE_COUPON} />
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
