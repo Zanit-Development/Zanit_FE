@@ -16,19 +16,29 @@ import smile from "../../assets/icon/icon_smile.svg";
 
 export const COST = "29,000";
 export const BAR_COUNT = 25;
-export const MEMBERSHIP = "87,000";
+export const MEMBERSHIP_COST = "87,000";
 export const EVENT = {
   DATE_TIME: "2023-07-26",
-  DATE_OUTPUT: "7/26",
+  DATE_OUTPUT_DATE: "7/26",
+  DATE_OUTPUT_WEEK: "목",
 };
+
+export const ALERT_PAYMENT_MANUAL = `
+  현재 결제 방법은 무통장입금을 지원하고 있습니다. 
+  멤버십 만료일은 결제일로부터 3개월 뒤입니다.
+`;
+export const ALERT_PAYMENT_GUIDE = `
+  쟈닛 멤버십은 ${EVENT.DATE_OUTPUT_DATE}(${EVENT.DATE_OUTPUT_WEEK})부터 이용이 가능해요.
+  Zanit 카카오 플러스 채널을 통해 당일부터 바로 이용할 수 있도록 알림을 보내드릴게요 :)
+`;
 
 export const CONTENT1 = {
   title: "합리적인 가격",
   src: usd,
   content: `
-      월 ${COST}원이라는 얼리버드 특가를 통해 
-      매주 한 잔의 새로운 칵테일을 즐겨봐요
-    `,
+    월 ${COST}원이라는 얼리버드 특가를 통해 
+    매주 한 잔의 새로운 칵테일을 즐겨봐요
+  `,
 };
 
 export const CONTENT2 = {
