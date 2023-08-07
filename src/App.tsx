@@ -1,7 +1,9 @@
 import React from "react";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
+import { RecoilRoot } from "recoil";
+
+import { Home } from "./pages/home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 import { Search } from "./pages/search/Search";
 import { SignIn } from "./pages/sign/SignIn";
