@@ -81,4 +81,19 @@ export const BUTTON_OPTIONS = {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.SIGN.UP,
   },
+
+  COUPON: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.COUPON.USE,
+  },
+
+  HOWTOUSE: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SEARCH_BAR,
+  },
+
+  NOWSUB: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SUBSCRIBES,
+  },
 };
