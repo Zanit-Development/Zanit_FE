@@ -4,7 +4,7 @@ import { Input } from "./../../components/common/input/Input";
 import { styled } from "styled-components";
 import { Button } from "../../components/common/button/Button";
 import { Link } from "react-router-dom";
-import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "./signOptions";
+import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 
 export const SignIn: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
