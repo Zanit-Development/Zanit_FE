@@ -2,12 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
-import backgroundImg from "../../assets/home_banner.png";
-import { Button } from "../../components/common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
-const SubscribeBox: React.FC = () => {
+import { Button } from "../common/button/Button";
+
+import backgroundImg from "../../assets/home_banner.png";
+
+const HomeBanner: React.FC = () => {
   const navigate = useNavigate();
 
   const options: ButtonProps = {
@@ -29,22 +31,30 @@ const SubscribeBox: React.FC = () => {
   );
 };
 
+export default HomeBanner;
+
 const Container = styled.div`
-  width: 370px;
-  height: 250px;
-  margin: 0 auto;
+  width: calc(100% - 20px);
+  margin: auto 10px;
   border-radius: 8px;
   background: var(--main-color) url(${backgroundImg}) no-repeat 80px -60px;
   padding: 39px 21px 33px;
   box-sizing: border-box;
 
   color: var(--white-color);
+
   h2 {
-    font-size: 22px;
     font-family: var(--font--semibold);
+    font-size: 22px;
   }
+
+  button,
   p {
-    font-size: 14px;
+    font-family: var(--font--Medium);
+    font-size: 13px;
+  }
+
+  p {
     line-height: 16px;
     &:nth-of-type(1) {
       margin-top: 13px;
@@ -57,13 +67,11 @@ const Container = styled.div`
   button {
     background-color: var(--white-color);
     color: var(--black-color);
-    font-family: var(--font--Regular);
+
     height: 36px;
     padding: 0 17px;
-    font-size: 13px;
+
     position: relative;
     bottom: 0;
   }
 `;
-
-export default SubscribeBox;

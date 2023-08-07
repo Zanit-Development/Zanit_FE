@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Layout } from "../../layouts/Layout";
-import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
+
+import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
+import { listProps } from "../../libs/interface/interfaceHome";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
+
+import { Layout } from "../../layouts/Layout";
 import { Input } from "../../components/common/input/Input";
-import SectionTitle from "./SectionTitle";
-import SubscribeBox from "./SubscribeBox";
-import TagList from "./TagList";
+import SubscribeBox from "../../components/home/HomeBanner";
+import TagList from "../../components/tag/TagList";
+import ItemList from "../../components/home/ItemList";
+
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
-import ItemSection from "./ItemSection";
+import cocktailImg from "../../assets/icon/icon_wine.svg";
+import barImg from "../../assets/icon/icon_store.svg";
 
 export const Home: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -49,39 +54,58 @@ export const Home: React.FC = () => {
       url: sampleImg,
       name: "임시",
     },
+    {
+      typeVariants: "primary",
+      link: "#",
+      url: sampleImg,
+      name: "임시",
+    },
+    {
+      typeVariants: "primary",
+      link: "#",
+      url: sampleImg,
+      name: "임시",
+    },
+    {
+      typeVariants: "primary",
+      link: "#",
+      url: sampleImg,
+      name: "임시",
+    },
   ];
+
+  const cocktailOptions: listProps = {
+    title: "Cocktail",
+    img: cocktailImg,
+    itemOptions: itemOptions,
+  };
+  const barOptions: listProps = {
+    title: "Bar",
+    img: barImg,
+    itemOptions: itemOptions,
+  };
 
   return (
     <Layout>
       <SubscribeBox />
-      <InputContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
+      <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
         <StyledTitle className="a11y-hidden">BAR 검색</StyledTitle>
         <Input {...inputOptions} />
-      </InputContainer>
-      <TagContainer>
-        <TagList />
-      </TagContainer>
+      </FormContainer>
+      <TagList />
       <CocktailContainer>
-        <SectionTitle title="Cocktail" img="/" />
-        <ItemSection itemOptions={itemOptions} />
+        <ItemList {...cocktailOptions} />
       </CocktailContainer>
       <BarContainer>
-        <SectionTitle title="Bar" img="/" />
-        <ItemSection itemOptions={itemOptions} />{" "}
+        <ItemList {...barOptions} />
       </BarContainer>
     </Layout>
   );
 };
 
-const StyledTitle = styled.h1`
-  margin: 20px 0;
-  font-family: var(--font--Medium);
-  color: white;
-`;
-
-const InputContainer = styled.form`
+const FormContainer = styled.form`
   width: 100%;
-  padding: 25px 16px 20px;
+  padding: 25px 20px 20px;
   box-sizing: border-box;
 
   & > input {
@@ -94,32 +118,16 @@ const InputContainer = styled.form`
   }
 `;
 
-const TagContainer = styled.section`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding: 0 20px;
-  margin-bottom: 36px;
-
-  & > div {
-    margin-right: 10px;
-  }
-
-  label {
-    font-size: 12px;
-    padding: 6px 16px;
-    background-color: var(--main-color);
-    color: var(--white-color);
-  }
+const StyledTitle = styled.h2`
+  margin: 20px 0;
+  font-family: var(--font--Medium);
+  color: white;
 `;
 
 const CocktailContainer = styled.section`
-  margin-bottom: 33px;
-  padding: 0 20px;
+  margin-bottom: 41px;
 `;
 
 const BarContainer = styled.section`
   margin-bottom: 51px;
-  padding: 0 20px;
 `;
