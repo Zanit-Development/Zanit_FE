@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Layout } from "../../layouts/Layout";
 import { Input } from "./../../components/common/input/Input";
-import { ButtonProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
 import { Button } from "../../components/common/button/Button";
 import { Link } from "react-router-dom";
+import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "./signOptions";
 
 export const SignIn: React.FC = () => {
   const [emailValue, setEmailValue] = useState("");
@@ -19,34 +19,6 @@ export const SignIn: React.FC = () => {
     }
   };
 
-  const emailOptions: InputProps = {
-    id: "email",
-    typeVariants: "primary",
-    sizeVariants: "large",
-    type: "email",
-    placeholder: "이메일",
-    onChange: handleInputChange,
-    value: emailValue,
-  };
-
-  const passwordOptions: InputProps = {
-    id: "password",
-    typeVariants: "primary",
-    sizeVariants: "large",
-    type: "password",
-    placeholder: "비밀번호",
-    onChange: handleInputChange,
-    value: passwordValue,
-  };
-
-  const buttonOptions: ButtonProps = {
-    typeVariants: "primary",
-    sizeVariants: "large",
-    value: "로그인",
-    disabled: false,
-    onClick: () => {},
-  };
-
   return (
     <Layout>
       <SignInSection>
@@ -55,13 +27,13 @@ export const SignIn: React.FC = () => {
           <label htmlFor="email" className="a11y-hidden">
             이메일
           </label>
-          <Input {...emailOptions} />
+          <Input {...SIGNIN_OPTIONS.EMAIL} onChange={handleInputChange} value={emailValue} />
           <label htmlFor="password" className="a11y-hidden">
             비밀번호
           </label>
-          <Input {...passwordOptions} />
+          <Input {...SIGNIN_OPTIONS.PASSWORD} onChange={handleInputChange} value={passwordValue} />
 
-          <Button {...buttonOptions} />
+          <Button {...BUTTON_OPTIONS.SIGNIN} />
         </SignInForm>
         <SignInOther>
           <Link to="/signUp">회원가입</Link>

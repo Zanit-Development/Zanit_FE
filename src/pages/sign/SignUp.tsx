@@ -2,64 +2,13 @@ import React from "react";
 import { Layout } from "../../layouts/Layout";
 import { styled } from "styled-components";
 import { Input } from "../../components/common/input/Input";
-import { ButtonProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { Button } from "../../components/common/button/Button";
 
 import icon_check from "../../assets/icon/check.svg";
 import { Link } from "react-router-dom";
+import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "./signOptions";
 
 export const SignUp = () => {
-  const inputOptionsBase: InputProps = {
-    typeVariants: "primary",
-    sizeVariants: "large",
-    type: "text",
-    value: "",
-    placeholder: "",
-    onChange: () => {},
-  };
-
-  const nameInputOptions = {
-    ...inputOptionsBase,
-    placeholder: "이름을 입력해주세요",
-    id: "name",
-  };
-
-  const phoneNumInputOptions = {
-    ...inputOptionsBase,
-    type: "number",
-    placeholder: "핸드폰 번호를 입력해주세요",
-    id: "phoneNum",
-  };
-
-  const emailInputOptions = {
-    ...inputOptionsBase,
-    type: "email",
-    placeholder: "이메일을 입력해주세요",
-    id: "email",
-  };
-
-  const passwordInputOptions = {
-    ...inputOptionsBase,
-    type: "password",
-    placeholder: "비밀번호를 입력해주세요",
-    id: "password",
-  };
-
-  const passwordCheckInputOptions = {
-    ...inputOptionsBase,
-    type: "password",
-    placeholder: "비밀번호를 한번 더 입력해주세요",
-    id: "passwordCheck",
-  };
-
-  const buttonOptions: ButtonProps = {
-    typeVariants: "primary",
-    sizeVariants: "large",
-    value: "회원가입",
-    disabled: false,
-    onClick: () => {},
-  };
-
   return (
     <Layout>
       <SignUpSection>
@@ -69,23 +18,23 @@ export const SignUp = () => {
             <label htmlFor="name" className="a11y-hidden">
               이름
             </label>
-            <Input {...nameInputOptions} />
+            <Input {...SIGNUP_OPTIONS.NAME} />
             <label htmlFor="phoneNum" className="a11y-hidden">
               핸드폰 번호
             </label>
-            <Input {...phoneNumInputOptions} />
+            <Input {...SIGNUP_OPTIONS.PHONE} />
             <label htmlFor="email" className="a11y-hidden">
               이메일
             </label>
-            <Input {...emailInputOptions} />
+            <Input {...SIGNUP_OPTIONS.EMAIL} />
             <label htmlFor="password" className="a11y-hidden">
               비밀번호
             </label>
-            <Input {...passwordInputOptions} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD} />
             <label htmlFor="passwordCheck" className="a11y-hidden">
               비밀번호 확인
             </label>
-            <Input {...passwordCheckInputOptions} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} />
           </InputGap>
 
           <CheckField>
@@ -104,7 +53,7 @@ export const SignUp = () => {
             </div>
           </CheckField>
 
-          <Button {...buttonOptions} />
+          <Button {...BUTTON_OPTIONS.SIGNUP} />
         </SignUpForm>
         <SignUpOther>
           <span>이미 계정이 있으신가요?</span>
