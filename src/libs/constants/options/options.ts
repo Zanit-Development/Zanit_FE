@@ -1,6 +1,6 @@
-import { PLACEHOLDER_SIGN } from "../../libs/constants/values/placeholder";
-import { BUTTON_VALUE } from "../../libs/constants/values/outputValues";
-import { ButtonProps, InputProps } from "../../libs/interface/interfaceCommon";
+import { PLACEHOLDER_SIGN } from "../values/placeholder";
+import { BUTTON_VALUE } from "../values/outputValues";
+import { ButtonProps, InputProps } from "../../interface/interfaceCommon";
 
 const INPUT_OPTIONS_BASE: InputProps = {
   typeVariants: "primary",
