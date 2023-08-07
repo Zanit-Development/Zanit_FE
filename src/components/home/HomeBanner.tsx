@@ -37,7 +37,7 @@ const Container = styled.div`
   width: calc(100% - 20px);
   margin: auto 10px;
   border-radius: 8px;
-  background: var(--main-color) url(${backgroundImg}) no-repeat 80px -60px;
+  background: var(--main-color) url(${backgroundImg}) no-repeat 82px -60px;
   padding: 39px 21px 33px;
   box-sizing: border-box;
 
@@ -67,6 +67,8 @@ const Container = styled.div`
   button {
     background-color: var(--white-color);
     color: var(--black-color);
+
+    width: 110px;
 
     height: 36px;
     padding: 0 17px;
