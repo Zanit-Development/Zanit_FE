@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 
 import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
-import { listProps } from "../../libs/interface/interfaceHome";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 
 import { Layout } from "../../layouts/Layout";
@@ -74,17 +73,6 @@ export const Home: React.FC = () => {
     },
   ];
 
-  const cocktailOptions: listProps = {
-    title: "Cocktail",
-    img: cocktailImg,
-    itemOptions: itemOptions,
-  };
-  const barOptions: listProps = {
-    title: "Bar",
-    img: barImg,
-    itemOptions: itemOptions,
-  };
-
   return (
     <Layout>
       <SubscribeBox />
@@ -94,10 +82,18 @@ export const Home: React.FC = () => {
       </FormContainer>
       <TagList />
       <CocktailContainer>
-        <ItemList {...cocktailOptions} />
+        <TitleStyle img={cocktailImg}>
+          <h2>Cocktail</h2>
+          <span>지금 당신을 기다리고 있는</span>
+        </TitleStyle>
+        <ItemList itemOptions={itemOptions} />
       </CocktailContainer>
       <BarContainer>
-        <ItemList {...barOptions} />
+        <TitleStyle img={barImg}>
+          <h2>Bar</h2>
+          <span>지금 당신을 기다리고 있는</span>
+        </TitleStyle>
+        <ItemList itemOptions={itemOptions} />
       </BarContainer>
     </Layout>
   );
@@ -122,6 +118,39 @@ const StyledTitle = styled.h2`
   margin: 20px 0;
   font-family: var(--font--Medium);
   color: white;
+`;
+
+const TitleStyle = styled.div<{ img: string }>`
+  display: flex;
+  font-family: var(--font--Medium);
+
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+
+  position: relative;
+
+  h2,
+  span {
+    margin-left: 4px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+  h2::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    background: url(${(props) => props.img}) no-repeat center;
+  }
+  span {
+    font-size: 0.75rem;
+    color: var(--gray500-color);
+    margin-top: 7px;
+  }
 `;
 
 const CocktailContainer = styled.section`
