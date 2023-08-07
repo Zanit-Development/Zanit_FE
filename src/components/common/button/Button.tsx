@@ -11,7 +11,7 @@ export const Button = ({ typeVariants = "primary", sizeVariants = "large", ...pr
 };
 
 const StyledButton = styled.button<ButtonProps>`
-  max-width: 100%;
+  width: 100%;
   height: ${(props) => SIZE_VARIANTS[props.sizeVariants]};
   padding: 5px;
   border-radius: ${(props) => TYPE_VARIANTS[props.typeVariants]};
@@ -20,6 +20,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-family: var(--font--Bold);
   font-size: 1rem;
   color: white;
+  text-align: center;
   user-select: none;
   transition: filter 0.3s;
   cursor: pointer;
