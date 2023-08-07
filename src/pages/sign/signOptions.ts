@@ -81,4 +81,9 @@ export const BUTTON_OPTIONS = {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.SIGN.UP,
   },
+
+  COUPON: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.COUPON.USE,
+  },
 };
