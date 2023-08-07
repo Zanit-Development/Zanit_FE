@@ -1,6 +1,6 @@
 export const BUTTON_VALUE = {
   GO_HOME: "홈으로 가기",
-  SUBSCRIBES: "지금 구독하기",
+  SUBSCRIBE: "지금 구독하기",
   SEARCH_BAR: "지금 이용 가능한 칵테일바 찾기",
 
   SIGN: {
