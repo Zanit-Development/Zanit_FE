@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP } from "./subscribeOption";
+import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
@@ -67,7 +67,7 @@ export const Subscribe = () => {
             <p>
               원활한 서비스 이용을 위해 1회 결제 시
               <br />
-              3개월 멤버십 비용&#40;￦ {MEMBERSHIP}원&#41;이 한 번에 결제돼요
+              3개월 멤버십 비용&#40;￦ {MEMBERSHIP_COST}원&#41;이 한 번에 결제돼요
             </p>
           </figcaption>
         </figure>
@@ -75,7 +75,7 @@ export const Subscribe = () => {
         <article>
           <p>
             <strong>
-              <time dateTime={EVENT.DATE_TIME}>{EVENT.DATE_OUTPUT}</time>일까지 진행되는 얼리버드 특가
+              <time dateTime={EVENT.DATE_TIME}>{EVENT.DATE_OUTPUT_DATE}</time>일까지 진행되는 얼리버드 특가
             </strong>
             를 통해
             <br />
