@@ -6,7 +6,7 @@ export const Alert = ({ content }: { content: string }) => {
   return (
     <AlertContainer>
       <img src={subtract} alt="alert" />
-      <p>{`${content}`}</p>
+      <p>{content}</p>
     </AlertContainer>
   );
 };
