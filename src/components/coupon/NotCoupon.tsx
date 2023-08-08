@@ -1,10 +1,10 @@
 import React from "react";
 import icon_poker_face from "../../assets/icon/icon_poker_face.svg";
-import { Button } from "./../common/button/Button";
+import Button from "./../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
 
-export const NotCoupon: React.FC = () => {
+const NotCoupon: React.FC = () => {
   return (
     <NotCouponSection>
       <strong>아직 멤버십을 구독하지 않았어요</strong>
@@ -13,6 +13,8 @@ export const NotCoupon: React.FC = () => {
     </NotCouponSection>
   );
 };
+
+export default NotCoupon;
 
 const NotCouponSection = styled.section`
   margin: 30px 20px 150px;

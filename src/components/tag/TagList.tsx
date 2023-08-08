@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Tag } from "./Tag";
-import { TagProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
+import Tag from "./Tag";
+import { TagProps } from "../../libs/interface/interfaceCommon";
 
 function pickRandom(arr: string[]) {
   const idx = Math.floor(Math.random() * arr.length);

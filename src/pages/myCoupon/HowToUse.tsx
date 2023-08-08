@@ -1,10 +1,10 @@
 import React from "react";
-import { Layout } from "../../layouts/Layout";
-import { Button } from "../../components/common/button/Button";
+import Layout from "../../layouts/Layout";
+import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
 
-export const HowToUse: React.FC = () => {
+const HowToUse: React.FC = () => {
   return (
     <Layout>
       <H2>ZAN 쿠폰 이용방법</H2>
@@ -23,6 +23,8 @@ export const HowToUse: React.FC = () => {
     </Layout>
   );
 };
+
+export default HowToUse;
 
 const H2 = styled.h2`
   font-family: var(--font--semibold);

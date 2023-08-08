@@ -1,5 +1,7 @@
 import React from "react";
 
-export const Tag: React.FC = () => {
+const Tag: React.FC = () => {
   return <input type="checkbox"></input>;
 };
+
+export default Tag;

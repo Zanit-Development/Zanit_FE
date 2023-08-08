@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 import { ItemProps } from "../../libs/interface/interfaceCommon";
 
-import { Item } from "../../components/common/item/Item";
+import Item from "../../components/common/item/Item";
 
 import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 

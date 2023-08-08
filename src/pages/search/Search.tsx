@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Layout } from "../../layouts/Layout";
-import { Input } from "../../components/common/input/Input";
-import { CategoryProps, InputProps, ItemProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
-import { Category } from "../../components/search/Category";
-import { Tag } from "../../components/tag/Tag";
+import Layout from "../../layouts/Layout";
+import Input from "../../components/common/input/Input";
+import { CategoryProps, InputProps, ItemProps, TagProps } from "../../libs/interface/interfaceCommon";
+import Category from "../../components/search/Category";
+import Tag from "../../components/tag/Tag";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
-import { Item } from "../../components/common/item/Item";
+import Item from "../../components/common/item/Item";
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 
-export const Search: React.FC = () => {
+const Search: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
 
@@ -85,6 +85,8 @@ export const Search: React.FC = () => {
     </Layout>
   );
 };
+
+export default Search;
 
 const StyledTitle = styled.h1`
   margin: 20px 0;

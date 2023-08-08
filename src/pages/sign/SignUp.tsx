@@ -1,14 +1,14 @@
 import React from "react";
-import { Layout } from "../../layouts/Layout";
 import { styled } from "styled-components";
-import { Input } from "../../components/common/input/Input";
-import { Button } from "../../components/common/button/Button";
+import { Link } from "react-router-dom";
+import Layout from "../../layouts/Layout";
+import Input from "../../components/common/input/Input";
+import Button from "../../components/common/button/Button";
 
 import icon_check from "../../assets/icon/check.svg";
-import { Link } from "react-router-dom";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 
-export const SignUp: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
     <Layout>
       <SignUpSection>
@@ -63,6 +63,8 @@ export const SignUp: React.FC = () => {
     </Layout>
   );
 };
+
+export default SignUp;
 
 const SignUpSection = styled.section`
   padding: 10px 20px 50px 20px;

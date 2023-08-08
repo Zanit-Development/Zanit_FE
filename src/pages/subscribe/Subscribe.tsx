@@ -1,14 +1,14 @@
 import React from "react";
-import { Button } from "../../components/common/button/Button";
+import { css, styled } from "styled-components";
+import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { COST, INFO, LIFE } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
 import subtract from "../../assets/icon/icon_subtract.svg";
-import { css, styled } from "styled-components";
 
-export const Subscribe: React.FC = () => {
+const Subscribe: React.FC = () => {
   return (
     <>
       <StyledSectionTop>
@@ -97,6 +97,8 @@ export const Subscribe: React.FC = () => {
     </>
   );
 };
+
+export default Subscribe;
 
 const Container = css`
   width: 100%;

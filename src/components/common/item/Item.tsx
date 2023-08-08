@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 import { ItemProps } from "../../../libs/interface/interfaceCommon";
 import { Link } from "react-router-dom";
 
-export const Item: React.FC<ItemProps> = ({ typeVariants = "primary", ...props }: ItemProps) => {
+const Item: React.FC<ItemProps> = ({ typeVariants = "primary", ...props }: ItemProps) => {
   return (
     <ItemContainer typeVariants={typeVariants} {...props}>
       <Link to={props.link}>
@@ -13,6 +13,8 @@ export const Item: React.FC<ItemProps> = ({ typeVariants = "primary", ...props }
     </ItemContainer>
   );
 };
+
+export default Item;
 
 const ItemContainer = styled.li<ItemProps>`
   & img {

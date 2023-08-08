@@ -1,10 +1,10 @@
 import React from "react";
-import { Layout } from "../../layouts/Layout";
 import { styled } from "styled-components";
-import { HasCoupon } from "../../components/coupon/HasCoupon";
-import { NotCoupon } from "../../components/coupon/NotCoupon";
+import Layout from "../../layouts/Layout";
+import HasCoupon from "../../components/coupon/HasCoupon";
+import NotCoupon from "../../components/coupon/NotCoupon";
 
-export const MyCoupon: React.FC = () => {
+const MyCoupon: React.FC = () => {
   const hasCoupon = true;
   return (
     <Layout>
@@ -13,6 +13,8 @@ export const MyCoupon: React.FC = () => {
     </Layout>
   );
 };
+
+export default MyCoupon;
 
 const H2 = styled.h2`
   font-family: var(--font--semibold);

@@ -2,13 +2,15 @@ import React from "react";
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
 
-export const Button: React.FC<ButtonProps> = ({ typeVariants = "primary", sizeVariants = "large", ...props }: ButtonProps) => {
+const Button: React.FC<ButtonProps> = ({ typeVariants = "primary", sizeVariants = "large", ...props }: ButtonProps) => {
   return (
     <StyledButton typeVariants={typeVariants} sizeVariants={sizeVariants} {...props}>
       {props.value}
     </StyledButton>
   );
 };
+
+export default Button;
 
 const StyledButton = styled.button<ButtonProps>`
   width: 100%;
