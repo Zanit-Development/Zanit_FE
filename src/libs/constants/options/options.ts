@@ -19,7 +19,9 @@ const BUTTON_OPTIONS_BASE: ButtonProps = {
   onClick: () => {},
 };
 
-export const BUTTON_OPTIONS = {
+export const BUTTON_OPTIONS: {
+  [key: string]: ButtonProps;
+} = {
   SIGNIN: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.SIGN.IN,
@@ -33,6 +35,12 @@ export const BUTTON_OPTIONS = {
   SUBSCRIBE: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.SUBSCRIBE,
+  },
+
+  SUBSCRIBE_POPUP: {
+    ...BUTTON_OPTIONS_BASE,
+    typeVariants: "secondary",
+    value: BUTTON_VALUE.PAYMENT.CONFIRM,
   },
 
   DISCOUNT: {

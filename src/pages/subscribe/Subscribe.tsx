@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { COST, INFO, LIFE } from "./subscribeOption";
+import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
@@ -55,8 +55,7 @@ export const Subscribe = () => {
 
         <p>
           쟈닛은 구독형 칵테일 멤버십 서비스로,
-          <br />
-          월 29,000원에 서울 25개 바에서
+          <br />월 {COST}원에 서울 {BAR_COUNT}개 바에서
           <br />
           매주 1잔, 한 달 4잔의 칵테일을 무료로 즐길 수 있어요
         </p>
@@ -68,7 +67,7 @@ export const Subscribe = () => {
             <p>
               원활한 서비스 이용을 위해 1회 결제 시
               <br />
-              3개월 멤버십 비용&#40;￦ 87,000원&#41;이 한 번에 결제돼요
+              3개월 멤버십 비용&#40;￦ {MEMBERSHIP_COST}원&#41;이 한 번에 결제돼요
             </p>
           </figcaption>
         </figure>
@@ -76,7 +75,7 @@ export const Subscribe = () => {
         <article>
           <p>
             <strong>
-              <time dateTime="07-26">7/26</time>일까지 진행되는 얼리버드 특가
+              <time dateTime={EVENT.DATE_TIME}>{EVENT.DATE_OUTPUT_DATE}</time>일까지 진행되는 얼리버드 특가
             </strong>
             를 통해
             <br />
@@ -88,9 +87,9 @@ export const Subscribe = () => {
       </StyledSectionMiddle>
 
       <StyledSectionBottom>
-        <SubscribeInfo {...COST} />
-        <SubscribeInfo {...INFO} />
-        <SubscribeInfo {...LIFE} />
+        <SubscribeInfo {...CONTENT1} />
+        <SubscribeInfo {...CONTENT2} />
+        <SubscribeInfo {...CONTENT3} />
 
         <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
       </StyledSectionBottom>
@@ -113,6 +112,7 @@ const Container = css`
     font-family: var(--font--Medium);
     font-size: 14px;
     line-height: 18px;
+    white-space: pre-line;
   }
 
   & button {
@@ -154,6 +154,7 @@ const StyledSectionMiddle = styled.section`
       color: #404040;
       text-align: left;
       line-height: 13px;
+      white-space: pre-line;
     }
   }
 
@@ -161,6 +162,7 @@ const StyledSectionMiddle = styled.section`
     margin-bottom: 20px;
     font-family: var(--font--Bold);
     text-align: center;
+    white-space: pre-line;
 
     & strong {
       color: var(--main-color);
