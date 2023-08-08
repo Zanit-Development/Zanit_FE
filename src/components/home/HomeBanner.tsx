@@ -9,7 +9,7 @@ import Button from "../common/button/Button";
 
 import backgroundImg from "../../assets/home_banner.png";
 
-const HomeBanner: React.FC = () => {
+const HomeBanner = () => {
   const navigate = useNavigate();
 
   const options: ButtonProps = {

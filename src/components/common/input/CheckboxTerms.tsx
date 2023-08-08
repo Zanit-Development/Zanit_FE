@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckboxTerms: React.FC = () => {
+const CheckboxTerms = () => {
   return <div>CheckboxTerms</div>;
 };
 

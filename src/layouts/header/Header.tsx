@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 
 import Logo from "../../assets/logo.svg";
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <HeaderContainer>
       <h1>

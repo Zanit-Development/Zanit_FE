@@ -9,7 +9,7 @@ import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import Item from "../../components/common/item/Item";
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 
-const Search: React.FC = () => {
+const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
 

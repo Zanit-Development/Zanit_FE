@@ -12,7 +12,7 @@ import Subscribe from "./pages/subscribe/Subscribe";
 import MyCoupon from "./pages/myCoupon/MyCoupon";
 import HowToUse from "./pages/myCoupon/HowToUse";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />

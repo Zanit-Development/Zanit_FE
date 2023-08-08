@@ -8,7 +8,7 @@ type WrapperProps = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<WrapperProps> = ({ children }) => {
+const Layout = ({ children }: WrapperProps) => {
   return (
     <LayoutWrap>
       <Header />

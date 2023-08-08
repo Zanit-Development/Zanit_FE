@@ -8,7 +8,7 @@ import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
 import subtract from "../../assets/icon/icon_subtract.svg";
 
-const Subscribe: React.FC = () => {
+const Subscribe = () => {
   return (
     <>
       <StyledSectionTop>

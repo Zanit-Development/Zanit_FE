@@ -4,7 +4,7 @@ import Button from "./../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
 
-const NotCoupon: React.FC = () => {
+const NotCoupon = () => {
   return (
     <NotCouponSection>
       <strong>아직 멤버십을 구독하지 않았어요</strong>

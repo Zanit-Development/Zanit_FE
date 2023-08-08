@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import Button from "../../components/common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
-const Page404: React.FC = () => {
+const Page404 = () => {
   const navigate = useNavigate();
 
   const buttonOptions: ButtonProps = {

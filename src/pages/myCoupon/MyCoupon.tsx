@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout";
 import HasCoupon from "../../components/coupon/HasCoupon";
 import NotCoupon from "../../components/coupon/NotCoupon";
 
-const MyCoupon: React.FC = () => {
+const MyCoupon = () => {
   const hasCoupon = true;
   return (
     <Layout>

@@ -14,7 +14,7 @@ import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 
-const Home: React.FC = () => {
+const Home = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: FORM_EVENT) => {

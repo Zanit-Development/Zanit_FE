@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 
-const Input: React.FC<InputProps> = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
+const Input = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
   return <StyledInput typeVariants={typeVariants} sizeVariants={sizeVariants} {...props} />;
 };
 

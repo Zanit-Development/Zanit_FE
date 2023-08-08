@@ -9,7 +9,7 @@ import icon_ticket from "../../assets/icon/icon_ticket.svg";
 import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 
-const HasCoupon: React.FC = () => {
+const HasCoupon = () => {
   return (
     <>
       <CouponTopSection>

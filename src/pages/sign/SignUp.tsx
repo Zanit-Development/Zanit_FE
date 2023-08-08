@@ -8,7 +8,7 @@ import Button from "../../components/common/button/Button";
 import icon_check from "../../assets/icon/check.svg";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   return (
     <Layout>
       <SignUpSection>

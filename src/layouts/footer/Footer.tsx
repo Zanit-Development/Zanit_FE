@@ -6,7 +6,7 @@ import Logo from "../../assets/logo.svg";
 import kakao from "../../assets/icon/icon_sns_kakao.svg";
 import instar from "../../assets/icon/icon_sns_instar.svg";
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <FooterContainer>
       <img src={Logo} alt="Zanit" />

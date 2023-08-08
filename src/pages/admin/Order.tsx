@@ -1,5 +1,5 @@
 import React from "react";
 
-export const order: React.FC = () => {
+export const order = () => {
   return <div>order</div>;
 };

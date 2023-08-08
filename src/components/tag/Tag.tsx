@@ -2,7 +2,7 @@ import React from "react";
 import { css, styled } from "styled-components";
 import { TagProps } from "../../libs/interface/interfaceCommon";
 
-const Tag: React.FC<TagProps> = ({ typeVariants = "primary", ...props }: TagProps) => {
+const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
   const tagDisabled = typeVariants === "primary" ? false : true;
   return (
     <TagContainer typeVariants={typeVariants} {...props}>

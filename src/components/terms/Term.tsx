@@ -1,6 +1,6 @@
 import React from "react";
 
-const Term: React.FC = () => {
+const Term = () => {
   return <div>Term</div>;
 };
 

@@ -7,7 +7,7 @@ import Item from "../../components/common/item/Item";
 
 import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 
-const ItemList: React.FC<{ itemOptions: ItemProps[] }> = (props) => {
+const ItemList = (props: { itemOptions: ItemProps[] }) => {
   return (
     <ListContainer>
       <button>

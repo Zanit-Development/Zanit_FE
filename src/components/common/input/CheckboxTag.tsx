@@ -1,6 +1,6 @@
 import React from "react";
 
-const Tag: React.FC = () => {
+const Tag = () => {
   return <input type="checkbox"></input>;
 };
 

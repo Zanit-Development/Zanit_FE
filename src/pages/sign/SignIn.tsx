@@ -6,7 +6,7 @@ import Input from "./../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 
-const SignIn: React.FC = () => {
+const SignIn = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
