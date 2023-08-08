@@ -45,6 +45,7 @@ const InfoContainer = styled.section`
       text-align: left;
       line-height: 16px;
       vertical-align: middle;
+      white-space: pre-line;
 
       & > h2 {
         font-family: var(--font--Bold);
