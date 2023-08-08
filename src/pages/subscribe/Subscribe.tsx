@@ -7,10 +7,11 @@ import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
 import subtract from "../../assets/icon/icon_subtract.svg";
 import { css, styled } from "styled-components";
+import { Layout } from "../../layouts/Layout";
 
 export const Subscribe = () => {
   return (
-    <>
+    <Layout>
       <StyledSectionTop>
         <Title>
           Zanit,
@@ -93,7 +94,7 @@ export const Subscribe = () => {
 
         <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
       </StyledSectionBottom>
-    </>
+    </Layout>
   );
 };
 
