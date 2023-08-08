@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { CategoryProps } from "../../libs/interface/interfaceCommon";
 
-export const Category = ({ ...props }: CategoryProps) => {
+export const Category: React.FC<CategoryProps> = ({ ...props }: CategoryProps) => {
   const menu = props.menu;
   const idx = props.idx;
   const handleMenu = props.onChange;

@@ -4,7 +4,7 @@ import { Button } from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
 
-export const HowToUse = () => {
+export const HowToUse: React.FC = () => {
   return (
     <Layout>
       <H2>ZAN 쿠폰 이용방법</H2>

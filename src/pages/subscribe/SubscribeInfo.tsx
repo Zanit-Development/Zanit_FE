@@ -2,7 +2,7 @@ import React from "react";
 import { SubScribeProps } from "../../libs/interface/interfaceSubscribe";
 import { styled } from "styled-components";
 
-export const SubscribeInfo = ({ title, src, content }: SubScribeProps) => {
+export const SubscribeInfo: React.FC<SubScribeProps> = ({ title, src, content }: SubScribeProps) => {
   return (
     <>
       <InfoContainer>

@@ -8,7 +8,7 @@ import coupon from "../../assets/subscribe.svg";
 import subtract from "../../assets/icon/icon_subtract.svg";
 import { css, styled } from "styled-components";
 
-export const Subscribe = () => {
+export const Subscribe: React.FC = () => {
   return (
     <>
       <StyledSectionTop>

@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { HasCoupon } from "../../components/coupon/HasCoupon";
 import { NotCoupon } from "../../components/coupon/NotCoupon";
 
-export const MyCoupon = () => {
+export const MyCoupon: React.FC = () => {
   const hasCoupon = true;
   return (
     <Layout>

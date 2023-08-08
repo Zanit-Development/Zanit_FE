@@ -1,5 +1,5 @@
 import React from "react";
 
-export const CustomHook = () => {
+export const CustomHook: React.FC = () => {
   return <div>CustomHook</div>;
 };

@@ -12,7 +12,7 @@ import { Subscribe } from "./pages/subscribe/Subscribe";
 import { MyCoupon } from "./pages/myCoupon/MyCoupon";
 import { HowToUse } from "./pages/myCoupon/HowToUse";
 
-function App() {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -28,6 +28,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

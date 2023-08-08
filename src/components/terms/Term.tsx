@@ -1,5 +1,5 @@
 import React from "react";
 
-export const Term = () => {
+export const Term: React.FC = () => {
   return <div>Term</div>;
 };

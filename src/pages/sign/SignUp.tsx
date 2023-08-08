@@ -8,7 +8,7 @@ import icon_check from "../../assets/icon/check.svg";
 import { Link } from "react-router-dom";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 
-export const SignUp = () => {
+export const SignUp: React.FC = () => {
   return (
     <Layout>
       <SignUpSection>
