@@ -1,5 +1,6 @@
 import React from "react";
 import { css, styled } from "styled-components";
+import Layout from "../../layouts/Layout";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
@@ -10,7 +11,7 @@ import subtract from "../../assets/icon/icon_subtract.svg";
 
 const Subscribe = () => {
   return (
-    <>
+    <Layout>
       <StyledSectionTop>
         <Title>
           Zanit,
@@ -93,7 +94,7 @@ const Subscribe = () => {
 
         <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
       </StyledSectionBottom>
-    </>
+    </Layout>
   );
 };
 
