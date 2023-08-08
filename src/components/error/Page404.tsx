@@ -2,10 +2,10 @@ import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 
-import { Button } from "../../components/common/button/Button";
+import Button from "../../components/common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
-export const Page404: React.FC = () => {
+const Page404 = () => {
   const navigate = useNavigate();
 
   const buttonOptions: ButtonProps = {
@@ -25,6 +25,8 @@ export const Page404: React.FC = () => {
     </SectionContainer>
   );
 };
+
+export default Page404;
 
 const SectionContainer = styled.section`
   padding: 139px 21px 196px 21px;

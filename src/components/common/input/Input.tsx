@@ -2,9 +2,11 @@ import React from "react";
 import { styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 
-export const Input = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
+const Input = ({ typeVariants = "primary", sizeVariants = "large", ...props }: InputProps) => {
   return <StyledInput typeVariants={typeVariants} sizeVariants={sizeVariants} {...props} />;
 };
+
+export default Input;
 
 const StyledInput = styled.input<InputProps>`
   width: 100%;

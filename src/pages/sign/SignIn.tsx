@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Layout } from "../../layouts/Layout";
-import { Input } from "./../../components/common/input/Input";
 import { styled } from "styled-components";
-import { Button } from "../../components/common/button/Button";
 import { Link } from "react-router-dom";
+import Layout from "../../layouts/Layout";
+import Input from "./../../components/common/input/Input";
+import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 
-export const SignIn: React.FC = () => {
+const SignIn = () => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
@@ -43,6 +43,8 @@ export const SignIn: React.FC = () => {
     </Layout>
   );
 };
+
+export default SignIn;
 
 const SignInSection = styled.section`
   padding: 10px 20px 200px 20px;

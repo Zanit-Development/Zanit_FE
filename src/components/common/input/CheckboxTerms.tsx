@@ -1,5 +1,7 @@
 import React from "react";
 
-export const CheckboxTerms = () => {
+const CheckboxTerms = () => {
   return <div>CheckboxTerms</div>;
 };
+
+export default CheckboxTerms;

@@ -2,7 +2,7 @@ import React from "react";
 import { css, styled } from "styled-components";
 import { TagProps } from "../../libs/interface/interfaceCommon";
 
-export const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
+const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
   const tagDisabled = typeVariants === "primary" ? false : true;
   return (
     <TagContainer typeVariants={typeVariants} {...props}>
@@ -11,6 +11,8 @@ export const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
     </TagContainer>
   );
 };
+
+export default Tag;
 
 const TYPE_VARIANTS = {
   primary: css`

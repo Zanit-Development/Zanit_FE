@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Layout } from "../../layouts/Layout";
-import { Page404 } from "../../components/error/Page404";
+import Layout from "../../layouts/Layout";
+import Page404 from "../../components/error/Page404";
 
-const NotFound: React.FC = () => {
+const NotFound = () => {
   return (
     <Layout>
       <Page404 />

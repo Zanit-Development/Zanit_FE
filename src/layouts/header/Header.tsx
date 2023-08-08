@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 
 import Logo from "../../assets/logo.svg";
 
-export const Header: React.FC = () => {
+const Header = () => {
   return (
     <HeaderContainer>
       <h1>
@@ -19,3 +19,5 @@ export const Header: React.FC = () => {
 const HeaderContainer = styled.header`
   padding: 13px;
 `;
+
+export default Header;

@@ -3,16 +3,16 @@ import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
-import { Home } from "./pages/home/Home";
+import Home from "./pages/home/Home";
 import NotFound from "./pages/NotFound/NotFound";
-import { Search } from "./pages/search/Search";
-import { SignIn } from "./pages/sign/SignIn";
-import { SignUp } from "./pages/sign/SignUp";
-import { Subscribe } from "./pages/subscribe/Subscribe";
-import { MyCoupon } from "./pages/myCoupon/MyCoupon";
-import { HowToUse } from "./pages/myCoupon/HowToUse";
+import Search from "./pages/search/Search";
+import SignIn from "./pages/sign/SignIn";
+import SignUp from "./pages/sign/SignUp";
+import Subscribe from "./pages/subscribe/Subscribe";
+import MyCoupon from "./pages/myCoupon/MyCoupon";
+import HowToUse from "./pages/myCoupon/HowToUse";
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -28,6 +28,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

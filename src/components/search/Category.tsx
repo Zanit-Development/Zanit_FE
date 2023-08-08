@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { CategoryProps } from "../../libs/interface/interfaceCommon";
 
-export const Category = ({ ...props }: CategoryProps) => {
+const Category = ({ ...props }: CategoryProps) => {
   const menu = props.menu;
   const idx = props.idx;
   const handleMenu = props.onChange;
@@ -14,6 +14,8 @@ export const Category = ({ ...props }: CategoryProps) => {
     </MenuContainer>
   );
 };
+
+export default Category;
 
 const MenuContainer = styled.div``;
 

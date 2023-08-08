@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import coupon from "../../assets/subscribe.svg";
 import { ALERT_PAYMENT_GUIDE, MEMBERSHIP_COST } from "./subscribeOption";
-import { Button } from "../../components/common/button/Button";
+import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { Alert } from "../../components/common/alert/Alert";
 

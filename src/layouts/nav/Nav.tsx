@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-const Nav: React.FC = () => {
+const Nav = () => {
   return (
     <nav>
       <Ul>

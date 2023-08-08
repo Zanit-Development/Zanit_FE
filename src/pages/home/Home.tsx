@@ -4,8 +4,8 @@ import { styled } from "styled-components";
 import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 
-import { Layout } from "../../layouts/Layout";
-import { Input } from "../../components/common/input/Input";
+import Layout from "../../layouts/Layout";
+import Input from "../../components/common/input/Input";
 import SubscribeBox from "../../components/home/HomeBanner";
 import TagList from "../../components/tag/TagList";
 import ItemList from "../../components/home/ItemList";
@@ -14,7 +14,7 @@ import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 
-export const Home: React.FC = () => {
+const Home = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: FORM_EVENT) => {
@@ -98,6 +98,8 @@ export const Home: React.FC = () => {
     </Layout>
   );
 };
+
+export default Home;
 
 const FormContainer = styled.form`
   width: 100%;

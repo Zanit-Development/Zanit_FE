@@ -2,14 +2,14 @@ import React from "react";
 import { styled } from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Button } from "../../components/common/button/Button";
+import Button from "../../components/common/button/Button";
 import coupon_bg from "../../assets/coupon_bg.svg";
 import icon_store from "../../assets/icon/icon_store.svg";
 import icon_ticket from "../../assets/icon/icon_ticket.svg";
 import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 
-export const HasCoupon = () => {
+const HasCoupon = () => {
   return (
     <>
       <CouponTopSection>
@@ -32,6 +32,8 @@ export const HasCoupon = () => {
     </>
   );
 };
+
+export default HasCoupon;
 
 const CouponTopSection = styled.section`
   padding: 5px 20px 24px 20px;

@@ -1,15 +1,15 @@
 import React from "react";
-import { Button } from "../../components/common/button/Button";
+import { css, styled } from "styled-components";
+import Layout from "../../layouts/Layout";
+import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
 import subtract from "../../assets/icon/icon_subtract.svg";
-import { css, styled } from "styled-components";
-import { Layout } from "../../layouts/Layout";
 
-export const Subscribe = () => {
+const Subscribe = () => {
   return (
     <Layout>
       <StyledSectionTop>
@@ -97,6 +97,8 @@ export const Subscribe = () => {
     </Layout>
   );
 };
+
+export default Subscribe;
 
 const Container = css`
   width: 100%;
