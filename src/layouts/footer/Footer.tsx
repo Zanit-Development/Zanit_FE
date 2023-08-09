@@ -1,10 +1,10 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
 import kakao from "../../assets/icon/icon_sns_kakao.svg";
 import instar from "../../assets/icon/icon_sns_instar.svg";
+import cafe from "../../assets/icon/icon_sns_cafe.svg";
 
 const Footer = () => {
   return (
@@ -18,6 +18,9 @@ const Footer = () => {
         </a>
         <a href="https://www.instagram.com/zanit.official/">
           <img src={instar} alt="인스타그램" />
+        </a>
+        <a href="https://cafe.naver.com/zanit">
+          <img src={cafe} alt="네이버 카페" />
         </a>
       </div>
       <UnorderList>
@@ -57,12 +60,14 @@ const FooterContainer = styled.footer`
 
   div {
     display: flex;
-    gap: 5px;
+    gap: 8px;
     margin: 5px 0 12px;
 
     a {
-      width: 16px;
+      width: 14px;
+      height: 14px;
       img {
+        width: 100%;
         vertical-align: text-top;
       }
     }
