@@ -11,6 +11,7 @@ import SignUp from "./pages/sign/SignUp";
 import Subscribe from "./pages/subscribe/Subscribe";
 import MyCoupon from "./pages/myCoupon/MyCoupon";
 import HowToUse from "./pages/myCoupon/HowToUse";
+import Bardetail from "./pages/bar_detail/Bardetail";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/myCoupon" element={<MyCoupon />} />
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="/404" element={<NotFound />} />
+        <Route path="/bar-detail" element={<Bardetail />} />
       </Routes>
     </BrowserRouter>
   );
