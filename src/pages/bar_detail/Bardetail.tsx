@@ -13,8 +13,12 @@ import timeIcon from "../../assets/icon/icon_clock.svg";
 
 import Cocktail from "../../components/bardetail/Cocktail";
 import BardetailTag from "../../components/bardetail/BardetailTag";
+import Button from "../../components/common/button/Button";
+import { ButtonProps } from "../../libs/interface/interfaceCommon";
+import { useNavigate } from "react-router";
 
 const Bardetail: React.FC = () => {
+  const navigate = useNavigate();
   const barInfo: barInfo = {
     title: "바 이름",
     img: barImg,
@@ -56,6 +60,16 @@ const Bardetail: React.FC = () => {
     ],
   };
 
+  const btnOption: ButtonProps = {
+    typeVariants: "primary",
+    sizeVariants: "large",
+    value: "ZAN 쿠폰 사용하기",
+    disabled: false,
+    onClick(e) {
+      navigate("/myCoupon");
+    },
+  };
+
   return (
     <Layout>
       <Img src={barImg} alt="" />
@@ -78,14 +92,15 @@ const Bardetail: React.FC = () => {
           })}
         </ul>
       </BarInfoContainer>
-      <CocktailContainer>
+      <BottomContainer>
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
           {barInfo.cocktails.map((cocktail, idx) => (
             <Cocktail key={idx} info={cocktail} />
           ))}
         </ul>
-      </CocktailContainer>
+        <Button {...btnOption} />
+      </BottomContainer>
     </Layout>
   );
 };
@@ -158,9 +173,8 @@ const TagContainer = styled.ul`
   }
 `;
 
-const CocktailContainer = styled.section`
+const BottomContainer = styled.section`
   padding: 0 20px;
-  margin-bottom: 32px;
 
   ul {
     padding: 20px;
@@ -168,6 +182,10 @@ const CocktailContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 26px;
+  }
+
+  button {
+    margin: 32px 0 42px;
   }
 `;
 
