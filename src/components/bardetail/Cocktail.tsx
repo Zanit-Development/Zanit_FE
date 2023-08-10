@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { CocktailProps } from "../../libs/interface/interfaceBarDetail";
 import BardetailTag from "./BardetailTag";
 
-const Cocktail: React.FC<{ info: CocktailProps }> = (props) => {
+const Cocktail = (props: { info: CocktailProps }) => {
   return (
     <Item>
       <img src={props.info.img} alt="" />

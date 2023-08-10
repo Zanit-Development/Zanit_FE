@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const BardetailTag: React.FC<{ label: string }> = (props) => {
+const BardetailTag = (props: { label: string }) => {
   return <TagItem>{props.label}</TagItem>;
 };
 

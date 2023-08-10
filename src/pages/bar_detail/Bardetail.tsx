@@ -14,7 +14,7 @@ import Button from "../../components/common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";
 
-const Bardetail: React.FC = () => {
+const Bardetail = () => {
   const navigate = useNavigate();
 
   const btnOption: ButtonProps = {
