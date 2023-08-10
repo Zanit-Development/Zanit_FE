@@ -32,7 +32,7 @@ const TYPE_VARIANTS = {
   tertiary: css`
     padding: 3px;
     background-color: transparent;
-    outline: 2px solid var(--gray500-color);
+    outline: 1px solid var(--gray500-color);
     font-family: var(--font--Bold);
     color: var(--gray500-color);
   `,

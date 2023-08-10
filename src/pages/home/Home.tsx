@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 
-import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
+import { InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 
 import Layout from "../../layouts/Layout";
@@ -10,9 +10,9 @@ import SubscribeBox from "../../components/home/HomeBanner";
 import TagList from "../../components/tag/TagList";
 import ItemList from "../../components/home/ItemList";
 
-import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
+import { itemOptions } from "../../libs/utils/Homedummy";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -33,45 +33,6 @@ const Home = () => {
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
     onChange: handleSearch,
   };
-
-  const itemOptions: ItemProps[] = [
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-    {
-      typeVariants: "primary",
-      link: "#",
-      url: sampleImg,
-      name: "임시",
-    },
-  ];
 
   return (
     <Layout>
