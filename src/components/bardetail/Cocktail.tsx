@@ -1,15 +1,20 @@
-import React from "react";
 import { styled } from "styled-components";
 
 import { CocktailProps } from "../../libs/interface/interfaceBarDetail";
-import BardetailTag from "./BardetailTag";
+import { TagProps } from "../../libs/interface/interfaceCommon";
+import Tag from "../tag/Tag";
 
-const Cocktail = (props: { info: CocktailProps }) => {
+const Cocktail = (props: { info: CocktailProps; idx: number }) => {
+  const option = {
+    typeVariants: "tertiary",
+    value: props.info.level,
+    tagId: `tag${props.idx}`,
+  };
   return (
     <Item>
       <img src={props.info.img} alt="" />
       <strong>{props.info.title}</strong>
-      <BardetailTag label={"#" + props.info.level} />
+      <Tag {...(option as TagProps)} />
       <p>
         대표적인 레이디 킬러 칵테일 중 하나로, <br />
         달콤한 맛에 비해 도수가 무려 20도를 넘어선다. IBA 공식 칵테일에 등록되어 있는 레시피 중 하나
@@ -39,9 +44,13 @@ const Item = styled.li`
     grid-area: head;
     align-self: center;
   }
-  span {
+  div {
     grid-area: tag;
     justify-self: end;
+    label {
+      padding: 2.5px 12px;
+      cursor: initial;
+    }
   }
   p {
     font-family: var(--font--Regular);

@@ -4,37 +4,37 @@ import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 export const itemOptions: ItemProps[] = [
   {
     typeVariants: "primary",
-    link: "#",
+    link: "/bar-detail",
     url: sampleImg,
     name: "임시",
   },
   {
     typeVariants: "primary",
-    link: "#",
+    link: "bar-detail",
     url: sampleImg,
     name: "임시",
   },
   {
     typeVariants: "primary",
-    link: "#",
+    link: "bar-detail",
     url: sampleImg,
     name: "임시",
   },
   {
     typeVariants: "primary",
-    link: "#",
+    link: "bar-detail",
     url: sampleImg,
     name: "임시",
   },
   {
     typeVariants: "primary",
-    link: "#",
+    link: "bar-detail",
     url: sampleImg,
     name: "임시",
   },
   {
     typeVariants: "primary",
-    link: "#",
+    link: "bar-detail",
     url: sampleImg,
     name: "임시",
   },

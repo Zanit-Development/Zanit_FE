@@ -8,11 +8,11 @@ import addressIcon from "../../assets/icon/icon_pin.svg";
 import timeIcon from "../../assets/icon/icon_clock.svg";
 
 import Cocktail from "../../components/bardetail/Cocktail";
-import BardetailTag from "../../components/bardetail/BardetailTag";
 import Button from "../../components/common/button/Button";
 
-import { ButtonProps } from "../../libs/interface/interfaceCommon";
+import { ButtonProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";
+import Tag from "../../components/tag/Tag";
 
 const Bardetail = () => {
   const navigate = useNavigate();
@@ -34,9 +34,14 @@ const Bardetail = () => {
         <h2>{BarInfo.title}</h2>
         <TagContainer>
           {BarInfo.tags.map((tag, idx) => {
+            const option = {
+              typeVariants: "tertiary",
+              value: tag,
+              tagId: `tag${idx}`,
+            };
             return (
               <li key={idx}>
-                <BardetailTag label={tag} />
+                <Tag {...(option as TagProps)} />
               </li>
             );
           })}
@@ -53,7 +58,7 @@ const Bardetail = () => {
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
           {BarInfo.cocktails.map((cocktail, idx) => (
-            <Cocktail key={idx} info={cocktail} />
+            <Cocktail key={idx} info={cocktail} idx={idx} />
           ))}
         </ul>
         <Button {...btnOption} />
@@ -71,6 +76,7 @@ const Img = styled.img`
 
 const BarInfoContainer = styled.section`
   padding: 0 20px;
+  margin-bottom: 25px;
   h2 {
     font-family: var(--font--Bold);
     font-size: 20px;
@@ -93,7 +99,7 @@ const BarInfoContainer = styled.section`
   }
 
   address + ul {
-    margin: 10px 0 25px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -126,8 +132,9 @@ const TagContainer = styled.ul`
   li + li {
     margin-left: 10px;
   }
-  span {
-    display: block;
+  label {
+    padding: 2.5px 12px;
+    cursor: initial;
   }
 `;
 
