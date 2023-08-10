@@ -79,6 +79,7 @@ const BarInfoContainer = styled.section`
   p {
     font-family: var(--font--Medium);
     margin-bottom: 12px;
+    line-height: 1.5;
   }
 
   address,
