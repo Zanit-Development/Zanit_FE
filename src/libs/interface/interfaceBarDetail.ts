@@ -1,16 +1,16 @@
-export interface cocktailInfo {
+export interface CocktailProps {
   img: string;
   title: string;
   level: string;
   description: string;
 }
 
-export interface barInfo {
+export interface BarProps {
   title: string;
   img: string;
   tags: string[];
   description: string;
   address: string;
   openHours: string[];
-  cocktails: cocktailInfo[];
+  cocktails: CocktailProps[];
 }

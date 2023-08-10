@@ -1,64 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+
 import Layout from "../../layouts/Layout";
 
-import { barInfo } from "../../libs/interface/interfaceBarDetail";
-
-import barImg from "../../assets/sample-img/bar2.jpg";
-import cocktailImg1 from "../../assets/sample-img/cocktail1.jpg";
-import cocktailImg2 from "../../assets/sample-img/cocktail2.jpg";
-import cocktailImg3 from "../../assets/sample-img/cocktail3.jpg";
 import addressIcon from "../../assets/icon/icon_pin.svg";
 import timeIcon from "../../assets/icon/icon_clock.svg";
 
 import Cocktail from "../../components/bardetail/Cocktail";
 import BardetailTag from "../../components/bardetail/BardetailTag";
 import Button from "../../components/common/button/Button";
+
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
-import { useNavigate } from "react-router";
+import { BarInfo } from "../../libs/utils/Bardetaildummy";
 
 const Bardetail: React.FC = () => {
   const navigate = useNavigate();
-  const barInfo: barInfo = {
-    title: "바 이름",
-    img: barImg,
-    tags: ["태그1", "태그2"],
-    description: "유니크한 청담동 칵테일 마신 밤 티베이스칵테일 이곳에는 바에 대한 최대 50자의 설명이 들어갑니다. ",
-    address: "주소",
-    openHours: ["월 1시~3시", "월 1시~3시", "월 1시~3시", "월 1시~3시", "월 1시~3시"],
-    cocktails: [
-      {
-        title: "임시",
-        img: cocktailImg1,
-        level: "수준",
-        description: "대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다.IBA 공식 칵테일에 등록되어 있는 레시피 중 하나",
-      },
-      {
-        title: "임시",
-        img: cocktailImg2,
-        level: "수준",
-        description: "대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다.IBA 공식 칵테일에 등록되어 있는 레시피 중 하나",
-      },
-      {
-        title: "임시",
-        img: cocktailImg3,
-        level: "수준",
-        description: "대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다.IBA 공식 칵테일에 등록되어 있는 레시피 중 하나",
-      },
-      {
-        title: "임시",
-        img: cocktailImg3,
-        level: "수준",
-        description: "대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다.IBA 공식 칵테일에 등록되어 있는 레시피 중 하나",
-      },
-      {
-        title: "임시",
-        img: cocktailImg2,
-        level: "수준",
-        description: "대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다.IBA 공식 칵테일에 등록되어 있는 레시피 중 하나",
-      },
-    ],
-  };
 
   const btnOption: ButtonProps = {
     typeVariants: "primary",
@@ -72,11 +29,11 @@ const Bardetail: React.FC = () => {
 
   return (
     <Layout>
-      <Img src={barImg} alt="" />
+      <Img src={BarInfo.img} alt="바 이미지" />
       <BarInfoContainer>
-        <h2>{barInfo.title}</h2>
+        <h2>{BarInfo.title}</h2>
         <TagContainer>
-          {barInfo.tags.map((tag, idx) => {
+          {BarInfo.tags.map((tag, idx) => {
             return (
               <li key={idx}>
                 <BardetailTag label={tag} />
@@ -84,10 +41,10 @@ const Bardetail: React.FC = () => {
             );
           })}
         </TagContainer>
-        <p>{barInfo.description}</p>
-        <address>{barInfo.address}</address>
+        <p>{BarInfo.description}</p>
+        <address>{BarInfo.address}</address>
         <ul>
-          {barInfo.openHours.map((time, idx) => {
+          {BarInfo.openHours.map((time, idx) => {
             return <li key={idx}>{time}</li>;
           })}
         </ul>
@@ -95,7 +52,7 @@ const Bardetail: React.FC = () => {
       <BottomContainer>
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
-          {barInfo.cocktails.map((cocktail, idx) => (
+          {BarInfo.cocktails.map((cocktail, idx) => (
             <Cocktail key={idx} info={cocktail} />
           ))}
         </ul>
