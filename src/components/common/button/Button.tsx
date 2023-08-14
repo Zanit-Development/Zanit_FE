@@ -1,27 +1,48 @@
 import React from "react";
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 
-const Button = ({ typeVariants = "primary", sizeVariants = "large", ...props }: ButtonProps) => {
-  return (
-    <StyledButton typeVariants={typeVariants} sizeVariants={sizeVariants} {...props}>
-      {props.value}
-    </StyledButton>
-  );
+const Button = ({ ...props }: ButtonProps) => {
+  return <StyledButton {...props}>{props.value}</StyledButton>;
 };
 
 export default Button;
 
+const TYPE_VARIANTS = {
+  fill: css`
+    background-color: var(--main-color);
+    outline: none;
+    color: white;
+  `,
+
+  stroke: css`
+    background-color: white;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+  `,
+};
+
+const SIZE_VARIANTS = {
+  large: css`
+    height: 60px;
+    border-radius: 30px;
+  `,
+
+  small: css`
+    height: 50px;
+    border-radius: 25px;
+  `,
+};
+
 const StyledButton = styled.button<ButtonProps>`
+  ${(props) => TYPE_VARIANTS[props.typeVariants]}
+  ${(props) => SIZE_VARIANTS[props.sizeVariants]}
+
   width: 100%;
-  height: ${(props) => SIZE_VARIANTS[props.sizeVariants]};
   padding: 5px;
-  border-radius: ${(props) => TYPE_VARIANTS[props.typeVariants]};
-  background-color: var(--main-color);
   box-sizing: border-box;
   font-family: var(--font--Bold);
   font-size: 1rem;
-  color: white;
   text-align: center;
   user-select: none;
   transition: filter 0.3s;
@@ -37,17 +58,8 @@ const StyledButton = styled.button<ButtonProps>`
 
   &:disabled {
     background-color: var(--gray500-color);
+    color: white;
     pointer-events: none;
     cursor: default;
   }
 `;
-
-const TYPE_VARIANTS = {
-  primary: "32px",
-  secondary: "4px",
-};
-
-const SIZE_VARIANTS = {
-  large: "60px",
-  small: "50px",
-};
