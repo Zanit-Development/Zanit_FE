@@ -52,4 +52,6 @@ export interface ModalProps {
   typeVariants: MODAL_TYPE_VARIANTS;
   title: string;
   content: string;
+  buttonOptions: ButtonProps[];
+  activate: boolean;
 }
