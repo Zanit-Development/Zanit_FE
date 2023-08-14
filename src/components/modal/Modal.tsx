@@ -1,26 +1,43 @@
+/**
+ * 모달
+ * type
+ *  싱글 : 버튼 1개
+ *  더블 : 버튼 2개
+ * title : 제목
+ * content : 내용
+ * buttonOptions : 버튼 옵션 목록(1 ~ 2개)
+ */
+
 import React from "react";
 import { ModalProps } from "../../libs/interface/interfaceCommon";
 import { styled } from "styled-components";
 import closeButton from "../../assets/icon/icon_close.svg";
-// import Button from "../common/button/Button";
+import Button from "../common/button/Button";
 
-export const Modal = ({ typeVariants, title, content }: ModalProps) => {
-  return (
+export const Modal = ({ ...props }: ModalProps) => {
+  return props.activate ? (
     <ModalCover>
       <ModalContainer>
         <ClosedButton>
           <img src={closeButton} alt="닫기" />
         </ClosedButton>
         <hr />
-        <h2>{title}</h2>
-        <p>{content}</p>
+        <h2>{props.title}</h2>
+        <p>{props.content}</p>
         <ButtonContainer>
-          {/* {typeVariants === "single"?
-            <Button />:(<Button /> <Button />)
-          } */}
+          {props.typeVariants === "double" ? (
+            <Button {...props.buttonOptions[0]} />
+          ) : (
+            <>
+              <Button {...props.buttonOptions[0]} />
+              <Button {...props.buttonOptions[1]} />
+            </>
+          )}
         </ButtonContainer>
       </ModalContainer>
     </ModalCover>
+  ) : (
+    []
   );
 };
 
@@ -62,9 +79,14 @@ const ModalContainer = styled.article`
 `;
 
 const ButtonContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 30px;
+
   & button {
     width: calc(100% - 60px);
-    margin-left: 30px;
     margin-bottom: 30px;
   }
 `;
