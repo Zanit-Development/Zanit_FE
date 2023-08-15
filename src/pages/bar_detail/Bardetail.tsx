@@ -18,7 +18,7 @@ const Bardetail = () => {
   const navigate = useNavigate();
 
   const btnOption: ButtonProps = {
-    typeVariants: "primary",
+    typeVariants: "fill",
     sizeVariants: "large",
     value: "ZAN 쿠폰 사용하기",
     disabled: false,

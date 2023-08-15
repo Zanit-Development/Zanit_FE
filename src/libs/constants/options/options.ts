@@ -12,8 +12,8 @@ const INPUT_OPTIONS_BASE: InputProps = {
 };
 
 const BUTTON_OPTIONS_BASE: ButtonProps = {
-  typeVariants: "primary",
-  sizeVariants: "large",
+  typeVariants: "fill",
+  sizeVariants: "small",
   value: "",
   disabled: false,
   onClick: () => {},

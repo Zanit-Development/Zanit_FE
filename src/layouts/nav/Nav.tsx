@@ -35,19 +35,6 @@ const Nav = () => {
             구독하기
           </NavLink>
         </li>
-        {/* 로그인 전 상태 */}
-        {/* <li>
-          <Link to="/signUp">회원가입</Link>
-        </li>
-        <li>
-          <Link to="/signIn">로그인</Link>
-        </li> */}
-        {/* 로그인 후 */}
-        <li>
-          <NavLink to="/" style={deactiveStyle}>
-            로그아웃
-          </NavLink>
-        </li>
         <li>
           <NavLink
             to="/myCoupon"
@@ -58,6 +45,23 @@ const Nav = () => {
             내 쿠폰함
           </NavLink>
         </li>
+        {/* 로그인 전 상태 */}
+        <li>
+          <NavLink
+            to="/signIn"
+            style={({ isActive }) => {
+              return isActive ? activeStyle : deactiveStyle;
+            }}
+          >
+            로그인
+          </NavLink>
+        </li>
+        {/* 로그인 후 */}
+        {/* <li>
+          <NavLink to="/" style={deactiveStyle}>
+            로그아웃
+          </NavLink>
+        </li> */}
       </Ul>
     </nav>
   );
