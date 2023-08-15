@@ -13,7 +13,7 @@ const HomeBanner = () => {
   const navigate = useNavigate();
 
   const options: ButtonProps = {
-    typeVariants: "primary",
+    typeVariants: "fill",
     sizeVariants: "small",
     value: "지금 구독하기",
     disabled: false,
