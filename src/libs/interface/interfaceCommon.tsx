@@ -2,7 +2,7 @@
  * 인터페이스
  */
 
-import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS } from "./typeCommon";
+import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS, MODAL_TYPE_VARIANTS } from "./typeCommon";
 import { BUTTON_EVENT, INPUT_EVENT } from "./typeEvent";
 
 export interface AxiosOptions {
@@ -46,4 +46,12 @@ export interface ItemProps {
   link: string;
   url: string;
   name: string;
+}
+
+export interface ModalProps {
+  typeVariants: MODAL_TYPE_VARIANTS;
+  title: string;
+  content: string;
+  buttonOptions: ButtonProps[];
+  activate: boolean;
 }
