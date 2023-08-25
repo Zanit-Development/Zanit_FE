@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import loginToken from "../../recoil/loginToken";
@@ -14,6 +14,8 @@ const Nav = () => {
     color: "var(--Black-color)",
     borderBottom: "2px solid var(--main-color)",
   };
+  const location = useLocation();
+  const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
 
   // token 없어서 nav에 로그인 표시되는게 맞습니다
   const token = useRecoilValue(loginToken);
@@ -25,8 +27,8 @@ const Nav = () => {
         <li>
           <NavLink
             to="/search"
-            style={({ isActive }) => {
-              return isActive ? activeStyle : deactiveStyle;
+            style={() => {
+              return isActiveSearchPath ? activeStyle : deactiveStyle;
             }}
           >
             Bar 검색
