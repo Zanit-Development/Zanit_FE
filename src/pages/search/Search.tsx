@@ -26,8 +26,8 @@ const Search = () => {
   };
 
   const inputOptions: InputProps = {
-    typeVariants: "secondary",
-    sizeVariants: "medium",
+    typevariants: "secondary",
+    sizevariants: "medium",
     value: inputValue,
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
@@ -35,7 +35,7 @@ const Search = () => {
   };
 
   const itemOptions: ItemProps = {
-    typeVariants: "primary",
+    typevariants: "primary",
     link: "#",
     url: sampleImg,
     name: "임시",
@@ -65,7 +65,7 @@ const Search = () => {
         <TagSection>
           {tagOptions.map((item, idx) => {
             const tagOptions: TagProps = {
-              typeVariants: "primary",
+              typevariants: "primary",
               tagId: `tag_${idx}`,
               value: item,
             };

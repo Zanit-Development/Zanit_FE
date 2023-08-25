@@ -27,7 +27,7 @@ const SignIn = () => {
           <label htmlFor="email" className="a11y-hidden">
             이메일
           </label>
-          <Input {...SIGNIN_OPTIONS.EMAIL} onChange={handleInputChange} value={emailValue} />
+          <Input {...SIGNIN_OPTIONS.PHONE} onChange={handleInputChange} value={emailValue} />
           <label htmlFor="password" className="a11y-hidden">
             비밀번호
           </label>
@@ -37,7 +37,7 @@ const SignIn = () => {
         </SignInForm>
         <SignInOther>
           <Link to="/signUp">회원가입</Link>
-          <Link to="/">비밀번호 찾기</Link>
+          <Link to="/password-find">비밀번호 찾기</Link>
         </SignInOther>
       </SignInSection>
     </Layout>

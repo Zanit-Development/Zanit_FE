@@ -10,29 +10,30 @@ export interface AxiosOptions {
 }
 
 export interface ButtonProps {
-  typeVariants: BUTTON_TYPE_VARIANTS;
-  sizeVariants: BUTTON_SIZE_VARIANTS;
+  typevariants: BUTTON_TYPE_VARIANTS;
+  sizevariants: BUTTON_SIZE_VARIANTS;
   value: string;
   disabled: boolean;
   onClick: (e: BUTTON_EVENT) => void;
 }
 
 export interface InputProps {
-  typeVariants: INPUT_TYPE_VARIANTS;
-  sizeVariants: INPUT_SIZE_VARIANTS;
+  typevariants: INPUT_TYPE_VARIANTS;
+  sizevariants: INPUT_SIZE_VARIANTS;
   type: string;
   value: string;
   placeholder: string;
   id?: string;
-  minLength?: number;
-  maxLength?: number;
+  minlength?: number;
+  maxlength?: number;
   onChange: (e: INPUT_EVENT) => void;
 }
 
 export interface TagProps {
-  typeVariants: TAG_TYPE_VARIANTS;
+  typevariants: TAG_TYPE_VARIANTS;
   value: string;
   tagId: string;
+  name: string;
 }
 
 export interface CategoryProps {
@@ -42,16 +43,16 @@ export interface CategoryProps {
 }
 
 export interface ItemProps {
-  typeVariants: ITEM_TYPE_VARIANTS;
+  typevariants: ITEM_TYPE_VARIANTS;
   link: string;
   url: string;
   name: string;
 }
 
 export interface ModalProps {
-  typeVariants: MODAL_TYPE_VARIANTS;
+  typevariants: MODAL_TYPE_VARIANTS;
   title: string;
   content: string;
-  buttonOptions: ButtonProps[];
+  buttonoptions: ButtonProps[];
   activate: boolean;
 }

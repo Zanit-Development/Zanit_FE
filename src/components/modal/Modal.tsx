@@ -25,12 +25,12 @@ export const Modal = ({ ...props }: ModalProps) => {
         <h2>{props.title}</h2>
         <p>{props.content}</p>
         <ButtonContainer>
-          {props.typeVariants === "double" ? (
-            <Button {...props.buttonOptions[0]} />
+          {props.typevariants === "double" ? (
+            <Button {...props.buttonoptions[0]} />
           ) : (
             <>
-              <Button {...props.buttonOptions[0]} />
-              <Button {...props.buttonOptions[1]} />
+              <Button {...props.buttonoptions[0]} />
+              <Button {...props.buttonoptions[1]} />
             </>
           )}
         </ButtonContainer>

@@ -11,6 +11,6 @@ export interface BarProps {
   tags: string[];
   description: string;
   address: string;
-  openHours: string[];
+  openhours: string[];
   cocktails: CocktailProps[];
 }

@@ -12,6 +12,8 @@ import Subscribe from "./pages/subscribe/Subscribe";
 import MyCoupon from "./pages/myCoupon/MyCoupon";
 import HowToUse from "./pages/myCoupon/HowToUse";
 import Bardetail from "./pages/bar_detail/Bardetail";
+import PasswordFind from "./pages/sign/PasswordFind";
+import PasswordReset from "./pages/sign/PasswordReset";
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/bar-detail" element={<Bardetail />} />
+        <Route path="/password-find" element={<PasswordFind />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
       </Routes>
     </BrowserRouter>
   );
