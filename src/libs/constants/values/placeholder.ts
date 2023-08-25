@@ -4,7 +4,7 @@
 
 export const PLACEHOLDER_SIGN = {
   IN: {
-    EMAIL: "이메일",
+    PHONE: "전화번호",
     PASSWORD: "비밀번호",
   },
 

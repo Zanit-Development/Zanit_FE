@@ -24,6 +24,7 @@ const TagList = () => {
           typevariants: "primary",
           tagId: `tag_${idx}`,
           value: item,
+          name: "searchCategory",
         };
 
         return <Tag {...tagOptions} key={idx} />;

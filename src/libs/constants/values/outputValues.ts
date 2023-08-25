@@ -1,7 +1,10 @@
 export const BUTTON_VALUE = {
   GO_HOME: "홈으로 가기",
-  SUBSCRIBE: "지금 구독하기",
+  SUBSCRIBE: "구독 시작하기",
   SEARCH_BAR: "지금 이용 가능한 칵테일바 찾기",
+  SUBSCRIBE_NOW: "지금 구독하기",
+  OK: "확인",
+  PASSWORD_RESET: "재설정하기",
 
   SIGN: {
     IN: "로그인",
@@ -16,7 +19,7 @@ export const BUTTON_VALUE = {
   PAYMENT: {
     CONFIRM: "입금 확인 요청하기",
     APPROVE: "결제 승인하기",
-    DISCOUNT: (period: string, rate: number) => `${period}간 ${rate}% 할인받기`,
+    DISCOUNT: (rate: number) => `${rate}% 할인된 얼리버드 혜택 받기`,
   },
 
   ADMIN: {
