@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-import Logo from "../../assets/logo.svg";
+import LogoFoot from "../../assets/logo_footer.svg";
 import kakao from "../../assets/icon/icon_sns_kakao.svg";
 import instar from "../../assets/icon/icon_sns_instar.svg";
 import cafe from "../../assets/icon/icon_sns_cafe.svg";
@@ -9,11 +9,11 @@ import cafe from "../../assets/icon/icon_sns_cafe.svg";
 const Footer = () => {
   return (
     <FooterContainer>
-      <img src={Logo} alt="Zanit" />
+      <img src={LogoFoot} alt="Zanit" />
       <p>대표이사 : 정태송</p>
-      <p>206-55-98984</p>
       <div>
-        <a href="https://pf.kakao.com/_QxdiAG">
+        <p>206-55-98984</p>
+        <a href="http://pf.kakao.com/_JxoExhG">
           <img src={kakao} alt="카카오톡" />
         </a>
         <a href="https://www.instagram.com/zanit.official/">
@@ -25,16 +25,19 @@ const Footer = () => {
       </div>
       <UnorderList>
         <li>
-          <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b">이용안내</a>
+          <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4">이용약관</a>
         </li>
         <li>
-          <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b">정책</a>
+          <a href="#">환불정책</a>
         </li>
         <li>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqOnIIhwyT6We1MkT1OuQ90cEw-pOdWAxBTvjStaSnBIB-mg/viewform">비즈니스 제안</a>
+          <a href="https://forms.gle/crUq25uciMG3iFWX7">비즈니스 제안</a>
         </li>
         <li>
-          <a href="https://pf.kakao.com/_QxdiAG">CS</a>
+          <a href="http://pf.kakao.com/_JxoExhG">CS</a>
+        </li>
+        <li>
+          <a href="http://pf.kakao.com/_JxoExhG">탈퇴하기</a>
         </li>
       </UnorderList>
     </FooterContainer>
@@ -48,7 +51,6 @@ const FooterContainer = styled.footer`
   padding: 40px 16px;
 
   & > img {
-    width: 60px;
     margin-bottom: 12px;
   }
 
@@ -60,17 +62,9 @@ const FooterContainer = styled.footer`
 
   div {
     display: flex;
+    align-items: center;
     gap: 8px;
     margin: 5px 0 12px;
-
-    a {
-      width: 14px;
-      height: 14px;
-      img {
-        width: 100%;
-        vertical-align: text-top;
-      }
-    }
   }
 `;
 

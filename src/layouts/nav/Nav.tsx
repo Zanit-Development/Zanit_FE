@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
+import loginToken from "../../recoil/loginToken";
 
 const Nav = () => {
   const deactiveStyle = {
@@ -10,7 +12,12 @@ const Nav = () => {
   const activeStyle = {
     fontFamily: "var(--font--Bold)",
     color: "var(--Black-color)",
+    borderBottom: "2px solid var(--main-color)",
   };
+
+  // token 없어서 nav에 로그인 표시되는게 맞습니다
+  const token = useRecoilValue(loginToken);
+  // 로그아웃 띄우기 -> const token = true;
 
   return (
     <nav>
@@ -45,23 +52,24 @@ const Nav = () => {
             내 쿠폰함
           </NavLink>
         </li>
-        {/* 로그인 전 상태 */}
-        <li>
-          <NavLink
-            to="/signIn"
-            style={({ isActive }) => {
-              return isActive ? activeStyle : deactiveStyle;
-            }}
-          >
-            로그인
-          </NavLink>
-        </li>
-        {/* 로그인 후 */}
-        {/* <li>
-          <NavLink to="/" style={deactiveStyle}>
-            로그아웃
-          </NavLink>
-        </li> */}
+        {token ? (
+          <li>
+            <NavLink to="/" style={deactiveStyle}>
+              로그아웃
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink
+              to="/signIn"
+              style={({ isActive }) => {
+                return isActive ? activeStyle : deactiveStyle;
+              }}
+            >
+              로그인
+            </NavLink>
+          </li>
+        )}
       </Ul>
     </nav>
   );
@@ -71,17 +79,13 @@ export default Nav;
 
 const Ul = styled.ul`
   display: flex;
-  gap: 18px;
-  padding: 0 16px;
-  margin-bottom: 10px;
+  gap: 24px;
+  padding: 0 15px;
+  margin-bottom: 27px;
 
   a {
     display: inline-block;
-    padding: 15px 4px;
+    padding: 15px 0 8px;
     font-size: 15px;
-
-    &:nth-of-type(1) {
-      padding-left: 0;
-    }
   }
 `;
