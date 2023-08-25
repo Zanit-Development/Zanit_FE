@@ -2,11 +2,11 @@ import React from "react";
 import { css, styled } from "styled-components";
 import { TagProps } from "../../libs/interface/interfaceCommon";
 
-const Tag = ({ typeVariants = "primary", ...props }: TagProps) => {
-  const tagDisabled = typeVariants === "primary" ? false : true;
+const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
+  const tagDisabled = typevariants === "primary" ? false : true;
   return (
-    <TagContainer typeVariants={typeVariants} {...props}>
-      <input type="checkbox" id={props.tagId} disabled={tagDisabled} />
+    <TagContainer typevariants={typevariants} {...props}>
+      <input type="radio" id={props.tagId} disabled={tagDisabled} name={props.name} />
       <label htmlFor={props.tagId}>&#35;{props.value}</label>
     </TagContainer>
   );
@@ -57,6 +57,6 @@ const TagContainer = styled.div<TagProps>`
     user-select: none;
     cursor: pointer;
 
-    ${(props) => TYPE_VARIANTS[props.typeVariants]}
+    ${(props) => TYPE_VARIANTS[props.typevariants]}
   }
 `;

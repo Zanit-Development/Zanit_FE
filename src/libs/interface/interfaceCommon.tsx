@@ -33,6 +33,7 @@ export interface TagProps {
   typevariants: TAG_TYPE_VARIANTS;
   value: string;
   tagId: string;
+  name: string;
 }
 
 export interface CategoryProps {
