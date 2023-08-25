@@ -3,6 +3,7 @@ export const BUTTON_VALUE = {
   SUBSCRIBE: "지금 구독하기",
   SEARCH_BAR: "지금 이용 가능한 칵테일바 찾기",
   OK: "확인",
+  PASSWORD_RESET: "재설정하기",
 
   SIGN: {
     IN: "로그인",

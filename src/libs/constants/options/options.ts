@@ -62,6 +62,11 @@ export const BUTTON_OPTIONS: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.OK,
   },
+
+  PASSWORD_RESET: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.PASSWORD_RESET,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
