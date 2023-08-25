@@ -35,8 +35,8 @@ const SIZE_VARIANTS = {
 };
 
 const StyledButton = styled.button<ButtonProps>`
-  ${(props) => TYPE_VARIANTS[props.typeVariants]}
-  ${(props) => SIZE_VARIANTS[props.sizeVariants]}
+  ${(props) => TYPE_VARIANTS[props.typevariants]}
+  ${(props) => SIZE_VARIANTS[props.sizevariants]}
 
   width: 100%;
   padding: 5px;

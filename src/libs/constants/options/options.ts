@@ -57,14 +57,19 @@ export const BUTTON_OPTIONS: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.COUPON.USE,
   },
+
+  OK: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.OK,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
-  EMAIL: {
+  PHONE: {
     ...INPUT_OPTIONS_BASE,
-    id: "email",
-    type: "email",
-    placeholder: PLACEHOLDER_SIGN.IN.EMAIL,
+    type: "number",
+    placeholder: PLACEHOLDER_SIGN.IN.PHONE,
+    id: "phoneNum",
   },
 
   PASSWORD: {
@@ -87,13 +92,6 @@ export const SIGNUP_OPTIONS = {
     type: "number",
     placeholder: PLACEHOLDER_SIGN.UP.PHONE,
     id: "phoneNum",
-  },
-
-  EMAIL: {
-    ...INPUT_OPTIONS_BASE,
-    type: "email",
-    placeholder: PLACEHOLDER_SIGN.UP.EMAIL,
-    id: "email",
   },
 
   PASSWORD: {
