@@ -13,7 +13,7 @@ const INPUT_OPTIONS_BASE: InputProps = {
 
 const BUTTON_OPTIONS_BASE: ButtonProps = {
   typevariants: "fill",
-  sizevariants: "small",
+  sizevariants: "large",
   value: "",
   disabled: false,
   onClick: () => {},
@@ -37,6 +37,11 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.SUBSCRIBE,
   },
 
+  SUBSCRIBE_NOW: {
+    ...BUTTON_OPTIONS_BASE,
+    value: BUTTON_VALUE.SUBSCRIBE_NOW,
+  },
+
   SUBSCRIBE_POPUP: {
     ...BUTTON_OPTIONS_BASE,
     typevariants: "stroke",
@@ -45,7 +50,7 @@ export const BUTTON_OPTIONS: {
 
   DISCOUNT: {
     ...BUTTON_OPTIONS_BASE,
-    value: BUTTON_VALUE.PAYMENT.DISCOUNT("3개월", 25),
+    value: BUTTON_VALUE.PAYMENT.DISCOUNT(25),
   },
 
   HOW_TO_USE: {
