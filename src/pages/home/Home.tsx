@@ -6,9 +6,8 @@ import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
-import SubscribeBox from "../../components/home/HomeBanner";
 import TagList from "../../components/tag/TagList";
-import ItemList from "../../components/home/ItemList";
+import { HomeBanner, ItemList } from "../../components/home";
 
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
@@ -36,7 +35,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <SubscribeBox />
+      <HomeBanner />
       <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
         <StyledTitle className="a11y-hidden">BAR 검색</StyledTitle>
         <Input {...inputOptions} />

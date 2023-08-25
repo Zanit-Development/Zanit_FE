@@ -39,7 +39,7 @@ export const BUTTON_OPTIONS: {
 
   SUBSCRIBE_POPUP: {
     ...BUTTON_OPTIONS_BASE,
-    // typeVariants: "secondary",
+    typeVariants: "stroke",
     value: BUTTON_VALUE.PAYMENT.CONFIRM,
   },
 
