@@ -1,17 +1,22 @@
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 
-import barImg from "../../assets/sample-img/bar2.jpg";
+import bar1 from "../../assets/sample-img/bar1.png";
+import bar2 from "../../assets/sample-img/bar2.png";
+import bar3 from "../../assets/sample-img/bar3.png";
 import cocktailImg1 from "../../assets/sample-img/cocktail1.jpg";
 import cocktailImg2 from "../../assets/sample-img/cocktail2.jpg";
 import cocktailImg3 from "../../assets/sample-img/cocktail3.jpg";
 
 export const BarInfo: BarProps = {
-  title: "바 이름",
-  img: barImg,
-  tags: ["태그1", "태그2"],
+  barUid: 1234,
+  barName: "바 이름",
+  barPics: bar1,
+  barMood: ["태그1", "태그2"],
   description: "유니크한 청담동 칵테일 마신 밤 티베이스칵테일 이곳에는 바에 대한 최대 50자의 설명이 들어갑니다. ",
-  address: "주소",
-  openHours: ["월 1시~3시", "월 1시~3시", "월 1시~3시", "월 1시~3시", "월 1시~3시"],
+  barLocation: "서울 강남구 선릉로162길 16 엘리자벳빌딩 1층",
+  openhours: "평일 8시~11시",
+  price: 1000,
+  discount: 5000,
   cocktails: [
     {
       title: "임시",

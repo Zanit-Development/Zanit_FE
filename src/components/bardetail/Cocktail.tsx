@@ -6,7 +6,7 @@ import Tag from "../tag/Tag";
 
 const Cocktail = (props: { info: CocktailProps; idx: number }) => {
   const option = {
-    typeVariants: "tertiary",
+    typevariants: "tertiary",
     value: props.info.level,
     tagId: `tag${props.idx}`,
   };

@@ -21,7 +21,7 @@ const TagList = () => {
     <TagContainer>
       {tagOptions.map((item, idx) => {
         const tagOptions: TagProps = {
-          typeVariants: "primary",
+          typevariants: "primary",
           tagId: `tag_${idx}`,
           value: item,
         };
