@@ -16,6 +16,9 @@ const Nav = () => {
   };
   const location = useLocation();
   const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
+  const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
+  const isActiveMyCouponPath = ["/myCoupon", "/how-to-use"].includes(location.pathname);
+  const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset"].includes(location.pathname);
 
   // token 없어서 nav에 로그인 표시되는게 맞습니다
   const token = useRecoilValue(loginToken);
@@ -37,8 +40,8 @@ const Nav = () => {
         <li>
           <NavLink
             to="/subscribe"
-            style={({ isActive }) => {
-              return isActive ? activeStyle : deactiveStyle;
+            style={() => {
+              return isActiveSubscribePath ? activeStyle : deactiveStyle;
             }}
           >
             구독하기
@@ -47,8 +50,8 @@ const Nav = () => {
         <li>
           <NavLink
             to="/myCoupon"
-            style={({ isActive }) => {
-              return isActive ? activeStyle : deactiveStyle;
+            style={() => {
+              return isActiveMyCouponPath ? activeStyle : deactiveStyle;
             }}
           >
             내 쿠폰함
@@ -64,8 +67,8 @@ const Nav = () => {
           <li>
             <NavLink
               to="/signIn"
-              style={({ isActive }) => {
-                return isActive ? activeStyle : deactiveStyle;
+              style={() => {
+                return isActiveSignInPath ? activeStyle : deactiveStyle;
               }}
             >
               로그인
