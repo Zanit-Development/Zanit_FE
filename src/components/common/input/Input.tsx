@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
-import { StyledInputOption } from "./options";
+import { StyledInputOption } from "./inputOptions";
 
 const Input = ({ typevariants = "primary", sizevariants = "large", ...props }: InputProps) => {
   return <StyledInput typevariants={typevariants} sizevariants={sizevariants} {...props} />;
