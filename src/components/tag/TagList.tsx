@@ -45,7 +45,5 @@ const TagContainer = styled.section`
     font-family: var(--font--Medium);
     font-size: 12px;
     padding: 6px 16px;
-    background-color: var(--main-color);
-    color: var(--white-color);
   }
 `;

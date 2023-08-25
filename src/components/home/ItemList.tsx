@@ -10,14 +10,14 @@ import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 const ItemList = (props: { itemOptions: ItemProps[] }) => {
   return (
     <ListContainer>
-      <button>
-        <img src={arrowImg} alt="" />
-      </button>
       <ItemContainer>
         {props.itemOptions.map((item) => {
           return <Item {...item} />;
         })}
       </ItemContainer>
+      <button>
+        <img src={arrowImg} alt="" />
+      </button>
       <button>
         <img src={arrowImg} alt="" />
       </button>
@@ -34,6 +34,9 @@ const ListContainer = styled.section`
 
   gap: 5px;
 
+  ul {
+    order: 2;
+  }
   button {
     height: 100px;
     align-self: flex-start;
@@ -41,8 +44,13 @@ const ListContainer = styled.section`
       width: 24px;
     }
 
+    &:first-of-type(1) {
+      order: 1;
+    }
+
     &:nth-of-type(2) {
       transform: rotateY(180deg);
+      order: 3;
     }
   }
 `;
@@ -65,6 +73,7 @@ const ItemContainer = styled.ul`
       height: calc((390px - 20px - 16px - 48px - 10px) / 3);
     }
     span {
+      text-align: center;
       width: calc(100% - 20px);
       margin-top: 8px;
       font-size: 12px;
