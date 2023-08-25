@@ -29,7 +29,7 @@ const InfoContainer = styled.section`
       margin-right: 10px;
       border-radius: 30px;
       background-color: var(--gray100-color);
-      vertical-align: middle;
+      vertical-align: top;
 
       & img {
         margin-top: 50%;
