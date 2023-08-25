@@ -11,7 +11,7 @@ import SignUp from "./pages/sign/SignUp";
 import Subscribe from "./pages/subscribe/Subscribe";
 import MyCoupon from "./pages/myCoupon/MyCoupon";
 import HowToUse from "./pages/myCoupon/HowToUse";
-import Bardetail from "./pages/bar_detail/Bardetail";
+import Bardetail from "./pages/barDetail/Bardetail";
 
 const App = () => {
   return (
