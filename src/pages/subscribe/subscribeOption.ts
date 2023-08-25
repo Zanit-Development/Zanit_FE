@@ -18,9 +18,9 @@ export const COST = "29,000";
 export const BAR_COUNT = 25;
 export const MEMBERSHIP_COST = "87,000";
 export const EVENT = {
-  DATE_TIME: "2023-07-26",
-  DATE_OUTPUT_DATE: "7/26",
-  DATE_OUTPUT_WEEK: "목",
+  DATE_TIME: "2023-09-30",
+  DATE_OUTPUT_DATE: "9/30",
+  DATE_OUTPUT_WEEK: "토",
 };
 
 export const ALERT_PAYMENT_MANUAL = `현재 결제 방법은 무통장입금을 지원하고 있습니다. 
@@ -32,25 +32,30 @@ export const ALERT_PAYMENT_GUIDE = `쟈닛 멤버십은 ${EVENT.DATE_OUTPUT_DATE
 `;
 
 export const CONTENT1 = {
-  title: "합리적인 가격",
-  src: usd,
-  content: `월 ${COST}원이라는 얼리버드 특가를 통해 
-    매주 한 잔의 새로운 칵테일을 즐겨봐요
+  title: "선별된 Bar와 칵테일 큐레이션",
+  src: list,
+  content: `차별화된 분위기와 특별한 칵테일이 있는
+  공간을 추천해드려요. 
+  
+  [Bar Lineup] 
+  바제라늄, 바티센트, 주에뉘, 
+  칼바도스 가든, 아워스, 페더, 드레싱룸, 
+  바우리, 하뭇 and more coming soon
   `,
 };
 
 export const CONTENT2 = {
-  title: "칵테일과 바(Bar)에 대한 다양한 정보",
-  src: list,
-  content: `특별한 칵테일과 높은 접근성을 가졌지만 
-    차별화된 분위기의 바를 큐레이션 해드려요
+  title: "쉬워지는 칵테일 생활",
+  src: smile,
+  content: `매주 찾아오는 칵테일 한 잔을 경험하며
+  칵테일과 친해질 수 있어요.
   `,
 };
 
 export const CONTENT3 = {
-  title: "쉬워지는 칵테일 생활",
-  src: smile,
-  content: `매주 찾아오는 칵테일 한 잔을 경험하며
-    칵테일과 친해질 수 있어요.
+  title: "합리적인 가격",
+  src: usd,
+  content: `월 ${COST}원이라는 얼리버드 특가를 통해 
+    매주 한 잔의 새로운 칵테일을 즐겨봐요
   `,
 };

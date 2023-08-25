@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { BAR_COUNT, CONTENT1, CONTENT2, CONTENT3, COST, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
+import { CONTENT1, CONTENT2, CONTENT3, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import coupon from "../../assets/subscribe.svg";
@@ -56,21 +56,22 @@ const Subscribe = () => {
 
         <p>
           쟈닛은 구독형 칵테일 멤버십 서비스로,
-          <br />월 {COST}원에 서울 {BAR_COUNT}개 바에서
+          <br />
+          서울의 선별된 다양한 Bar에서
           <br />
           매주 1잔, 한 달 4잔의 칵테일을 무료로 즐길 수 있어요
         </p>
 
         <figure>
           <img src={coupon} alt="" />
-          <figcaption>
+          {/* <figcaption>
             <img src={subtract} alt="" />
             <p>
               원활한 서비스 이용을 위해 1회 결제 시
               <br />
               3개월 멤버십 비용&#40;￦ {MEMBERSHIP_COST}원&#41;이 한 번에 결제돼요
             </p>
-          </figcaption>
+          </figcaption> */}
         </figure>
 
         <article>
@@ -80,7 +81,7 @@ const Subscribe = () => {
             </strong>
             를 통해
             <br />
-            3개월간 할인된 가격으로 멤버십을 즐겨보세요!
+            25% 할인된 가격으로 멤버십을 즐겨보세요!
           </p>
         </article>
 
@@ -92,7 +93,7 @@ const Subscribe = () => {
         <SubscribeInfo {...CONTENT2} />
         <SubscribeInfo {...CONTENT3} />
 
-        <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
+        <Button {...BUTTON_OPTIONS.SUBSCRIBE_NOW}></Button>
       </StyledSectionBottom>
     </Layout>
   );
@@ -120,7 +121,7 @@ const Container = css`
 
   & button {
     width: 100%;
-    margin: 0 auto;
+    margin: 20px auto 30px;
   }
 `;
 
