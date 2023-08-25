@@ -3,8 +3,8 @@ import { BUTTON_VALUE } from "../values/outputValues";
 import { ButtonProps, InputProps } from "../../interface/interfaceCommon";
 
 const INPUT_OPTIONS_BASE: InputProps = {
-  typeVariants: "primary",
-  sizeVariants: "large",
+  typevariants: "primary",
+  sizevariants: "large",
   type: "text",
   value: "",
   placeholder: "",
@@ -12,8 +12,8 @@ const INPUT_OPTIONS_BASE: InputProps = {
 };
 
 const BUTTON_OPTIONS_BASE: ButtonProps = {
-  typeVariants: "fill",
-  sizeVariants: "small",
+  typevariants: "fill",
+  sizevariants: "small",
   value: "",
   disabled: false,
   onClick: () => {},
@@ -39,7 +39,7 @@ export const BUTTON_OPTIONS: {
 
   SUBSCRIBE_POPUP: {
     ...BUTTON_OPTIONS_BASE,
-    typeVariants: "stroke",
+    typevariants: "stroke",
     value: BUTTON_VALUE.PAYMENT.CONFIRM,
   },
 
