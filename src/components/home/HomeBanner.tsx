@@ -12,9 +12,9 @@ import backgroundImg from "../../assets/home_banner.png";
 const HomeBanner = () => {
   const navigate = useNavigate();
   const test = false; // 로그인 여부 테스트용 불리언
-  const commonOptions: Pick<ButtonProps, "typeVariants" | "sizeVariants" | "disabled"> = {
-    typeVariants: "fill",
-    sizeVariants: "small",
+  const commonOptions: Pick<ButtonProps, "typevariants" | "sizevariants" | "disabled"> = {
+    typevariants: "fill",
+    sizevariants: "small",
     disabled: false,
   };
 
