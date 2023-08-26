@@ -7,12 +7,13 @@ import Layout from "../../layouts/Layout";
 import addressIcon from "../../assets/icon/icon_pin.svg";
 import timeIcon from "../../assets/icon/icon_clock.svg";
 import cocktailIcon from "../../assets/icon/icon_cocktail.png";
-import arrow from "./throughArrow.svg";
+import arrow from "../../assets/throughArrow.svg";
 
 import Cocktail from "../../components/bardetail/Cocktail";
+import ImgContainer from "../../components/bardetail/ImgContainer";
+
 import Button from "../../components/common/button/Button";
 import Tag from "../../components/tag/Tag";
-import ImgContainer from "./ImgContainer";
 
 import { ButtonProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";
