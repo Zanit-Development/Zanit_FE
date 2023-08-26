@@ -3,11 +3,10 @@ import { css, styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { CONTENT1, CONTENT2, CONTENT3, EVENT, MEMBERSHIP_COST } from "./subscribeOption";
+import { CONTENT1, CONTENT2, CONTENT3, DiscountOptions, EVENT } from "./subscribeOption";
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
-import coupon from "../../assets/subscribe.svg";
-import subtract from "../../assets/icon/icon_subtract.svg";
+import { DiscountCoupon } from "./DiscountCoupon";
 
 const Subscribe = () => {
   return (
@@ -62,19 +61,8 @@ const Subscribe = () => {
           매주 1잔, 한 달 4잔의 칵테일을 무료로 즐길 수 있어요
         </p>
 
-        <figure>
-          <img src={coupon} alt="" />
-          {/* <figcaption>
-            <img src={subtract} alt="" />
-            <p>
-              원활한 서비스 이용을 위해 1회 결제 시
-              <br />
-              3개월 멤버십 비용&#40;￦ {MEMBERSHIP_COST}원&#41;이 한 번에 결제돼요
-            </p>
-          </figcaption> */}
-        </figure>
-
         <article>
+          <DiscountCoupon {...DiscountOptions}></DiscountCoupon>
           <p>
             <strong>
               <time dateTime={EVENT.DATE_TIME}>{EVENT.DATE_OUTPUT_DATE}</time>일까지 진행되는 얼리버드 특가

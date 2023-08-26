@@ -14,9 +14,9 @@ import usd from "../../assets/icon/icon_usd_circle.svg";
 import list from "../../assets/icon/icon_list.svg";
 import smile from "../../assets/icon/icon_smile.svg";
 
-export const COST = "29,000";
-export const BAR_COUNT = 25;
-export const MEMBERSHIP_COST = "87,000";
+export const COST = "29,900";
+// export const BAR_COUNT = 25;
+// export const MEMBERSHIP_COST = "87,000";
 export const EVENT = {
   DATE_TIME: "2023-09-30",
   DATE_OUTPUT_DATE: "9/30",
@@ -58,4 +58,16 @@ export const CONTENT3 = {
   content: `월 ${COST}원이라는 얼리버드 특가를 통해 
     매주 한 잔의 새로운 칵테일을 즐겨봐요
   `,
+};
+
+export interface DiscountProps {
+  prevCost: string;
+  cost: string;
+  rate: string;
+}
+
+export const DiscountOptions = {
+  prevCost: "39,900",
+  cost: COST,
+  rate: "25",
 };
