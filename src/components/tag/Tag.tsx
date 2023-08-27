@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { css, styled } from "styled-components";
 import { TagProps } from "../../libs/interface/interfaceCommon";
+import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
 
 const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
   const tagDisabled = typevariants === "primary" ? false : true;
+  const [isChecked, setIsChecked] = useState(false);
+  const handleChecked = (e: MOUSE_EVENT) => {
+    setIsChecked(!isChecked);
+  };
   return (
     <TagContainer typevariants={typevariants} {...props}>
-      <input type="radio" id={props.tagId} disabled={tagDisabled} name={props.name} />
-      <label htmlFor={props.tagId}>&#35;{props.value}</label>
+      <input type="radio" {...props} disabled={tagDisabled} checked={isChecked} />
+      <label htmlFor={props.tagId} onClick={handleChecked}>
+        &#35;{props.value}
+      </label>
     </TagContainer>
   );
 };
