@@ -3,9 +3,9 @@ import { css, styled } from "styled-components";
 import { ItemProps } from "../../../libs/interface/interfaceCommon";
 import { Link } from "react-router-dom";
 
-const Item = ({ typeVariants = "primary", ...props }: ItemProps) => {
+const Item = ({ typevariants = "primary", ...props }: ItemProps) => {
   return (
-    <ItemContainer typeVariants={typeVariants} {...props}>
+    <ItemContainer typevariants={typevariants} {...props}>
       <Link to={props.link}>
         <img src={props.url} alt={`${props.name} 썸네일 이미지`} />
         <span>{props.name}</span>
@@ -18,7 +18,7 @@ export default Item;
 
 const ItemContainer = styled.li<ItemProps>`
   & img {
-    ${(props) => TYPE_VARIANTS[props.typeVariants]}
+    ${(props) => TYPE_VARIANTS[props.typevariants]}
     width: 100%;
     height: 124px;
     object-fit: cover;
