@@ -65,6 +65,13 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.COUPON.USE,
   },
 
+  EXTEND_COUPON: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.COUPON.EXTEND,
+  },
+
   OK: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.OK,
