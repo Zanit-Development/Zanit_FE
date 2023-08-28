@@ -34,6 +34,7 @@ export const BUTTON_OPTIONS: {
 
   SUBSCRIBE: {
     ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
     value: BUTTON_VALUE.SUBSCRIBE,
   },
 
