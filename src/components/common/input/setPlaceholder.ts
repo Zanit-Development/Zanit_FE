@@ -7,8 +7,6 @@ export const setPlaceholder = (type: string): string => {
     placeholder = PLACEHOLDER_SIGN.UP.NAME;
   } else if (type === "phone") {
     placeholder = PLACEHOLDER_SIGN.UP.PHONE;
-  } else if (type === "email") {
-    placeholder = PLACEHOLDER_SIGN.UP.EMAIL;
   } else if (type === "password") {
     placeholder = PLACEHOLDER_SIGN.UP.PASSWORD;
   } else if (type === "password2") {

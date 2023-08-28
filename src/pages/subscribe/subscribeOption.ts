@@ -16,7 +16,7 @@ import smile from "../../assets/icon/icon_smile.svg";
 
 export const COST = "29,900";
 // export const BAR_COUNT = 25;
-// export const MEMBERSHIP_COST = "87,000";
+export const MEMBERSHIP_COST = "87,000";
 export const EVENT = {
   DATE_TIME: "2023-09-30",
   DATE_OUTPUT_DATE: "9/30",
