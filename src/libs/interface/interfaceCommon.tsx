@@ -3,7 +3,7 @@
  */
 
 import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS, MODAL_TYPE_VARIANTS } from "./typeCommon";
-import { BUTTON_EVENT, INPUT_EVENT } from "./typeEvent";
+import { BUTTON_EVENT, INPUT_EVENT, MOUSE_EVENT } from "./typeEvent";
 
 export interface AxiosOptions {
   timeout?: number;
@@ -55,4 +55,15 @@ export interface ModalProps {
   content: string;
   buttonoptions: ButtonProps[];
   activate: boolean;
+}
+
+export interface ButtonCloseProps {
+  top: number;
+  right: number;
+  onClose: (e: MOUSE_EVENT) => void;
+}
+
+export interface BackgroundType {
+  onClose: (e: MOUSE_EVENT) => void;
+  children: React.ReactNode;
 }

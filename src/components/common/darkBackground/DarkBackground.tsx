@@ -1,11 +1,7 @@
 import { styled } from "styled-components";
 
 import React, { useEffect } from "react";
-
-interface BackgroundType {
-  onClose: () => void;
-  children: React.ReactNode;
-}
+import { BackgroundType } from "../../../libs/interface/interfaceCommon";
 
 export const DarkBackground = ({ onClose, children }: BackgroundType) => {
   useEffect(() => {

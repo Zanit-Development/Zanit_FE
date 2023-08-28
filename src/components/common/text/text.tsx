@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import addressIcon from "../../assets/icon/icon_pin.svg";
-import timeIcon from "../../assets/icon/icon_clock.svg";
-import cocktailIcon from "../../assets/icon/icon_cocktail.png";
-import arrow from "../../assets/throughArrow.svg";
+import addressIcon from "../../../assets/icon/icon_pin.svg";
+import timeIcon from "../../../assets/icon/icon_clock.svg";
+import cocktailIcon from "../../../assets/icon/icon_cocktail.png";
+import arrow from "../../../assets/throughArrow.svg";
 
 export const grayTextWithIcon = styled.span`
   display: block;
