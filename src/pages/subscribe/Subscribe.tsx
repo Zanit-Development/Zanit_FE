@@ -121,8 +121,13 @@ const Title = styled.h2`
 
 const StyledSectionTop = styled.section`
   ${Container}
-  & figure {
+
+  /* & figure {
     margin-left: -10px;
+  } */
+
+  & img {
+    width: 100%;
   }
 `;
 const StyledSectionMiddle = styled.section`
