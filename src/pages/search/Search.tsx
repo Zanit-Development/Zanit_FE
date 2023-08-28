@@ -68,6 +68,7 @@ const Search = () => {
               typevariants: "primary",
               tagId: `tag_${idx}`,
               value: item,
+              name: "searchTag",
             };
 
             return <Tag {...tagOptions} key={idx} />;
