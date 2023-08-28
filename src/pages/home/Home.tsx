@@ -25,8 +25,8 @@ const Home = () => {
   };
 
   const inputOptions: InputProps = {
-    typeVariants: "secondary",
-    sizeVariants: "medium",
+    typevariants: "secondary",
+    sizevariants: "medium",
     value: inputValue,
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
