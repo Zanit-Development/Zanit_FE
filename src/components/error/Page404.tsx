@@ -9,8 +9,8 @@ const Page404 = () => {
   const navigate = useNavigate();
 
   const buttonOptions: ButtonProps = {
-    typeVariants: "fill",
-    sizeVariants: "large",
+    typevariants: "fill",
+    sizevariants: "large",
     value: "홈으로 가기",
     disabled: false,
     onClick: () => {

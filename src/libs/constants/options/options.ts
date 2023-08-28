@@ -60,6 +60,7 @@ export const BUTTON_OPTIONS: {
 
   USE_COUPON: {
     ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
     value: BUTTON_VALUE.COUPON.USE,
   },
 

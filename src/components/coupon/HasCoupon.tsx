@@ -10,6 +10,7 @@ import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 
 const HasCoupon = () => {
+  let auto = true;
   return (
     <>
       <CouponTopSection>
