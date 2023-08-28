@@ -6,11 +6,14 @@ export interface CocktailProps {
 }
 
 export interface BarProps {
-  title: string;
-  img: string;
-  tags: string[];
+  barUid: number;
+  barName: string;
+  barPics: string;
+  barMood: string[];
+  barLocation: string;
   description: string;
-  address: string;
-  openhours: string[];
+  openhours: string;
   cocktails: CocktailProps[];
+  price: number;
+  discount: number;
 }

@@ -6,36 +6,40 @@ import Layout from "../../layouts/Layout";
 
 import addressIcon from "../../assets/icon/icon_pin.svg";
 import timeIcon from "../../assets/icon/icon_clock.svg";
+import cocktailIcon from "../../assets/icon/icon_cocktail.png";
+import arrow from "../../assets/throughArrow.svg";
 
 import Cocktail from "../../components/bardetail/Cocktail";
+import ImgContainer from "../../components/bardetail/ImgContainer";
+
 import Button from "../../components/common/button/Button";
+import Tag from "../../components/tag/Tag";
 
 import { ButtonProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";
-import Tag from "../../components/tag/Tag";
 
 const Bardetail = () => {
   const navigate = useNavigate();
 
   const btnOption: ButtonProps = {
-    typeVariants: "fill",
-    sizeVariants: "large",
+    typevariants: "fill",
+    sizevariants: "large",
     value: "ZAN 쿠폰 사용하기",
     disabled: false,
-    onClick(e) {
+    onClick() {
       navigate("/myCoupon");
     },
   };
 
   return (
     <Layout>
-      <Img src={BarInfo.img} alt="바 이미지" />
+      <ImgContainer barPics={BarInfo.barPics} />
       <BarInfoContainer>
-        <h2>{BarInfo.title}</h2>
+        <h2>{BarInfo.barName}</h2>
         <TagContainer>
-          {BarInfo.tags.map((tag, idx) => {
+          {BarInfo.barMood.map((tag, idx) => {
             const option = {
-              typeVariants: "tertiary",
+              typevariants: "secondary",
               value: tag,
               tagId: `tag${idx}`,
             };
@@ -47,12 +51,9 @@ const Bardetail = () => {
           })}
         </TagContainer>
         <p>{BarInfo.description}</p>
-        <address>{BarInfo.address}</address>
-        <ul>
-          {BarInfo.openHours.map((time, idx) => {
-            return <li key={idx}>{time}</li>;
-          })}
-        </ul>
+        <Address>{BarInfo.barLocation}</Address>
+        <Opening>{BarInfo.openhours}</Opening>
+        {generateCoverCharge(10000, 1000)}
       </BarInfoContainer>
       <BottomContainer>
         <h3 className="a11y-hidden">칵테일 목록</h3>
@@ -66,6 +67,20 @@ const Bardetail = () => {
     </Layout>
   );
 };
+
+function generateCoverCharge<T extends number | undefined>(price: T, discount: T) {
+  if (price === undefined) return null;
+
+  const priceText = !!discount ? <span>{price}원</span> : `${price}원`;
+  const discountText = !!discount ? <strong>{discount}원 (쟈닛 고객 한정 할인)</strong> : "";
+
+  return (
+    <CoverCharge>
+      커버차지 {priceText}
+      {discountText}
+    </CoverCharge>
+  );
+}
 
 const Img = styled.img`
   width: 100%;
@@ -87,45 +102,68 @@ const BarInfoContainer = styled.section`
     margin-bottom: 12px;
     line-height: 1.5;
   }
+`;
 
-  address,
-  address + ul {
-    position: relative;
-    color: var(--gray500-color);
-    font-family: var(--font--Medium);
-    font-size: 12px;
-    padding-left: 20px;
-    padding-top: 2px;
-  }
+const grayText = styled.span`
+  display: block;
+  position: relative;
+  color: var(--gray500-color);
+  font-family: var(--font--Medium);
+  font-size: 12px;
+  padding: 5px 0 5px 20px;
 
-  address + ul {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  address::before,
-  address + ul::before {
+  &::before {
     content: "";
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 0.5px;
+    top: 3px;
     left: 0;
   }
 
-  address::before {
+  & + span {
+    margin-top: 4px;
+  }
+`;
+
+const Address = styled(grayText)`
+  &::before {
     background: url(${addressIcon}) no-repeat center;
   }
+`;
 
-  address + ul::before {
-    background: url(${timeIcon}) no-repeat center;
+const Opening = styled(grayText)`
+  &::before {
+    background: url(${timeIcon}) no-repeat center / contain;
+  }
+`;
+
+const CoverCharge = styled(grayText)`
+  & > span {
+    text-decoration: line-through;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 12px;
+      top: 3px;
+      right: -13px;
+      background: url(${arrow}) no-repeat right;
+    }
+  }
+
+  &::before {
+    background: url(${cocktailIcon}) no-repeat center / contain;
+  }
+  strong {
+    margin-left: 18px;
   }
 `;
 
 const TagContainer = styled.ul`
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   li {
     display: inline-block;
   }
