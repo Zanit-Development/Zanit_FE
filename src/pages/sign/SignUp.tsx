@@ -26,7 +26,7 @@ const SignUp = () => {
             <label htmlFor="email" className="a11y-hidden">
               이메일
             </label>
-            <Input {...SIGNUP_OPTIONS.EMAIL} />
+            <Input {...SIGNUP_OPTIONS.PHONE} />
             <label htmlFor="password" className="a11y-hidden">
               비밀번호
             </label>
