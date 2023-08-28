@@ -64,6 +64,6 @@ export interface ButtonCloseProps {
 }
 
 export interface BackgroundType {
-  onClose: (e: MOUSE_EVENT) => void;
+  onClose?: (e: MOUSE_EVENT) => void;
   children: React.ReactNode;
 }
