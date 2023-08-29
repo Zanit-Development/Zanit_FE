@@ -6,17 +6,15 @@ import Logo from "../../assets/logo.svg";
 
 const Header = () => {
   return (
-    <HeaderContainer>
-      <h1>
-        <Link to="/">
-          <img src={Logo} alt="Zanit" />
-        </Link>
-      </h1>
-    </HeaderContainer>
+    <H1>
+      <Link to="/">
+        <img src={Logo} alt="Zanit" />
+      </Link>
+    </H1>
   );
 };
 
-const HeaderContainer = styled.header`
+const H1 = styled.h1`
   padding: 13px;
 `;
 
