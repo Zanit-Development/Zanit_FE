@@ -55,7 +55,8 @@ const BackgroundStyle = styled.div`
 // dropshadow 추가 필요
 const BoxStyle = styled.div<{ border: boolean }>`
   background-color: var(--white-color);
-  max-height: 95vh;
+  height: 85vh;
+  max-height: 786px;
   border-radius: 8px;
   position: fixed;
   top: 50%;
