@@ -14,6 +14,7 @@ import UseCoupon from "./pages/myCoupon/UseCoupon";
 import Bardetail from "./pages/barDetail/Bardetail";
 import PasswordFind from "./pages/sign/PasswordFind";
 import PasswordReset from "./pages/sign/PasswordReset";
+import BarManagement from "./pages/admin/bar/BarManagement";
 
 const App = () => {
   return (
@@ -32,6 +33,10 @@ const App = () => {
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
         <Route path="/password-reset" element={<PasswordReset />} />
+
+        <Route path="/admin/*">
+          <Route path="management" element={<BarManagement />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
