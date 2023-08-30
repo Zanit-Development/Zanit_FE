@@ -37,7 +37,7 @@ const SignUp = () => {
     e.preventDefault();
     const userData = {
       userPhone: phoneNumValue,
-      userPassword: phoneNumValue,
+      userPassword: passwordValue,
       userName: nameValue,
       // 일단 넣어둠
       userGender: true,
