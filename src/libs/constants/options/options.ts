@@ -88,14 +88,16 @@ export const SIGNIN_OPTIONS = {
     ...INPUT_OPTIONS_BASE,
     type: "number",
     placeholder: PLACEHOLDER_SIGN.IN.PHONE,
-    id: "phoneNum",
+    id: "userphone",
+    name: "userphone",
   },
 
   PASSWORD: {
     ...INPUT_OPTIONS_BASE,
-    id: "password",
+    id: "userpassword",
     type: "password",
     placeholder: PLACEHOLDER_SIGN.IN.PASSWORD,
+    name: "userpassword",
   },
 };
 
