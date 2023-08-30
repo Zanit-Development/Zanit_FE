@@ -8,6 +8,7 @@ import { AxiosOptions } from "../interface/interfaceCommon";
 import { BASE_URL } from "./baseUrl";
 
 const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
+  console.log(options);
   const instance = axios.create({
     baseURL: url,
     ...options,
