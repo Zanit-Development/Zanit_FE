@@ -7,13 +7,13 @@ import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 
 const SignIn = () => {
-  const [emailValue, setEmailValue] = useState("");
+  const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    if (id === "email") {
-      setEmailValue(value);
+    if (id === "phoneNum") {
+      setPhoneNumValue(value);
     } else if (id === "password") {
       setPasswordValue(value);
     }
@@ -24,10 +24,10 @@ const SignIn = () => {
       <SignInSection>
         <h2>로그인</h2>
         <SignInForm action="">
-          <label htmlFor="email" className="a11y-hidden">
-            이메일
+          <label htmlFor="phoneNum" className="a11y-hidden">
+            핸드폰 번호
           </label>
-          <Input {...SIGNIN_OPTIONS.PHONE} onChange={handleInputChange} value={emailValue} />
+          <Input {...SIGNIN_OPTIONS.PHONE} onChange={handleInputChange} value={phoneNumValue} />
           <label htmlFor="password" className="a11y-hidden">
             비밀번호
           </label>
