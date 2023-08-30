@@ -15,7 +15,7 @@ import iconClose from "../../assets/icon/icon_close.svg";
 
 export const Modal = ({ border, children, onClose }: ModalProps) => {
   useEffect(() => {
-    const root = document.getElementById("root")!;
+    const root = document.body;
     root.style.cssText = `
       position: fixed;
       top: -${window.scrollY}px;
