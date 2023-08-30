@@ -5,7 +5,7 @@ import { ManageOrder } from "./ManageOrder";
 
 export type MANAGEMENT_TYPE_VARIANTS = "manageInfo" | "manageOrder";
 
-export const BarManagement = () => {
+const BarManagement = () => {
   const [manageType, setManageType] = useState<MANAGEMENT_TYPE_VARIANTS>("manageInfo");
 
   return (
@@ -24,3 +24,5 @@ export const BarManagement = () => {
     </Layout>
   );
 };
+
+export default BarManagement;
