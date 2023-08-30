@@ -1,102 +1,91 @@
 /**
  * 모달
- * type
- *  싱글 : 버튼 1개
- *  더블 : 버튼 2개
- * title : 제목
- * content : 내용
- * buttonOptions : 버튼 옵션 목록(1 ~ 2개)
+ * border : boolean
+ * children : 내부 콘텐츠
+ * onClose : 닫기 함수
  */
 
-import React from "react";
-import { ModalProps } from "../../libs/interface/interfaceCommon";
-import { styled } from "styled-components";
-import closeButton from "../../assets/icon/icon_close.svg";
-import Button from "../common/button/Button";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { css, styled } from "styled-components";
 
-export const Modal = ({ ...props }: ModalProps) => {
-  return props.activate ? (
-    <ModalCover>
-      <ModalContainer>
-        <ClosedButton>
-          <img src={closeButton} alt="닫기" />
-        </ClosedButton>
-        <hr />
-        <h2>{props.title}</h2>
-        <p>{props.content}</p>
-        <ButtonContainer>
-          {props.typevariants === "double" ? (
-            <Button {...props.buttonoptions[0]} />
-          ) : (
-            <>
-              <Button {...props.buttonoptions[0]} />
-              <Button {...props.buttonoptions[1]} />
-            </>
-          )}
+import { ModalProps } from "../../libs/interface/interfaceCommon";
+
+import iconClose from "../../assets/icon/icon_close.svg";
+
+export const Modal = ({ border, children, onClose }: ModalProps) => {
+  useEffect(() => {
+    const root = document.body;
+    root.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = root.style.top;
+      root.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
+
+  return createPortal(
+    <BackgroundStyle onClick={onClose}>
+      <BoxStyle border={border} onClick={(e) => e.stopPropagation()}>
+        {children}
+        <ButtonContainer onClick={onClose}>
+          <img src={iconClose} alt="닫기 버튼" />
         </ButtonContainer>
-      </ModalContainer>
-    </ModalCover>
-  ) : (
-    []
+      </BoxStyle>
+    </BackgroundStyle>,
+    document.getElementById("modal")!
   );
 };
 
-const ModalCover = styled.div`
+const BackgroundStyle = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 9999;
+  z-index: 99999;
 `;
 
-const ModalContainer = styled.article`
-  position: absolute;
+// dropshadow 추가 필요
+const BoxStyle = styled.div<{ border: boolean }>`
+  background-color: var(--white-color);
+  height: fit-content;
+  max-height: 85vh;
+  border-radius: 8px;
+  position: fixed;
   top: 50%;
   left: 50%;
-  width: 350px;
-  background-color: white;
-  border-radius: 8px;
   transform: translate(-50%, -50%);
+  overflow-y: auto;
 
-  & > hr {
-    margin-top: 35px;
-    background-color: #e2e2e2;
-  }
-
-  & h2 {
-    margin-bottom: 10px;
-    padding: 20px 30px 0;
-    font-family: var(--font--Medium);
-    font-size: 1.4rem;
-  }
-
-  & p {
-    padding: 0 30px 30px;
-    white-space: pre-line;
-  }
+  ${({ border }) =>
+    border &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        height: 1px;
+        background-color: #e2e2e2;
+      }
+    `}
 `;
 
-const ButtonContainer = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 0 30px;
-
-  & button {
-    width: calc(100% - 60px);
-    margin-bottom: 30px;
-  }
-`;
-
-const ClosedButton = styled.button`
+const iconSize = "15px";
+const iconPadding = "5px";
+const ButtonContainer = styled.button`
+  width: ${iconSize};
+  height: ${iconSize};
+  padding: ${iconPadding};
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 15px;
-  height: 15px;
-  text-align: center;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
 `;
