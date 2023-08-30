@@ -25,8 +25,8 @@ const Nav = () => {
   // 로그아웃 띄우기 -> const token = true;
 
   return (
-    <nav>
-      <Ul>
+    <Navbar>
+      <ul>
         <li>
           <NavLink
             to="/search"
@@ -75,22 +75,30 @@ const Nav = () => {
             </NavLink>
           </li>
         )}
-      </Ul>
-    </nav>
+        <li>
+          <a href="https://forms.gle/xK4mEQeT9uZ5SstLA">의견 보내기</a>
+        </li>
+      </ul>
+    </Navbar>
   );
 };
 
 export default Nav;
 
-const Ul = styled.ul`
-  display: flex;
-  gap: 24px;
-  padding: 0 15px;
-  margin-bottom: 27px;
+const Navbar = styled.nav`
+  padding-bottom: 20px;
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 15px;
 
-  a {
-    display: inline-block;
-    padding: 15px 0 8px;
-    font-size: 15px;
+    a {
+      display: inline-block;
+      padding: 15px 0 8px;
+      font-size: 15px;
+    }
   }
 `;
+
+const Ul = styled.ul``;

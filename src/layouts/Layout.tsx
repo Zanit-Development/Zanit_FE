@@ -11,10 +11,14 @@ type WrapperProps = {
 const Layout = ({ children }: WrapperProps) => {
   return (
     <LayoutWrap>
-      <Header />
-      <Nav />
-      <main>{children}</main>
-      <Footer />
+      <FixHeader>
+        <Header />
+        <Nav />
+      </FixHeader>
+      <ScrollMain>
+        <main>{children}</main>
+        <Footer />
+      </ScrollMain>
     </LayoutWrap>
   );
 };
@@ -24,5 +28,33 @@ export default Layout;
 const LayoutWrap = styled.div`
   max-width: 390px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: var(--white-color);
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const FixHeader = styled.header`
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  background-color: var(--white-color);
+`;
+
+const ScrollMain = styled.div`
+  height: calc(100vh - 115px);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #b7b7b7;
+    border-radius: 5px;
+  }
 `;
