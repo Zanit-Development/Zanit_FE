@@ -1,40 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 
 import icon_check from "../../assets/icon/check.svg";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
+import { FORM_EVENT } from "../../libs/interface/typeEvent";
+import { signUpAPI } from "../../libs/apis/user";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
+  const [nameValue, setNameValue] = useState("");
+  const [phoneNumValue, setPhoneNumValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+  const [passwordCheckValue, setPasswordCheckValue] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+
+    if (id === "name") {
+      setNameValue(value);
+    } else if (id === "phoneNum") {
+      setPhoneNumValue(value);
+    } else if (id === "password") {
+      setPasswordValue(value);
+    } else if (id === "passwordCheck") {
+      setPasswordCheckValue(value);
+    }
+  };
+
+  const sendSignup = async (e: FORM_EVENT) => {
+    console.log(nameValue, phoneNumValue, passwordValue, passwordCheckValue);
+    e.preventDefault();
+    const userData = {
+      userPhone: phoneNumValue,
+      userPassword: phoneNumValue,
+      userName: nameValue,
+      // 일단 넣어둠
+      userGender: true,
+      marketing: true,
+    };
+    const response = await signUpAPI(userData);
+    if (response && (response as any).status === 200) {
+      navigate("/signIn");
+    }
+  };
+
   return (
     <Layout>
       <SignUpSection>
         <h2>회원가입</h2>
-        <SignUpForm action="">
+        <SignUpForm onSubmit={sendSignup}>
           <InputGap>
             <label htmlFor="name" className="a11y-hidden">
               이름
             </label>
-            <Input {...SIGNUP_OPTIONS.NAME} />
+            <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={nameValue} />
             <label htmlFor="phoneNum" className="a11y-hidden">
               핸드폰 번호
             </label>
-            <Input {...SIGNUP_OPTIONS.PHONE} />
-            <label htmlFor="email" className="a11y-hidden">
-              이메일
-            </label>
-            <Input {...SIGNUP_OPTIONS.PHONE} />
+            <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={phoneNumValue} />
             <label htmlFor="password" className="a11y-hidden">
               비밀번호
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD} onChange={handleInputChange} value={passwordValue} />
             <label htmlFor="passwordCheck" className="a11y-hidden">
               비밀번호 확인
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} onChange={handleInputChange} value={passwordCheckValue} />
           </InputGap>
 
           <CheckField>

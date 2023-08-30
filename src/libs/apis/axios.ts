@@ -5,8 +5,9 @@
 import axios from "axios";
 import { authToken } from "../../auth/token";
 import { AxiosOptions } from "../interface/interfaceCommon";
+import { BASE_URL } from "./baseUrl";
 
-export const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
+const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
     baseURL: url,
     ...options,
@@ -15,7 +16,7 @@ export const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 })
   return instance;
 };
 
-export const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
+const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const token = authToken;
   const instance = axios.create({
     baseURL: url,
@@ -30,3 +31,6 @@ export const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 800
 
   return instance;
 };
+
+export const defaultInstance = axiosApi(BASE_URL);
+export const authInstance = axiosAuthApi(BASE_URL);
