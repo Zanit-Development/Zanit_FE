@@ -20,6 +20,7 @@ const HasCoupon = () => {
   let possibility = "9월 3일";
   let impossibility = "9월 4일";
   let expiration = "9월 25일";
+  const dateInfo = use ? `이 쿠폰은 ${possibility}까지\n사용할 수 있어요` : `다음 쿠폰은\n${impossibility}에 만나요`;
 
   return (
     <>
@@ -28,29 +29,12 @@ const HasCoupon = () => {
           {name}님은 {subscribeStart}부터 구독중이예요
         </p>
         {auto || <p>구독 만료일은 {expiration}까지예요</p>}
-        {use ? (
-          <CouponArticle use={true}>
-            <TextDiv>
-              <span>멤버십 이용중</span>
-              <p>
-                이 쿠폰은 {possibility}까지
-                <br />
-                사용할 수 있어요
-              </p>
-            </TextDiv>
-          </CouponArticle>
-        ) : (
-          <CouponArticle use={false}>
-            <TextDiv>
-              <span>멤버십 이용중</span>
-              <p>
-                다음 쿠폰은
-                <br />
-                {impossibility}에 만나요
-              </p>
-            </TextDiv>
-          </CouponArticle>
-        )}
+        <CouponArticle use>
+          <TextDiv>
+            <span>멤버십 이용중</span>
+            <p>{dateInfo}</p>
+          </TextDiv>
+        </CouponArticle>
         {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} /> : <ManualPaymentCoupon />}
       </CouponTopSection>
       <CouponBottomSection>
@@ -106,6 +90,7 @@ const TextDiv = styled.div`
   }
 
   p {
+    white-space: pre-wrap;
     line-height: 1.5;
   }
 `;
