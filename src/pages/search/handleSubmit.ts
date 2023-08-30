@@ -3,7 +3,7 @@ import { FORM_EVENT } from "../../libs/interface/typeEvent";
 
 const handleSubmit = async (e: FORM_EVENT, inputValue: string) => {
   e.preventDefault();
-  const value: any = inputValue;
+  const value = inputValue;
   const requestUrl = `searchCocktail?cocktailName=${value}`;
 
   try {
