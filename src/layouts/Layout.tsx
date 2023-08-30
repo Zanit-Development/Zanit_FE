@@ -41,7 +41,11 @@ const FixHeader = styled.header`
 `;
 
 const ScrollMain = styled.div`
-  height: calc(100vh - 115px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: calc(100vh - 112px);
   overflow-y: auto;
 
   &::-webkit-scrollbar-track {
