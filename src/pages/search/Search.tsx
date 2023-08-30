@@ -8,14 +8,11 @@ import Tag from "../../components/tag/Tag";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import Item from "../../components/common/item/Item";
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
+import handleSubmit from "./handleSubmit";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
-
-  const handleSubmit = (e: FORM_EVENT) => {
-    e.preventDefault();
-  };
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -46,7 +43,7 @@ const Search = () => {
 
   return (
     <Layout>
-      <InputContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
+      <InputContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e, inputValue)}>
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
       </InputContainer>
