@@ -50,20 +50,7 @@ export interface ItemProps {
 }
 
 export interface ModalProps {
-  typevariants: MODAL_TYPE_VARIANTS;
-  title: string;
-  content: string;
-  buttonoptions: ButtonProps[];
-  activate: boolean;
-}
-
-export interface ButtonCloseProps {
-  top: number;
-  right: number;
-  onClose: (e: MOUSE_EVENT) => void;
-}
-
-export interface BackgroundType {
+  border: boolean;
   onClose?: (e: MOUSE_EVENT) => void;
   children: React.ReactNode;
 }
