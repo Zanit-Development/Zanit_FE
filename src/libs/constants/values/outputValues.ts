@@ -14,6 +14,7 @@ export const BUTTON_VALUE = {
   COUPON: {
     USE: "쿠폰 바로 사용하기",
     ZAN: "ZAN 쿠폰 사용하기",
+    EXTEND: "멤버십 연장하기",
   },
 
   PAYMENT: {

@@ -3,13 +3,21 @@ import icon_poker_face from "../../assets/icon/icon_poker_face.svg";
 import Button from "./../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router";
+import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
 const NotCoupon = () => {
+  const navigate = useNavigate();
+
+  const subscribePage = (e: BUTTON_EVENT) => {
+    navigate("/subscribe");
+  };
+
   return (
     <NotCouponSection>
       <strong>아직 멤버십을 구독하지 않았어요</strong>
       <p>Zanit을 통해 새로운 칵테일 경험을 시작해봐요!</p>
-      <Button {...BUTTON_OPTIONS.SUBSCRIBE} />
+      <Button {...BUTTON_OPTIONS.SUBSCRIBE} onClick={subscribePage} />
     </NotCouponSection>
   );
 };
