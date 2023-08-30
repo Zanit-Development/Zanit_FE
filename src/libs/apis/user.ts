@@ -13,7 +13,7 @@ interface user {
 export const signUpAPI = async (userData: user) => {
   const { userPhone, userPassword, userName, userGender, marketing } = userData;
   try {
-    const res = await defaultInstance.post("/post", { userPhone, userPassword, userName, userGender, marketing });
+    const res = await defaultInstance.post("/signup", { userPhone, userPassword, userName, userGender, marketing });
     return res;
   } catch (e) {
     return e;
