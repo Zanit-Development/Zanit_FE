@@ -34,6 +34,7 @@ export const BUTTON_OPTIONS: {
 
   SUBSCRIBE: {
     ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
     value: BUTTON_VALUE.SUBSCRIBE,
   },
 
@@ -62,6 +63,13 @@ export const BUTTON_OPTIONS: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
     value: BUTTON_VALUE.COUPON.USE,
+  },
+
+  EXTEND_COUPON: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.COUPON.EXTEND,
   },
 
   OK: {
