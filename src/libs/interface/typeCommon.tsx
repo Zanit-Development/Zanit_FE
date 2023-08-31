@@ -5,7 +5,7 @@
 export type BUTTON_TYPE_VARIANTS = "fill" | "stroke";
 export type BUTTON_SIZE_VARIANTS = "large" | "small";
 
-export type INPUT_TYPE_VARIANTS = "primary" | "secondary";
+export type INPUT_TYPE_VARIANTS = "basic" | "search";
 export type INPUT_SIZE_VARIANTS = "large" | "medium" | "small";
 
 export type TAG_TYPE_VARIANTS = "primary" | "secondary" | "tertiary";
