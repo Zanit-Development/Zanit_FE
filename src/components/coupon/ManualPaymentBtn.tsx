@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import speech_bubble from "../../assets/speech_bubble.svg";
+import { useNavigate } from "react-router";
+import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
 const ManualPaymentCoupon = () => {
   let benefit = "25%";
+  const navigate = useNavigate();
+  const useCouponPage = useCallback((e: BUTTON_EVENT) => {
+    navigate("/useCoupon");
+  }, []);
+
   return (
     <>
       <ButtonDiv>
         <Button {...BUTTON_OPTIONS.EXTEND_COUPON} />
-        <Button {...BUTTON_OPTIONS.USE_COUPON} />
+        <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} />
       </ButtonDiv>
       <BenefitNote>
         <p>{benefit} 저렴한 구독 방법이 있어요!</p>
