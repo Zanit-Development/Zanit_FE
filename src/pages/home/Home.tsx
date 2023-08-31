@@ -25,7 +25,7 @@ const Home = () => {
   };
 
   const inputOptions: InputProps = {
-    typevariants: "secondary",
+    typevariants: "search",
     sizevariants: "medium",
     value: inputValue,
     type: "text",
