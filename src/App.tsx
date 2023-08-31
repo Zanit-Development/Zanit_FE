@@ -1,7 +1,6 @@
 import React from "react";
 import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RecoilRoot } from "recoil";
 
 import Home from "./pages/home/Home";
 import NotFound from "./pages/NotFound/NotFound";
@@ -11,9 +10,11 @@ import SignUp from "./pages/sign/SignUp";
 import Subscribe from "./pages/subscribe/Subscribe";
 import MyCoupon from "./pages/myCoupon/MyCoupon";
 import HowToUse from "./pages/myCoupon/HowToUse";
+import UseCoupon from "./pages/myCoupon/UseCoupon";
 import Bardetail from "./pages/barDetail/Bardetail";
 import PasswordFind from "./pages/sign/PasswordFind";
 import PasswordReset from "./pages/sign/PasswordReset";
+import BarManagement from "./pages/admin/bar/BarManagement";
 
 const App = () => {
   return (
@@ -27,10 +28,15 @@ const App = () => {
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/myCoupon" element={<MyCoupon />} />
         <Route path="/how-to-use" element={<HowToUse />} />
+        <Route path="/useCoupon" element={<UseCoupon />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
         <Route path="/password-reset" element={<PasswordReset />} />
+
+        <Route path="/admin/*">
+          <Route path="management" element={<BarManagement />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

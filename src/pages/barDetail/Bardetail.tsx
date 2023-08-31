@@ -4,16 +4,12 @@ import { styled } from "styled-components";
 
 import Layout from "../../layouts/Layout";
 
-import addressIcon from "../../assets/icon/icon_pin.svg";
-import timeIcon from "../../assets/icon/icon_clock.svg";
-import cocktailIcon from "../../assets/icon/icon_cocktail.png";
-import arrow from "../../assets/throughArrow.svg";
-
 import Cocktail from "../../components/bardetail/Cocktail";
 import ImgContainer from "../../components/bardetail/ImgContainer";
 
 import Button from "../../components/common/button/Button";
 import Tag from "../../components/tag/Tag";
+import { Address, Opening, CoverCharge } from "../../components/common/text";
 
 import { ButtonProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";
@@ -101,64 +97,6 @@ const BarInfoContainer = styled.section`
     font-family: var(--font--Medium);
     margin-bottom: 12px;
     line-height: 1.5;
-  }
-`;
-
-const grayText = styled.span`
-  display: block;
-  position: relative;
-  color: var(--gray500-color);
-  font-family: var(--font--Medium);
-  font-size: 12px;
-  padding: 5px 0 5px 20px;
-
-  &::before {
-    content: "";
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 3px;
-    left: 0;
-  }
-
-  & + span {
-    margin-top: 4px;
-  }
-`;
-
-const Address = styled(grayText)`
-  &::before {
-    background: url(${addressIcon}) no-repeat center;
-  }
-`;
-
-const Opening = styled(grayText)`
-  &::before {
-    background: url(${timeIcon}) no-repeat center / contain;
-  }
-`;
-
-const CoverCharge = styled(grayText)`
-  & > span {
-    text-decoration: line-through;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 12px;
-      top: 3px;
-      right: -13px;
-      background: url(${arrow}) no-repeat right;
-    }
-  }
-
-  &::before {
-    background: url(${cocktailIcon}) no-repeat center / contain;
-  }
-  strong {
-    margin-left: 18px;
   }
 `;
 
