@@ -2,7 +2,17 @@
  * 인터페이스
  */
 
-import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS, MODAL_TYPE_VARIANTS } from "./typeCommon";
+import {
+  BUTTON_TYPE_VARIANTS,
+  BUTTON_SIZE_VARIANTS,
+  INPUT_TYPE_VARIANTS,
+  INPUT_SIZE_VARIANTS,
+  TAG_TYPE_VARIANTS,
+  ITEM_TYPE_VARIANTS,
+  MODAL_TYPE_VARIANTS,
+  SELECT_TYPE_VARIANTS,
+  SELECT_SIZE_VARIANTS,
+} from "./typeCommon";
 import { BUTTON_EVENT, INPUT_EVENT, MOUSE_EVENT } from "./typeEvent";
 
 export interface AxiosOptions {
@@ -53,4 +63,11 @@ export interface ModalProps {
   border: boolean;
   onClose?: (e: MOUSE_EVENT) => void;
   children: React.ReactNode;
+}
+
+export interface SelectProps {
+  typevariants: SELECT_TYPE_VARIANTS;
+  sizevariants: SELECT_SIZE_VARIANTS;
+  id?: string;
+  options: string[];
 }
