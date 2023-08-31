@@ -1,20 +1,21 @@
 import React from "react";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 import { StyledInputOption } from "./inputOptions";
 
-const Input = ({ typevariants = "primary", sizevariants = "large", ...props }: InputProps) => {
+const Input = ({ typevariants = "basic", sizevariants = "large", ...props }: InputProps) => {
   return <StyledInput typevariants={typevariants} sizevariants={sizevariants} {...props} />;
 };
 
 export default Input;
 
 const StyledInput = styled.input<StyledInputOption>`
+  ${(props) => TYPE_VARIANTS[props.typevariants]}
+
   width: 100%;
   height: ${(props) => SIZE_VARIANTS[props.sizevariants]};
   padding: 20px;
   background-color: white;
-  border-radius: ${(props) => TYPE_VARIANTS[props.typevariants]};
   box-sizing: border-box;
   font-family: var(--font-Medium);
   font-size: 0.8rem;
@@ -31,8 +32,15 @@ const StyledInput = styled.input<StyledInputOption>`
 `;
 
 const TYPE_VARIANTS = {
-  primary: "4px",
-  secondary: "24px",
+  basic: css`
+    border: 1px solid var(--gray200-color);
+    border-radius: 4px;
+  `,
+
+  search: css`
+    border: none;
+    border-radius: 24px;
+  `,
 };
 
 const SIZE_VARIANTS = {
