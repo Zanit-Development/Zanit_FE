@@ -70,4 +70,6 @@ export interface SelectProps {
   sizevariants: SELECT_SIZE_VARIANTS;
   id?: string;
   options: string[];
+  value: string[];
+  onChange: Function;
 }
