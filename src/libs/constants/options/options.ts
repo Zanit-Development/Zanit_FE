@@ -3,7 +3,7 @@ import { BUTTON_VALUE } from "../values/outputValues";
 import { ButtonProps, InputProps } from "../../interface/interfaceCommon";
 
 const INPUT_OPTIONS_BASE: InputProps = {
-  typevariants: "primary",
+  typevariants: "basic",
   sizevariants: "large",
   type: "text",
   value: "",
