@@ -27,21 +27,21 @@ const SignIn = () => {
   const sendSignin = async (e: FORM_EVENT) => {
     console.log(phoneNumValue, passwordValue);
     e.preventDefault();
-    // const userData = {
-    //   id: phoneNumValue,
-    //   pw: passwordValue,
-    // };
+    const userData = {
+      id: phoneNumValue,
+      pw: passwordValue,
+    };
 
-    const formData = new FormData();
-    formData.append("userphone", phoneNumValue);
-    formData.append("userpassword", passwordValue);
-    // const response = await signInAPI(userData);
-    try {
-      const res = await defaultInstance.post("/loginOk", formData);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+    // const formData = new FormData();
+    // formData.append("id", phoneNumValue);
+    // formData.append("pw", passwordValue);
+    const response = await signInAPI(userData);
+    // try {
+    //   const res = await defaultInstance.post("/loginOk", formData);
+    //   console.log(res);
+    // } catch (e) {
+    //   console.log(e);
+    // }
 
     // if (response && (response as any).status === 200) {
     //   navigate("/");

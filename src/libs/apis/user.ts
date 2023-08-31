@@ -28,9 +28,12 @@ export interface signInUser {
 export const signInAPI = async (userData: signInUser) => {
   const { id, pw } = userData;
   try {
-    const res = await authInstance.post("/loginOk", { id, pw });
+    const res = await defaultInstance.post("/loginOk", { id, pw });
+    console.log(res);
+
     return res;
   } catch (e) {
+    console.error(e);
     return e;
   }
 };
