@@ -1,8 +1,8 @@
-import { InputProps } from "../../../libs/interface/interfaceCommon";
+import { InputProps, SelectProps } from "../../../libs/interface/interfaceCommon";
 import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
-const InfoBase: InputProps = {
-  typevariants: "primary",
+const inputBase: InputProps = {
+  typevariants: "basic",
   sizevariants: "small",
   type: "text",
   value: "",
@@ -14,28 +14,58 @@ const InfoBase: InputProps = {
 
 export const BAR_INFO = {
   NAME: {
-    ...InfoBase,
+    ...inputBase,
     id: "barName",
     placeholder: "상호명을 입력해주세요(띄어쓰기 없이)",
   },
   LOCATION: {
-    ...InfoBase,
+    ...inputBase,
     id: "barLocation",
     placeholder: "전체 주소",
   },
   MOOD: {
-    ...InfoBase,
+    ...inputBase,
     id: "barMood",
     placeholder: "상호명을 입력해주세요(띄어쓰기 없이)",
   },
   COVER_CHARGE: {
-    ...InfoBase,
+    ...inputBase,
     id: "coverCharge",
     placeholder: "기존 금액",
   },
   DISCOUNT: {
-    ...InfoBase,
+    ...inputBase,
     id: "discount",
     placeholder: "쟈닛 고객의 할인된 커버차지 금액",
+  },
+};
+
+const selectBase: SelectProps = {
+  typevariants: "stroke",
+  sizevariants: "small",
+  id: "",
+  options: [],
+  values: [],
+  onChange: () => {},
+};
+
+export const SELECT = {
+  MOOD: {
+    ...selectBase,
+    id: "selectMood",
+    options: ["가", "나", "다"],
+    values: [],
+  },
+  COVER_CHARGE: {
+    ...selectBase,
+    id: "selectCoverCharge",
+    options: ["가", "나", "다"],
+    values: [],
+  },
+  DISCOUNT: {
+    ...selectBase,
+    id: "selectDiscount",
+    option: ["가", "나", "다"],
+    values: [],
   },
 };
