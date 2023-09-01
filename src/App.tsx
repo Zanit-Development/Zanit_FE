@@ -15,6 +15,7 @@ import Bardetail from "./pages/barDetail/Bardetail";
 import PasswordFind from "./pages/sign/PasswordFind";
 import PasswordReset from "./pages/sign/PasswordReset";
 import BarManagement from "./pages/admin/bar/BarManagement";
+import { ManageOrder } from "./pages/admin/bar/ManageOrder";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -38,6 +39,7 @@ const App = () => {
 
         <Route path="/admin/*">
           <Route path="management" element={<BarManagement />} />
+          <Route path="manageorder" element={<ManageOrder />} />
         </Route>
       </Routes>
     </BrowserRouter>
