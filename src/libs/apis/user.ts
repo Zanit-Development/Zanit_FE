@@ -1,6 +1,6 @@
 // 유저 로그인, 회원가입 API
 
-import { authInstance, defaultInstance } from "./axios";
+import { authInstance, defaultInstance, formDataInstance } from "./axios";
 
 interface signUpUser {
   userPhone: string;
@@ -20,16 +20,12 @@ export const signUpAPI = async (userData: signUpUser) => {
   }
 };
 
-export interface signInUser {
-  id: string;
-  pw: string;
-}
-
-export const signInAPI = async (userData: signInUser) => {
-  const { id, pw } = userData;
+export const signInAPI = async (formData: FormData) => {
   try {
-    const res = await defaultInstance.post("/loginOk", { id, pw });
-    console.log(res);
+    console.log(formData.get("userphone"));
+    console.log(formData.get("userpassword"));
+
+    const res = await formDataInstance.post("/loginOk", formData);
 
     return res;
   } catch (e) {
