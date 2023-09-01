@@ -29,9 +29,10 @@ const AdminLayout = ({ children }: WrapperProps) => {
       <FixHeader>
         <H1>
           <Link to="/admin/management">
-            <img src={Logo} alt="Zanit" />
+            <img src={Logo} alt="Zanit 관리자 페이지" />
           </Link>
         </H1>
+        <strong>관리자 페이지</strong>
       </FixHeader>
       <Navbar>
         <ul>
@@ -72,6 +73,14 @@ const FixHeader = styled.header`
   position: sticky;
   top: 0;
   background-color: var(--white-color);
+
+  strong {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font--Bold);
+  }
 `;
 
 const H1 = styled.h1`
