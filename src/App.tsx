@@ -17,8 +17,10 @@ import PasswordReset from "./pages/sign/PasswordReset";
 import BarManagement from "./pages/admin/bar/BarManagement";
 
 const App = () => {
+  const PUB_URL = process.env.PUBLIC_URL;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={PUB_URL}>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
