@@ -14,7 +14,7 @@ const StyledInput = styled.input<StyledInputOption>`
 
   width: 100%;
   height: ${(props) => SIZE_VARIANTS[props.sizevariants]};
-  padding: 20px;
+  padding: 0 10px;
   background-color: white;
   box-sizing: border-box;
   font-family: var(--font-Medium);

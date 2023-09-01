@@ -32,5 +32,18 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
   return instance;
 };
 
+const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
+  const instance = axios.create({
+    baseURL: url,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    ...options,
+  });
+
+  return instance;
+};
+
 export const defaultInstance = axiosApi(BASE_URL);
 export const authInstance = axiosAuthApi(BASE_URL);
+export const formDataInstance = axiosFormApi(BASE_URL);

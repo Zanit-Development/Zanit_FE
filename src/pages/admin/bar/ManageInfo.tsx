@@ -38,6 +38,7 @@ export const ManageInfo = () => {
   };
 
   return (
+    //prettier-ignore
     <StyledForm>
       <h2 className="a11y-hidden">정보 관리</h2>
       <StyledSection>
@@ -59,9 +60,7 @@ export const ManageInfo = () => {
       </StyledSection>
       <StyledSection>
         <StyledH3>
-          커버차지
-          <br />
-          할　　인
+          커버차지<br />할 　 인
         </StyledH3>
         <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
         <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={handleChangeInput} />
@@ -69,22 +68,32 @@ export const ManageInfo = () => {
     </StyledForm>
   );
 };
+
+const StyledForm = styled.form`
+  padding: 20px;
+`;
+
 const StyledSection = styled.section`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
+  margin-bottom: 30px;
+
+  & > input {
+    flex-basis: 100%;
+  }
+
+  &:nth-of-type(4) > input,
+  &:nth-of-type(5) > input {
+    flex-shrink: 0.6;
+  }
 `;
 
 const StyledH3 = styled.h3`
-  width: 60px;
+  min-width: 60px;
   font-family: var(--font--Bold);
-`;
-
-const StyledForm = styled.form`
-  & h3 {
-  }
-
-  & section {
-  }
+  font-size: 0.875rem;
+  text-align: left;
+  letter-spacing: 0px;
 `;
