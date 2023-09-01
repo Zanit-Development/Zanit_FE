@@ -5,6 +5,7 @@ export const BUTTON_VALUE = {
   SUBSCRIBE_NOW: "지금 구독하기",
   OK: "확인",
   PASSWORD_RESET: "재설정하기",
+  BACK_MYCOUPON: "내 쿠폰함으로 돌아가기",
 
   SIGN: {
     IN: "로그인",
@@ -26,5 +27,10 @@ export const BUTTON_VALUE = {
   ADMIN: {
     SAVE: "저장하기",
     UPDATE: "수정하기",
+  },
+
+  MEMBERSHIP_STOP: {
+    CANCLE: "돌아가기",
+    OK: "구독취소하기",
   },
 };

@@ -81,6 +81,25 @@ export const BUTTON_OPTIONS: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.PASSWORD_RESET,
   },
+
+  USE_COUPON_HISTORY: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.BACK_MYCOUPON,
+  },
+
+  MEMBERSHIP_STOP_CANCLE: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.CANCLE,
+  },
+
+  MEMBERSHIP_STOP_OK: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.OK,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
