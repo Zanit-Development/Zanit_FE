@@ -32,5 +32,7 @@ export const BUTTON_VALUE = {
   MEMBERSHIP_STOP: {
     CANCLE: "돌아가기",
     OK: "구독취소하기",
+    PROMOTION: "할인 혜택 유지하기",
+    PROMOTION_CANCLE: "해지하기",
   },
 };

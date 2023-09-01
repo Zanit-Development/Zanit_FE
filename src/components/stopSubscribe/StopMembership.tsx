@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import Button from "../common/button/Button";
 import { useNavigate } from "react-router";
+import { PopupPromotion } from "./PopupPromotion";
 
 export const StopMembership = () => {
   const navigate = useNavigate();
   const goMain = () => {
     navigate("/");
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
   return (
     <StopMembershipContent>
@@ -23,8 +33,9 @@ export const StopMembership = () => {
       </ul>
       <ButtonDiv>
         <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_CANCLE} onClick={goMain} />
-        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_OK} />
+        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_OK} onClick={openModal} />
       </ButtonDiv>
+      {isModalOpen && <PopupPromotion closeModal={closeModal} />}
     </StopMembershipContent>
   );
 };

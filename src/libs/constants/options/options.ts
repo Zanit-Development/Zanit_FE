@@ -100,6 +100,19 @@ export const BUTTON_OPTIONS: {
     sizevariants: "small",
     value: BUTTON_VALUE.MEMBERSHIP_STOP.OK,
   },
+
+  PROMOTION: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.PROMOTION,
+  },
+
+  PROMOTION_CANCLE: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.PROMOTION_CANCLE,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
