@@ -54,7 +54,7 @@ const UseCoupon = () => {
 };
 
 const MainContainer = styled.div`
-  margin: 30px 20px 35px;
+  padding: 10px 20px 35px;
 
   h2 {
     font-family: var(--font--Medium);
