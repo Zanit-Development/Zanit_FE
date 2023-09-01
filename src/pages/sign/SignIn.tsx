@@ -7,7 +7,6 @@ import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signInAPI } from "../../libs/apis/user";
-import { authInstance, defaultInstance } from "../../libs/apis/axios";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -27,25 +26,19 @@ const SignIn = () => {
   const sendSignin = async (e: FORM_EVENT) => {
     console.log(phoneNumValue, passwordValue);
     e.preventDefault();
-    const userData = {
-      id: phoneNumValue,
-      pw: passwordValue,
-    };
 
-    // const formData = new FormData();
-    // formData.append("id", phoneNumValue);
-    // formData.append("pw", passwordValue);
-    const response = await signInAPI(userData);
-    // try {
-    //   const res = await defaultInstance.post("/loginOk", formData);
-    //   console.log(res);
-    // } catch (e) {
-    //   console.log(e);
-    // }
-
-    // if (response && (response as any).status === 200) {
-    //   navigate("/");
-    // }
+    const formData = new FormData();
+    formData.append("userphone", phoneNumValue);
+    formData.append("userpassword", passwordValue);
+    try {
+      const response = await signInAPI(formData);
+      console.log(response);
+      if (response && (response as any).status === 200) {
+        navigate("/");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
