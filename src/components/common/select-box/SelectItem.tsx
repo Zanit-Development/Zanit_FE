@@ -7,11 +7,14 @@ interface itemType {
   option: string;
   isSelected: boolean;
   onSelect: (event: MOUSE_EVENT) => void;
+  reset?: boolean;
 }
 
-const SelectItem = ({ option, isSelected, onSelect }: itemType) => {
+const SelectItem = ({ option, isSelected, onSelect, reset = false }: itemType) => {
+  const itemclass = `${isSelected ? "selected" : ""} ${reset ? "reset-item" : ""}`;
+
   return (
-    <Item className={isSelected ? "selected" : ""} onClick={onSelect}>
+    <Item className={itemclass} onClick={onSelect}>
       {option}
     </Item>
   );

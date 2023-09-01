@@ -52,9 +52,9 @@ const SelectBox = ({ bgcolor, selected, setSelected, data, placeholder, nulltext
       </Container>
       {isOpen && (
         <ItemList>
-          <SelectItem option={nulltext} isSelected={selected === ""} onSelect={(e) => selectOption(e)} key={nulltext} />
+          <SelectItem reset={true} key={nulltext} option={nulltext} isSelected={"" === selected} onSelect={(e) => selectOption(e)} />
           {data.map((option) => (
-            <SelectItem option={option} isSelected={option === selected} onSelect={(e) => selectOption(e)} key={option} />
+            <SelectItem key={option} option={option} isSelected={option === selected} onSelect={(e) => selectOption(e)} />
           ))}
         </ItemList>
       )}
