@@ -3,8 +3,14 @@ import Layout from "../../layouts/Layout";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router";
 
 const HowToUse = () => {
+  const navigate = useNavigate();
+  const gotoSearch = () => {
+    navigate("/search");
+  };
+
   return (
     <Layout>
       <H2>ZAN 쿠폰 이용방법</H2>
@@ -18,7 +24,7 @@ const HowToUse = () => {
           <li>결제 시, &#91;내 쿠폰함&#93;에 들어가 &#91;쿠폰 바로 사용하기&#93;를 누르고 방문한 Bar와 마신 칵테일을 선택해주세요</li>
           <li>사장님께 화면을 제시해 결제를 완료하면 끝!</li>
         </ol>
-        <Button {...BUTTON_OPTIONS.HOW_TO_USE} />
+        <Button {...BUTTON_OPTIONS.HOW_TO_USE} onClick={gotoSearch} />
       </DesSection>
     </Layout>
   );
