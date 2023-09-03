@@ -81,6 +81,19 @@ export const BUTTON_OPTIONS: {
     ...BUTTON_OPTIONS_BASE,
     value: BUTTON_VALUE.PASSWORD_RESET,
   },
+
+  WELCOME_SEARCH: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.WELCOME.SEARCH,
+  },
+
+  WELCOME_SUBSCRIBE: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.WELCOME.SUBSCRIBE,
+  },
 };
 
 export const SIGNIN_OPTIONS = {

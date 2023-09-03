@@ -27,4 +27,9 @@ export const BUTTON_VALUE = {
     SAVE: "저장하기",
     UPDATE: "수정하기",
   },
+
+  WELCOME: {
+    SEARCH: "Bar 둘러보기",
+    SUBSCRIBE: "구독하기",
+  },
 };
