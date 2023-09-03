@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import Footer from "../footer/Footer";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
 
@@ -20,10 +20,6 @@ const AdminLayout = ({ children }: WrapperProps) => {
     borderBottom: "2px solid var(--main-color)",
   };
 
-  const location = useLocation();
-  const isActiveManagement = ["/admin/management"].includes(location.pathname);
-  const isActiveManageorder = ["/admin/manageorder"].includes(location.pathname);
-
   return (
     <LayoutWrap>
       <FixHeader>
@@ -39,8 +35,8 @@ const AdminLayout = ({ children }: WrapperProps) => {
           <li>
             <NavLink
               to="/admin/management"
-              style={() => {
-                return isActiveManagement ? activeStyle : deactiveStyle;
+              style={({ isActive }) => {
+                return isActive ? activeStyle : deactiveStyle;
               }}
             >
               정보 관리
@@ -49,8 +45,8 @@ const AdminLayout = ({ children }: WrapperProps) => {
           <li>
             <NavLink
               to="/admin/manageorder"
-              style={() => {
-                return isActiveManageorder ? activeStyle : deactiveStyle;
+              style={({ isActive }) => {
+                return isActive ? activeStyle : deactiveStyle;
               }}
             >
               주문 관리
