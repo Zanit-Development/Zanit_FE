@@ -5,10 +5,22 @@ import icon_arrow_promotion from "../../assets/icon/icon_arrow_promotion.svg";
 import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
+import { useNavigate } from "react-router";
 
 export const PopupPromotion = ({ ...props }) => {
-  const { closeModal } = props;
+  const { closeModal, setShowPopupComplete, setIsModalOpen } = props;
   const name = "name";
+
+  const showPopupComplete = () => {
+    setShowPopupComplete(true);
+    setIsModalOpen(false);
+  };
+
+  const navigate = useNavigate();
+  const gotoCoupon = () => {
+    navigate("/myCoupon");
+  };
+
   //TODO: 개발자 도구 모바일 환경에서 width 깨짐
   return (
     <Modal border={false} onClose={closeModal}>
@@ -40,8 +52,8 @@ export const PopupPromotion = ({ ...props }) => {
           </div>
         </CouponImgArticle>
         <p>돌아오는 결제일에 할인가로 적용됩니다.</p>
-        <Button {...BUTTON_OPTIONS.PROMOTION} />
-        <Button {...BUTTON_OPTIONS.PROMOTION_CANCLE} />
+        <Button {...BUTTON_OPTIONS.PROMOTION} onClick={gotoCoupon} />
+        <Button {...BUTTON_OPTIONS.PROMOTION_CANCLE} onClick={showPopupComplete} />
       </PromotionInfo>
     </Modal>
   );

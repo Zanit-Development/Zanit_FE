@@ -4,13 +4,16 @@ import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import Button from "../common/button/Button";
 import { useNavigate } from "react-router";
 import { PopupPromotion } from "./PopupPromotion";
+import { PopupComplete } from "./PopupComplete";
 
 export const StopMembership = () => {
+  const [showPopupComplete, setShowPopupComplete] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigate = useNavigate();
   const goMain = () => {
     navigate("/");
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -19,6 +22,7 @@ export const StopMembership = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <StopMembershipContent>
       <p>
@@ -35,7 +39,8 @@ export const StopMembership = () => {
         <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_CANCLE} onClick={goMain} />
         <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_OK} onClick={openModal} />
       </ButtonDiv>
-      {isModalOpen && <PopupPromotion closeModal={closeModal} />}
+      {isModalOpen && <PopupPromotion closeModal={closeModal} setShowPopupComplete={setShowPopupComplete} setIsModalOpen={setIsModalOpen} />}
+      {showPopupComplete && <PopupComplete closeModal={closeModal} />}
     </StopMembershipContent>
   );
 };
