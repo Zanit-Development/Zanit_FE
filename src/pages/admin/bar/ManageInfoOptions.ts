@@ -50,6 +50,12 @@ const selectBase: SelectProps = {
 };
 
 export const SELECT = {
+  LOCATION: {
+    ...selectBase,
+    id: "selectLocation",
+    options: [""],
+    values: [],
+  },
   MOOD: {
     ...selectBase,
     id: "selectMood",
