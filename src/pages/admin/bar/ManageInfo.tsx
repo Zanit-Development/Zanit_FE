@@ -9,8 +9,8 @@ export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
   const [barLocation, setBarLocation] = useState<string>("");
   const [barMood, setBarMood] = useState<string>("");
-  const [coverCharge, setCoverCharge] = useState<string>("0");
-  const [discount, setDiscount] = useState<string>("0");
+  const [coverCharge, setCoverCharge] = useState<string>("");
+  const [discount, setDiscount] = useState<string>("");
 
   const handleChangeInput = (e: INPUT_EVENT) => {
     const inputId = e.target.id;
@@ -25,9 +25,9 @@ export const ManageInfo = () => {
     } else if (inputId === "barLocation") {
       setBarLocation(inputValue);
     } else if (inputId === "coverCharge") {
-      inputValue === "" ? setCoverCharge("0") : checkNumber.test(inputValue) ? setCoverCharge(inputValue) : setCoverCharge(coverCharge);
+      inputValue === "" ? setCoverCharge("") : checkNumber.test(inputValue) ? setCoverCharge(inputValue) : setCoverCharge(coverCharge);
     } else if (inputId === "discount") {
-      inputValue === "" ? setDiscount("0") : checkNumber.test(inputValue) ? setDiscount(inputValue) : setDiscount(coverCharge);
+      inputValue === "" ? setDiscount("") : checkNumber.test(inputValue) ? setDiscount(inputValue) : setDiscount(discount);
     }
   };
 
@@ -61,14 +61,14 @@ export const ManageInfo = () => {
       <StyledSection>
         <StyledH3>커버차지</StyledH3>
         <Select {...SELECT.COVER_CHARGE} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.COVER_CHARGE} value={parseInt(coverCharge).toLocaleString('en')} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge!==""?parseInt(coverCharge).toLocaleString('en'):""} onChange={handleChangeInput} />
       </StyledSection>
       <StyledSection>
         <StyledH3>
           커버차지
         </StyledH3>
         <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.DISCOUNT} value={parseInt(discount).toLocaleString('en')} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.DISCOUNT} value={discount!==""?parseInt(discount).toLocaleString('en'):""} onChange={handleChangeInput} />
       </StyledSection>
     </StyledForm>
   );
