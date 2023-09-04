@@ -9,27 +9,31 @@ export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
   const [barLocation, setBarLocation] = useState<string>("");
   const [barMood, setBarMood] = useState<string>("");
-  const [coverCharge, setCoverCharge] = useState<string>("");
-  const [discount, setDiscount] = useState<string>("");
+  const [coverCharge, setCoverCharge] = useState<string>("0");
+  const [discount, setDiscount] = useState<string>("0");
 
   const handleChangeInput = (e: INPUT_EVENT) => {
     const inputId = e.target.id;
-    const inputValue = e.target.value;
+    const inputValue = e.target.value.replaceAll(",", "");
+    const checkNumber = /\d/;
+
+    console.log(inputValue);
+    console.log(checkNumber.test(inputValue));
 
     if (inputId === "barName") {
       setBarName(inputValue);
     } else if (inputId === "barLocation") {
       setBarLocation(inputValue);
     } else if (inputId === "coverCharge") {
-      setCoverCharge(inputValue);
+      inputValue === "" ? setCoverCharge("0") : checkNumber.test(inputValue) ? setCoverCharge(inputValue) : setCoverCharge(coverCharge);
     } else if (inputId === "discount") {
-      setDiscount(inputValue);
+      inputValue === "" ? setDiscount("0") : checkNumber.test(inputValue) ? setDiscount(inputValue) : setDiscount(coverCharge);
     }
   };
 
   const handleChangeSelect = (e: SELECT_EVENT) => {
     const selectId = e.target.id;
-    const seleltValue = e.target.value;
+    const selectValue = e.target.value;
 
     if (selectId === "selectMood") {
     } else if (selectId === "selectCoverCharge") {
@@ -47,6 +51,7 @@ export const ManageInfo = () => {
       </StyledSection>
       <StyledSection>
         <StyledH3>위치</StyledH3>
+        <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
         <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={handleChangeInput} />
       </StyledSection>
       <StyledSection>
@@ -56,14 +61,14 @@ export const ManageInfo = () => {
       <StyledSection>
         <StyledH3>커버차지</StyledH3>
         <Select {...SELECT.COVER_CHARGE} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.COVER_CHARGE} value={parseInt(coverCharge).toLocaleString('en')} onChange={handleChangeInput} />
       </StyledSection>
       <StyledSection>
         <StyledH3>
-          커버차지<br />할 　 인
+          커버차지
         </StyledH3>
         <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.DISCOUNT} value={parseInt(discount).toLocaleString('en')} onChange={handleChangeInput} />
       </StyledSection>
     </StyledForm>
   );
@@ -71,6 +76,14 @@ export const ManageInfo = () => {
 
 const StyledForm = styled.form`
   padding: 20px;
+`;
+
+const StyledH3 = styled.h3`
+  min-width: 60px;
+  font-family: var(--font--Bold);
+  font-size: 0.875rem;
+  text-align: left;
+  letter-spacing: 0px;
 `;
 
 const StyledSection = styled.section`
@@ -84,16 +97,30 @@ const StyledSection = styled.section`
     flex-basis: 100%;
   }
 
+  &:nth-of-type(2) > input,
   &:nth-of-type(4) > input,
   &:nth-of-type(5) > input {
     flex-shrink: 0.6;
   }
-`;
 
-const StyledH3 = styled.h3`
-  min-width: 60px;
-  font-family: var(--font--Bold);
-  font-size: 0.875rem;
-  text-align: left;
-  letter-spacing: 0px;
+  &:nth-of-type(5) {
+    ${StyledH3} {
+      position: relative;
+      top: -10px;
+    }
+
+    ${StyledH3}::before {
+      content: "할";
+      position: absolute;
+      top: 15px;
+      left: 0;
+    }
+
+    ${StyledH3}::after {
+      content: "인";
+      position: absolute;
+      top: 15px;
+      right: 9px;
+    }
+  }
 `;
