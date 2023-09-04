@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../../components/common/input/Input";
 import { INPUT_EVENT, SELECT_EVENT } from "../../../libs/interface/typeEvent";
 import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 import { Select } from "../../../components/common/select/Select";
 import { css, styled } from "styled-components";
+import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -11,77 +12,59 @@ export const ManageInfo = () => {
   const [barMood, setBarMood] = useState<string>("");
   const [coverCharge, setCoverCharge] = useState<string>("");
   const [discount, setDiscount] = useState<string>("");
-  const checkNumber = /\d/g;
-
-  const handleChangeInput = (e: INPUT_EVENT) => {
-    const inputId = e.target.id;
-    const inputValue = e.target.value;
-
-    inputId === "barName" ? setBarName(inputValue) : setBarLocation(inputValue);
-  };
-
-  const handleChangeInputNumber = (e: INPUT_EVENT) => {
-    const inputId = e.target.id;
-    const inputValue = e.target.value.replaceAll(",", "");
-
-    if (inputValue === "" || !checkNumber.test(inputValue)) {
-      inputId === "coverCharge" ? setCoverCharge("") : setDiscount("");
-      return false;
-    }
-
-    const result = parseInt(inputValue).toLocaleString("en");
-
-    inputId === "coverCharge" ? setCoverCharge(result) : setDiscount(result);
-  };
-
-  const handleChangeSelect = (e: SELECT_EVENT) => {
-    const selectId = e.target.id;
-    const selectValue = e.target.value;
-
-    if (selectId === "selectMood") {
-    } else if (selectId === "selectCoverCharge") {
-    } else if (selectId === "selectDiscount") {
-    }
-  };
 
   return (
     <StyledForm>
       <h2 className="a11y-hidden">정보 관리</h2>
 
       <section>
-        <StyledSectionTop>
+        <StyledSectionBarInfo>
           <StyledH3>이름</StyledH3>
-          <Input {...BAR_INFO.NAME} value={barName.replaceAll(" ", "")} onChange={handleChangeInput} />
-        </StyledSectionTop>
-        <StyledSectionTop>
+          <Input {...BAR_INFO.NAME} value={barName.replaceAll(" ", "")} onChange={(e) => handleChangeInput(e, setBarName)} />
+        </StyledSectionBarInfo>
+        <StyledSectionBarInfo>
           <StyledH3>위치</StyledH3>
           <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
-          <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={handleChangeInput} />
-        </StyledSectionTop>
-        <StyledSectionTop>
+          <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={(e) => handleChangeInput(e, setBarLocation)} />
+        </StyledSectionBarInfo>
+        <StyledSectionBarInfo>
           <StyledH3>분위기</StyledH3>
           <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
-        </StyledSectionTop>
-        <StyledSectionTop>
+        </StyledSectionBarInfo>
+        <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
           <Select {...SELECT.COVER_CHARGE} onChange={handleChangeSelect} />
-          <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={handleChangeInputNumber} />
-        </StyledSectionTop>
-        <StyledSectionTop>
+          <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={(e) => handleChangeInputNumber(e, setCoverCharge)} />
+        </StyledSectionBarInfo>
+        <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
           <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
-          <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={handleChangeInputNumber} />
-        </StyledSectionTop>
+          <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
+        </StyledSectionBarInfo>
       </section>
-
       <section>
         <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
-        <StyledTextareaTop
-          placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
+        <StyledSectionsBarDesc>
+          <StyledTextarea
+            placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
-        ></StyledTextareaTop>
-        <StyledH3>공간 설명</StyledH3>
-        <StyledTextareaBottom placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextareaBottom>
+          ></StyledTextarea>
+          <StyledSpan>
+            {`
+            Ex. 월-금 17:00-24:00
+            토-일 15:00-24:00
+          `}
+          </StyledSpan>
+        </StyledSectionsBarDesc>
+        <StyledSectionsBarDesc>
+          <StyledH3>공간 설명</StyledH3>
+          <StyledTextarea placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
+          <StyledSpan>
+            {`
+            Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
+          `}
+          </StyledSpan>
+        </StyledSectionsBarDesc>
       </section>
     </StyledForm>
   );
@@ -99,7 +82,7 @@ const StyledH3 = styled.h3`
   letter-spacing: 0px;
 `;
 
-const StyledSectionTop = styled.section`
+const StyledSectionBarInfo = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,7 +127,20 @@ const StyledSectionTop = styled.section`
   }
 `;
 
-const StyledTextareaBase = css`
+const StyledSpan = styled.span`
+  position: absolute;
+  top: 75px;
+  left: 10px;
+  font-family: var(--font--Medium);
+  font-size: 0.8125rem;
+  color: var(--gray300-color);
+`;
+
+const StyledSectionsBarDesc = styled.section`
+  position: relative;
+`;
+
+const StyledTextarea = styled.textarea`
   position: relative;
   width: 100%;
   height: 120px;
@@ -172,22 +168,7 @@ const StyledTextareaBase = css`
     background-color: var(--gray200-color);
   }
 
-  &::before {
-    position: absolute;
-    left: 0;
-  }
-`;
-
-const StyledTextareaTop = styled.textarea`
-  ${StyledTextareaBase}
-  &::before {
-    content: "fsdfa";
-  }
-`;
-
-const StyledTextareaBottom = styled.textarea`
-  ${StyledTextareaBase}
-  &::before {
-    content: "adsfsad";
+  &:not(:placeholder-shown) + span {
+    display: none;
   }
 `;
