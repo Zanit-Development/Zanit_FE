@@ -71,7 +71,7 @@ export const ManageInfo = () => {
 };
 
 const StyledForm = styled.form`
-  padding: 20px;
+  /* padding: 20px; */
 `;
 
 const StyledH3 = styled.h3`
