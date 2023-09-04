@@ -94,9 +94,11 @@ const Navbar = styled.nav`
     padding: 0 15px;
 
     a {
+      font-family: var(--font--Medium);
       display: inline-block;
       padding: 15px 0 8px;
       font-size: 15px;
+      color: var(--gray500-color);
     }
   }
 `;
