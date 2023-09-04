@@ -29,6 +29,11 @@ export const BUTTON_VALUE = {
     UPDATE: "수정하기",
   },
 
+  WELCOME: {
+    SEARCH: "Bar 둘러보기",
+    SUBSCRIBE: "구독하기",
+  },
+
   MEMBERSHIP_STOP: {
     CANCLE: "돌아가기",
     OK: "구독취소하기",

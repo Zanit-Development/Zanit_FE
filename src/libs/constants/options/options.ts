@@ -82,6 +82,19 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.PASSWORD_RESET,
   },
 
+  WELCOME_SEARCH: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.WELCOME.SEARCH,
+  },
+
+  WELCOME_SUBSCRIBE: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.WELCOME.SUBSCRIBE,
+  },
+
   USE_COUPON_HISTORY: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
@@ -142,7 +155,7 @@ export const SIGNUP_OPTIONS = {
 
   PHONE: {
     ...INPUT_OPTIONS_BASE,
-    type: "number",
+    type: "tel",
     placeholder: PLACEHOLDER_SIGN.UP.PHONE,
     id: "phoneNum",
   },

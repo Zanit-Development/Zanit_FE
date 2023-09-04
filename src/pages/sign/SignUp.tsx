@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
@@ -9,14 +9,14 @@ import icon_check from "../../assets/icon/check.svg";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signUpAPI } from "../../libs/apis/user";
+import { PopupSignUpSuccess } from "../../components/modal/UseSignPage/PopupSignUpSuccess";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   const [nameValue, setNameValue] = useState("");
   const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [passwordCheckValue, setPasswordCheckValue] = useState("");
+  const [isModal, setIsModal] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -45,7 +45,7 @@ const SignUp = () => {
     };
     const response = await signUpAPI(userData);
     if (response && (response as any).status === 200) {
-      navigate("/signIn");
+      setIsModal(true);
     }
   };
 
@@ -95,6 +95,7 @@ const SignUp = () => {
           <span>이미 계정이 있으신가요?</span>
           <Link to="/signIn">로그인 하기</Link>
         </SignUpOther>
+        {isModal && <PopupSignUpSuccess />}
       </SignUpSection>
     </Layout>
   );
