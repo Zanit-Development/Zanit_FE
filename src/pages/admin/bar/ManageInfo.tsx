@@ -11,24 +11,27 @@ export const ManageInfo = () => {
   const [barMood, setBarMood] = useState<string>("");
   const [coverCharge, setCoverCharge] = useState<string>("");
   const [discount, setDiscount] = useState<string>("");
+  const checkNumber = /\d/g;
 
   const handleChangeInput = (e: INPUT_EVENT) => {
     const inputId = e.target.id;
+    const inputValue = e.target.value;
+
+    inputId === "barName" ? setBarName(inputValue) : setBarLocation(inputValue);
+  };
+
+  const handleChangeInputNumber = (e: INPUT_EVENT) => {
+    const inputId = e.target.id;
     const inputValue = e.target.value.replaceAll(",", "");
-    const checkNumber = /\d/;
 
-    console.log(inputValue);
-    console.log(checkNumber.test(inputValue));
-
-    if (inputId === "barName") {
-      setBarName(inputValue);
-    } else if (inputId === "barLocation") {
-      setBarLocation(inputValue);
-    } else if (inputId === "coverCharge") {
-      inputValue === "" ? setCoverCharge("") : checkNumber.test(inputValue) ? setCoverCharge(inputValue) : setCoverCharge(coverCharge);
-    } else if (inputId === "discount") {
-      inputValue === "" ? setDiscount("") : checkNumber.test(inputValue) ? setDiscount(inputValue) : setDiscount(discount);
+    if (inputValue === "" || !checkNumber.test(inputValue)) {
+      inputId === "coverCharge" ? setCoverCharge("") : setDiscount("");
+      return false;
     }
+
+    const result = parseInt(inputValue).toLocaleString("en");
+
+    inputId === "coverCharge" ? setCoverCharge(result) : setDiscount(result);
   };
 
   const handleChangeSelect = (e: SELECT_EVENT) => {
@@ -61,14 +64,14 @@ export const ManageInfo = () => {
       <StyledSection>
         <StyledH3>커버차지</StyledH3>
         <Select {...SELECT.COVER_CHARGE} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge!==""?parseInt(coverCharge).toLocaleString('en'):""} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={handleChangeInputNumber} />
       </StyledSection>
       <StyledSection>
         <StyledH3>
           커버차지
         </StyledH3>
         <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
-        <Input {...BAR_INFO.DISCOUNT} value={discount!==""?parseInt(discount).toLocaleString('en'):""} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={handleChangeInputNumber} />
       </StyledSection>
 
       <StyledSection>
