@@ -47,7 +47,7 @@ export const ManageInfo = () => {
       <h2 className="a11y-hidden">정보 관리</h2>
       <StyledSection>
         <StyledH3>이름</StyledH3>
-        <Input {...BAR_INFO.NAME} value={barName} onChange={handleChangeInput} />
+        <Input {...BAR_INFO.NAME} value={barName.replaceAll(" ","")} onChange={handleChangeInput} />
       </StyledSection>
       <StyledSection>
         <StyledH3>위치</StyledH3>
@@ -69,6 +69,10 @@ export const ManageInfo = () => {
         </StyledH3>
         <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
         <Input {...BAR_INFO.DISCOUNT} value={discount!==""?parseInt(discount).toLocaleString('en'):""} onChange={handleChangeInput} />
+      </StyledSection>
+
+      <StyledSection>
+
       </StyledSection>
     </StyledForm>
   );
@@ -100,27 +104,31 @@ const StyledSection = styled.section`
   &:nth-of-type(2) > input,
   &:nth-of-type(4) > input,
   &:nth-of-type(5) > input {
-    flex-shrink: 0.6;
+    flex-shrink: 0.55;
   }
 
   &:nth-of-type(5) {
     ${StyledH3} {
       position: relative;
       top: -10px;
+
+      &::before {
+        content: "할";
+        position: absolute;
+        top: 15px;
+        left: 0;
+      }
+
+      &::after {
+        content: "인";
+        position: absolute;
+        top: 15px;
+        right: 9px;
+      }
     }
 
-    ${StyledH3}::before {
-      content: "할";
-      position: absolute;
-      top: 15px;
-      left: 0;
-    }
-
-    ${StyledH3}::after {
-      content: "인";
-      position: absolute;
-      top: 15px;
-      right: 9px;
+    & > input {
+      font-size: 13px;
     }
   }
 `;
