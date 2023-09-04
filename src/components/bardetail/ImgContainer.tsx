@@ -1,4 +1,4 @@
-import React, { useCallback, useState, memo } from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import bar1 from "../../assets/sample-img/bar1.png";
 import bar2 from "../../assets/sample-img/bar2.png";
@@ -16,10 +16,10 @@ const ImgContainer = ({ barPics }: { barPics: string }) => {
   const imgArr: string[] = returnImgArr(`${bar1} ${bar2} ${bar3}`);
   const [mainImg, setMainImg] = useState<string>(imgArr[0]);
 
-  const changeMain = useCallback((event: MOUSE_EVENT) => {
+  const changeMain = (event: MOUSE_EVENT) => {
     const target = event.target as HTMLImageElement;
     setMainImg(target.src);
-  }, []);
+  };
 
   return (
     <Section>

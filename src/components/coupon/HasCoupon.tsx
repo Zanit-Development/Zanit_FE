@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -26,9 +26,9 @@ const HasCoupon = () => {
   let expiration = "9월 25일";
   const dateInfo = use ? `이 쿠폰은 ${possibility}까지\n사용할 수 있어요` : `다음 쿠폰은\n${impossibility}에 만나요`;
   const navigate = useNavigate();
-  const useCouponPage = useCallback((e: BUTTON_EVENT) => {
+  const useCouponPage = (e: BUTTON_EVENT) => {
     navigate("/useCoupon");
-  }, []);
+  };
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 import Button from "../common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
@@ -11,9 +11,9 @@ const ShowPopupButton = ({ bar, cock }: { bar: string; cock: string }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   // 닫기 esc 필요?
-  const onClose = useCallback(() => {
+  const onClose = () => {
     setShowPopup(false);
-  }, []);
+  };
 
   const buttonProps: ButtonProps = {
     typevariants: "fill",

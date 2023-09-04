@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
@@ -9,9 +9,9 @@ import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 const ManualPaymentCoupon = () => {
   let benefit = "25%";
   const navigate = useNavigate();
-  const useCouponPage = useCallback((e: BUTTON_EVENT) => {
+  const useCouponPage = (e: BUTTON_EVENT) => {
     navigate("/useCoupon");
-  }, []);
+  };
 
   return (
     <>
