@@ -94,6 +94,38 @@ export const BUTTON_OPTIONS: {
     sizevariants: "small",
     value: BUTTON_VALUE.WELCOME.SUBSCRIBE,
   },
+
+  USE_COUPON_HISTORY: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.BACK_MYCOUPON,
+  },
+
+  MEMBERSHIP_STOP_CANCLE: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.CANCLE,
+  },
+
+  MEMBERSHIP_STOP_OK: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.OK,
+  },
+
+  PROMOTION: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.PROMOTION,
+  },
+
+  PROMOTION_CANCLE: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.MEMBERSHIP_STOP.PROMOTION_CANCLE,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
@@ -123,7 +155,7 @@ export const SIGNUP_OPTIONS = {
 
   PHONE: {
     ...INPUT_OPTIONS_BASE,
-    type: "number",
+    type: "tel",
     placeholder: PLACEHOLDER_SIGN.UP.PHONE,
     id: "phoneNum",
   },

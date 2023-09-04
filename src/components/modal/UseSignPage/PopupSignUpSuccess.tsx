@@ -5,12 +5,16 @@ import Button from "../../common/button/Button";
 import { BUTTON_OPTIONS } from "../../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 
-export const PopupSignUpSuccess = ({ ...props }) => {
-  const { closeModal } = props;
+export const PopupSignUpSuccess = () => {
   const navigate = useNavigate();
+
+  const closeModal = () => {
+    navigate("/signin");
+  };
   const gotoMain = () => {
     navigate("/");
   };
+
   const gotoSubscribe = () => {
     navigate("/subscribe");
   };
