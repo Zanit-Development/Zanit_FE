@@ -48,7 +48,7 @@ const HasCoupon = () => {
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
         <Link to="/how-to-use">ZAN 쿠폰 사용이 처음이신가요?</Link>
-        <Link to="/">이전 쿠폰 이용 내역</Link>
+        <Link to="/use-history">이전 쿠폰 이용 내역</Link>
         {auto && <Link to="/">멤버십 정기결제 해지하기</Link>}
       </CouponBottomSection>
     </>

@@ -1,5 +1,10 @@
 import React from "react";
+import AdminLayout from "../../../layouts/adminLayout/AdminLayout";
 
 export const ManageOrder = () => {
-  return <div>ManageOrder</div>;
+  return (
+    <AdminLayout>
+      <section>ManageOrder</section>
+    </AdminLayout>
+  );
 };

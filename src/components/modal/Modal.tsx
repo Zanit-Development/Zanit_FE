@@ -55,6 +55,7 @@ const BackgroundStyle = styled.div`
 const BoxStyle = styled.div<{ border: boolean }>`
   background-color: var(--white-color);
   height: fit-content;
+  min-width: 350px;
   max-height: 85vh;
   border-radius: 8px;
   position: fixed;

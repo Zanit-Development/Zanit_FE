@@ -17,7 +17,7 @@ const Nav = () => {
   const location = useLocation();
   const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
   const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
-  const isActiveMyCouponPath = ["/myCoupon", "/how-to-use"].includes(location.pathname);
+  const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
   const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset"].includes(location.pathname);
 
   // token 없어서 nav에 로그인 표시되는게 맞습니다
@@ -94,9 +94,11 @@ const Navbar = styled.nav`
     padding: 0 15px;
 
     a {
+      font-family: var(--font--Medium);
       display: inline-block;
       padding: 15px 0 8px;
       font-size: 15px;
+      color: var(--gray500-color);
     }
   }
 `;
