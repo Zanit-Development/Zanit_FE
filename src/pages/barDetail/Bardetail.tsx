@@ -37,7 +37,7 @@ const Bardetail = () => {
             const option = {
               typevariants: "secondary",
               value: tag,
-              tagId: `tag${idx}`,
+              tagId: `tag_${idx}`,
             };
             return (
               <li key={idx}>
@@ -50,16 +50,16 @@ const Bardetail = () => {
         <Address>{BarInfo.barLocation}</Address>
         <Opening>{BarInfo.openhours}</Opening>
         {generateCoverCharge(10000, 1000)}
-      </BarInfoContainer>
-      <BottomContainer>
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
           {BarInfo.cocktails.map((cocktail, idx) => (
             <Cocktail key={idx} info={cocktail} idx={idx} />
           ))}
         </ul>
+      </BarInfoContainer>
+      <ButtonContainer>
         <Button {...btnOption} />
-      </BottomContainer>
+      </ButtonContainer>
     </Layout>
   );
 };
@@ -78,16 +78,8 @@ function generateCoverCharge<T extends number | undefined>(price: T, discount: T
   );
 }
 
-const Img = styled.img`
-  width: 100%;
-  height: 200px;
-
-  margin-bottom: 32px;
-`;
-
 const BarInfoContainer = styled.section`
   padding: 0 20px;
-  margin-bottom: 25px;
   h2 {
     font-family: var(--font--Bold);
     font-size: 20px;
@@ -97,6 +89,16 @@ const BarInfoContainer = styled.section`
     font-family: var(--font--Medium);
     margin-bottom: 12px;
     line-height: 1.5;
+  }
+
+  h3 + ul {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: var(--gray100-color);
+
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
   }
 `;
 
@@ -114,20 +116,9 @@ const TagContainer = styled.ul`
   }
 `;
 
-const BottomContainer = styled.section`
+const ButtonContainer = styled.section`
+  margin: 32px 0 42px;
   padding: 0 20px;
-
-  ul {
-    padding: 20px;
-    background-color: var(--gray100-color);
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-  }
-
-  button {
-    margin: 32px 0 42px;
-  }
 `;
 
 export default Bardetail;
