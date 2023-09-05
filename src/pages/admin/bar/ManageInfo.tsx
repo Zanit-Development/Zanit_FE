@@ -7,7 +7,8 @@ import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import { CocktailItem } from "../../../components/admin/management/CocktailItem";
+import { CocktailItem, CocktailItemProps } from "../../../components/admin/management/CocktailItem";
+import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -16,6 +17,19 @@ export const ManageInfo = () => {
   const [coverCharge, setCoverCharge] = useState<string>("");
   const [discount, setDiscount] = useState<string>("");
   const [cocktailList, setCocktailList] = useState<string[]>([]);
+  const [showList, setShowList] = useState<string[]>([]);
+
+  const sampleCocktails: { info: CocktailProps }[] = [
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+  ];
 
   return (
     <StyledForm>
@@ -94,9 +108,9 @@ export const ManageInfo = () => {
       <section>
         <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
         <CocktailList>
-          <CocktailItem />
-          <CocktailItem />
-          <CocktailItem />
+          {sampleCocktails.map((item, idx) => {
+            return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />;
+          })}
         </CocktailList>
         <AddCocktailButton>
           <img src={addCocktailImg} alt="" />
