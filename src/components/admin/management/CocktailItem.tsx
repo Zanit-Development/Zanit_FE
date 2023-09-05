@@ -3,25 +3,11 @@ import { styled } from "styled-components";
 import Cocktail from "../../bardetail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
-import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
-
-export interface CocktailItemProps {
-  id: string;
-  setShowList: Function;
-  info: CocktailProps;
-}
+import { CocktailItemProps } from "./cocktailItemOptions";
+import { handleCocktailList } from "./handleCocktailItem";
 
 export const CocktailItem = ({ ...props }: CocktailItemProps) => {
   const [checked, setChecked] = useState<boolean>(false);
-
-  const handleCocktailList = (setChecked: Function) => {
-    setChecked(!checked);
-    if (checked) {
-      props.setShowList();
-    } else {
-      props.setShowList();
-    }
-  };
 
   return (
     <li>
@@ -32,7 +18,7 @@ export const CocktailItem = ({ ...props }: CocktailItemProps) => {
         <img src={updateCocktailImg} alt="" />
       </button>
       <Cocktail info={{ ...props.info }} idx={0} />
-      <StyledCheckbox id={props.id} type="checkbox" onChange={() => handleCocktailList(setChecked)} checked={checked} />
+      <StyledCheckbox id={props.id} type="checkbox" onChange={(e) => handleCocktailList(e, setChecked, props.setShowList)} checked={checked} />
       <label htmlFor={props.id}></label>
     </li>
   );
