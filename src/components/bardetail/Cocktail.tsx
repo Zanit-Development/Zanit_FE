@@ -15,10 +15,7 @@ const Cocktail = (props: { info: CocktailProps; idx: number }) => {
       <img src={props.info.img} alt="" />
       <strong>{props.info.title}</strong>
       <Tag {...(option as TagProps)} />
-      <p>
-        대표적인 레이디 킬러 칵테일 중 하나로, <br />
-        달콤한 맛에 비해 도수가 무려 20도를 넘어선다. IBA 공식 칵테일에 등록되어 있는 레시피 중 하나
-      </p>
+      <p>대표적인 레이디 킬러 칵테일 중 하나로, 달콤한 맛에 비해 도수가 무려 20도를 넘어선다. IBA 공식 칵테일에 등록되어 있는 레시피 중 하나</p>
     </Item>
   );
 };
@@ -36,7 +33,7 @@ const Item = styled.li`
     border-radius: 4px;
     margin-right: 10px;
     grid-area: img;
-    align-self: flex-end;
+    align-self: center;
   }
   strong {
     font-family: var(--font--Bold);
