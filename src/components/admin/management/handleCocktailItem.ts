@@ -1,7 +1,4 @@
-import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
-
-export const handleCocktailList = (e: INPUT_EVENT, setChecked: Function, setShowList: Function) => {
-  const checked = e.target.checked;
+export const handleCocktailList = (checked: boolean, setChecked: Function, setShowList: Function) => {
   setChecked(!checked);
 
   if (checked) {
