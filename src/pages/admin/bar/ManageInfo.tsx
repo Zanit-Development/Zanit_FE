@@ -7,7 +7,7 @@ import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import { CocktailItem } from "./CocktailItem";
+import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");

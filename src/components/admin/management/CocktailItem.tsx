@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import Cocktail from "../../../components/bardetail/Cocktail";
+import Cocktail from "../../bardetail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
 
