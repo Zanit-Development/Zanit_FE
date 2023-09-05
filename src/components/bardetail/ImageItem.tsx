@@ -1,16 +1,23 @@
 import React from "react";
+import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import empty from "../../assets/icon/icon_empty_Image.svg";
 import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
+import { mainImgState } from "../../recoil/mainImgAtom";
 
 interface ImageItemProps {
   image: string | undefined;
-  handleImg?: (event: MOUSE_EVENT) => void;
 }
 
-const ImageItem = ({ image, handleImg }: ImageItemProps) => {
+const ImageItem = ({ image }: ImageItemProps) => {
+  const setMainImg = useSetRecoilState(mainImgState);
+  const changeMain = (event: MOUSE_EVENT) => {
+    const target = event.target as HTMLImageElement;
+    setMainImg(target.src);
+  };
+
   return (
-    <ImgBtn img={image} onClick={handleImg}>
+    <ImgBtn img={image} onClick={(e) => changeMain(e)}>
       {image ? <Image src={image} alt="" /> : <Empty src={empty} alt="" />}
     </ImgBtn>
   );
