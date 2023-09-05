@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
-import { INPUT_EVENT, SELECT_EVENT } from "../../../libs/interface/typeEvent";
-import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 import { Select } from "../../../components/common/select/Select";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
+import { BAR_INFO, SELECT } from "./ManageInfoOptions";
+
+import sampleImg from "../../../assets/admin_sample_img.svg";
+import Cocktail from "../../../components/bardetail/Cocktail";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -63,6 +65,44 @@ export const ManageInfo = () => {
           `}
           </StyledSpan>
         </StyledSectionsBarDesc>
+        <StyledSectionsBarDesc>
+          <StyledH3>공간 사진</StyledH3>
+          <StyledP>
+            {`1) 공간 외부 2) 내부 전경 3) 좌석 배치
+              4) 칵테일 메뉴가 적힌 메뉴판 사진을 업로드 해주세요
+            `}
+            <span>{"(가로 세로 비율 1:1 권장)"}</span>
+          </StyledP>
+          <PhotoList>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+          </PhotoList>
+        </StyledSectionsBarDesc>
+      </section>
+      <section>
+        <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
+        <CocktailList>
+          <li>
+            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
+          </li>
+          <li>
+            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
+          </li>
+          <li>
+            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
+          </li>
+        </CocktailList>
+        <AddCocktailButton></AddCocktailButton>
       </section>
     </StyledForm>
   );
@@ -120,7 +160,7 @@ const StyledSectionBarInfo = styled.section`
     }
 
     & > input {
-      font-size: 13px;
+      font-size: 0.8125rem;
     }
   }
 `;
@@ -170,4 +210,57 @@ const StyledTextarea = styled.textarea`
   &:not(:placeholder-shown) + span {
     display: none;
   }
+`;
+
+const StyledP = styled.p`
+  margin: 10px 0;
+  font-family: var(--font--Medium);
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: var(--gray400-color);
+  white-space: pre-line;
+
+  & > span {
+    color: var(--gray300-color);
+  }
+`;
+
+const PhotoList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+
+  & li {
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--gray200-color);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  & img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+`;
+
+const CocktailList = styled.ul`
+  & li {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 15px 10px;
+    background-color: var(--gray100-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+`;
+
+const AddCocktailButton = styled.button`
+  width: 100%;
+  height: 45px;
+  background-color: white;
+  border: 1px solid var(--gray200-color);
+  border-radius: 4px;
 `;
