@@ -6,7 +6,8 @@ import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "
 import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
-import Cocktail from "../../../components/bardetail/Cocktail";
+import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
+import { CocktailItem } from "./CocktailItem";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -14,6 +15,7 @@ export const ManageInfo = () => {
   const [barMood, setBarMood] = useState<string>("");
   const [coverCharge, setCoverCharge] = useState<string>("");
   const [discount, setDiscount] = useState<string>("");
+  const [cocktailList, setCocktailList] = useState<string[]>([]);
 
   return (
     <StyledForm>
@@ -92,17 +94,13 @@ export const ManageInfo = () => {
       <section>
         <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
         <CocktailList>
-          <li>
-            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
-          </li>
-          <li>
-            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
-          </li>
-          <li>
-            <Cocktail info={{ img: "string", title: "string", level: "string", description: "string" }} idx={0} />
-          </li>
+          <CocktailItem />
+          <CocktailItem />
+          <CocktailItem />
         </CocktailList>
-        <AddCocktailButton></AddCocktailButton>
+        <AddCocktailButton>
+          <img src={addCocktailImg} alt="" />
+        </AddCocktailButton>
       </section>
     </StyledForm>
   );
@@ -247,6 +245,8 @@ const PhotoList = styled.ul`
 `;
 
 const CocktailList = styled.ul`
+  margin: 20px 0;
+
   & li {
     width: 100%;
     margin-bottom: 15px;
@@ -254,6 +254,21 @@ const CocktailList = styled.ul`
     background-color: var(--gray100-color);
     border-radius: 4px;
     box-sizing: border-box;
+    overflow: hidden;
+
+    & > button {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+
+      &:first-of-type {
+        float: left;
+      }
+
+      &:last-of-type {
+        float: right;
+      }
+    }
   }
 `;
 
@@ -263,4 +278,6 @@ const AddCocktailButton = styled.button`
   background-color: white;
   border: 1px solid var(--gray200-color);
   border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
 `;
