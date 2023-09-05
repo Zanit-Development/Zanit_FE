@@ -50,8 +50,7 @@ export const ManageInfo = () => {
 요일과 시간을 입력해주세요"
           ></StyledTextarea>
           <StyledSpan>
-            {`
-            Ex. 월-금 17:00-24:00
+            {`Ex. 월-금 17:00-24:00
             토-일 15:00-24:00
           `}
           </StyledSpan>
@@ -60,8 +59,7 @@ export const ManageInfo = () => {
           <StyledH3>공간 설명</StyledH3>
           <StyledTextarea placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
           <StyledSpan>
-            {`
-            Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
+            {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}
           </StyledSpan>
         </StyledSectionsBarDesc>
@@ -134,6 +132,7 @@ const StyledSpan = styled.span`
   font-family: var(--font--Medium);
   font-size: 0.8125rem;
   color: var(--gray300-color);
+  white-space: pre-line;
 `;
 
 const StyledSectionsBarDesc = styled.section`
