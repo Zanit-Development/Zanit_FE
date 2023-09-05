@@ -7,8 +7,10 @@ import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import { CocktailItem, CocktailItemProps } from "../../../components/admin/management/CocktailItem";
+import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
+import Button from "../../../components/common/button/Button";
+import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -116,12 +118,24 @@ export const ManageInfo = () => {
           <img src={addCocktailImg} alt="" />
         </AddCocktailButton>
       </section>
+
+      <Button
+        typevariants={"fill"}
+        sizevariants={"small"}
+        value={"저장하기"}
+        disabled={false}
+        onClick={function (e: BUTTON_EVENT): void {
+          throw new Error("Function not implemented.");
+        }}
+      ></Button>
     </StyledForm>
   );
 };
 
 const StyledForm = styled.form`
-  /* padding: 20px; */
+  & > button {
+    margin-top: 50px;
+  }
 `;
 
 const StyledH3 = styled.h3`
