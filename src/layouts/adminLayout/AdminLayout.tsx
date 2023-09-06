@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import Footer from "../footer/Footer";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
 
@@ -20,6 +20,9 @@ const AdminLayout = ({ children }: WrapperProps) => {
     borderBottom: "2px solid var(--main-color)",
   };
 
+  const location = useLocation();
+  const isActiveManagementPath = ["/admin/barinfo", "/admin/management"].includes(location.pathname);
+  console.log(isActiveManagementPath);
   return (
     <LayoutWrap>
       <FixHeader>
@@ -34,9 +37,9 @@ const AdminLayout = ({ children }: WrapperProps) => {
         <ul>
           <li>
             <NavLink
-              to="/admin/management"
-              style={({ isActive }) => {
-                return isActive ? activeStyle : deactiveStyle;
+              to="/admin/barinfo"
+              style={() => {
+                return isActiveManagementPath ? activeStyle : deactiveStyle;
               }}
             >
               정보 관리
