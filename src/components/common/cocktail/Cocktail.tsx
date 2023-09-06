@@ -24,7 +24,7 @@ const Cocktail = (props: { info: CocktailProps; idx: number }) => {
   );
 };
 
-const Item = styled.li`
+const Item = styled.div`
   display: flex;
   gap: 10px;
   img {
@@ -36,6 +36,7 @@ const Item = styled.li`
 `;
 
 const Container = styled.div`
+  flex-grow: 1;
   & > div {
     display: flex;
     justify-content: space-between;

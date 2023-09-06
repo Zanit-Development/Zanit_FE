@@ -38,7 +38,9 @@ export default function BarInfomation() {
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
           {BarInfo.cocktails.map((cocktail, idx) => (
-            <Cocktail key={idx} info={cocktail} idx={idx} />
+            <li key={idx}>
+              <Cocktail info={cocktail} idx={idx} />
+            </li>
           ))}
         </ul>
       </BarInfoContainer>
