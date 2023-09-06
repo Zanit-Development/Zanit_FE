@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
 import { styled } from "styled-components";
 import Input from "../../components/common/input/Input";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import Button from "../../components/common/button/Button";
+import { PopupPasswordFind } from "../../components/modal/UseSignPage/PopupPasswordFind";
 
 const PasswordFind = () => {
+  const [phoneNumValue, setPhoneNumValue] = useState("");
+  const [isModal, setIsModal] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    if (id === "userphone") {
+      setPhoneNumValue(value);
+    }
+  };
+
+  const handlePasswordFind = () => {
+    setIsModal(true);
+  };
+
+  const handleClose = () => {
+    setIsModal(false);
+  };
+
   return (
     <Layout>
       <PasswordFindSection>
@@ -15,9 +34,10 @@ const PasswordFind = () => {
           <br />
           비밀번호 재설정을 위한 링크를 카카오톡으로 보내드릴게요
         </p>
-        <Input {...SIGNIN_OPTIONS.PHONE} />
-        <Button {...BUTTON_OPTIONS.OK} />
+        <Input {...SIGNIN_OPTIONS.PHONE} onChange={handleInputChange} value={phoneNumValue} />
+        <Button {...BUTTON_OPTIONS.OK} onClick={handlePasswordFind} />
       </PasswordFindSection>
+      {isModal && <PopupPasswordFind closeModal={handleClose} />}
     </Layout>
   );
 };

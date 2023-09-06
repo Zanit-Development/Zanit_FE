@@ -40,4 +40,9 @@ export const BUTTON_VALUE = {
     PROMOTION: "할인 혜택 유지하기",
     PROMOTION_CANCLE: "해지하기",
   },
+
+  PASSWORD_FIND: {
+    GO_SIGNUP: "회원가입하기",
+    CLOSE_MODAL: "다시 입력하기",
+  },
 };
