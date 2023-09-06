@@ -27,7 +27,7 @@ const AdminLayout = ({ children }: WrapperProps) => {
     <LayoutWrap>
       <FixHeader>
         <H1>
-          <Link to="/admin/management">
+          <Link to="/admin/barinfo">
             <img src={Logo} alt="Zanit 관리자 페이지" />
           </Link>
         </H1>

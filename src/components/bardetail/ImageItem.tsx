@@ -36,7 +36,6 @@ const ImgBtn = styled.button<{ img: string | undefined }>`
 
 const Image = styled.img`
   width: 100%;
-  object-fit: cover;
 `;
 
 const Empty = styled.img`
