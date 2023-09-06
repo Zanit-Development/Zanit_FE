@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
-import { INPUT_EVENT, SELECT_EVENT } from "../../../libs/interface/typeEvent";
-import { BAR_INFO, SELECT } from "./ManageInfoOptions";
 import { Select } from "../../../components/common/select/Select";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
+import { BAR_INFO, SELECT } from "./ManageInfoOptions";
+
+import sampleImg from "../../../assets/admin_sample_img.svg";
+import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
+import { CocktailItem } from "../../../components/admin/management/CocktailItem";
+import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
+import Button from "../../../components/common/button/Button";
+import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -12,6 +18,20 @@ export const ManageInfo = () => {
   const [barMood, setBarMood] = useState<string>("");
   const [coverCharge, setCoverCharge] = useState<string>("");
   const [discount, setDiscount] = useState<string>("");
+  const [cocktailList, setCocktailList] = useState<string[]>([]);
+  const [showList, setShowList] = useState<string[]>([]);
+
+  const sampleCocktails: { info: CocktailProps }[] = [
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+    {
+      info: { img: "string", title: "string", level: "string", description: "string" },
+    },
+  ];
 
   return (
     <StyledForm>
@@ -50,8 +70,7 @@ export const ManageInfo = () => {
 요일과 시간을 입력해주세요"
           ></StyledTextarea>
           <StyledSpan>
-            {`
-            Ex. 월-금 17:00-24:00
+            {`Ex. 월-금 17:00-24:00
             토-일 15:00-24:00
           `}
           </StyledSpan>
@@ -60,18 +79,63 @@ export const ManageInfo = () => {
           <StyledH3>공간 설명</StyledH3>
           <StyledTextarea placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
           <StyledSpan>
-            {`
-            Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
+            {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}
           </StyledSpan>
         </StyledSectionsBarDesc>
+        <StyledSectionsBarDesc>
+          <StyledH3>공간 사진</StyledH3>
+          <StyledP>
+            {`1) 공간 외부 2) 내부 전경 3) 좌석 배치
+              4) 칵테일 메뉴가 적힌 메뉴판 사진을 업로드 해주세요
+            `}
+            <span>{"(가로 세로 비율 1:1 권장)"}</span>
+          </StyledP>
+          <PhotoList>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+            <li>
+              <img src={sampleImg} alt="" />
+            </li>
+          </PhotoList>
+        </StyledSectionsBarDesc>
       </section>
+      <section>
+        <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
+        <CocktailList>
+          {sampleCocktails.map((item, idx) => {
+            return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />;
+          })}
+        </CocktailList>
+        <AddCocktailButton>
+          <img src={addCocktailImg} alt="" />
+        </AddCocktailButton>
+      </section>
+
+      <Button
+        typevariants={"fill"}
+        sizevariants={"small"}
+        value={"저장하기"}
+        disabled={false}
+        onClick={function (e: BUTTON_EVENT): void {
+          throw new Error("Function not implemented.");
+        }}
+      ></Button>
     </StyledForm>
   );
 };
 
 const StyledForm = styled.form`
-  /* padding: 20px; */
+  & > button {
+    margin-top: 50px;
+  }
 `;
 
 const StyledH3 = styled.h3`
@@ -122,7 +186,7 @@ const StyledSectionBarInfo = styled.section`
     }
 
     & > input {
-      font-size: 13px;
+      font-size: 0.8125rem;
     }
   }
 `;
@@ -134,6 +198,7 @@ const StyledSpan = styled.span`
   font-family: var(--font--Medium);
   font-size: 0.8125rem;
   color: var(--gray300-color);
+  white-space: pre-line;
 `;
 
 const StyledSectionsBarDesc = styled.section`
@@ -171,4 +236,76 @@ const StyledTextarea = styled.textarea`
   &:not(:placeholder-shown) + span {
     display: none;
   }
+`;
+
+const StyledP = styled.p`
+  margin: 10px 0;
+  font-family: var(--font--Medium);
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: var(--gray400-color);
+  white-space: pre-line;
+
+  & > span {
+    color: var(--gray300-color);
+  }
+`;
+
+const PhotoList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+
+  & li {
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--gray200-color);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  & img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+`;
+
+const CocktailList = styled.ul`
+  margin: 20px 0;
+
+  & li {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 15px 10px;
+    background-color: var(--gray100-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    & > button {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+
+      &:first-of-type {
+        float: left;
+      }
+
+      &:last-of-type {
+        float: right;
+      }
+    }
+  }
+`;
+
+const AddCocktailButton = styled.button`
+  width: 100%;
+  height: 45px;
+  background-color: white;
+  border: 1px solid var(--gray200-color);
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
 `;
