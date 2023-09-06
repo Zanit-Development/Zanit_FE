@@ -8,7 +8,7 @@ const Cocktail = (props: { info: CocktailProps; idx: number }) => {
   const option = {
     typevariants: "tertiary",
     value: props.info.level,
-    tagId: `tag${props.idx}`,
+    tagid: `tag${props.idx}`,
   };
   return (
     <Item>

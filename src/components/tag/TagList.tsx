@@ -22,7 +22,7 @@ const TagList = () => {
       {tagOptions.map((item, idx) => {
         const tagOptions: TagProps = {
           typevariants: "primary",
-          tagId: `tag_${idx}`,
+          tagid: `tag_${idx}`,
           value: item,
           name: "searchCategory",
         };
