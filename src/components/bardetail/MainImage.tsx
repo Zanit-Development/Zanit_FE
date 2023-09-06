@@ -10,11 +10,14 @@ interface mainImageProp {
 export default function MainImage({ defaultImg }: mainImageProp) {
   const mainImg = useRecoilValue(mainImgState);
 
-  return <MainImageStyle src={mainImg === "" ? defaultImg : mainImg} />;
+  return (
+    <div>
+      <MainImageStyle src={mainImg === "" ? defaultImg : mainImg} />
+    </div>
+  );
 }
 
 const MainImageStyle = styled.img`
-  width: 366px;
-  height: 366px;
+  width: 100%;
   border-radius: 4px;
 `;

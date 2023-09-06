@@ -36,9 +36,9 @@ const Section = styled.section`
 const ImgList = styled.ul`
   margin: 12px 0 20px;
   display: flex;
-  gap: 5px;
+  gap: 4px;
   li {
-    height: 88px;
+    width: calc((100% - 12px) / 3);
     display: inline-block;
   }
 `;
