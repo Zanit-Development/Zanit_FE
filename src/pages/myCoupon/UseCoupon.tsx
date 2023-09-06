@@ -5,24 +5,36 @@ import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 
 import SelectBox from "../../components/common/select-box/SelectBox";
 
+export interface SelectType {
+  selected: string;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  data: string[];
+  placeholder: string;
+  nulltext: string;
+  boxtype?: "primary" | "secondary";
+}
+
 const UseCoupon = () => {
   const barList = ["bar1", "bar2", "bar3", "bar4", "bar5", "bar6", "bar7", "bar8"];
   const [selectedBar, setSelectedBar] = useState("");
-  const CocktailList: { [prop: string]: string[] } = useMemo(
-    () => ({
-      bar1: ["cock1", "cock2", "cock3", "cock4", "cock5"],
-      bar2: ["1", "2", "3", "4", "5"],
-    }),
-    []
-  );
+  const CocktailList: { [prop: string]: string[] } = {
+    bar1: ["cock1", "cock2", "cock3", "cock4", "cock5"],
+    bar2: ["1", "2", "3", "4", "5"],
+    bar3: ["a", "b", "c", "d", "e"],
+    bar4: ["a1", "a2", "a3", "a4", "a5"],
+    bar5: ["q1", "q2", "q3", "q4", "q5"],
+    bar6: ["w1", "w2", "w3", "w4", "w5"],
+    bar7: ["e1", "e2", "e3", "e4", "e5"],
+    bar8: ["r1", "r2", "r3", "r4", "r5"],
+  };
   const [selectedCocktail, setSelectedCocktail] = useState("");
 
   useEffect(() => {
     setSelectedCocktail("");
   }, [selectedBar]);
 
-  const BarOptions = {
-    bgcolor: "#F4F4F4",
+  const BarOptions: SelectType = {
+    boxtype: "secondary",
     selected: selectedBar,
     setSelected: setSelectedBar,
     data: barList,
@@ -30,8 +42,7 @@ const UseCoupon = () => {
     nulltext: "바 선택하기",
   };
 
-  const CocktailOptions = {
-    bgcolor: "#F4F4F4",
+  const CocktailOptions: SelectType = {
     selected: selectedCocktail,
     setSelected: setSelectedCocktail,
     data: CocktailList[selectedBar] || [],

@@ -1,20 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MOUSE_EVENT } from "../../../libs/interface/typeEvent";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 
 import ArrowIcon from "../../../assets/icon/icon_arrow_down.svg";
 import SelectItem from "./SelectItem";
+import { SelectType } from "../../../pages/myCoupon/UseCoupon";
 
-interface SelectType {
-  selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
-  data: string[];
-  placeholder: string;
-  nulltext: string;
-  bgcolor: string;
-}
-
-const SelectBox = ({ bgcolor, selected, setSelected, data, placeholder, nulltext }: SelectType) => {
+const SelectBox = ({ boxtype = "primary", selected, setSelected, data, placeholder, nulltext }: SelectType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,13 +37,13 @@ const SelectBox = ({ bgcolor, selected, setSelected, data, placeholder, nulltext
   }, []);
 
   return (
-    <SelectWrapper $bgcolor={bgcolor} onClick={data.length > 0 ? handleDropDown : undefined} ref={selectRef}>
+    <SelectWrapper $boxtype={boxtype} onClick={data.length > 0 ? handleDropDown : undefined} ref={selectRef}>
       <Container>
         {selected || placeholder}
         <Arrow $isopen={isOpen ? "true" : "false"} src={ArrowIcon} alt="" />
       </Container>
       {isOpen && (
-        <ItemList>
+        <ItemList $boxtype={boxtype}>
           <SelectItem reset={true} key={nulltext} option={nulltext} isSelected={"" === selected} onSelect={(e) => selectOption(e)} />
           {data.map((option) => (
             <SelectItem key={option} option={option} isSelected={option === selected} onSelect={(e) => selectOption(e)} />
@@ -64,14 +56,26 @@ const SelectBox = ({ bgcolor, selected, setSelected, data, placeholder, nulltext
 
 export default SelectBox;
 
-const SelectWrapper = styled.div<{ $bgcolor: string }>`
+const BoxType = {
+  primary: css`
+    background-color: #f4f4f4;
+  `,
+  secondary: css`
+    background-color: white;
+    box-shadow: 0 0 0 1px #eee inset;
+  `,
+};
+
+const SelectWrapper = styled.div<{ $boxtype: "primary" | "secondary" }>`
+  ${({ $boxtype }) => BoxType[$boxtype]}
+
+  box-sizing: border-box;
   margin-top: 15px;
 
   padding: 13px 20px;
   border-radius: 5px;
   font-size: 14px;
   font-family: var(--font--Regular);
-  background-color: ${({ $bgcolor }) => `${$bgcolor}`};
 
   position: relative;
 `;
@@ -87,8 +91,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ItemList = styled.ul`
+const ItemList = styled.ul<{ $boxtype: "primary" | "secondary" }>`
   box-sizing: border-box;
+
+  ${({ $boxtype }) => BoxType[$boxtype]}
+
   width: 100%;
   height: calc(40px + 40.5px * 4);
   overflow-y: auto;
@@ -96,7 +103,6 @@ const ItemList = styled.ul`
   top: 59px;
   left: 0;
   border-radius: 5px;
-  background-color: inherit;
 
   padding: 0 12px;
   z-index: 9999;
