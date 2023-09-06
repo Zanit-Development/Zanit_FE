@@ -2,7 +2,7 @@ import React from "react";
 
 import { styled } from "styled-components";
 
-import Cocktail from "../../components/bardetail/Cocktail";
+import Cocktail from "../common/cocktail/Cocktail";
 import ImgContainer from "../../components/bardetail/ImgContainer";
 
 import Tag from "../../components/tag/Tag";

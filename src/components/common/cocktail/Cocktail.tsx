@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 
-import { CocktailProps } from "../../libs/interface/interfaceBarDetail";
-import { TagProps } from "../../libs/interface/interfaceCommon";
-import Tag from "../tag/Tag";
+import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
+import { TagProps } from "../../../libs/interface/interfaceCommon";
+import Tag from "../../tag/Tag";
 
 const Cocktail = (props: { info: CocktailProps; idx: number }) => {
   const option = {
