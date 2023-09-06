@@ -68,10 +68,11 @@ const BarInfoContainer = styled.section`
     font-size: 20px;
     margin-bottom: 8px;
   }
-  p {
+  & > p {
     font-family: var(--font--Medium);
     margin-bottom: 12px;
     line-height: 1.5;
+    white-space: pre-line;
   }
 
   h3 + ul {
