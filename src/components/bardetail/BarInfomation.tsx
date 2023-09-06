@@ -46,7 +46,8 @@ export default function BarInfomation() {
   );
 }
 
-function generateCoverCharge<T extends number | undefined>(price: T, discount: T) {
+type coverchargeType = number | undefined;
+function generateCoverCharge<T extends coverchargeType>(price: T, discount: T) {
   if (price === undefined) return null;
 
   const priceText = !!discount ? <span>{price}원</span> : `${price}원`;
