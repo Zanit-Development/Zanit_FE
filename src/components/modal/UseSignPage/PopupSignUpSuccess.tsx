@@ -11,6 +11,7 @@ export const PopupSignUpSuccess = () => {
   const closeModal = () => {
     navigate("/signin");
   };
+
   const gotoMain = () => {
     navigate("/");
   };

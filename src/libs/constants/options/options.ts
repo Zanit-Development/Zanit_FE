@@ -126,12 +126,24 @@ export const BUTTON_OPTIONS: {
     sizevariants: "small",
     value: BUTTON_VALUE.MEMBERSHIP_STOP.PROMOTION_CANCLE,
   },
+
+  PASSWORD_FIND_GO_SIGNUP: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.PASSWORD_FIND.GO_SIGNUP,
+  },
+
+  PASSWORD_FIND_CLOSE: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.PASSWORD_FIND.CLOSE_MODAL,
+  },
 };
 
 export const SIGNIN_OPTIONS = {
   PHONE: {
     ...INPUT_OPTIONS_BASE,
-    type: "number",
+    type: "tel",
     placeholder: PLACEHOLDER_SIGN.IN.PHONE,
     id: "userphone",
     name: "userphone",
