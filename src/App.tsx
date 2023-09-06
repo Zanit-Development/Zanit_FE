@@ -19,6 +19,8 @@ import { ManageOrder } from "./pages/admin/bar/ManageOrder";
 import { UseHistory } from "./components/coupon/UseHistory";
 import { StopSubscribe } from "./pages/stopSubscribe/StopSubscribe";
 import AdminBardetail from "./pages/admin/bar/AdminBarDetail";
+// 임시
+import Temporary from "./pages/Temporary";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -27,7 +29,8 @@ const App = () => {
     <BrowserRouter basename={PUB_URL}>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Temporary />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
