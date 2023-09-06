@@ -1,6 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
 import Button from "../../components/common/button/Button";
+import ManualPaymentCoupon from "./ManualPaymentBtn";
+
+import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
+import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
+
 import coupon_bg from "../../assets/coupon_bg.svg";
 import coupon_bg_used from "../../assets/coupon_bg_used.svg";
 import icon_store from "../../assets/icon/icon_store.svg";
@@ -8,9 +15,6 @@ import icon_ticket from "../../assets/icon/icon_ticket.svg";
 import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import icon_used_coupon from "../../assets/icon/icon_used_coupon.svg";
 import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
-import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { styled } from "styled-components";
-import ManualPaymentCoupon from "./ManualPaymentBtn";
 
 const HasCoupon = () => {
   const auto = false;
@@ -21,6 +25,10 @@ const HasCoupon = () => {
   let impossibility = "9월 4일";
   let expiration = "9월 25일";
   const dateInfo = use ? `이 쿠폰은 ${possibility}까지\n사용할 수 있어요` : `다음 쿠폰은\n${impossibility}에 만나요`;
+  const navigate = useNavigate();
+  const useCouponPage = (e: BUTTON_EVENT) => {
+    navigate("/useCoupon");
+  };
 
   return (
     <>
@@ -35,7 +43,7 @@ const HasCoupon = () => {
             <p>{dateInfo}</p>
           </TextDiv>
         </CouponArticle>
-        {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} /> : <ManualPaymentCoupon />}
+        {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} /> : <ManualPaymentCoupon />}
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
