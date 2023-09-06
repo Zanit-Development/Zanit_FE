@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import bar1 from "../../assets/sample-img/bar1.png";
 import bar2 from "../../assets/sample-img/bar2.png";
 import bar3 from "../../assets/sample-img/bar3.png";
-import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
 
 import ImageItem from "./ImageItem";
+import MainImage from "./MainImage";
 
 function returnImgArr(barPics: string) {
   const splitArr = barPics.split(" ");
@@ -14,20 +14,14 @@ function returnImgArr(barPics: string) {
 
 const ImgContainer = ({ barPics }: { barPics: string }) => {
   const imgArr: string[] = returnImgArr(`${bar1} ${bar2} ${bar3}`);
-  const [mainImg, setMainImg] = useState<string>(imgArr[0]);
-
-  const changeMain = (event: MOUSE_EVENT) => {
-    const target = event.target as HTMLImageElement;
-    setMainImg(target.src);
-  };
 
   return (
     <Section>
-      <MainImage src={mainImg} />
+      <MainImage defaultImg={imgArr[0]} />
       <ImgList>
-        {imgArr.map((img) => (
-          <li key={img}>
-            <ImageItem image={img} handleImg={img ? changeMain : undefined} />
+        {imgArr.map((img, index) => (
+          <li key={index}>
+            <ImageItem image={img} />
           </li>
         ))}
       </ImgList>
@@ -37,12 +31,6 @@ const ImgContainer = ({ barPics }: { barPics: string }) => {
 
 const Section = styled.section`
   margin: 0 12px;
-`;
-
-const MainImage = styled.img`
-  width: 366px;
-  height: 366px;
-  border-radius: 4px;
 `;
 
 const ImgList = styled.ul`
