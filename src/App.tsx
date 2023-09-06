@@ -18,6 +18,7 @@ import BarManagement from "./pages/admin/bar/BarManagement";
 import { ManageOrder } from "./pages/admin/bar/ManageOrder";
 import { UseHistory } from "./components/coupon/UseHistory";
 import { StopSubscribe } from "./pages/stopSubscribe/StopSubscribe";
+import AdminBardetail from "./pages/admin/bar/AdminBarDetail";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/password-reset" element={<PasswordReset />} />
 
         <Route path="/admin/*">
+          <Route path="barinfo" element={<AdminBardetail />} />
           <Route path="management" element={<BarManagement />} />
           <Route path="manageorder" element={<ManageOrder />} />
         </Route>

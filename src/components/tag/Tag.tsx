@@ -11,8 +11,8 @@ const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
   };
   return (
     <TagContainer typevariants={typevariants} {...props}>
-      <input id={props.tagId} type="radio" {...props} disabled={tagDisabled} checked={isChecked} />
-      <label htmlFor={props.tagId} onClick={!tagDisabled ? handleChecked : undefined}>
+      <input id={props.tagid} type="radio" {...props} disabled={tagDisabled} checked={isChecked} />
+      <label htmlFor={props.tagid} onClick={!tagDisabled ? handleChecked : undefined}>
         &#35;{props.value}
       </label>
     </TagContainer>

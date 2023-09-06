@@ -32,7 +32,7 @@ export interface InputProps {
 export interface TagProps {
   typevariants: TAG_TYPE_VARIANTS;
   value: string;
-  tagId: string;
+  tagid: string;
   name: string;
 }
 
