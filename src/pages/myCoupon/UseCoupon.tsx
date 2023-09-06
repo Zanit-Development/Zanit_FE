@@ -34,7 +34,6 @@ const UseCoupon = () => {
   }, [selectedBar]);
 
   const BarOptions: SelectType = {
-    boxtype: "secondary",
     selected: selectedBar,
     setSelected: setSelectedBar,
     data: barList,
