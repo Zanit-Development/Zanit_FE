@@ -36,6 +36,7 @@ export const Opening = styled(grayTextWithIcon)`
   &::before {
     background: url(${timeIcon}) no-repeat center / contain;
   }
+  white-space: pre-line;
 `;
 
 export const CoverCharge = styled(grayTextWithIcon)`

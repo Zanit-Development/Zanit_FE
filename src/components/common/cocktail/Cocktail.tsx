@@ -55,6 +55,7 @@ const Item = styled.li`
     line-height: 16px;
     margin-top: 4px;
     grid-area: desc;
+    white-space: pre-line;
   }
 `;
 

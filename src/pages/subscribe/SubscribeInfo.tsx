@@ -12,7 +12,7 @@ export const SubscribeInfo = ({ title, src, content }: SubScribeProps) => {
           </div>
           <figcaption>
             <h2>{title}</h2>
-            <p>{content}</p>
+            {content}
           </figcaption>
         </figure>
       </InfoContainer>
@@ -48,16 +48,14 @@ const InfoContainer = styled.section`
       white-space: pre-line;
 
       & > h2 {
+        color: black;
         font-family: var(--font--Bold);
         line-height: 22px;
       }
 
-      & > p {
-        font-family: var(--font--Regular);
-        color: var(--gray500-color);
-        line-height: 20px;
-        margin-bottom: 0;
-      }
+      color: var(--gray500-color);
+      line-height: 20px;
+      margin-bottom: 0;
     }
   }
 `;
