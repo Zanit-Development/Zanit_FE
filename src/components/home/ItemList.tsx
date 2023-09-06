@@ -57,12 +57,12 @@ const ListContainer = styled.section`
 
 const ItemContainer = styled.ul`
   white-space: nowrap;
-  width: 316px;
+  width: calc(100vw - 20px - 10px - 48px);
   overflow: hidden;
 
   li {
     display: inline-block;
-    width: calc((390px - 20px - 16px - 48px - 10px) / 3);
+    width: calc((100% - 16px) / 3);
     margin-left: 8px;
 
     &:first-of-type {
@@ -70,7 +70,7 @@ const ItemContainer = styled.ul`
     }
 
     img {
-      height: calc((390px - 20px - 16px - 48px - 10px) / 3);
+      height: 100%;
     }
     span {
       text-align: center;

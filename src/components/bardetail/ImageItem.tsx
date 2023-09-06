@@ -24,8 +24,8 @@ const ImageItem = ({ image }: ImageItemProps) => {
 };
 
 const ImgBtn = styled.button<{ img: string | undefined }>`
-  width: 88px;
-  height: 88px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   border: 1px solid #eee;
   box-sizing: border-box;
@@ -36,7 +36,6 @@ const ImgBtn = styled.button<{ img: string | undefined }>`
 
 const Image = styled.img`
   width: 100%;
-  height: 100%;
 `;
 
 const Empty = styled.img`

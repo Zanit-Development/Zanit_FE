@@ -43,7 +43,9 @@ const Subscribe = () => {
           </p>
         </section>
 
-        <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
+        <div>
+          <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
+        </div>
       </StyledSectionTop>
 
       <StyledSectionMiddle>
@@ -105,11 +107,12 @@ const Container = css`
     font-size: 14px;
     line-height: 18px;
     white-space: pre-line;
+    line-height: 22px;
   }
 
   & button {
     width: 100%;
-    margin: 20px auto 30px;
+    margin: 0 auto;
   }
 `;
 
@@ -117,6 +120,7 @@ const Title = styled.h2`
   margin-bottom: 20px;
   font-family: var(--font--Bold);
   font-size: 18px;
+  line-height: 22px;
 `;
 
 const StyledSectionTop = styled.section`
@@ -126,14 +130,41 @@ const StyledSectionTop = styled.section`
     margin-left: -10px;
   } */
 
+  h2 {
+    padding-left: 11px;
+  }
+
+  padding-right: 10px;
+  padding-left: 10px;
+
   & img {
     width: 100%;
   }
+
+  figure {
+    margin-bottom: 24px;
+  }
+
+  & > section {
+    padding: 0 11px;
+    margin-bottom: 30px;
+  }
+  div {
+    padding: 0 10px;
+  }
 `;
+
 const StyledSectionMiddle = styled.section`
   ${Container}
   background-color: #f0f0f0;
 
+  & > h2 {
+    margin-bottom: 24px;
+  }
+
+  padding: 32px 20px 58px;
+
+  /* 없어도 될것 같은! */
   & figure {
     width: 100%;
     & > img {
@@ -155,9 +186,16 @@ const StyledSectionMiddle = styled.section`
     }
   }
 
+  & > article {
+    margin: 32px 0;
+  }
+
   & > article > p {
-    margin-bottom: 20px;
-    font-family: var(--font--Bold);
+    margin-top: 25px;
+    font-family: var(--font--Medium);
+    & > strong {
+      font-family: var(--font--Bold);
+    }
     text-align: center;
     white-space: pre-line;
 
@@ -168,4 +206,19 @@ const StyledSectionMiddle = styled.section`
 `;
 const StyledSectionBottom = styled.section`
   ${Container}
+  padding-top: 32px;
+  padding-bottom: 85px;
+
+  & section:first-of-type figure {
+    margin-top: 0;
+    margin-bottom: 23px;
+  }
+  & section:last-of-type figure {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  & > button {
+    margin-top: 61px;
+  }
 `;
