@@ -34,7 +34,7 @@ export const Address = styled(grayTextWithIcon)`
 
 export const Opening = styled(grayTextWithIcon)`
   &::before {
-    background: url(${timeIcon}) no-repeat center / contain;
+    background: url(${timeIcon}) no-repeat center;
   }
   white-space: pre-line;
 `;

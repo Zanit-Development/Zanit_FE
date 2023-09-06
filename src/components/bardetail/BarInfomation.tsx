@@ -70,19 +70,20 @@ const BarInfoContainer = styled.section`
   }
   & > p {
     font-family: var(--font--Medium);
+    font-size: 14px;
     margin-bottom: 12px;
     line-height: 1.5;
     white-space: pre-line;
   }
 
   h3 + ul {
-    margin-top: 25px;
+    margin-top: 13px;
     padding: 20px;
     background-color: var(--gray100-color);
 
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 12px;
   }
 `;
 
