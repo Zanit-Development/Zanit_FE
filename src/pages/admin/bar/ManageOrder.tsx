@@ -68,10 +68,12 @@ const StyledTable = styled.table`
     padding: 10px 0;
     border-bottom: 1px solid var(--gray200-color);
     font-weight: bold;
+    font-size: 0.875rem;
   }
 
   & td {
     height: 40px;
+    font-size: 0.9375rem;
     line-height: 40px;
   }
 `;
@@ -79,4 +81,5 @@ const StyledTable = styled.table`
 const TotalCount = styled.strong`
   margin: 20px;
   font-family: var(--font--Bold);
+  font-size: 14px;
 `;
