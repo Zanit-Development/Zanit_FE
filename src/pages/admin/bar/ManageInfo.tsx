@@ -10,6 +10,7 @@ import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 import Button from "../../../components/common/button/Button";
+import SelectBox from "../../../components/common/select-box/SelectBox";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -43,21 +44,60 @@ export const ManageInfo = () => {
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>위치</StyledH3>
-          <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
+          <SelectBox
+            styletype="secondary"
+            selected={""}
+            setSelected={function (value: React.SetStateAction<string>): void {
+              throw new Error("Function not implemented.");
+            }}
+            data={["#중랑구 ", "#서대문구 ", "#중구 "]}
+            placeholder={"선택"}
+            nulltext={"선택"}
+          ></SelectBox>
+          {/* <Select {...SELECT.LOCATION} onChange={handleChangeSelect} /> */}
           <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={(e) => handleChangeInput(e, setBarLocation)} />
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>분위기</StyledH3>
-          <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
+          <SelectBox
+            styletype="secondary"
+            selected={""}
+            setSelected={function (value: React.SetStateAction<string>): void {
+              throw new Error("Function not implemented.");
+            }}
+            data={["#캐주얼한", "#고급스러운", "#신나는"]}
+            placeholder={"선택"}
+            nulltext={"선택"}
+          ></SelectBox>
+          {/* <Select {...SELECT.MOOD} onChange={handleChangeSelect} /> */}
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
-          <Select {...SELECT.COVER_CHARGE} onChange={handleChangeSelect} />
+          <SelectBox
+            styletype="secondary"
+            selected={""}
+            setSelected={function (value: React.SetStateAction<string>): void {
+              throw new Error("Function not implemented.");
+            }}
+            data={["있음", "없음"]}
+            placeholder={"선택"}
+            nulltext={"선택"}
+          ></SelectBox>
           <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={(e) => handleChangeInputNumber(e, setCoverCharge)} />
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
-          <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} />
+          <SelectBox
+            styletype="secondary"
+            selected={""}
+            setSelected={function (value: React.SetStateAction<string>): void {
+              throw new Error("Function not implemented.");
+            }}
+            data={["있음", "없음"]}
+            placeholder={"선택"}
+            nulltext={"선택"}
+          ></SelectBox>
+          {/* <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} /> */}
           <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
         </StyledSectionBarInfo>
       </section>
@@ -150,10 +190,19 @@ const StyledSectionBarInfo = styled.section`
     letter-spacing: -0.5px;
   }
 
-  &:nth-of-type(2) > input,
-  &:nth-of-type(4) > input,
-  &:nth-of-type(5) > input {
-    flex-shrink: 0.55;
+  &:nth-of-type(2) > div {
+    flex-basis: 96px;
+    flex-shrink: 0;
+  }
+  &:nth-of-type(3) > div {
+    flex-grow: 1;
+  }
+  &:nth-of-type(4),
+  &:nth-of-type(5) {
+    & > div {
+      flex-basis: 77px;
+      flex-shrink: 0;
+    }
   }
 
   &:nth-of-type(5) {
@@ -177,7 +226,7 @@ const StyledSectionBarInfo = styled.section`
     }
 
     & > input {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
     }
   }
 `;

@@ -6,7 +6,7 @@ import ArrowIcon from "../../../assets/icon/icon_arrow_down.svg";
 import SelectItem from "./SelectItem";
 import { SelectType } from "../../../pages/myCoupon/UseCoupon";
 
-const SelectBox = ({ boxtype = "primary", selected, setSelected, data, placeholder, nulltext }: SelectType) => {
+const SelectBox = ({ styletype = "primary", selected, setSelected, data, placeholder, nulltext }: SelectType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement | null>(null);
 
@@ -37,16 +37,16 @@ const SelectBox = ({ boxtype = "primary", selected, setSelected, data, placehold
   }, []);
 
   return (
-    <SelectWrapper $boxtype={boxtype} onClick={data.length > 0 ? handleDropDown : undefined} ref={selectRef}>
+    <SelectWrapper $styletype={styletype} onClick={data.length > 0 ? handleDropDown : undefined} ref={selectRef}>
       <Container>
         {selected || placeholder}
         <Arrow $isopen={isOpen ? "true" : "false"} src={ArrowIcon} alt="" />
       </Container>
       {isOpen && (
-        <ItemList $boxtype={boxtype}>
-          <SelectItem reset={true} key={nulltext} option={nulltext} isSelected={"" === selected} onSelect={(e) => selectOption(e)} />
+        <ItemList $styletype={styletype}>
+          <SelectItem styletype={styletype} reset={true} key={nulltext} option={nulltext} isSelected={"" === selected} onSelect={(e) => selectOption(e)} />
           {data.map((option) => (
-            <SelectItem key={option} option={option} isSelected={option === selected} onSelect={(e) => selectOption(e)} />
+            <SelectItem styletype={styletype} key={option} option={option} isSelected={option === selected} onSelect={(e) => selectOption(e)} />
           ))}
         </ItemList>
       )}
@@ -56,25 +56,49 @@ const SelectBox = ({ boxtype = "primary", selected, setSelected, data, placehold
 
 export default SelectBox;
 
-const BoxType = {
+type styleType = "primary" | "secondary";
+
+const Common = {
   primary: css`
     background-color: #f4f4f4;
+    font-size: 14px;
   `,
   secondary: css`
     background-color: white;
-    box-shadow: 0 0 0 1px #eee inset;
+    box-shadow: 0 0 0 1px var(--gray200-color) inset;
+    font-size: 13px;
   `,
 };
 
-const SelectWrapper = styled.div<{ $boxtype: "primary" | "secondary" }>`
-  ${({ $boxtype }) => BoxType[$boxtype]}
+const BoxType = {
+  primary: css`
+    margin-top: 15px;
+
+    padding: 13px 20px;
+  `,
+  secondary: css`
+    padding: 8.5px 10px;
+  `,
+};
+
+const ULType = {
+  primary: css`
+    top: 59px;
+    max-height: calc(40px * 5 + 0.5px * 5);
+  `,
+  secondary: css`
+    top: 50px;
+    max-height: calc(39px * 5 + 0.5px * 5);
+  `,
+};
+
+const SelectWrapper = styled.div<{ $styletype: styleType }>`
+  ${({ $styletype }) => Common[$styletype]}
+  ${({ $styletype }) => BoxType[$styletype]}
 
   box-sizing: border-box;
-  margin-top: 15px;
 
-  padding: 13px 20px;
   border-radius: 5px;
-  font-size: 14px;
   font-family: var(--font--Regular);
 
   position: relative;
@@ -91,19 +115,16 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ItemList = styled.ul<{ $boxtype: "primary" | "secondary" }>`
+const ItemList = styled.ul<{ $styletype: styleType }>`
   box-sizing: border-box;
-
-  ${({ $boxtype }) => BoxType[$boxtype]}
-
+  ${({ $styletype }) => Common[$styletype]}
+  ${({ $styletype }) => ULType[$styletype]}
+  padding: 0 12px;
   width: 100%;
-  height: calc(40px + 40.5px * 4);
   overflow-y: auto;
   position: absolute;
-  top: 59px;
   left: 0;
   border-radius: 5px;
 
-  padding: 0 12px;
   z-index: 9999;
 `;

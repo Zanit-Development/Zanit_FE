@@ -11,7 +11,7 @@ export interface SelectType {
   data: string[];
   placeholder: string;
   nulltext: string;
-  boxtype?: "primary" | "secondary";
+  styletype?: "primary" | "secondary";
 }
 
 const UseCoupon = () => {

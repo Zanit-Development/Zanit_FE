@@ -1,20 +1,21 @@
 import React from "react";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { MOUSE_EVENT } from "../../../libs/interface/typeEvent";
 import CheckMark from "../../../assets/icon/icon-checkmark-black.png";
 
 interface itemType {
+  styletype?: "primary" | "secondary";
   option: string;
   isSelected: boolean;
   onSelect: (event: MOUSE_EVENT) => void;
   reset?: boolean;
 }
 
-const SelectItem = ({ option, isSelected, onSelect, reset = false }: itemType) => {
+const SelectItem = ({ styletype = "primary", option, isSelected, onSelect, reset = false }: itemType) => {
   const itemclass = `${isSelected ? "selected" : ""} ${reset ? "reset-item" : ""}`;
 
   return (
-    <Item className={itemclass} onClick={onSelect}>
+    <Item $styletype={styletype} className={itemclass} onClick={onSelect}>
       {option}
     </Item>
   );
@@ -22,9 +23,33 @@ const SelectItem = ({ option, isSelected, onSelect, reset = false }: itemType) =
 
 export default SelectItem;
 
-const Item = styled.li`
-  padding: 13px 8px;
-  padding-left: 29px;
+const LiStyle = {
+  primary: css`
+    padding-left: 29px;
+  `,
+  secondary: css`
+    padding-left: 14px;
+  `,
+};
+
+const checkStyle = {
+  primary: css`
+    left: 6px;
+    width: 15px;
+    height: 15px;
+  `,
+  secondary: css`
+    left: -2px;
+    top: 14px;
+    width: 12px;
+    height: 12px;
+  `,
+};
+
+const Item = styled.li<{ $styletype: "primary" | "secondary" }>`
+  padding: 13px 0 13px 8px;
+  ${({ $styletype }) => LiStyle[$styletype]}
+
   border-top: 0.5px solid var(--gray300-color);
   &:first-child {
     border-top: none;
@@ -32,16 +57,16 @@ const Item = styled.li`
   &.reset-item {
     color: var(--gray500-color);
   }
-  font-size: 14px;
+  font-size: inherit;
   font-family: var(--font--Regular);
 
   position: relative;
   &.selected::before {
     content: "";
     position: absolute;
-    left: 6px;
-    width: 15px;
-    height: 15px;
+
+    ${({ $styletype }) => checkStyle[$styletype]}
+
     background: url(${CheckMark}) no-repeat 0 / contain;
   }
 `;
