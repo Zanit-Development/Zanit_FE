@@ -116,20 +116,26 @@ const DiscountPer = styled.span`
 const InfoContainer = styled.section`
   position: relative;
 
-  & span {
+  & > span {
+    position: relative;
     display: block;
-    margin: 7px 0 7px 5px;
+    margin: 7px 0 7px 10px;
+    font-size: 0.75rem;
+    color: var(--gray400-color);
   }
 
-  & span::before {
+  & > span::before {
     content: "";
-    width: 2px;
-    height: 2px;
+    position: absolute;
+    top: 4.5px;
+    left: -10px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background-color: var(--gray200-color);
+    background-color: var(--gray400-color);
   }
 
-  & strong {
+  & > strong {
     position: absolute;
     right: 0;
     top: 0;
@@ -137,6 +143,8 @@ const InfoContainer = styled.section`
     text-align: right;
 
     & > span {
+      display: block;
+      margin-top: 5px;
       font-weight: normal;
       font-size: 0.625rem;
     }
