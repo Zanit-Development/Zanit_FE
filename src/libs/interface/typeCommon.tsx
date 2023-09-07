@@ -16,3 +16,5 @@ export type MODAL_TYPE_VARIANTS = "single" | "double";
 
 export type SELECT_TYPE_VARIANTS = "fill" | "stroke";
 export type SELECT_SIZE_VARIANTS = "large" | "small";
+
+export type MEMBERSHIP_TYPE_VARIANTS = "card" | "simple";
