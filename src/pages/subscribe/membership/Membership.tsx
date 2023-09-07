@@ -4,6 +4,8 @@ import { css, styled } from "styled-components";
 import Button from "../../../components/common/button/Button";
 import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
 import { Link } from "react-router-dom";
+import { MEMBERSHIP, membershipOption } from "./membershipOption";
+import { MembershipType } from "../../../components/membership/MembershipType";
 
 export const Membership = () => {
   const [isMember, setIsMember] = useState(false);
@@ -20,16 +22,17 @@ export const Membership = () => {
       </DescContainer>
       <form>
         <MembershipContainer>
+          <MembershipType {...MEMBERSHIP.TYPE1} />
+          <MembershipType {...MEMBERSHIP.TYPE2} />
+          <MembershipType {...MEMBERSHIP.TYPE3} />
           <span>
             쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
           </span>
         </MembershipContainer>
         <ButtonContainer>
           <Button
-            typevariants={"fill"}
-            sizevariants={"large"}
+            {...membershipOption}
             value={isMember ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}
-            disabled={false}
             onClick={function (e: BUTTON_EVENT): void {
               throw new Error("Function not implemented.");
             }}
@@ -82,7 +85,6 @@ const MembershipContainer = styled.section`
 
   & a {
     font-weight: bold;
-    /* color: var(--color500-color); */
     text-decoration: underline;
   }
 `;
