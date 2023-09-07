@@ -1,6 +1,6 @@
 import { INPUT_EVENT, SELECT_EVENT } from "../../../libs/interface/typeEvent";
 
-const checkInputNumber = /[^\d, ]/g;
+const checkInputNumber = /[,a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]/g;
 
 export const handleChangeInput = (e: INPUT_EVENT, setValue: Function) => {
   const inputValue = e.target.value;
@@ -8,15 +8,8 @@ export const handleChangeInput = (e: INPUT_EVENT, setValue: Function) => {
   setValue(inputValue);
 };
 
-// export const handleChangeInputNumber = (e: INPUT_EVENT, setValue: Function) => {
-//   const inputValue = e.target.value.replace(checkInputNumber, "");
-//   console.log(inputValue);
-
-//   setValue(parseInt(inputValue).toLocaleString("en"));
-// };
-
 export const handleChangeInputNumber = (e: INPUT_EVENT, setValue: Function) => {
-  const inputValue = e.target.value.replaceAll(",", "");
+  const inputValue = e.target.value.replace(checkInputNumber, "");
   setValue(inputValue === "" ? "" : parseInt(inputValue).toLocaleString("en"));
 };
 
