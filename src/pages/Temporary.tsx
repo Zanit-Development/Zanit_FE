@@ -13,6 +13,7 @@ export default function Temporary() {
         <Link to="/signUp">회원가입</Link>
         <Link to="/search">검색</Link>
         <Link to="/subscribe">구독하기</Link>
+        <Link to="/subscribe/start">구독 시작하기</Link>
         <Link to="/myCoupon">내 쿠폰함</Link>
         <Link to="/use-history">이전 쿠폰 이용 내역</Link>
         <Link to="/stop-subscribe">정기 결제 해지하기</Link>
