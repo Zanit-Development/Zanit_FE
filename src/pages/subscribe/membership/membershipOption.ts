@@ -29,6 +29,7 @@ export const MEMBERSHIP: {
     membershipname: "Y 멤버십",
     discountper: 17,
     cost: 99900,
+    disccost: "(회차 별 33,000원에 이용)",
     round: "3",
   },
   TYPE3: {
