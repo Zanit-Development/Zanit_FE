@@ -7,8 +7,11 @@ import { CONTENT1, CONTENT2, CONTENT3, DiscountOptions, EVENT } from "./subscrib
 import { SubscribeInfo } from "./SubscribeInfo";
 import promotion from "../../assets/promo.png";
 import { DiscountCoupon } from "./DiscountCoupon";
+import { useNavigate } from "react-router-dom";
 
 const Subscribe = () => {
+  const navigate = useNavigate();
+
   return (
     <Layout>
       <StyledSectionTop>
@@ -44,7 +47,7 @@ const Subscribe = () => {
         </section>
 
         <div>
-          <Button {...BUTTON_OPTIONS.SUBSCRIBE}></Button>
+          <Button {...BUTTON_OPTIONS.SUBSCRIBE} onClick={() => navigate("/subscribe/start")}></Button>
         </div>
       </StyledSectionTop>
 
@@ -75,7 +78,7 @@ const Subscribe = () => {
           </p>
         </article>
 
-        <Button {...BUTTON_OPTIONS.DISCOUNT} />
+        <Button {...BUTTON_OPTIONS.DISCOUNT} onClick={() => navigate("/subscribe/start")} />
       </StyledSectionMiddle>
 
       <StyledSectionBottom>
@@ -83,7 +86,7 @@ const Subscribe = () => {
         <SubscribeInfo {...CONTENT2} />
         <SubscribeInfo {...CONTENT3} />
 
-        <Button {...BUTTON_OPTIONS.SUBSCRIBE_NOW}></Button>
+        <Button {...BUTTON_OPTIONS.SUBSCRIBE_NOW} onClick={() => navigate("/subscribe/start")}></Button>
       </StyledSectionBottom>
     </Layout>
   );

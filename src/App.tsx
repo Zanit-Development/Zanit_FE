@@ -21,6 +21,7 @@ import { StopSubscribe } from "./pages/stopSubscribe/StopSubscribe";
 import AdminBardetail from "./pages/admin/bar/AdminBarDetail";
 // 임시
 import Temporary from "./pages/Temporary";
+import { Membership } from "./pages/subscribe/membership/Membership";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -34,7 +35,10 @@ const App = () => {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/subscribe" element={<Subscribe />} />
+        <Route path="/subscribe/*">
+          <Route path="" element={<Subscribe />} />
+          <Route path="start" element={<Membership />} />
+        </Route>
         <Route path="/myCoupon" element={<MyCoupon />} />
         <Route path="/use-history" element={<UseHistory />} />
         <Route path="/stop-subscribe" element={<StopSubscribe />} />
