@@ -1,4 +1,5 @@
 import { MEMBERSHIP_TYPE_VARIANTS } from "./typeCommon";
+import { BUTTON_EVENT, INPUT_EVENT } from "./typeEvent";
 
 export interface MembershipTypeProps {
   typevariants: MEMBERSHIP_TYPE_VARIANTS;
@@ -9,5 +10,5 @@ export interface MembershipTypeProps {
   round: string;
   checked?: boolean;
   defaultcheck?: boolean;
-  setMembershipType?: Function;
+  onChange?: (e: INPUT_EVENT) => void;
 }

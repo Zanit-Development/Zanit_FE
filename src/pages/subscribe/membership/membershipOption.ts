@@ -21,6 +21,7 @@ export const MEMBERSHIP: {
     discountper: 25,
     cost: 29900,
     round: "",
+    defaultcheck: true,
   },
   TYPE2: {
     typevariants: "simple",
