@@ -1,5 +1,5 @@
 import { MEMBERSHIP_TYPE_VARIANTS } from "./typeCommon";
-import { BUTTON_EVENT, INPUT_EVENT } from "./typeEvent";
+import { INPUT_EVENT } from "./typeEvent";
 
 export interface MembershipTypeProps {
   typevariants: MEMBERSHIP_TYPE_VARIANTS;
@@ -7,6 +7,7 @@ export interface MembershipTypeProps {
   membershipname: string;
   discountper: number;
   cost: number;
+  disccost?: string;
   round: string;
   checked?: boolean;
   defaultcheck?: boolean;
