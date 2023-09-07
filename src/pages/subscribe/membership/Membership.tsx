@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Layout from "../../../layouts/Layout";
 import { css, styled } from "styled-components";
 import Button from "../../../components/common/button/Button";
-import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
+import { BUTTON_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
 import { Link } from "react-router-dom";
 import { MEMBERSHIP, membershipOption } from "./membershipOption";
 import { MembershipType } from "../../../components/membership/MembershipType";
+import { handleMembershipType } from "./handleMembership";
+
+type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
 
 export const Membership = () => {
+  const [membershipType, setMembershipType] = useState<MEMBERSHIP_TYPE>("TYPE1");
   const [isMember, setIsMember] = useState(false);
 
   return (
@@ -22,9 +26,11 @@ export const Membership = () => {
       </DescContainer>
       <form>
         <MembershipContainer>
-          <MembershipType {...MEMBERSHIP.TYPE1} />
-          <MembershipType {...MEMBERSHIP.TYPE2} />
-          <MembershipType {...MEMBERSHIP.TYPE3} />
+          <ul>
+            <MembershipType key={"membershipType1"} {...MEMBERSHIP.TYPE1} onChange={(e) => handleMembershipType(e, setMembershipType)} />
+            <MembershipType key={"membershipType2"} {...MEMBERSHIP.TYPE2} onChange={(e) => handleMembershipType(e, setMembershipType)} />
+            <MembershipType key={"membershipType3"} {...MEMBERSHIP.TYPE3} onChange={(e) => handleMembershipType(e, setMembershipType)} />
+          </ul>
           <span>
             쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
           </span>
