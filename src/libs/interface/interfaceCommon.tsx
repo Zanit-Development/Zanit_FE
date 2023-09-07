@@ -26,7 +26,6 @@ export interface InputProps {
   id?: string;
   minlength?: number;
   maxlength?: number;
-  pattern?: string;
   onChange: (e: INPUT_EVENT) => void;
 }
 
