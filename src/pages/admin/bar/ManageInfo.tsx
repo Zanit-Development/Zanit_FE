@@ -278,7 +278,7 @@ const CocktailList = styled.ul`
   & li {
     width: 100%;
     margin-bottom: 15px;
-    padding: 15px 10px;
+    padding: 8px 10px;
     background-color: var(--gray100-color);
     border-radius: 4px;
     box-sizing: border-box;
@@ -296,6 +296,10 @@ const CocktailList = styled.ul`
       &:last-of-type {
         float: right;
       }
+    }
+
+    & > div {
+      margin: 29px 20px 12px;
     }
   }
 `;

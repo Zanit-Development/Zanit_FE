@@ -17,7 +17,7 @@ const ImageItem = ({ image }: ImageItemProps) => {
   };
 
   return (
-    <ImgBtn img={image} onClick={(e) => changeMain(e)}>
+    <ImgBtn img={image} onClick={image ? (e) => changeMain(e) : undefined}>
       {image ? <Image src={image} alt="" /> : <Empty src={empty} alt="" />}
     </ImgBtn>
   );
