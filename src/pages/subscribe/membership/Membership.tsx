@@ -83,7 +83,7 @@ const MembershipContainer = styled.section`
   ${SectionBase}
   margin-bottom: 50px;
 
-  & span {
+  & > span {
     font-family: var(--font--Medium);
     font-size: 12px;
     color: var(--gray400-color);
