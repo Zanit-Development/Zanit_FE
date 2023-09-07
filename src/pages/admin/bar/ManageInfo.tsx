@@ -10,6 +10,7 @@ import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 import Button from "../../../components/common/button/Button";
+import SelectBox from "../../../components/common/select-box/SelectBox";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -43,7 +44,17 @@ export const ManageInfo = () => {
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>위치</StyledH3>
-          <Select {...SELECT.MOOD} onChange={handleChangeSelect} />
+          <SelectBox
+            boxtype="secondary"
+            selected={""}
+            setSelected={function (value: React.SetStateAction<string>): void {
+              throw new Error("Function not implemented.");
+            }}
+            data={["가", "나", "다"]}
+            placeholder={"선택"}
+            nulltext={""}
+          ></SelectBox>
+          {/* <Select {...SELECT.LOCATION} onChange={handleChangeSelect} /> */}
           <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={(e) => handleChangeInput(e, setBarLocation)} />
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
