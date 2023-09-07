@@ -1,4 +1,4 @@
-import { InputProps, SelectProps } from "../../../libs/interface/interfaceCommon";
+import { ButtonProps, InputProps, SelectProps } from "../../../libs/interface/interfaceCommon";
 import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 const inputBase: InputProps = {
@@ -74,4 +74,12 @@ export const SELECT = {
     option: ["가", "나", "다"],
     values: [],
   },
+};
+
+export const ButtonOptions: ButtonProps = {
+  typevariants: "fill",
+  sizevariants: "small",
+  value: "저장하기",
+  disabled: false,
+  onClick: () => {},
 };

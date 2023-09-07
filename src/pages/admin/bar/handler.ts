@@ -1,28 +1,16 @@
 import { INPUT_EVENT, SELECT_EVENT } from "../../../libs/interface/typeEvent";
 
-const checkNumberRegex = /\d/g;
+const checkInputNumber = /[,a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]/g;
 
 export const handleChangeInput = (e: INPUT_EVENT, setValue: Function) => {
-  // const inputId = e.target.id;
   const inputValue = e.target.value;
 
   setValue(inputValue);
-
-  // inputId === "barName" ? setBarName(inputValue) : setBarLocation(inputValue);
 };
 
 export const handleChangeInputNumber = (e: INPUT_EVENT, setValue: Function) => {
-  // const inputId = e.target.id;
-  const inputValue = e.target.value.replaceAll(",", "");
-
-  if (inputValue === "" || !checkNumberRegex.test(inputValue)) {
-    setValue(inputValue);
-    return false;
-  }
-
-  const result = parseInt(inputValue).toLocaleString("en");
-
-  setValue(inputValue);
+  const inputValue = e.target.value.replace(checkInputNumber, "");
+  setValue(inputValue === "" ? "" : parseInt(inputValue).toLocaleString("en"));
 };
 
 export const handleChangeSelect = (e: SELECT_EVENT) => {

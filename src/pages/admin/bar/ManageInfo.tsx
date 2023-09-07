@@ -3,14 +3,13 @@ import Input from "../../../components/common/input/Input";
 import { Select } from "../../../components/common/select/Select";
 import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
-import { BAR_INFO, SELECT } from "./ManageInfoOptions";
+import { BAR_INFO, ButtonOptions, SELECT } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 import Button from "../../../components/common/button/Button";
-import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
@@ -119,15 +118,7 @@ export const ManageInfo = () => {
         </AddCocktailButton>
       </section>
 
-      <Button
-        typevariants={"fill"}
-        sizevariants={"small"}
-        value={"저장하기"}
-        disabled={false}
-        onClick={function (e: BUTTON_EVENT): void {
-          throw new Error("Function not implemented.");
-        }}
-      ></Button>
+      <Button {...ButtonOptions} onClick={() => {}}></Button>
     </StyledForm>
   );
 };
