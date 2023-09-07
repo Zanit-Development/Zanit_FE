@@ -3,6 +3,7 @@ import Layout from "../../../layouts/Layout";
 import { css, styled } from "styled-components";
 import Button from "../../../components/common/button/Button";
 import { BUTTON_EVENT } from "../../../libs/interface/typeEvent";
+import { Link } from "react-router-dom";
 
 export const Membership = () => {
   const [isMember, setIsMember] = useState(false);
@@ -18,7 +19,11 @@ export const Membership = () => {
         </p>
       </DescContainer>
       <form>
-        <MembershipContainer></MembershipContainer>
+        <MembershipContainer>
+          <span>
+            쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
+          </span>
+        </MembershipContainer>
         <ButtonContainer>
           <Button
             typevariants={"fill"}
@@ -67,6 +72,19 @@ const DescContainer = styled.section`
 
 const MembershipContainer = styled.section`
   ${SectionBase}
+  margin-bottom: 50px;
+
+  & span {
+    font-family: var(--font--Medium);
+    font-size: 12px;
+    color: var(--gray400-color);
+  }
+
+  & a {
+    font-weight: bold;
+    /* color: var(--color500-color); */
+    text-decoration: underline;
+  }
 `;
 
 const ButtonContainer = styled.section`
