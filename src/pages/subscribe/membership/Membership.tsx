@@ -62,14 +62,14 @@ const StyledH2 = styled.h2`
 const DescContainer = styled.section`
   ${SectionBase}
 
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-family: var(--font--Medium);
   font-size: 0.9375rem;
   color: var(--gray400-color);
 
   & span {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   & strong {
@@ -77,11 +77,19 @@ const DescContainer = styled.section`
     font-weight: bold;
     color: var(--gray500-color);
   }
+
+  & + form {
+    margin-bottom: 50px;
+  }
 `;
 
 const MembershipContainer = styled.section`
   ${SectionBase}
   margin-bottom: 50px;
+
+  ul {
+    margin-bottom: 5px;
+  }
 
   & > span {
     font-family: var(--font--Medium);

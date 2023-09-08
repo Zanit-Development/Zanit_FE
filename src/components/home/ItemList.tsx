@@ -74,7 +74,6 @@ const ItemContainer = styled.ul`
     }
     span {
       text-align: center;
-      width: calc(100% - 20px);
       margin-top: 8px;
       font-size: 12px;
     }

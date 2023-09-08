@@ -45,7 +45,7 @@ const PasswordFind = () => {
 export default PasswordFind;
 
 const PasswordFindSection = styled.section`
-  padding: 10px 20px 200px 20px;
+  padding: 10px 20px 159px 20px;
 
   h2 {
     font-size: 20px;

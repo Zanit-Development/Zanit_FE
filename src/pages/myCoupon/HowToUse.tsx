@@ -35,7 +35,8 @@ export default HowToUse;
 const H2 = styled.h2`
   font-family: var(--font--semibold);
   font-size: 20px;
-  padding: 20px 20px 16px;
+  padding: 20px 20px 0;
+  margin-bottom: 50px;
 `;
 
 const DesSection = styled.div`

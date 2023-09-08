@@ -69,12 +69,12 @@ const SignIn = () => {
 export default SignIn;
 
 const SignInSection = styled.section`
-  padding: 10px 20px 200px 20px;
+  padding: 10px 20px 117px 20px;
 
   h2 {
     font-size: 20px;
     font-family: var(--font--semibold);
-    margin-bottom: 30px;
+    margin-bottom: 76px;
   }
 `;
 
@@ -89,9 +89,10 @@ const SignInForm = styled.form`
 
   button {
     width: 100%;
-    margin: 50px 0 24px;
+    margin-top: 50px;
     text-align: center;
   }
+  margin-bottom: 24px;
 `;
 
 const SignInOther = styled.div`
