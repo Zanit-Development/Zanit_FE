@@ -31,11 +31,11 @@ const StyledInput = styled.input`
 const StyledLabel = styled.label`
   display: inline-block;
   width: 50px;
-  height: 27px;
   font-family: var(--font--Medium);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   text-align: center;
-  line-height: 27px;
+  line-height: 22px;
+  padding-bottom: 4px;
   color: #ababab;
   cursor: pointer;
 `;
