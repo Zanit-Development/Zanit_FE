@@ -144,9 +144,10 @@ const InfoContainer = styled.section`
 
     & > span {
       display: block;
-      margin-top: 5px;
+      line-height: 22px;
       font-weight: normal;
       font-size: 0.625rem;
+      color: var(--gray500-color);
     }
   }
 `;
