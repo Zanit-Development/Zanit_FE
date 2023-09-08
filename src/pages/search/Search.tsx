@@ -87,15 +87,17 @@ const Search = () => {
 export default Search;
 
 const StyledTitle = styled.h1`
-  margin: 20px 0;
+  margin-bottom: 27px;
   font-family: var(--font--Medium);
+  line-height: 140%;
+  font-size: 20px;
   color: white;
 `;
 
 const InputContainer = styled.form`
   width: 100%;
   height: 145px;
-  padding: 20px;
+  padding: 23px 20px 21px;
   box-sizing: border-box;
   background-color: var(--main-color);
 
@@ -111,24 +113,8 @@ const MenuSection = styled.section`
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  margin: 20px;
-
-  & label {
-    display: inline-block;
-    width: 50px;
-    height: 27px;
-    font-family: var(--font--Medium);
-    font-size: 1rem;
-    text-align: center;
-    line-height: 27px;
-    color: #ababab;
-    cursor: pointer;
-  }
-
-  & input:checked + label {
-    color: var(--black-color);
-    border-bottom: 1px solid var(--main-color);
-  }
+  margin-top: 12px;
+  padding: 20px;
 `;
 
 const TagSection = styled.section`
@@ -147,6 +133,6 @@ const TagSection = styled.section`
 const ListContainer = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 32px 10px;
   padding: 20px;
 `;
