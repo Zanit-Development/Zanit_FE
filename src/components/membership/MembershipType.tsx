@@ -38,7 +38,7 @@ const StyledLabel = styled.label`
   position: relative;
   display: inline-block;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 20px;
   background-color: var(--gray100-color);
   border-radius: 4px;
@@ -144,9 +144,10 @@ const InfoContainer = styled.section`
 
     & > span {
       display: block;
-      margin-top: 5px;
+      line-height: 22px;
       font-weight: normal;
       font-size: 0.625rem;
+      color: var(--gray500-color);
     }
   }
 `;

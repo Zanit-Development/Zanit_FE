@@ -87,7 +87,7 @@ const TitleStyle = styled.div<{ img: string }>`
   font-family: var(--font--Medium);
 
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   padding-left: 20px;
 
   position: relative;
@@ -116,9 +116,9 @@ const TitleStyle = styled.div<{ img: string }>`
 `;
 
 const CocktailContainer = styled.section`
-  margin-bottom: 41px;
+  margin-bottom: 30px;
 `;
 
 const BarContainer = styled.section`
-  margin-bottom: 51px;
+  margin-bottom: 30px;
 `;

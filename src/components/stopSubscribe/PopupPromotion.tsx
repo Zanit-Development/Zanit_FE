@@ -79,8 +79,10 @@ const PromotionInfo = styled.section`
     margin-bottom: 10px;
     color: #121212;
     &:last-of-type {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--gray500-color);
+      margin-bottom: 7px;
+      line-height: 22px;
     }
   }
 

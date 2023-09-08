@@ -12,10 +12,10 @@ const Nav = () => {
   const activeStyle = {
     fontFamily: "var(--font--Bold)",
     color: "var(--Black-color)",
-    borderBottom: "2px solid var(--main-color)",
+    borderBottom: "1px solid var(--main-color)",
   };
   const location = useLocation();
-  const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
+  const isActiveSearchPath = ["/search", "/bar-detail", "/home"].includes(location.pathname);
   const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
   const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
   const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset"].includes(location.pathname);

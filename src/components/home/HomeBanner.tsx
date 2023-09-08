@@ -46,13 +46,12 @@ export default HomeBanner;
 
 const Container = styled.div`
   box-sizing: border-box;
-  width: calc(100% - 20px);
   height: 251px;
-  padding: 27px 16px;
-  margin: auto 10px;
+  padding: 27px 0 27px 16px;
+  margin: 20px 10px 0;
   border-radius: 8px;
 
-  background: var(--main-color) url(${backgroundImg}) no-repeat 83px -68px;
+  background: var(--main-color) url(${backgroundImg}) no-repeat 82px -74px;
   color: var(--white-color);
 
   position: relative;
@@ -65,10 +64,15 @@ const Container = styled.div`
   button,
   p {
     font-family: var(--font--Medium);
+  }
+
+  button {
     font-size: 13px;
   }
 
   p {
+    font-size: 14px;
+
     line-height: 16px;
     &:nth-of-type(1) {
       margin-top: 19px;

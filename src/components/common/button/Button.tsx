@@ -41,7 +41,7 @@ const StyledButton = styled.button<ButtonProps>`
   width: 100%;
   padding: 5px;
   box-sizing: border-box;
-  font-family: var(--font--Bold);
+  font-family: var(--font--semibold);
   font-size: 1rem;
   text-align: center;
   user-select: none;

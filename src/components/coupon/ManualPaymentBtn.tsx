@@ -39,7 +39,9 @@ const BenefitNote = styled.div`
   background: url(${speech_bubble}) no-repeat;
   p {
     color: var(--white-color);
-    font-size: 12px;
-    padding: 19px 16px 10px;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 13px 10px 10px;
+    font-family: var(--font--Medium);
   }
 `;

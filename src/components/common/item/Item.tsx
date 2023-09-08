@@ -30,7 +30,7 @@ const ItemContainer = styled.li<ItemProps>`
     width: 100%;
     height: 20px;
     margin-top: 10px;
-    padding: 0 10px;
+    text-align: center;
     font-family: var(--font--Medium);
     font-size: 0.875rem;
   }

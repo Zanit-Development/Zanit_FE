@@ -4,7 +4,7 @@ import { ButtonProps, InputProps } from "../../interface/interfaceCommon";
 
 const INPUT_OPTIONS_BASE: InputProps = {
   typevariants: "basic",
-  sizevariants: "large",
+  sizevariants: "small",
   type: "text",
   value: "",
   placeholder: "",

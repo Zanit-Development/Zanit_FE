@@ -63,6 +63,7 @@ const BoxStyle = styled.div<{ border: boolean }>`
   left: 50%;
   transform: translate(-50%, -50%);
   overflow-y: auto;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
   ${({ border }) =>
     border &&

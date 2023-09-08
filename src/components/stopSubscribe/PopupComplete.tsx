@@ -28,14 +28,14 @@ const CompleteArticle = styled.article`
 
   strong {
     display: block;
-    margin: 40px 0 20px;
+    margin: 45px 0 20px;
     font-size: 22px;
     font-family: var(--font--Bold);
   }
 
   p {
     font-size: 12px;
-    line-height: 1.5;
+    line-height: 22px;
   }
 
   a {
@@ -45,6 +45,6 @@ const CompleteArticle = styled.article`
     color: var(--white-color);
     background-color: var(--main-color);
     border-radius: 30px;
-    font-family: var(--font--Bold);
+    font-family: var(--font--semibold);
   }
 `;

@@ -239,6 +239,7 @@ const StyledSpan = styled.span`
   font-size: 0.8125rem;
   color: var(--gray300-color);
   white-space: pre-line;
+  padding-right: 10px;
 `;
 
 const StyledSectionsBarDesc = styled.section`

@@ -86,6 +86,7 @@ const UsedTable = styled.table`
   }
 
   td {
-    padding: 25px 0 0 0;
+    padding-top: 18px;
+    line-height: 20px;
   }
 `;

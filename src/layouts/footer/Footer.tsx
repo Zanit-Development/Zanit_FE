@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <img src={LogoFoot} alt="Zanit" />
-      <p>대표이사 : 정태송</p>
+      <p>대표이사 정태송</p>
       <div>
         <p>206-55-98984</p>
         <a href="http://pf.kakao.com/_JxoExhG">
@@ -55,8 +55,9 @@ const FooterContainer = styled.footer`
   }
 
   p {
-    font-weight: var(--font--Medium);
-    padding: 5px 0;
+    font-family: var(--font--Medium);
+    /* padding: 5px 0; */
+    line-height: 24px;
     font-size: 12px;
   }
 
@@ -64,7 +65,7 @@ const FooterContainer = styled.footer`
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 5px 0 12px;
+    margin-bottom: 12px;
   }
 `;
 

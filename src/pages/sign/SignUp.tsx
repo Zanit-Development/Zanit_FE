@@ -104,7 +104,7 @@ const SignUp = () => {
 export default SignUp;
 
 const SignUpSection = styled.section`
-  padding: 10px 20px 50px 20px;
+  padding: 10px 20px 70px 20px;
 
   h2 {
     font-size: 20px;
@@ -142,7 +142,7 @@ const InputGap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 70px;
 
   input {
     border: 1px solid #eee;

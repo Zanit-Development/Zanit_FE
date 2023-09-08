@@ -15,8 +15,11 @@ const NotCoupon = () => {
 
   return (
     <NotCouponSection>
-      <strong>아직 멤버십을 구독하지 않았어요</strong>
-      <p>Zanit을 통해 새로운 칵테일 경험을 시작해봐요!</p>
+      <p>
+        <strong>아직 멤버십을 구독하지 않았어요</strong>
+        <br />
+        Zanit을 통해 새로운 칵테일 경험을 시작해봐요!
+      </p>
       <Button {...BUTTON_OPTIONS.SUBSCRIBE} onClick={subscribePage} />
     </NotCouponSection>
   );
@@ -41,11 +44,7 @@ const NotCouponSection = styled.section`
 
   p {
     font-size: 14px;
-  }
-
-  button {
-    margin-top: 20px;
-    width: 100%;
     text-align: center;
+    line-height: 24px;
   }
 `;
