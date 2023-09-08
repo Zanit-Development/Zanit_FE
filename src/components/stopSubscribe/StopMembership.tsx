@@ -30,7 +30,7 @@ export const StopMembership = () => {
       </p>
       <ul>
         <li>[구독만료일] 사용 후 서비스가 자동 해지됩니다.</li>
-        <li>사용중인 멤버십 서비스&#40;ZAN 쿠폰 사용&#41;는 [구독만료일]까지 이용 가능합니다.</li>
+        <li>{`사용중인 멤버십 서비스(ZAN 쿠폰 사용)는\n [구독만료일]까지 이용 가능합니다.`}</li>
         <li>
           결제 후 7일 내 서비스 이용 이력이 없는 경우 결제 취소 가능하며, <a href="/">여기</a>를 통해 문의하시면 됩니다.
         </li>
@@ -40,7 +40,13 @@ export const StopMembership = () => {
         <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_OK} onClick={openModal} />
       </ButtonDiv>
       {isModalOpen && <PopupPromotion closeModal={closeModal} setShowPopupComplete={setShowPopupComplete} setIsModalOpen={setIsModalOpen} />}
-      {showPopupComplete && <PopupComplete closeModal={closeModal} />}
+      {showPopupComplete && (
+        <PopupComplete
+          closeModal={() => {
+            navigate("/home");
+          }}
+        />
+      )}
     </StopMembershipContent>
   );
 };
@@ -65,6 +71,7 @@ const StopMembershipContent = styled.section`
       list-style: disc;
       line-height: 1.3;
       margin-bottom: 15px;
+      white-space: pre-line;
 
       &:last-child {
         font-size: 12px;
