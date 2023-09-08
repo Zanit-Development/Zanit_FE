@@ -39,7 +39,7 @@ const HasCoupon = () => {
         {auto || <p>구독 만료일은 {expiration}까지예요</p>}
         <CouponArticle use>
           <TextDiv>
-            <span>멤버십 이용중</span>
+            <strong>멤버십 이용중</strong>
             <p>{dateInfo}</p>
           </TextDiv>
         </CouponArticle>
@@ -58,14 +58,14 @@ const HasCoupon = () => {
 export default HasCoupon;
 
 const CouponTopSection = styled.section<{ auto: boolean }>`
-  padding: 5px 20px 24px 20px;
+  padding: 0 20px 24px;
 
   & > p {
-    margin-bottom: 10px;
+    line-height: 24px;
     color: var(--gray500-color);
     font-size: 14px;
     &:last-of-type {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
   }
 
@@ -90,16 +90,18 @@ const TextDiv = styled.div`
   top: 25px;
   font-size: 14px;
 
-  span {
+  strong {
     display: block;
     color: var(--main-color);
     font-family: var(--font--Bold);
-    margin: 8px 0;
+    margin: 6px 0 12px;
+    line-height: 1.125rem;
   }
 
   p {
     white-space: pre-wrap;
-    line-height: 1.5;
+    line-height: 1.3;
+    color: #242424;
   }
 `;
 
