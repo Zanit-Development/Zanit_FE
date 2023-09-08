@@ -68,6 +68,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     position: absolute;
   }
+
+  /* 스크롤바 가리기 */
+  ::-webkit-scrollbar{
+    display: none;
+  }
 `;
 
 export default GlobalStyle;
