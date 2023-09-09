@@ -23,6 +23,7 @@ import AdminBardetail from "./pages/admin/bar/AdminBarDetail";
 import Temporary from "./pages/Temporary";
 import { Membership } from "./pages/subscribe/membership/Membership";
 import PasswordResetOk from "./pages/sign/PasswordResetOk";
+import AdminSignIn from "./pages/admin/AdminSignIn";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/password-reset" element={<PasswordReset />} />
 
         <Route path="/admin/*">
+          <Route path="signIn" element={<AdminSignIn />} />
           <Route path="barinfo" element={<AdminBardetail />} />
           <Route path="management" element={<BarManagement />} />
           <Route path="manageorder" element={<ManageOrder />} />

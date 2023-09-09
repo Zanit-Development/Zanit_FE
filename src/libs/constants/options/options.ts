@@ -162,6 +162,14 @@ export const SIGNIN_OPTIONS = {
     placeholder: PLACEHOLDER_SIGN.IN.PASSWORD,
     name: "userpassword",
   },
+
+  ID: {
+    ...INPUT_OPTIONS_BASE,
+    id: "userid",
+    type: "string",
+    placeholder: PLACEHOLDER_SIGN.IN.ID,
+    name: "userid",
+  },
 };
 
 export const SIGNUP_OPTIONS = {

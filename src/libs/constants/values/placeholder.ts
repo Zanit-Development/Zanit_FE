@@ -6,6 +6,7 @@ export const PLACEHOLDER_SIGN = {
   IN: {
     PHONE: "전화번호",
     PASSWORD: "비밀번호",
+    ID: "아이디",
   },
 
   UP: {

@@ -27,6 +27,7 @@ export default function Temporary() {
       <Inner>
         <h3>admin</h3>
         <hr />
+        <Link to="/admin/signIn">관리자 로그인</Link>
         <Link to="/admin/barinfo">관리자 바 정보</Link>
         <Link to="/admin/management">관리자 바 관리하기</Link>
         <Link to="/admin/manageorder">관리자 주문 관리</Link>
