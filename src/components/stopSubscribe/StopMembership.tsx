@@ -11,8 +11,8 @@ export const StopMembership = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
-  const goMain = () => {
-    navigate("/");
+  const goUseHistory = () => {
+    navigate("/use-history");
   };
 
   const openModal = () => {
@@ -32,12 +32,12 @@ export const StopMembership = () => {
         <li>[구독만료일] 사용 후 서비스가 자동 해지됩니다.</li>
         <li>{`사용중인 멤버십 서비스(ZAN 쿠폰 사용)는\n [구독만료일]까지 이용 가능합니다.`}</li>
         <li>
-          결제 후 7일 내 서비스 이용 이력이 없는 경우 결제 취소 가능하며, <a href="/">여기</a>를 통해 문의하시면 됩니다.
+          결제 후 7일 내 서비스 이용 이력이 없는 경우 결제 취소 가능하며, <a href="http://pf.kakao.com/_JxoExhG">여기</a>를 통해 문의하시면 됩니다.
         </li>
       </ul>
       <ButtonDiv>
-        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_CANCLE} onClick={goMain} />
-        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_OK} onClick={openModal} />
+        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_PROMOTION_CANCLE} onClick={openModal} />
+        <Button {...BUTTON_OPTIONS.MEMBERSHIP_STOP_CANCLE} onClick={goUseHistory} />
       </ButtonDiv>
       {isModalOpen && <PopupPromotion closeModal={closeModal} setShowPopupComplete={setShowPopupComplete} setIsModalOpen={setIsModalOpen} />}
       {showPopupComplete && (
