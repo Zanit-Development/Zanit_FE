@@ -3,7 +3,7 @@ import GlobalStyle from "./style/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import NotFound from "./pages/NotFound/NotFound";
+import NotFound from "./pages/notFound/NotFound";
 import Search from "./pages/search/Search";
 import SignIn from "./pages/sign/SignIn";
 import SignUp from "./pages/sign/SignUp";

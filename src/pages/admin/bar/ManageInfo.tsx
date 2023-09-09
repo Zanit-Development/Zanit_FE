@@ -10,7 +10,7 @@ import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 import Button from "../../../components/common/button/Button";
-import SelectBox from "../../../components/common/select-box/SelectBox";
+import SelectBox from "../../../components/common/selectBox/SelectBox";
 
 export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");

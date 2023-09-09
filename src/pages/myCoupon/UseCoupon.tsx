@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 
-import SelectBox from "../../components/common/select-box/SelectBox";
+import SelectBox from "../../components/common/selectBox/SelectBox";
 
 export interface SelectType {
   selected: string;
