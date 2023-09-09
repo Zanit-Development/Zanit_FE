@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
-import BarInfomation from "../../../components/bardetail/BarInfomation";
+import BarInfomation from "../../../components/barDetail/BarInfomation";
 import AdminLayout from "../../../layouts/adminLayout/AdminLayout";
 import Button from "../../../components/common/button/Button";
 

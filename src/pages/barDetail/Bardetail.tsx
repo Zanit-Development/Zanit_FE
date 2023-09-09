@@ -7,7 +7,7 @@ import Layout from "../../layouts/Layout";
 import Button from "../../components/common/button/Button";
 
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
-import BarInfomation from "../../components/bardetail/BarInfomation";
+import BarInfomation from "../../components/barDetail/BarInfomation";
 
 const Bardetail = () => {
   const navigate = useNavigate();

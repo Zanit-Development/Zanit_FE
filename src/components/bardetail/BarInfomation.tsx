@@ -3,10 +3,10 @@ import React from "react";
 import { styled } from "styled-components";
 
 import Cocktail from "../common/cocktail/Cocktail";
-import ImgContainer from "../../components/bardetail/ImgContainer";
+import ImgContainer from "./ImgContainer";
 
-import Tag from "../../components/tag/Tag";
-import { Address, Opening, CoverCharge } from "../../components/common/text";
+import Tag from "../tag/Tag";
+import { Address, Opening, CoverCharge } from "../common/text";
 
 import { TagProps } from "../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../libs/utils/Bardetaildummy";

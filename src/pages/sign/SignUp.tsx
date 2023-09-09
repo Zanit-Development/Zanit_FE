@@ -9,7 +9,7 @@ import icon_check from "../../assets/icon/check.svg";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signUpAPI } from "../../libs/apis/user";
-import { PopupSignUpSuccess } from "../../components/modal/UseSignPage/PopupSignUpSuccess";
+import { PopupSignUpSuccess } from "../../components/modal/useSignPage/PopupSignUpSuccess";
 
 const SignUp = () => {
   const [nameValue, setNameValue] = useState("");
