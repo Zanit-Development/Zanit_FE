@@ -22,6 +22,7 @@ import AdminBardetail from "./pages/admin/bar/AdminBarDetail";
 // 임시
 import Temporary from "./pages/Temporary";
 import { Membership } from "./pages/subscribe/membership/Membership";
+import PasswordResetOk from "./pages/sign/PasswordResetOk";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/404" element={<NotFound />} />
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
+        <Route path="/password-find-ok" element={<PasswordResetOk />} />
         <Route path="/password-reset" element={<PasswordReset />} />
 
         <Route path="/admin/*">

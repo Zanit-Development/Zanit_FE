@@ -133,6 +133,12 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.PASSWORD_FIND.GO_SIGNUP,
   },
 
+  PASSWORD_FIND_GO_SIGNIN: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.PASSWORD_FIND.GO_SIGNIN,
+  },
+
   PASSWORD_FIND_CLOSE: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
