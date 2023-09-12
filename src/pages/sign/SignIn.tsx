@@ -7,6 +7,7 @@ import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signInAPI } from "../../libs/apis/user";
+import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -18,26 +19,33 @@ const SignIn = () => {
     const { id, value } = e.target;
     if (id === "userphone") {
       setPhoneNumValue(value);
-    } else if (id === "userpassword") {
+    }
+    if (id === "userpassword") {
       setPasswordValue(value);
     }
   };
 
+  console.log(PHONE_REGEX.test(phoneNumValue));
+  console.log(PASSWORD_REGEX.test(passwordValue));
+
   const sendSignin = async (e: FORM_EVENT) => {
-    console.log(phoneNumValue, passwordValue);
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("userphone", phoneNumValue);
-    formData.append("userpassword", passwordValue);
-    try {
-      const response = await signInAPI(formData);
-      console.log(response);
-      if (response && (response as any).status === 200) {
-        navigate("/");
+    if (PHONE_REGEX.test(phoneNumValue) && PASSWORD_REGEX.test(passwordValue)) {
+      console.log(phoneNumValue);
+      console.log(passwordValue);
+      const formData = new FormData();
+      formData.append("userphone", phoneNumValue);
+      formData.append("userpassword", passwordValue);
+      try {
+        const response = await signInAPI(formData);
+        console.log(response);
+        if (response && (response as any).status === 200) {
+          navigate("/home");
+        }
+      } catch (e) {
+        navigate("/404");
       }
-    } catch (e) {
-      console.log(e);
     }
   };
 

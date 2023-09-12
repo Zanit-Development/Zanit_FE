@@ -4,8 +4,14 @@ import { styled } from "styled-components";
 import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
+import { useNavigate } from "react-router";
 
 const PasswordReset = () => {
+  const navigate = useNavigate();
+
+  const passwordResetOk = () => {
+    navigate("/password-find-ok");
+  };
   return (
     <Layout>
       <PasswordResetSection>
@@ -13,7 +19,7 @@ const PasswordReset = () => {
         <p>새로운 비밀번호를 입력해주세요</p>
         <Input {...SIGNUP_OPTIONS.PASSWORD} />
         <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} />
-        <Button {...BUTTON_OPTIONS.PASSWORD_RESET} />
+        <Button {...BUTTON_OPTIONS.PASSWORD_RESET} onClick={passwordResetOk} />
       </PasswordResetSection>
     </Layout>
   );

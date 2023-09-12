@@ -133,6 +133,12 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.PASSWORD_FIND.GO_SIGNUP,
   },
 
+  PASSWORD_FIND_GO_SIGNIN: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.PASSWORD_FIND.GO_SIGNIN,
+  },
+
   PASSWORD_FIND_CLOSE: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
@@ -155,6 +161,14 @@ export const SIGNIN_OPTIONS = {
     type: "password",
     placeholder: PLACEHOLDER_SIGN.IN.PASSWORD,
     name: "userpassword",
+  },
+
+  ID: {
+    ...INPUT_OPTIONS_BASE,
+    id: "userid",
+    type: "string",
+    placeholder: PLACEHOLDER_SIGN.IN.ID,
+    name: "userid",
   },
 };
 

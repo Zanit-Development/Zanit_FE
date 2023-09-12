@@ -43,5 +43,6 @@ export const BUTTON_VALUE = {
   PASSWORD_FIND: {
     GO_SIGNUP: "회원가입하기",
     CLOSE_MODAL: "다시 입력하기",
+    GO_SIGNIN: "로그인 하기",
   },
 };

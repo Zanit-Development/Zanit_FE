@@ -7,6 +7,8 @@ import instar from "../../assets/icon/icon_sns_instar.svg";
 import cafe from "../../assets/icon/icon_sns_cafe.svg";
 
 const Footer = () => {
+  const admin = false;
+
   return (
     <FooterContainer>
       <img src={LogoFoot} alt="Zanit" />
@@ -33,12 +35,16 @@ const Footer = () => {
         <li>
           <a href="https://forms.gle/crUq25uciMG3iFWX7">비즈니스 제안</a>
         </li>
-        <li>
-          <a href="http://pf.kakao.com/_JxoExhG">CS</a>
-        </li>
-        <li>
-          <a href="http://pf.kakao.com/_JxoExhG">탈퇴하기</a>
-        </li>
+        {admin || (
+          <>
+            <li>
+              <a href="http://pf.kakao.com/_JxoExhG">CS</a>
+            </li>
+            <li>
+              <a href="http://pf.kakao.com/_JxoExhG">탈퇴하기</a>
+            </li>
+          </>
+        )}
       </UnorderList>
     </FooterContainer>
   );
