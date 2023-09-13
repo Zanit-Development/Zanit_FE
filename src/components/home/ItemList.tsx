@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 
 import { ItemProps } from "../../libs/interface/interfaceCommon";
@@ -7,18 +7,37 @@ import Item from "../../components/common/item/Item";
 
 import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 
+function pickItem(arr: ItemProps[], idx: number) {
+  const left = idx - 1 < 0 ? idx - 1 + arr.length : idx - 1;
+  const right = idx + 1 >= arr.length ? idx + 1 - arr.length : idx + 1;
+
+  return [arr[left], arr[idx], arr[right]];
+}
+
 const ItemList = (props: { itemOptions: ItemProps[] }) => {
+  const { itemOptions } = props;
+  const dataLength = itemOptions.length;
+
+  const [idx, setIdx] = useState(1);
+  const itemArray = pickItem(itemOptions, idx);
+  function left() {
+    setIdx((prev) => (prev - 1 + dataLength) % dataLength);
+  }
+  function right() {
+    setIdx((prev) => (prev + 1 + dataLength) % dataLength);
+  }
+
   return (
     <ListContainer>
       <ItemContainer>
-        {props.itemOptions.map((item) => {
-          return <Item {...item} />;
+        {itemArray.map((item) => {
+          return <Item key={item.name} {...item} />;
         })}
       </ItemContainer>
-      <button>
+      <button onClick={left}>
         <img src={arrowImg} alt="" />
       </button>
-      <button>
+      <button onClick={right}>
         <img src={arrowImg} alt="" />
       </button>
     </ListContainer>
