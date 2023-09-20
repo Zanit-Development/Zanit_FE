@@ -3,8 +3,9 @@ import { css, styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 import { StyledInputOption } from "./inputOptions";
 
-const Input = ({ typevariants = "basic", sizevariants = "large", ...props }: InputProps) => {
-  return <StyledInput typevariants={typevariants} sizevariants={sizevariants} {...props} />;
+const Input = ({ typevariants = "basic", sizevariants = "large", isError = false, ...props }: InputProps) => {
+  const inputClassName = `StyledInput ${isError ? "error" : ""}`;
+  return <StyledInput typevariants={typevariants} sizevariants={sizevariants} className={inputClassName} {...props} />;
 };
 
 export default Input;
@@ -28,6 +29,11 @@ const StyledInput = styled.input<StyledInputOption>`
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.5);
+  }
+
+  &.error {
+    background-color: rgba(241, 76, 41, 0.14);
+    outline: 1px solid var(--main-color);
   }
 `;
 
