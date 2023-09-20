@@ -176,27 +176,27 @@ export const SIGNUP_OPTIONS = {
   NAME: {
     ...INPUT_OPTIONS_BASE,
     placeholder: PLACEHOLDER_SIGN.UP.NAME,
-    id: "name",
+    id: "userName",
   },
 
   PHONE: {
     ...INPUT_OPTIONS_BASE,
     type: "tel",
     placeholder: PLACEHOLDER_SIGN.UP.PHONE,
-    id: "phoneNum",
+    id: "userPhone",
   },
 
   PASSWORD: {
     ...INPUT_OPTIONS_BASE,
     type: "password",
     placeholder: PLACEHOLDER_SIGN.UP.PASSWORD,
-    id: "password",
+    id: "userPassword",
   },
 
   PASSWORD_CHECK: {
     ...INPUT_OPTIONS_BASE,
     type: "password",
     placeholder: PLACEHOLDER_SIGN.UP.PASSWORD2,
-    id: "passwordCheck",
+    id: "userPasswordCheck",
   },
 };

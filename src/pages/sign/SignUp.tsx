@@ -10,36 +10,48 @@ import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/opt
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signUpAPI } from "../../libs/apis/user";
 import { PopupSignUpSuccess } from "../../components/modal/useSignPage/PopupSignUpSuccess";
+import { PASSWORD_REGEX } from "../../libs/constants/regex/regex";
 
 const SignUp = () => {
-  const [nameValue, setNameValue] = useState("");
-  const [phoneNumValue, setPhoneNumValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [passwordCheckValue, setPasswordCheckValue] = useState("");
-  const [isModal, setIsModal] = useState(false);
+  const [signUpData, setSignUpData] = useState({
+    userName: "",
+    userPhone: "",
+    userPassword: "",
+    userPasswordCheck: "",
+  });
+
+  const [isModal, setIsModal] = useState<boolean>(false);
+
+  // 유효성에 따라 Input 각각 css 바껴야댐
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
 
-    if (id === "name") {
-      setNameValue(value);
-    } else if (id === "phoneNum") {
-      setPhoneNumValue(value);
-    } else if (id === "password") {
-      setPasswordValue(value);
-    } else if (id === "passwordCheck") {
-      setPasswordCheckValue(value);
-    }
+    setSignUpData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
   };
 
   const sendSignup = async (e: FORM_EVENT) => {
-    console.log(nameValue, phoneNumValue, passwordValue, passwordCheckValue);
     e.preventDefault();
+
+    console.log(signUpData);
+
+    if (!PASSWORD_REGEX.test(signUpData.userPassword)) {
+      setIsError(true);
+      return;
+    }
+
+    if (signUpData.userPassword !== signUpData.userPasswordCheck) {
+      setIsError(true);
+      return;
+    }
+
+    // 부트페이 연동 후 다시 처리
     const userData = {
-      userPhone: phoneNumValue,
-      userPassword: passwordValue,
-      userName: nameValue,
-      // 일단 넣어둠
+      ...signUpData,
       userGender: true,
       marketing: true,
     };
@@ -47,6 +59,8 @@ const SignUp = () => {
     if (response && (response as any).status === 200) {
       setIsModal(true);
     }
+
+    setIsError(false);
   };
 
   return (
@@ -55,22 +69,25 @@ const SignUp = () => {
         <h2>회원가입</h2>
         <SignUpForm onSubmit={sendSignup}>
           <InputGap>
-            <label htmlFor="name" className="a11y-hidden">
+            <label htmlFor="userName" className="a11y-hidden">
               이름
             </label>
-            <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={nameValue} />
-            <label htmlFor="phoneNum" className="a11y-hidden">
-              핸드폰 번호
-            </label>
-            <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={phoneNumValue} />
-            <label htmlFor="password" className="a11y-hidden">
+            <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={signUpData.userName} sizevariants={"large"} />
+            <div>
+              <label htmlFor="userPhone" className="a11y-hidden">
+                핸드폰 번호
+              </label>
+              <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} />
+              <AuthBtn>인증하기</AuthBtn>
+            </div>
+            <label htmlFor="userPassword" className="a11y-hidden">
               비밀번호
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD} onChange={handleInputChange} value={passwordValue} />
-            <label htmlFor="passwordCheck" className="a11y-hidden">
+            <Input {...SIGNUP_OPTIONS.PASSWORD} onChange={handleInputChange} value={signUpData.userPassword} sizevariants={"large"} />
+            <label htmlFor="userPasswordCheck" className="a11y-hidden">
               비밀번호 확인
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} onChange={handleInputChange} value={passwordCheckValue} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} onChange={handleInputChange} value={signUpData.userPasswordCheck} sizevariants={"large"} />
           </InputGap>
 
           <CheckField>
@@ -78,6 +95,9 @@ const SignUp = () => {
             <div>
               <CheckInput type="checkbox" id="agreement" />
               <label htmlFor="agreement">이용약관동의&#40;필수&#41;</label>
+              <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4" target="_blank">
+                보기
+              </a>
             </div>
             <div>
               <CheckInput type="checkbox" id="ageLimit" />
@@ -86,6 +106,9 @@ const SignUp = () => {
             <div>
               <CheckInput type="checkbox" id="marketing" />
               <label htmlFor="marketing">개인정보 마케팅 활용 동의&#40;선택&#41;</label>
+              <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4" target="_blank">
+                보기
+              </a>
             </div>
           </CheckField>
 
@@ -109,7 +132,7 @@ const SignUpSection = styled.section`
   h2 {
     font-size: 20px;
     font-family: var(--font--semibold);
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 `;
 
@@ -131,14 +154,12 @@ const SignUpOther = styled.div`
 `;
 
 const SignUpForm = styled.form`
-  button {
-    width: 100%;
+  & > button {
     margin: 50px 0 24px;
-    text-align: center;
   }
 `;
 
-const InputGap = styled.div`
+const InputGap = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -146,6 +167,28 @@ const InputGap = styled.div`
 
   input {
     border: 1px solid #eee;
+  }
+
+  & > div {
+    display: flex;
+    gap: 7px;
+  }
+`;
+
+const AuthBtn = styled.button`
+  width: 38px;
+  background-color: var(--main-color);
+  font-family: var(--font--semibold);
+  font-size: 12px;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 5px;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: var(--gray500-color);
   }
 `;
 
@@ -163,6 +206,17 @@ const CheckField = styled.fieldset`
       color: var(--gray500-color);
       margin-left: 12px;
     }
+
+    & > a {
+      font-size: 12px;
+      color: var(--gray500-color);
+      text-decoration: underline;
+      margin-left: 5px;
+
+      &:focus {
+        color: #000;
+      }
+    }
   }
 `;
 
@@ -171,6 +225,7 @@ const CheckInput = styled.input`
   height: 20px;
   border-radius: 50%;
   background: url(${icon_check}) var(--gray200-color) no-repeat center/ 10px 10px;
+  transition: all 0.3s;
 
   &:checked {
     background-color: var(--main-color);
