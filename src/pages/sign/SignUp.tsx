@@ -22,8 +22,9 @@ const SignUp = () => {
 
   const [isModal, setIsModal] = useState<boolean>(false);
 
-  // 유효성에 따라 Input 각각 css 바껴야댐
-  const [isError, setIsError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordCheckError, setPasswordCheckError] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -34,20 +35,30 @@ const SignUp = () => {
     }));
   };
 
-  const sendSignup = async (e: FORM_EVENT) => {
+  const validateName = (email: string): boolean => {
+    return email === "";
+  };
+
+  const validatePassword = (password: string): boolean => {
+    return !PASSWORD_REGEX.test(password) || password === "";
+  };
+
+  const validatePasswordCheck = (passwordCheck: string): boolean => {
+    return signUpData.userPassword !== passwordCheck || passwordCheck === "";
+  };
+
+  const HandleSignup = async (e: FORM_EVENT) => {
     e.preventDefault();
 
     console.log(signUpData);
 
-    if (!PASSWORD_REGEX.test(signUpData.userPassword)) {
-      setIsError(true);
-      return;
-    }
+    const isEmailValid = validateName(signUpData.userName);
+    const isPasswordValid = validatePassword(signUpData.userPassword);
+    const isPassordCheckValid = validatePasswordCheck(signUpData.userPasswordCheck);
 
-    if (signUpData.userPassword !== signUpData.userPasswordCheck) {
-      setIsError(true);
-      return;
-    }
+    setEmailError(isEmailValid);
+    setPasswordError(isPasswordValid);
+    setPasswordCheckError(isPassordCheckValid);
 
     // 부트페이 연동 후 다시 처리
     const userData = {
@@ -55,24 +66,23 @@ const SignUp = () => {
       userGender: true,
       marketing: true,
     };
+
     const response = await signUpAPI(userData);
     if (response && (response as any).status === 200) {
       setIsModal(true);
     }
-
-    setIsError(false);
   };
 
   return (
     <Layout>
       <SignUpSection>
         <h2>회원가입</h2>
-        <SignUpForm onSubmit={sendSignup}>
+        <SignUpForm onSubmit={HandleSignup}>
           <InputGap>
             <label htmlFor="userName" className="a11y-hidden">
               이름
             </label>
-            <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={signUpData.userName} sizevariants={"large"} />
+            <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={signUpData.userName} sizevariants={"large"} className={emailError ? "error" : ""} />
             <div>
               <label htmlFor="userPhone" className="a11y-hidden">
                 핸드폰 번호
@@ -83,11 +93,11 @@ const SignUp = () => {
             <label htmlFor="userPassword" className="a11y-hidden">
               비밀번호
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD} onChange={handleInputChange} value={signUpData.userPassword} sizevariants={"large"} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD} onChange={handleInputChange} value={signUpData.userPassword} sizevariants={"large"} className={passwordError ? "error" : ""} />
             <label htmlFor="userPasswordCheck" className="a11y-hidden">
               비밀번호 확인
             </label>
-            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} onChange={handleInputChange} value={signUpData.userPasswordCheck} sizevariants={"large"} />
+            <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} onChange={handleInputChange} value={signUpData.userPasswordCheck} sizevariants={"large"} className={passwordCheckError ? "error" : ""} />
           </InputGap>
 
           <CheckField>

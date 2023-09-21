@@ -3,9 +3,8 @@ import { css, styled } from "styled-components";
 import { InputProps } from "../../../libs/interface/interfaceCommon";
 import { StyledInputOption } from "./inputOptions";
 
-const Input = ({ typevariants = "basic", sizevariants = "large", isError = false, ...props }: InputProps) => {
-  const inputClassName = `StyledInput ${isError ? "error" : ""}`;
-  return <StyledInput typevariants={typevariants} sizevariants={sizevariants} className={inputClassName} {...props} />;
+const Input = ({ typevariants = "basic", sizevariants = "large", ...props }: InputProps) => {
+  return <StyledInput typevariants={typevariants} sizevariants={sizevariants} {...props} />;
 };
 
 export default Input;

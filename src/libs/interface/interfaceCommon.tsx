@@ -23,7 +23,7 @@ export interface InputProps {
   type: string;
   value: string;
   placeholder: string;
-  isError?: boolean;
+  className?: string;
   id?: string;
   minlength?: number;
   maxlength?: number;
