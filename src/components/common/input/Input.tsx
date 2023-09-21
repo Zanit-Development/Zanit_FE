@@ -29,6 +29,11 @@ const StyledInput = styled.input<StyledInputOption>`
   &::placeholder {
     color: rgba(0, 0, 0, 0.5);
   }
+
+  &.error {
+    background-color: rgba(241, 76, 41, 0.14);
+    outline: 1px solid var(--main-color);
+  }
 `;
 
 const TYPE_VARIANTS = {

@@ -3,9 +3,9 @@
  */
 
 import axios from "axios";
-import { authToken } from "../../auth/token";
 import { AxiosOptions } from "../interface/interfaceCommon";
 import { BASE_URL } from "./baseUrl";
+import { getLoginCookie } from "../utils/loginCookie";
 
 const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
@@ -17,15 +17,17 @@ const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
 };
 
 const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
-  const token = authToken;
   const instance = axios.create({
     baseURL: url,
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${getLoginCookie()}`,
+      "Content-Type": "application/json",
+    },
     ...options,
   });
 
   instance.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
     return config;
   });
 
@@ -36,6 +38,7 @@ const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
   const instance = axios.create({
     baseURL: url,
     headers: {
+      Authorization: `Bearer ${getLoginCookie()}`,
       "Content-Type": "multipart/form-data",
     },
     ...options,
