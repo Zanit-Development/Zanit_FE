@@ -1,6 +1,6 @@
 // 유저 로그인, 회원가입 API
 
-import { authInstance, defaultInstance, formDataInstance } from "./axios";
+import { defaultInstance, formDataInstance } from "./axios";
 
 interface signUpUser {
   userPhone: string;

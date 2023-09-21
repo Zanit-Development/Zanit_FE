@@ -44,6 +44,11 @@ const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     ...options,
   });
 
+  instance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    return config;
+  });
+
   return instance;
 };
 
