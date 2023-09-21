@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import Layout from "../../layouts/Layout";
-import { SignUpForm } from "./../../components/signUp/SignUpForm";
+import { SignUpForm } from "../../components/sign/SignUpForm";
 import { PopupSignUpSuccess } from "../../components/modal/useSignPage/PopupSignUpSuccess";
 
 const SignUp = () => {
