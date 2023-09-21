@@ -21,7 +21,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
     userPasswordCheck: "",
   });
 
-  const [emailError, setEmailError] = useState(false);
+  const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCheckError, setPasswordCheckError] = useState(false);
 
@@ -55,16 +55,16 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
   const HandleSignup = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    const isEmailValid = validateName(signUpData.userName);
+    const isNameValid = validateName(signUpData.userName);
     const isPasswordValid = validatePassword(signUpData.userPassword);
     const isPassordCheckValid = validatePasswordCheck(signUpData.userPasswordCheck);
 
-    setEmailError(isEmailValid);
+    setNameError(isNameValid);
     setPasswordError(isPasswordValid);
     setPasswordCheckError(isPassordCheckValid);
 
     if (agreementChecked && ageLimitChecked) {
-      if (!isEmailValid && !isPasswordValid && !isPassordCheckValid) {
+      if (!isNameValid && !isPasswordValid && !isPassordCheckValid) {
         // 부트페이 연동 후 다시 처리
         const userData = {
           ...signUpData,
@@ -88,7 +88,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
         <label htmlFor="userName" className="a11y-hidden">
           이름
         </label>
-        <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={signUpData.userName} sizevariants={"large"} className={emailError ? "error" : ""} />
+        <Input {...SIGNUP_OPTIONS.NAME} onChange={handleInputChange} value={signUpData.userName} sizevariants={"large"} className={nameError ? "error" : ""} />
         <div>
           <label htmlFor="userPhone" className="a11y-hidden">
             핸드폰 번호
