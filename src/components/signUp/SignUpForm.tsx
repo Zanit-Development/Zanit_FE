@@ -40,8 +40,8 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
     }));
   };
 
-  const validateName = (email: string): boolean => {
-    return email === "";
+  const validateName = (name: string): boolean => {
+    return name === "";
   };
 
   const validatePassword = (password: string): boolean => {
