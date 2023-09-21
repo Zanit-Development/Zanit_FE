@@ -7,6 +7,15 @@ import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/opt
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signInAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
+import { getLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
+import { formDataInstance } from "../../libs/apis/axios";
+
+const interceptorHeader = () => {
+  formDataInstance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    return config;
+  });
+};
 
 export const SignInForm = () => {
   const navigate = useNavigate();
@@ -54,6 +63,10 @@ export const SignInForm = () => {
       const response = await signInAPI(formData);
       console.log(response);
       if (response && (response as any).status === 200) {
+        // const { token } = response.~
+        // setLoginCookie(token, { path: "/" });
+
+        interceptorHeader();
         navigate("/home");
       }
     }
