@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "../../components/common/input/Input";
-import Button from "../../components/common/button/Button";
+import Input from "../common/input/Input";
+import Button from "../common/button/Button";
 
 import icon_check from "../../assets/icon/check.svg";
 import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/options";
