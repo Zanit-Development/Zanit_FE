@@ -20,11 +20,17 @@ const SignUp = () => {
     userPasswordCheck: "",
   });
 
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCheckError, setPasswordCheckError] = useState(false);
+
+  const [agreementChecked, setAgreementChecked] = useState(false);
+  const [ageLimitChecked, setAgeLimitChecked] = useState(false);
+  const [marketingChecked, setMarketingChecked] = useState(false);
+
+  const [agreeMSG, setAgreeMSG] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -60,16 +66,22 @@ const SignUp = () => {
     setPasswordError(isPasswordValid);
     setPasswordCheckError(isPassordCheckValid);
 
-    // 부트페이 연동 후 다시 처리
-    const userData = {
-      ...signUpData,
-      userGender: true,
-      marketing: true,
-    };
+    if (agreementChecked && ageLimitChecked) {
+      if (!isEmailValid && !isPasswordValid && !isPassordCheckValid) {
+        // 부트페이 연동 후 다시 처리
+        const userData = {
+          ...signUpData,
+          userGender: true,
+          marketing: marketingChecked,
+        };
 
-    const response = await signUpAPI(userData);
-    if (response && (response as any).status === 200) {
-      setIsModal(true);
+        const response = await signUpAPI(userData);
+        if (response && (response as any).status === 200) {
+          setIsModal(true);
+        }
+      }
+    } else {
+      setAgreeMSG("필수 동의사항을 모두 확인해주세요");
     }
   };
 
@@ -102,19 +114,20 @@ const SignUp = () => {
 
           <CheckField>
             <legend className="a11y-hidden">동의사항</legend>
+            <ErrorMassage>{agreeMSG}</ErrorMassage>
             <div>
-              <CheckInput type="checkbox" id="agreement" />
+              <CheckInput type="checkbox" id="agreement" checked={agreementChecked} onChange={(e) => setAgreementChecked(e.target.checked)} />
               <label htmlFor="agreement">이용약관동의&#40;필수&#41;</label>
               <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4" target="_blank">
                 보기
               </a>
             </div>
             <div>
-              <CheckInput type="checkbox" id="ageLimit" />
+              <CheckInput type="checkbox" id="ageLimit" checked={ageLimitChecked} onChange={(e) => setAgeLimitChecked(e.target.checked)} />
               <label htmlFor="ageLimit">만18세 이상 확인&#40;필수&#41;</label>
             </div>
             <div>
-              <CheckInput type="checkbox" id="marketing" />
+              <CheckInput type="checkbox" id="marketing" checked={marketingChecked} onChange={(e) => setMarketingChecked(e.target.checked)} />
               <label htmlFor="marketing">개인정보 마케팅 활용 동의&#40;선택&#41;</label>
               <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4" target="_blank">
                 보기
@@ -173,7 +186,7 @@ const InputGap = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
 
   input {
     border: 1px solid #eee;
@@ -200,6 +213,13 @@ const AuthBtn = styled.button`
   &:disabled {
     background-color: var(--gray500-color);
   }
+`;
+
+const ErrorMassage = styled.strong`
+  font-family: var(--font--semibold);
+  color: red;
+  font-size: 12px;
+  margin-bottom: 5px;
 `;
 
 const CheckField = styled.fieldset`
