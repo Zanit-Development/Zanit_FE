@@ -66,7 +66,7 @@ const Search = () => {
       </InputContainer>
       <CategoryContainer>
         <MenuSection>
-          {categoryList.map((item, idx) => {
+          {categoryList?.map((item, idx) => {
             const categoryOptions: CategoryProps = {
               menu: item[0],
               value: item[1] as SearchCategoryType,
@@ -91,14 +91,16 @@ const Search = () => {
         </TagSection>
       </CategoryContainer>
       <ListContainer>
-        {searchData.map((item, idx) => {
-          return (
-            <li>
-              <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
-              {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
-            </li>
-          );
-        })}
+        {!searchData
+          ? "검색결과가 없습니다."
+          : searchData.map((item, idx) => {
+              return (
+                <li>
+                  <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
+                  {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
+                </li>
+              );
+            })}
       </ListContainer>
     </Layout>
   );
