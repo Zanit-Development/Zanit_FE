@@ -1,18 +1,31 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
+import React, { useState, useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
-import { CategoryProps, InputProps, ItemProps, TagProps } from "../../libs/interface/interfaceCommon";
 import Category from "../../components/search/Category";
 import Tag from "../../components/tag/Tag";
-import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import Item from "../../components/common/item/Item";
-import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import handleSubmit from "./handleSubmit";
+import getBarListHome from "./initBarList";
+import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
+import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
+import { BarProps } from "../../libs/interface/interfaceBarDetail";
+import { styled } from "styled-components";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
+  const [searchData, setSearchData] = useState<BarProps[]>([]);
+
+  useEffect(() => {
+    const initRandomBar = async () => {
+      const response = await getBarListHome();
+      const randomBarList = response?.data as BarProps[];
+
+      setSearchData(randomBarList);
+    };
+
+    initRandomBar();
+  }, []);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -31,19 +44,17 @@ const Search = () => {
     onChange: handleSearch,
   };
 
-  const itemOptions: ItemProps = {
-    typevariants: "primary",
-    link: "#",
-    url: sampleImg,
-    name: "임시",
-  };
-
   const categorys = ["전체", "칵테일", "분위기", "지역"];
   const tagOptions = ["로맨틱한", "데이트장소", "조용한", "청담동", "신나는", "분위기있는", "힙한", "소개팅"];
 
   return (
     <Layout>
-      <InputContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e, inputValue)}>
+      <InputContainer
+        onSubmit={async (e: FORM_EVENT) => {
+          const response = await handleSubmit(e, inputValue);
+          setSearchData(response?.data);
+        }}
+      >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
       </InputContainer>
@@ -73,12 +84,14 @@ const Search = () => {
         </TagSection>
       </CategoryContainer>
       <ListContainer>
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
+        {searchData.map((item, idx) => {
+          return (
+            <li>
+              <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
+              {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
+            </li>
+          );
+        })}
       </ListContainer>
     </Layout>
   );
