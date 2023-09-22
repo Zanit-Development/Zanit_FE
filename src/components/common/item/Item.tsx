@@ -2,12 +2,13 @@ import React from "react";
 import { css, styled } from "styled-components";
 import { ItemProps } from "../../../libs/interface/interfaceCommon";
 import { Link } from "react-router-dom";
+import sample from "../../../assets/sample-img/cocktail1.jpg";
 
 const Item = ({ typevariants = "primary", ...props }: ItemProps) => {
   return (
     <ItemContainer typevariants={typevariants} {...props}>
       <Link to={props.link}>
-        <img src={props.url} alt={`${props.name} 썸네일 이미지`} />
+        <img src={props.url || sample} alt={`${props.name} 썸네일 이미지`} />
         <span>{props.name}</span>
       </Link>
     </ItemContainer>

@@ -9,10 +9,12 @@ import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import Item from "../../components/common/item/Item";
 import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import handleSubmit from "./handleSubmit";
+import { cocktailProps } from "../../libs/interface/interfaceCocktail";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
+  const [searchData, setSearchData] = useState<cocktailProps[]>([]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -43,7 +45,12 @@ const Search = () => {
 
   return (
     <Layout>
-      <InputContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e, inputValue)}>
+      <InputContainer
+        onSubmit={async (e: FORM_EVENT) => {
+          const response = await handleSubmit(e, inputValue);
+          setSearchData(response?.data);
+        }}
+      >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
       </InputContainer>
@@ -73,12 +80,13 @@ const Search = () => {
         </TagSection>
       </CategoryContainer>
       <ListContainer>
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
-        <Item {...itemOptions} />
+        {searchData.map((item, idx) => {
+          return (
+            <li>
+              <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} />
+            </li>
+          );
+        })}
       </ListContainer>
     </Layout>
   );
