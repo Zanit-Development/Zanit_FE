@@ -1,20 +1,31 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
+import React, { useState, useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
-import { CategoryProps, InputProps, ItemProps, TagProps } from "../../libs/interface/interfaceCommon";
 import Category from "../../components/search/Category";
 import Tag from "../../components/tag/Tag";
-import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import Item from "../../components/common/item/Item";
-import sampleImg from "../../assets/sample-img/cocktail1.jpg";
 import handleSubmit from "./handleSubmit";
-import { cocktailProps } from "../../libs/interface/interfaceCocktail";
+import getBarListHome from "./initBarList";
+import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
+import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
+import { BarProps } from "../../libs/interface/interfaceBarDetail";
+import { styled } from "styled-components";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState("전체");
-  const [searchData, setSearchData] = useState<cocktailProps[]>([]);
+  const [searchData, setSearchData] = useState<BarProps[]>([]);
+
+  useEffect(() => {
+    const initRandomBar = async () => {
+      const response = await getBarListHome();
+      const randomBarList = response?.data as BarProps[];
+
+      setSearchData(randomBarList);
+    };
+
+    initRandomBar();
+  }, []);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -31,13 +42,6 @@ const Search = () => {
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
     onChange: handleSearch,
-  };
-
-  const itemOptions: ItemProps = {
-    typevariants: "primary",
-    link: "#",
-    url: sampleImg,
-    name: "임시",
   };
 
   const categorys = ["전체", "칵테일", "분위기", "지역"];
@@ -83,7 +87,8 @@ const Search = () => {
         {searchData.map((item, idx) => {
           return (
             <li>
-              <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} />
+              <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
+              {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
             </li>
           );
         })}
