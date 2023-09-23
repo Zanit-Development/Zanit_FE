@@ -10,14 +10,14 @@ import cocktailImg3 from "../../assets/sample-img/cocktail3.jpg";
 export const BarInfo: BarProps = {
   barUid: 1234,
   barName: "바 이름",
-  barPics: bar1,
-  barMood: ["태그1", "태그2"],
-  description: `유니크한 청담동 칵테일 마신 밤 티베이스칵테일\n이곳에는 바에 대한 최대 50자의 설명이 들어갑니다. `,
+  barPics: [bar1, bar2, bar3, bar1],
+  barMood: "태그",
+  barDetail: `유니크한 청담동 칵테일 마신 밤 티베이스칵테일\n이곳에는 바에 대한 최대 50자의 설명이 들어갑니다. `,
   barLocation: "서울 강남구 선릉로162길 16 엘리자벳빌딩 1층",
-  openhours: "평일 8시~11시",
-  price: 1000,
-  discount: 5000,
-  cocktails: [
+  openHours: "평일 8시~11시",
+  price: "55000",
+  coverCharge: "5000",
+  barsCocktail: [
     {
       title: "임시",
       img: cocktailImg1,
