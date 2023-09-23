@@ -6,6 +6,7 @@ import Tag from "../../components/tag/Tag";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
 import getBarListHome from "./initBarList";
+import searchIcon from "../../assets/icon/icon _search_.svg";
 import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
@@ -63,6 +64,9 @@ const Search = () => {
       >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
+        <SearchButton>
+          <img src={searchIcon} alt="" />
+        </SearchButton>
       </InputContainer>
       <CategoryContainer>
         <MenuSection>
@@ -157,4 +161,13 @@ const ListContainer = styled.ul`
   grid-template-columns: 1fr 1fr;
   gap: 32px 10px;
   padding: 20px;
+`;
+
+const SearchButton = styled.button`
+  position: absolute;
+  top: 81px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 `;
