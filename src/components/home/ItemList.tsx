@@ -14,12 +14,13 @@ function pickItem(arr: ItemProps[], idx: number) {
   return [arr[left], arr[idx], arr[right]];
 }
 
-const ItemList = (props: { itemOptions: ItemProps[] }) => {
+const ItemList = (props: { itemOptions: ItemProps[] | null }) => {
   const { itemOptions } = props;
-  const dataLength = itemOptions.length;
+  // console.log(itemOptions);
+  const dataLength = itemOptions!.length;
 
   const [idx, setIdx] = useState(1);
-  const itemArray = pickItem(itemOptions, idx);
+  const itemArray = pickItem(itemOptions!, idx);
   function handleLeft() {
     setIdx((prev) => (prev - 1 + dataLength) % dataLength);
   }

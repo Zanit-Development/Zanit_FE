@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
-import { InputProps } from "../../libs/interface/interfaceCommon";
+import { InputProps, ItemProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 
 import Layout from "../../layouts/Layout";
@@ -12,9 +12,23 @@ import { HomeBanner, ItemList } from "../../components/home";
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 import { itemOptions } from "../../libs/utils/Homedummy";
+import { getRandomBarAPI } from "../../libs/apis/home";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
+  const [barData, setBarData] = useState<ItemProps[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setBarData(await getRandomBarAPI());
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
   const handleSubmit = (e: FORM_EVENT) => {
     e.preventDefault();
@@ -33,7 +47,9 @@ const Home = () => {
     onChange: handleSearch,
   };
 
-  return (
+  return isLoading ? (
+    <div>로딩중</div>
+  ) : (
     <Layout>
       <HomeBanner />
       <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
@@ -53,7 +69,7 @@ const Home = () => {
           <h2>Bar</h2>
           <span>지금 당신을 기다리고 있는</span>
         </TitleStyle>
-        <ItemList itemOptions={itemOptions} />
+        <ItemList itemOptions={barData} />
       </BarContainer>
     </Layout>
   );
