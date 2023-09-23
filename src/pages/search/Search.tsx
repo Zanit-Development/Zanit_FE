@@ -10,10 +10,11 @@ import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interf
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
+import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
-  const [category, setCategory] = useState("전체");
+  const [category, setCategory] = useState<SearchCategoryType>("barName");
   const [searchData, setSearchData] = useState<BarProps[]>([]);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Search = () => {
   };
 
   const handleCategory = (e: INPUT_EVENT) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value as SearchCategoryType);
   };
 
   const inputOptions: InputProps = {
@@ -44,14 +45,19 @@ const Search = () => {
     onChange: handleSearch,
   };
 
-  const categorys = ["전체", "칵테일", "분위기", "지역"];
+  const categoryList = [
+    ["전체", ""],
+    ["바", "barName"],
+    ["분위기", "barMood"],
+    ["위치", "barLocation"],
+  ];
   const tagOptions = ["로맨틱한", "데이트장소", "조용한", "청담동", "신나는", "분위기있는", "힙한", "소개팅"];
 
   return (
     <Layout>
       <InputContainer
         onSubmit={async (e: FORM_EVENT) => {
-          const response = await handleSubmit(e, inputValue);
+          const response = await handleSubmit(e, inputValue, category);
           setSearchData(response?.data);
         }}
       >
@@ -60,9 +66,10 @@ const Search = () => {
       </InputContainer>
       <CategoryContainer>
         <MenuSection>
-          {categorys.map((item, idx) => {
+          {categoryList?.map((item, idx) => {
             const categoryOptions: CategoryProps = {
-              menu: item,
+              menu: item[0],
+              value: item[1] as SearchCategoryType,
               idx: idx,
               onChange: handleCategory,
             };
@@ -84,14 +91,16 @@ const Search = () => {
         </TagSection>
       </CategoryContainer>
       <ListContainer>
-        {searchData.map((item, idx) => {
-          return (
-            <li>
-              <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
-              {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
-            </li>
-          );
-        })}
+        {!searchData
+          ? "검색결과가 없습니다."
+          : searchData.map((item, idx) => {
+              return (
+                <li>
+                  <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
+                  {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
+                </li>
+              );
+            })}
       </ListContainer>
     </Layout>
   );
