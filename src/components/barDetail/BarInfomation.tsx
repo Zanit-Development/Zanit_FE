@@ -9,35 +9,29 @@ import Tag from "../tag/Tag";
 import { Address, Opening, CoverCharge } from "../common/text";
 
 import { TagProps } from "../../libs/interface/interfaceCommon";
-import { BarInfo } from "../../libs/utils/Bardetaildummy";
+import { BarProps } from "../../libs/interface/interfaceBarDetail";
 
-export default function BarInfomation() {
+export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
+  const tagOption = {
+    typevariants: "secondary",
+    value: BarInfo.barMood,
+    tagid: BarInfo.barMood,
+  };
   return (
     <>
-      <ImgContainer barPics={BarInfo.barPics} />
+      <ImgContainer barPics={BarInfo.barPics.join(" ")} />
       <BarInfoContainer>
         <h2>{BarInfo.barName}</h2>
         <TagContainer>
-          {BarInfo.barMood.map((tag, idx) => {
-            const option = {
-              typevariants: "secondary",
-              value: tag,
-              tagid: `tag_${idx}`,
-            };
-            return (
-              <li key={idx}>
-                <Tag {...(option as TagProps)} />
-              </li>
-            );
-          })}
+          <Tag {...(tagOption as TagProps)} />
         </TagContainer>
-        <p>{BarInfo.description}</p>
+        <p>{BarInfo.barDetail}</p>
         <Address>{BarInfo.barLocation}</Address>
-        <Opening>{BarInfo.openhours}</Opening>
-        {generateCoverCharge(10000, 1000)}
+        <Opening>{BarInfo.openHours}</Opening>
+        {generateCoverCharge(BarInfo.price, BarInfo.coverCharge)}
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
-          {BarInfo.cocktails.map((cocktail, idx) => (
+          {BarInfo.barsCocktail.map((cocktail, idx) => (
             <li key={idx}>
               <Cocktail info={cocktail} idx={idx} />
             </li>
@@ -48,12 +42,12 @@ export default function BarInfomation() {
   );
 }
 
-type coverchargeType = number | undefined;
-function generateCoverCharge<T extends coverchargeType>(price: T, discount: T) {
+type coverchargeType = string | undefined;
+function generateCoverCharge<T extends coverchargeType>(price: T, coverCharge: T) {
   if (price === undefined) return null;
 
-  const priceText = !!discount ? <span>{price}원</span> : `${price}원`;
-  const discountText = !!discount ? <strong>{discount}원 (쟈닛 고객 한정 할인)</strong> : "";
+  const priceText = !!coverCharge ? <span>{price}원</span> : `${price}원`;
+  const discountText = !!coverCharge ? <strong>{parseInt(price) - parseInt(coverCharge)}원 (쟈닛 고객 한정 할인)</strong> : "";
 
   return (
     <CoverCharge>
@@ -69,6 +63,7 @@ const BarInfoContainer = styled.section`
     font-family: var(--font--Bold);
     font-size: 20px;
     margin-bottom: 8px;
+    line-height: 24px;
   }
   & > p {
     font-family: var(--font--Medium);
@@ -89,14 +84,9 @@ const BarInfoContainer = styled.section`
   }
 `;
 
-const TagContainer = styled.ul`
+const TagContainer = styled.div`
   margin-bottom: 16px;
-  li {
-    display: inline-block;
-  }
-  li + li {
-    margin-left: 10px;
-  }
+
   label {
     padding: 2.5px 12px;
     cursor: initial;
