@@ -8,12 +8,12 @@ export interface CocktailProps {
 export interface BarProps {
   barUid: number;
   barName: string;
-  barPics: string;
-  barMood: string[];
   barLocation: string;
-  description: string;
-  openhours: string;
-  cocktails: CocktailProps[];
-  price: number;
-  discount: number;
+  barPics: string[];
+  barMood: string;
+  barDetail: string;
+  barsCocktail: CocktailProps[];
+  coverCharge: string;
+  price: string;
+  openHours: string;
 }
