@@ -27,6 +27,7 @@ export const signInAPI = async (formData: FormData) => {
     console.log(formData.get("userpassword"));
 
     const res = await formDataInstance.post("/loginOk", formData);
+    console.log(res);
 
     return res;
   } catch (e) {
