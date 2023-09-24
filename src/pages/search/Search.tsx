@@ -6,7 +6,7 @@ import Tag from "../../components/tag/Tag";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
 import getBarListHome from "./initBarList";
-import searchIcon from "../../assets/icon/icon _search_.svg";
+import searchIcon from "../../assets/icon/icon_search.svg";
 import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
@@ -16,6 +16,7 @@ import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
+  const [tag, setTag] = useState("");
   const [searchData, setSearchData] = useState<BarProps[]>([]);
 
   useEffect(() => {
@@ -28,6 +29,10 @@ const Search = () => {
 
     initRandomBar();
   }, []);
+
+  useEffect(() => {
+    console.log(tag);
+  }, [tag]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -64,7 +69,7 @@ const Search = () => {
       >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
-        <SearchButton>
+        <SearchButton type="submit">
           <img src={searchIcon} alt="" />
         </SearchButton>
       </InputContainer>
