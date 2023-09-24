@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
-import loginToken from "../../recoil/loginToken";
+import { getLoginCookie } from "../../libs/utils/loginCookie";
 
 const Nav = () => {
   const deactiveStyle = {
@@ -20,9 +20,7 @@ const Nav = () => {
   const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
   const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset", "/password-find-ok"].includes(location.pathname);
 
-  // token 없어서 nav에 로그인 표시되는게 맞습니다
-  const token = useRecoilValue(loginToken);
-  // 로그아웃 띄우기 -> const token = true;
+  const token = getLoginCookie();
 
   return (
     <Navbar>

@@ -41,9 +41,14 @@ const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
       Authorization: `Bearer ${getLoginCookie()}`,
       "Content-Type": "multipart/form-data",
     },
+    withCredentials: true,
     ...options,
   });
 
+  instance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    return config;
+  });
   return instance;
 };
 

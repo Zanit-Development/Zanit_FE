@@ -10,12 +10,14 @@ import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
 import { getLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
 import { formDataInstance } from "../../libs/apis/axios";
 
-const interceptorHeader = () => {
-  formDataInstance.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
-    return config;
-  });
-};
+// const interceptorHeader = () => {
+//   formDataInstance.interceptors.request.use((config) => {
+//     config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+
+//     config = {...config, withCredentials: true}
+//     return config;
+//   });
+// };
 
 export const SignInForm = () => {
   const navigate = useNavigate();
@@ -54,20 +56,19 @@ export const SignInForm = () => {
     setPasswordError(isPasswordValid);
 
     if (!phoneNumError && !passwordError) {
-      console.log(phoneNumValue);
-      console.log(passwordValue);
       const formData = new FormData();
       formData.append("userphone", phoneNumValue);
       formData.append("userpassword", passwordValue);
 
       const response = await signInAPI(formData);
+
       console.log(response);
+
       if (response && (response as any).status === 200) {
         // const { token } = response.~
         // setLoginCookie(token, { path: "/" });
-
-        interceptorHeader();
-        navigate("/home");
+        // interceptorHeader();
+        // navigate("/home");
       }
     }
   };
