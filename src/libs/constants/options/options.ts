@@ -144,6 +144,19 @@ export const BUTTON_OPTIONS: {
     sizevariants: "small",
     value: BUTTON_VALUE.PASSWORD_FIND.CLOSE_MODAL,
   },
+
+  LOGOUT: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.LOGOUT.LOGOUT,
+  },
+
+  LOGOUT_CANCEL: {
+    ...BUTTON_OPTIONS_BASE,
+    typevariants: "stroke",
+    sizevariants: "small",
+    value: BUTTON_VALUE.LOGOUT.CANCLE,
+  },
 };
 
 export const SIGNIN_OPTIONS = {

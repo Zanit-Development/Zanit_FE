@@ -45,4 +45,9 @@ export const BUTTON_VALUE = {
     CLOSE_MODAL: "다시 입력하기",
     GO_SIGNIN: "로그인 하기",
   },
+
+  LOGOUT: {
+    CANCLE: "돌아가기",
+    LOGOUT: "로그아웃 하기",
+  },
 };
