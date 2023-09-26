@@ -11,6 +11,11 @@ interface signUpUser {
   marketing: boolean; // 0 : 미동의     1:동의
 }
 
+interface ApiResponse {
+  status: number;
+  data: string;
+}
+
 export const signUpAPI = async (userData: signUpUser) => {
   const { userPhone, userPassword, userName, userGender, marketing } = userData;
   try {
@@ -21,17 +26,15 @@ export const signUpAPI = async (userData: signUpUser) => {
   }
 };
 
-export const signInAPI = async (formData: FormData) => {
+export const signInAPI = async (formData: FormData): Promise<ApiResponse> => {
   try {
-    console.log(formData.get("userphone"));
-    console.log(formData.get("userpassword"));
-
     const res = await formDataInstance.post("/loginOk", formData);
-    console.log(res);
 
-    return res;
+    console.log(res.data);
+
+    return { status: res.status, data: res.data };
   } catch (e) {
     console.error(e);
-    return e;
+    throw e;
   }
 };

@@ -61,10 +61,10 @@ export const SignInForm = () => {
       const response = await signInAPI(formData);
 
       if (response && (response as any).status === 200) {
-        // const { token } = response.~
-        // setLoginCookie(token, { path: "/" });
+        const token = response.data;
+        setLoginCookie(token, { path: "/" });
         interceptorHeader();
-        // navigate("/home");
+        navigate("/home");
       }
     }
   };
