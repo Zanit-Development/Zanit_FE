@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 import Input from "./../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
@@ -19,6 +19,7 @@ const interceptorHeader = () => {
 
 export const SignInForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -64,7 +65,12 @@ export const SignInForm = () => {
         const token = response.data;
         setLoginCookie(token, { path: "/" });
         interceptorHeader();
-        navigate("/home");
+        {
+          location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
+        }
+        {
+          location.pathname === `/signIn` && navigate("/home");
+        }
       }
     }
   };
