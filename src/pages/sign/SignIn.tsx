@@ -1,70 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "../../layouts/Layout";
-import Input from "./../../components/common/input/Input";
-import Button from "../../components/common/button/Button";
-import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
-import { FORM_EVENT } from "../../libs/interface/typeEvent";
-import { signInAPI } from "../../libs/apis/user";
-import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
+import { SignInForm } from "../../components/sign/SignInForm";
 
 const SignIn = () => {
-  const navigate = useNavigate();
-
-  const [phoneNumValue, setPhoneNumValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    if (id === "userphone") {
-      setPhoneNumValue(value);
-    }
-    if (id === "userpassword") {
-      setPasswordValue(value);
-    }
-  };
-
-  console.log(PHONE_REGEX.test(phoneNumValue));
-  console.log(PASSWORD_REGEX.test(passwordValue));
-
-  const sendSignin = async (e: FORM_EVENT) => {
-    e.preventDefault();
-
-    if (PHONE_REGEX.test(phoneNumValue) && PASSWORD_REGEX.test(passwordValue)) {
-      console.log(phoneNumValue);
-      console.log(passwordValue);
-      const formData = new FormData();
-      formData.append("userphone", phoneNumValue);
-      formData.append("userpassword", passwordValue);
-      try {
-        const response = await signInAPI(formData);
-        console.log(response);
-        if (response && (response as any).status === 200) {
-          navigate("/home");
-        }
-      } catch (e) {
-        navigate("/404");
-      }
-    }
-  };
-
   return (
     <Layout>
       <SignInSection>
         <h2>로그인</h2>
-        <SignInForm onSubmit={sendSignin}>
-          <label htmlFor="userphone" className="a11y-hidden">
-            핸드폰 번호
-          </label>
-          <Input {...SIGNIN_OPTIONS.PHONE} onChange={handleInputChange} value={phoneNumValue} />
-          <label htmlFor="userpassword" className="a11y-hidden">
-            비밀번호
-          </label>
-          <Input {...SIGNIN_OPTIONS.PASSWORD} onChange={handleInputChange} value={passwordValue} />
-
-          <Button {...BUTTON_OPTIONS.SIGNIN} />
-        </SignInForm>
+        <SignInForm />
         <SignInOther>
           <Link to="/signUp">회원가입</Link>
           <Link to="/password-find">비밀번호 찾기</Link>
@@ -82,25 +27,8 @@ const SignInSection = styled.section`
   h2 {
     font-size: 20px;
     font-family: var(--font--semibold);
-    margin-bottom: 76px;
+    margin-bottom: 65px;
   }
-`;
-
-const SignInForm = styled.form`
-  input {
-    border: 1px solid #eee;
-
-    &:nth-of-type(2) {
-      margin-top: 12px;
-    }
-  }
-
-  button {
-    width: 100%;
-    margin-top: 50px;
-    text-align: center;
-  }
-  margin-bottom: 24px;
 `;
 
 const SignInOther = styled.div`
