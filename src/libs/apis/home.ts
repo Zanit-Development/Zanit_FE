@@ -1,11 +1,12 @@
 import { defaultInstance } from "./axios";
 import barDummy from "../../assets/sample-img/bar1.png";
-import { randomBarList } from "../../pages/home/interface";
+import cockDummy from "../../assets/sample-img/cocktail1.jpg";
+import { randomBarList, randomCockList } from "../../pages/home/interface";
 
-export const getRandomBarAPI = async () => {
+export const getRandomDataAPI = async () => {
   try {
-    const res = await defaultInstance.get("/barListHome");
-    const temp = res.data.map((item: randomBarList) => {
+    const barData = await defaultInstance.get("/barListHome");
+    const barList = barData.data.map((item: randomBarList) => {
       return {
         link: `/bar-detail?barUid=${item.barUid}`,
         name: item.barName,
@@ -13,8 +14,19 @@ export const getRandomBarAPI = async () => {
         url: item.barPics?.[0] ?? barDummy,
       };
     });
-    return temp;
+
+    const cockData = await defaultInstance.get("/getCocktailRandom");
+    const cockList = cockData.data.map((item: randomCockList) => {
+      return {
+        link: `/bar-detail?barUid=${item.barUid}`,
+        name: item.cocktailName,
+        typevariants: "primary",
+        url: item.cocktailPic ?? cockDummy,
+      };
+    });
+
+    return { barList, cockList };
   } catch (e) {
-    return e;
+    throw e;
   }
 };

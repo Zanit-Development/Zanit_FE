@@ -12,17 +12,20 @@ import { HomeBanner, ItemList } from "../../components/home";
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 import { itemOptions } from "../../libs/utils/Homedummy";
-import { getRandomBarAPI } from "../../libs/apis/home";
+import { getRandomDataAPI } from "../../libs/apis/home";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [barData, setBarData] = useState<ItemProps[] | null>(null);
+  const [cockData, setCockData] = useState<ItemProps[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        setBarData(await getRandomBarAPI());
+        const { barList, cockList } = await getRandomDataAPI();
+        setBarData(barList);
+        setCockData(cockList);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -62,7 +65,7 @@ const Home = () => {
           <h2>Cocktail</h2>
           <span>지금 당신을 기다리고 있는</span>
         </TitleStyle>
-        <ItemList itemOptions={itemOptions} />
+        <ItemList itemOptions={cockData} />
       </CocktailContainer>
       <BarContainer>
         <TitleStyle img={barImg}>

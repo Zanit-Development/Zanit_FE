@@ -10,3 +10,14 @@ export interface randomBarList {
   barPhone: string | null;
   coverCharge: string;
 }
+
+export interface randomCockList {
+  barUid: number;
+  cocktailName: string;
+  cocktailDetail: string;
+  recoUser: number;
+  cocktailPrice: number;
+  cocktailPic: string | null;
+  cocktailPicPath: string | null;
+  activated: boolean;
+}
