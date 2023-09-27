@@ -27,6 +27,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     removeLoginCookie({ path: "/" });
+    setIsModal(false);
     navigate("/signIn");
   };
 

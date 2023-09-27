@@ -21,11 +21,15 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const hasToken = getLoginCookie();
+
   const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  const [hasTokenMSG, setHasTokenMSG] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -54,28 +58,35 @@ export const SignInForm = () => {
     setPhoneNumError(isPhoneValid);
     setPasswordError(isPasswordValid);
 
-    if (!phoneNumError && !passwordError) {
-      const formData = new FormData();
-      formData.append("userphone", phoneNumValue);
-      formData.append("userpassword", passwordValue);
+    if (!hasToken) {
+      if (!phoneNumError && !passwordError) {
+        const formData = new FormData();
+        formData.append("userphone", phoneNumValue);
+        formData.append("userpassword", passwordValue);
 
-      const response = await signInAPI(formData);
+        const response = await signInAPI(formData);
 
-      if (response && (response as any).status === 200) {
-        const token = response.data;
-        setLoginCookie(token, { path: "/" });
-        interceptorHeader();
-        {
-          location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
-        }
-        {
-          location.pathname === `/signIn` && navigate("/home");
+        if (response && (response as any).status === 200) {
+          const token = response.data;
+          setLoginCookie(token, { path: "/" });
+          interceptorHeader();
+          {
+            location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
+          }
+          {
+            location.pathname === `/signIn` && navigate("/home");
+          }
         }
       }
+    }
+
+    if (hasToken) {
+      setHasTokenMSG(true);
     }
   };
   return (
     <Form onSubmit={sendSignin}>
+      {hasTokenMSG && <ErrorMassage>이미 로그인 되어있어요</ErrorMassage>}
       <label htmlFor="userphone" className="a11y-hidden">
         핸드폰 번호
       </label>
@@ -105,4 +116,12 @@ const Form = styled.form`
     text-align: center;
   }
   margin-bottom: 24px;
+`;
+
+const ErrorMassage = styled.strong`
+  display: block;
+  font-family: var(--font--semibold);
+  color: red;
+  font-size: 12px;
+  margin-bottom: 15px;
 `;

@@ -27,7 +27,7 @@ const SignInSection = styled.section`
   h2 {
     font-size: 20px;
     font-family: var(--font--semibold);
-    margin-bottom: 76px;
+    margin-bottom: 65px;
   }
 `;
 
