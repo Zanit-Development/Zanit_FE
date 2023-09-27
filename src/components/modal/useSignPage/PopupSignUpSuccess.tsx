@@ -9,7 +9,7 @@ export const PopupSignUpSuccess = () => {
   const navigate = useNavigate();
 
   const closeModal = () => {
-    navigate("/signin");
+    navigate("/signIn");
   };
 
   const gotoMain = () => {

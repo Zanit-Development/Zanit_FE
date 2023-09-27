@@ -37,13 +37,13 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
 const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
     baseURL: url,
+    withCredentials: true,
     headers: {
       Authorization: `Bearer ${getLoginCookie()}`,
       "Content-Type": "multipart/form-data",
     },
     ...options,
   });
-
   return instance;
 };
 
