@@ -20,7 +20,7 @@ const Nav = () => {
     borderBottom: "1px solid var(--main-color)",
   };
   const location = useLocation();
-  const isActiveSearchPath = ["/search", "/bar-detail", "/home"].includes(location.pathname);
+  const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
   const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
   const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
   const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset", "/password-find-ok"].includes(location.pathname);
