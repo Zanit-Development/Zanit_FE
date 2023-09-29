@@ -9,12 +9,7 @@ interface mainImageProp {
 
 export default function MainImage({ defaultImg }: mainImageProp) {
   const mainImg = useRecoilValue(mainImgState);
-
-  return (
-    <div>
-      <MainImageStyle src={mainImg === "" ? defaultImg : mainImg} />
-    </div>
-  );
+  return <div>{defaultImg !== "" ? <MainImageStyle src={mainImg || defaultImg} /> : <Null />}</div>;
 }
 
 const MainImageStyle = styled.img`
@@ -24,4 +19,8 @@ const MainImageStyle = styled.img`
   /* 확대 축소 기능이 있으니깐 */
   object-fit: contain;
   aspect-ratio: 1/1;
+`;
+
+const Null = styled(MainImageStyle)`
+  background-color: #eee;
 `;

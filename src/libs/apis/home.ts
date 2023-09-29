@@ -12,7 +12,7 @@ export const getRandomDataAPI = async () => {
         link: `/bar-detail?barUid=${item.barUid}`,
         name: item.barName,
         typevariants: "primary",
-        url: item.barPicsPath?.[0].barPicture ?? barDummy,
+        url: item.barPicsPath[0]?.barPicture ?? barDummy,
       };
     });
 

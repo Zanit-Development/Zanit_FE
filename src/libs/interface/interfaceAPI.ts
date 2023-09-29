@@ -3,7 +3,7 @@ export interface bar {
   barName: string;
   barLocation: string;
   barPics: string[] | null;
-  barPicsPath: barPicsPathInterface[] | null;
+  barPicsPath: barPicsPathInterface[];
   barMood: string;
   barDetail: string | null;
   barsCocktail: cocktail[] | null;
