@@ -16,8 +16,8 @@ import { getRandomDataAPI } from "../../libs/apis/home";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
-  const [barData, setBarData] = useState<ItemProps[] | null>(null);
-  const [cockData, setCockData] = useState<ItemProps[] | null>(null);
+  const [barData, setBarData] = useState<ItemProps[]>([]);
+  const [cockData, setCockData] = useState<ItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

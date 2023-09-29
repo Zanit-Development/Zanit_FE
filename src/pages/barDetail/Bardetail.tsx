@@ -16,7 +16,7 @@ import { BarProps } from "../../libs/interface/interfaceBarDetail";
 const Bardetail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [data, setData] = useState<BarProps | null>(null);
+  const [data, setData] = useState<BarProps>({} as BarProps);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Bardetail = () => {
     <div>로딩중 </div>
   ) : (
     <Layout>
-      <BarInfomation BarInfo={data!} />
+      <BarInfomation BarInfo={data} />
       <ButtonContainer>
         <Button {...btnOption} />
       </ButtonContainer>

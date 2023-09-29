@@ -14,7 +14,7 @@ function pickItem(arr: ItemProps[], idx: number) {
   return [arr[left], arr[idx], arr[right]];
 }
 
-const ItemList = (props: { itemOptions: ItemProps[] | null }) => {
+const ItemList = (props: { itemOptions: ItemProps[] }) => {
   const { itemOptions } = props;
   // console.log(itemOptions);
   const dataLength = itemOptions!.length;
