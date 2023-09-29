@@ -17,25 +17,27 @@ const ImageItem = ({ image }: ImageItemProps) => {
   };
 
   return (
-    <ImgBtn img={image} onClick={image ? (e) => changeMain(e) : undefined}>
+    <ImgBtn $img={image} onClick={image ? (e) => changeMain(e) : undefined}>
       {image ? <Image src={image} alt="" /> : <Empty src={empty} alt="" />}
     </ImgBtn>
   );
 };
 
-const ImgBtn = styled.button<{ img: string | undefined }>`
+const ImgBtn = styled.button<{ $img: string | undefined }>`
   width: 100%;
   height: 100%;
   border-radius: 4px;
   border: 1px solid #eee;
   box-sizing: border-box;
   overflow: hidden;
-  cursor: ${(props) => (props.img ? "pointer" : "initial")};
+  cursor: ${(props) => (props.$img ? "pointer" : "initial")};
   text-align: center;
 `;
 
 const Image = styled.img`
   width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: contain;
 `;
 
 const Empty = styled.img`
