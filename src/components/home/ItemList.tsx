@@ -62,6 +62,7 @@ const ListContainer = styled.section`
 const ArrowButton = styled.button`
   height: 100px;
   align-self: flex-start;
+  cursor: pointer;
   img {
     width: 24px;
   }
