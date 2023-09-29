@@ -15,7 +15,7 @@ import { BarProps } from "../../libs/interface/interfaceBarDetail";
 
 const Bardetail = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [data, setData] = useState<BarProps | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 

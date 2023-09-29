@@ -92,6 +92,9 @@ const ItemContainer = styled.ul`
 
     img {
       height: 100%;
+      aspect-ratio: 1/1;
+      /* 애매.. */
+      object-fit: contain;
     }
     span {
       text-align: center;

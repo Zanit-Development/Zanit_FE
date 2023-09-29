@@ -23,4 +23,5 @@ const MainImageStyle = styled.img`
   /* 추후 박스 사이즈에 안맞는 이미지가 들어오면 contain이 적절할듯한 */
   /* 확대 축소 기능이 있으니깐 */
   object-fit: contain;
+  aspect-ratio: 1/1;
 `;

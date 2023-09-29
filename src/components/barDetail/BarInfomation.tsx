@@ -31,11 +31,15 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
         {generateCoverCharge(BarInfo.price, BarInfo.coverCharge)}
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
-          {BarInfo.barsCocktail.map((cocktail, idx) => (
-            <li key={idx}>
-              <Cocktail info={cocktail} idx={idx} />
-            </li>
-          ))}
+          {BarInfo.barsCocktail.length ? (
+            BarInfo.barsCocktail.map((cocktail, idx) => (
+              <li key={idx}>
+                <Cocktail info={cocktail} idx={idx} />
+              </li>
+            ))
+          ) : (
+            <p>등록된 칵테일이 없습니다</p>
+          )}
         </ul>
       </BarInfoContainer>
     </>
@@ -81,6 +85,11 @@ const BarInfoContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    p {
+      font-size: 14px;
+      font-family: var(--font--Medium);
+    }
   }
 `;
 
