@@ -1,24 +1,32 @@
 import { styled } from "styled-components";
 
-import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
 import { TagProps } from "../../../libs/interface/interfaceCommon";
 import Tag from "../../tag/Tag";
+import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+
+enum recoUserEnum {
+  "입문자용",
+  "캐주얼드링커용",
+  "헤비드링커용",
+}
 
 const Cocktail = (props: { info: CocktailProps; idx: number }) => {
+  const { cocktailName, cocktailDetail, cocktailPicture, recoUser } = props.info;
+
   const option = {
     typevariants: "tertiary",
-    value: props.info.level,
+    value: recoUserEnum[recoUser],
     tagid: `tag${props.idx}`,
   };
   return (
     <Item>
-      <img src={props.info.img} alt="" />
+      <img src={cocktailPicture} alt="" />
       <Container>
         <div>
-          <strong>{props.info.title}</strong>
+          <strong>{cocktailName}</strong>
           <Tag {...(option as TagProps)} />
         </div>
-        <p>{props.info.description}</p>
+        <p>{cocktailDetail}</p>
       </Container>
     </Item>
   );

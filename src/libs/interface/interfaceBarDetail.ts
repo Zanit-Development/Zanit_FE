@@ -1,9 +1,4 @@
-export interface CocktailProps {
-  img: string;
-  title: string;
-  level: string;
-  description: string;
-}
+import { CocktailProps } from "./interfaceCocktail";
 
 export interface BarProps {
   barUid: number;
