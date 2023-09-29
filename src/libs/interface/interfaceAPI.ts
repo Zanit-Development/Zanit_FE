@@ -1,17 +1,18 @@
-export interface randomBarList {
+export interface bar {
   barUid: number;
   barName: string;
   barLocation: string;
   barPics: string[] | null;
+  barPicsPath: barPicsPathInterface[] | null;
   barMood: string;
   barDetail: string | null;
-  barsCocktail: string[] | null;
+  barsCocktail: cocktail[] | null;
   barOwner: string | null;
   barPhone: string | null;
   coverCharge: string;
 }
 
-export interface randomCockList {
+export interface cocktail {
   barUid: number;
   cocktailName: string;
   cocktailDetail: string;
@@ -19,5 +20,12 @@ export interface randomCockList {
   cocktailPrice: number;
   cocktailPic: string | null;
   cocktailPicPath: string | null;
+  cocktailPicPaths: null;
   activated: boolean;
+}
+
+export interface barPicsPathInterface {
+  barPicUid: number;
+  barUid: number;
+  barPicture: string;
 }
