@@ -36,10 +36,10 @@ const ItemList = (props: { itemOptions: ItemProps[] }) => {
         })}
       </ItemContainer>
       <ArrowButton onClick={handleLeft}>
-        <img src={arrowImg} alt="" />
+        <img src={arrowImg} alt="더보기(왼쪽)" />
       </ArrowButton>
       <ArrowButton onClick={handleRight}>
-        <img src={arrowImg} alt="" />
+        <img src={arrowImg} alt="더보기(오른쪽)" />
       </ArrowButton>
     </ListContainer>
   );

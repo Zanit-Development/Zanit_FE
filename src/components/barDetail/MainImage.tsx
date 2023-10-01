@@ -9,7 +9,7 @@ interface mainImageProp {
 
 export default function MainImage({ defaultImg }: mainImageProp) {
   const mainImg = useRecoilValue(mainImgState);
-  return <div>{defaultImg !== "" ? <MainImageStyle src={mainImg || defaultImg} /> : <Null />}</div>;
+  return <>{defaultImg !== "" ? <MainImageStyle src={mainImg || defaultImg} /> : <Null />}</>;
 }
 
 const MainImageStyle = styled.img`
