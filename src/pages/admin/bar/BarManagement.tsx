@@ -15,7 +15,7 @@ const BarManagement = () => {
 const StyledMenu = styled.menu`
   width: calc(100% - 40px);
   margin-bottom: 20px;
-  padding: 0 20px;
+  padding: 1px 20px;
 
   & > input {
     display: none;

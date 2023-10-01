@@ -1,8 +1,6 @@
-export interface cocktailProps {
-  barUid: string;
-  cocktailName: string;
+export interface CocktailProps {
   cocktailDetail: string;
+  cocktailName: string;
+  cocktailPicture: string;
   recoUser: number;
-  cocktailPrice: number;
-  cocktailPicPath: string;
 }

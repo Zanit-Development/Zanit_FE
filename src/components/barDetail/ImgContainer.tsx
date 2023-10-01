@@ -1,8 +1,5 @@
 import React from "react";
 import { styled } from "styled-components";
-import bar1 from "../../assets/sample-img/bar1.png";
-import bar2 from "../../assets/sample-img/bar2.png";
-import bar3 from "../../assets/sample-img/bar3.png";
 
 import ImageItem from "./ImageItem";
 import MainImage from "./MainImage";
@@ -13,7 +10,7 @@ function returnImgArr(barPics: string) {
 }
 
 const ImgContainer = ({ barPics }: { barPics: string }) => {
-  const imgArr: string[] = returnImgArr(`${bar1} ${bar2} ${bar3}`);
+  const imgArr: string[] = returnImgArr(barPics);
 
   return (
     <Section>
@@ -40,6 +37,7 @@ const ImgList = styled.ul`
   li {
     width: calc((100% - 12px) / 3);
     display: inline-block;
+    aspect-ratio: 1/1;
   }
 `;
 

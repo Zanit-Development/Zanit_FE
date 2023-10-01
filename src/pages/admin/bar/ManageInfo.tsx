@@ -8,7 +8,7 @@ import { BAR_INFO, ButtonOptions, SELECT } from "./ManageInfoOptions";
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
-import { CocktailProps } from "../../../libs/interface/interfaceBarDetail";
+import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
 
@@ -23,13 +23,13 @@ export const ManageInfo = () => {
 
   const sampleCocktails: { info: CocktailProps }[] = [
     {
-      info: { img: "string", title: "string", level: "string", description: "string" },
+      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
     },
     {
-      info: { img: "string", title: "string", level: "string", description: "string" },
+      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
     },
     {
-      info: { img: "string", title: "string", level: "string", description: "string" },
+      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
     },
   ];
 

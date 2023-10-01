@@ -32,7 +32,7 @@ const TYPE_VARIANTS = {
   secondary: css`
     padding: 3px;
     background-color: var(--main-color);
-    font-family: var(--font--Bold);
+    font-family: var(--font--semibold);
     color: white;
   `,
 

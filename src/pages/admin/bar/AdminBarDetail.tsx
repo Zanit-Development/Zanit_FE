@@ -7,6 +7,7 @@ import AdminLayout from "../../../layouts/adminLayout/AdminLayout";
 import Button from "../../../components/common/button/Button";
 
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
+import { BarInfo } from "../../../libs/utils/Bardetaildummy";
 
 const AdminBardetail = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AdminBardetail = () => {
 
   return (
     <AdminLayout>
-      <BarInfomation />
+      <BarInfomation BarInfo={BarInfo} />
       <ButtonContainer>
         <Button {...btnOption} />
         <DeleteButton>전체 정보 삭제하기</DeleteButton>

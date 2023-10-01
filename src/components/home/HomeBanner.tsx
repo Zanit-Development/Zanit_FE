@@ -48,7 +48,7 @@ const Container = styled.div`
   box-sizing: border-box;
   height: 251px;
   padding: 27px 0 27px 16px;
-  margin: 20px 10px 0;
+  margin: 0 10px;
   border-radius: 8px;
 
   background: var(--main-color) url(${backgroundImg}) no-repeat 82px -74px;
