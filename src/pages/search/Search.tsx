@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
 import Category from "../../components/search/Category";
-import Tag from "../../components/tag/Tag";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
 import getBarListHome from "./initBarList";
-import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
+import searchIcon from "../../assets/icon/icon_search.svg";
+import NewTag from "../../components/tag/NewTag";
+import { CategoryProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
@@ -15,6 +16,7 @@ import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
+  const [tag, setTag] = useState("");
   const [searchData, setSearchData] = useState<BarProps[]>([]);
 
   useEffect(() => {
@@ -27,6 +29,10 @@ const Search = () => {
 
     initRandomBar();
   }, []);
+
+  // useEffect(() => {
+  //   console.log(tag);
+  // }, [tag]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -63,6 +69,9 @@ const Search = () => {
       >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
+        <SearchButton type="submit">
+          <img src={searchIcon} alt="" />
+        </SearchButton>
       </InputContainer>
       <CategoryContainer>
         <MenuSection>
@@ -78,16 +87,7 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          {tagOptions.map((item, idx) => {
-            const tagOptions: TagProps = {
-              typevariants: "primary",
-              tagid: `tag_${idx}`,
-              value: item,
-              name: "searchTag",
-            };
-
-            return <Tag {...tagOptions} key={idx} />;
-          })}
+          <NewTag typevariants="primary" itemlist={tagOptions} settag={setTag} />
         </TagSection>
       </CategoryContainer>
       <ListContainer>
@@ -95,10 +95,7 @@ const Search = () => {
           ? "검색결과가 없습니다."
           : searchData.map((item, idx) => {
               return (
-                <li>
-                  <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
-                  {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
-                </li>
+                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={item.barName} />
               );
             })}
       </ListContainer>
@@ -140,14 +137,18 @@ const MenuSection = styled.section`
 `;
 
 const TagSection = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding: 0 20px;
+  position: relative;
 
-  & > div {
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  & > ul > li {
     margin-right: 10px;
   }
 `;
@@ -157,4 +158,13 @@ const ListContainer = styled.ul`
   grid-template-columns: 1fr 1fr;
   gap: 32px 10px;
   padding: 20px;
+`;
+
+const SearchButton = styled.button`
+  position: absolute;
+  top: 81px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 `;
