@@ -77,7 +77,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
               <>
                 {nonSelectors.map((item, idx) => {
                   return item !== selector ? (
-                    <TagContainer key={`select_${idx * 2}`} typevariants={typevariants}>
+                    <TagContainer key={`nonselect_${idx}`} typevariants={typevariants}>
                       <input
                         id={`select_${idx}`}
                         type="checkbox"

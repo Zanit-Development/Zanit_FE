@@ -95,9 +95,7 @@ const Search = () => {
           ? "검색결과가 없습니다."
           : searchData.map((item, idx) => {
               return (
-                <li>
-                  <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
-                </li>
+                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={item.barName} />
               );
             })}
       </ListContainer>
