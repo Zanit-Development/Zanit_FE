@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
 import Category from "../../components/search/Category";
-import Tag from "../../components/tag/Tag";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
 import getBarListHome from "./initBarList";
 import searchIcon from "../../assets/icon/icon_search.svg";
-import { CategoryProps, InputProps, TagProps } from "../../libs/interface/interfaceCommon";
+import NewTag from "../../components/tag/NewTag";
+import { CategoryProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
@@ -30,9 +30,9 @@ const Search = () => {
     initRandomBar();
   }, []);
 
-  useEffect(() => {
-    console.log(tag);
-  }, [tag]);
+  // useEffect(() => {
+  //   console.log(tag);
+  // }, [tag]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -87,16 +87,7 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          {tagOptions.map((item, idx) => {
-            const tagOptions: TagProps = {
-              typevariants: "primary",
-              tagid: `tag_${idx}`,
-              value: item,
-              name: "searchTag",
-            };
-
-            return <Tag {...tagOptions} key={idx} />;
-          })}
+          <NewTag typevariants="primary" itemlist={tagOptions} settag={setTag} />
         </TagSection>
       </CategoryContainer>
       <ListContainer>
@@ -106,7 +97,6 @@ const Search = () => {
               return (
                 <li>
                   <Item typevariants={"primary"} link={""} url={""} name={item.barName} key={idx} />
-                  {/* <Item typevariants={"primary"} link={""} url={""} name={item.cocktailName} key={idx} /> */}
                 </li>
               );
             })}
@@ -149,14 +139,18 @@ const MenuSection = styled.section`
 `;
 
 const TagSection = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding: 0 20px;
+  position: relative;
 
-  & > div {
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  & > ul > li {
     margin-right: 10px;
   }
 `;
