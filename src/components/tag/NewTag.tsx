@@ -37,13 +37,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
           {items.map((item, idx) => {
             return (
               <TagContainer key={`select_${idx}`} typevariants={typevariants}>
-                <input
-                  id={`tag_${idx}`}
-                  type="checkbox"
-                  value={item}
-                  onChange={(e) => handleTag(e, typevariants)}
-                  defaultChecked={false}
-                />
+                <input id={`tag_${idx}`} type="checkbox" value={item} onChange={(e) => handleTag(e, typevariants)} />
                 <label htmlFor={`tag_${idx}`}>{item}</label>
               </TagContainer>
             );
@@ -83,7 +77,6 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
                         type="checkbox"
                         value={item}
                         onChange={(e) => handleTag(e, typevariants)}
-                        defaultChecked={true}
                       />
                       <label htmlFor={`select_${idx}`}>{item}</label>
                     </TagContainer>
