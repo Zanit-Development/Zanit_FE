@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
@@ -51,6 +51,12 @@ export const ManageInfo = () => {
 
     setBarPics([...Array.from(barPics), ...Array.from(selectImage)].slice(0, 4));
     setPreviewImageList(selectPreviewImages.slice(0, 4));
+  };
+
+  const deletePreviewImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const deleteItemIdx = parseInt(e.currentTarget.value);
+    setBarPics(barPics.filter((_, idx) => idx !== deleteItemIdx));
+    setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
   };
 
   const sampleCocktails: { info: CocktailProps }[] = [
@@ -209,6 +215,11 @@ export const ManageInfo = () => {
             {previewImageList.map((item, idx) => {
               return (
                 <li key={`barImage_${idx}`}>
+                  <button type="button" value={idx} onClick={deletePreviewImage}>
+                    <svg width={10} height={10}>
+                      <line x1={1} y1={4.5} x2={9} y2={4.5} style={{ stroke: "black", strokeWidth: "2" }} />
+                    </svg>
+                  </button>
                   <img src={item} alt={`${idx + 1}번째 바 이미지`} />
                 </li>
               );
@@ -221,7 +232,6 @@ export const ManageInfo = () => {
                   accept="image/*"
                   id="image_1"
                   multiple
-                  required
                   style={{ display: "none" }}
                 />
                 <label htmlFor="image_1">
@@ -388,11 +398,29 @@ const PhotoList = styled.ul`
   margin: 20px 0;
 
   & li {
+    position: relative;
     width: 70px;
     height: 70px;
     border: 1px solid var(--gray200-color);
     border-radius: 6px;
     overflow: hidden;
+  }
+
+  & li > button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    cursor: pointer;
+
+    & > img {
+      width: 8px;
+    }
   }
 
   & label {
