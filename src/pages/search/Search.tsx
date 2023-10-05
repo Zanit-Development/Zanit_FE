@@ -12,14 +12,17 @@ import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
+import { CocktailProps } from "../../libs/interface/interfaceCocktail";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
   const [tag, setTag] = useState("");
-  const [searchData, setSearchData] = useState<BarProps[]>([]);
+  const [searchData, setSearchData] = useState<Array<BarProps | CocktailProps>>([]);
+  const [filteringData, setFilteringData] = useState<Array<BarProps | CocktailProps>>([]);
 
   useEffect(() => {
+    // 초기 랜덤 바 요청
     const initRandomBar = async () => {
       const response = await getBarListHome();
       const randomBarList = response?.data as BarProps[];
@@ -30,9 +33,22 @@ const Search = () => {
     initRandomBar();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(tag);
-  // }, [tag]);
+  useEffect(() => {
+    // 태그 선택에 따른 검색값 필터링
+    let filteringItem: Array<BarProps | CocktailProps> = [];
+
+    if (category === "cocktail") {
+      filteringItem = searchData.filter((item: any) => {
+        return item.recoUser === tag;
+      }) as CocktailProps[];
+      setFilteringData([...filteringItem]);
+    } else {
+      filteringItem = searchData.filter((item: any) => {
+        return item.barMood === tag;
+      }) as BarProps[];
+      setFilteringData([...filteringItem]);
+    }
+  }, [tag]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -52,12 +68,27 @@ const Search = () => {
   };
 
   const categoryList = [
-    ["전체", ""],
-    ["바", "barName"],
+    ["추천", "barName"],
+    ["칵테일", "cocktail"],
     ["분위기", "barMood"],
     ["위치", "barLocation"],
   ];
-  const tagOptions = ["로맨틱한", "데이트장소", "조용한", "청담동", "신나는", "분위기있는", "힙한", "소개팅"];
+  const barTagOptions = [
+    [0, "로맨틱한"],
+    [1, "데이트장소"],
+    [2, "조용한"],
+    [3, "청담동"],
+    [4, "신나는"],
+    [5, "분위기있는"],
+    [6, "힙한"],
+    [7, "소개팅"],
+  ] as [number, string][];
+
+  const cocktailTagOption = [
+    [0, "칵테일유형1"],
+    [1, "칵테일유형2"],
+    [2, "칵테일유형3"],
+  ] as [number, string][];
 
   return (
     <Layout>
@@ -87,18 +118,51 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          <NewTag typevariants="primary" itemlist={tagOptions} settag={setTag} />
+          <NewTag
+            typevariants="primary"
+            itemlist={category === "cocktail" ? cocktailTagOption : barTagOptions}
+            settag={setTag}
+          />
         </TagSection>
       </CategoryContainer>
-      <ListContainer>
-        {!searchData
-          ? "검색결과가 없습니다."
-          : searchData.map((item, idx) => {
+      {category === "cocktail" ? (
+        <ListContainer>
+          {!filteringData ? (
+            <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
+          ) : (
+            filteringData.map((item, idx) => {
+              const data: any = item;
               return (
-                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={item.barName} />
+                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.cocktailName} />
               );
-            })}
-      </ListContainer>
+            })
+          )}
+        </ListContainer>
+      ) : (
+        <ListContainer>
+          {tag ? (
+            !filteringData ? (
+              <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
+            ) : (
+              filteringData.map((item, idx) => {
+                const data: any = item;
+                return (
+                  <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
+                );
+              })
+            )
+          ) : !searchData ? (
+            <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
+          ) : (
+            searchData.map((item, idx) => {
+              const data: any = item;
+              return (
+                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
+              );
+            })
+          )}
+        </ListContainer>
+      )}
     </Layout>
   );
 };
@@ -167,4 +231,8 @@ const SearchButton = styled.button`
   width: 40px;
   height: 40px;
   cursor: pointer;
+`;
+
+const EmptyList = styled.span`
+  font-size: 20px;
 `;
