@@ -38,10 +38,6 @@ export const ManageInfo = () => {
     console.log(data);
   };
 
-  useEffect(() => {
-    console.log(barPics);
-  }, [barPics]);
-
   const handleBarPics = (e: INPUT_EVENT) => {
     const selectImage = e.target.files!;
 
