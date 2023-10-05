@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
+import Button from "../../../components/common/button/Button";
+import SelectBox from "../../../components/common/selectBox/SelectBox";
+import sampleImg from "../../../assets/admin_sample_img.svg";
+import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
-
-import sampleImg from "../../../assets/admin_sample_img.svg";
-import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
-import Button from "../../../components/common/button/Button";
-import SelectBox from "../../../components/common/selectBox/SelectBox";
-import { FORM_EVENT } from "../../../libs/interface/typeEvent";
+import { FORM_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
+  // 바 정보
   const [barName, setBarName] = useState("");
   const [barLocation, setBarLocation] = useState("");
   const [barLocationDetail, setBarLocationDetail] = useState("");
@@ -23,7 +23,12 @@ export const ManageInfo = () => {
   const [discount, setDiscount] = useState("");
   const [barOpeningTime, setBarOpeningTime] = useState("");
   const [barDetail, setBarDetail] = useState("");
-  const [barPics, setBarPics] = useState("");
+
+  // 바 이미지 관련
+  const [barPics, setBarPics] = useState<FileList[]>([]);
+  const [previewImageList, setPreviewImageList] = useState<string[]>([]);
+
+  // 칵테일 리스트 관련
   const [cocktailList, setCocktailList] = useState<string[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
 
@@ -31,6 +36,21 @@ export const ManageInfo = () => {
     const { ...data } = inputValues;
 
     console.log(data);
+  };
+
+  const handleBarPics = (e: INPUT_EVENT) => {
+    const selectImage = e.target.files!;
+    setBarPics([...barPics, selectImage].slice(0, 4));
+
+    // 미리보기 생성
+    const selectPreviewImages = [...previewImageList];
+
+    for (let i = 0; i < selectImage.length; i++) {
+      let selectImageUrl = URL.createObjectURL(selectImage[i]);
+      selectPreviewImages.push(selectImageUrl);
+    }
+
+    setPreviewImageList(selectPreviewImages.slice(0, 4));
   };
 
   const sampleCocktails: { info: CocktailProps }[] = [
@@ -185,18 +205,29 @@ export const ManageInfo = () => {
             <span>{"(가로 세로 비율 1:1 권장)"}</span>
           </StyledP>
           <PhotoList>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
+            {previewImageList.map((item, idx) => {
+              return (
+                <li key={`barImage_${idx}`}>
+                  <img src={item} alt={`${idx + 1}번째 바 이미지`} />
+                </li>
+              );
+            })}
+            {previewImageList.length < 4 && (
+              <li key="item_1">
+                <input
+                  type="file"
+                  onChange={handleBarPics}
+                  accept="image/*"
+                  id="image_1"
+                  multiple
+                  required
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="image_1">
+                  <img src={sampleImg} alt="" />
+                </label>
+              </li>
+            )}
           </PhotoList>
         </StyledSectionsBarDesc>
       </section>
@@ -350,8 +381,9 @@ const StyledP = styled.p`
 
 const PhotoList = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
   margin: 20px 0;
 
   & li {
@@ -362,10 +394,18 @@ const PhotoList = styled.ul`
     overflow: hidden;
   }
 
-  & img {
+  & label {
+    display: block;
     width: 70px;
     height: 70px;
     object-fit: contain;
+    cursor: pointer;
+  }
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
