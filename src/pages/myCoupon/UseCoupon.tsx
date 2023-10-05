@@ -4,6 +4,8 @@ import Layout from "../../layouts/Layout";
 import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 
 import SelectBox from "../../components/common/selectBox/SelectBox";
+import { getBarList } from "../../libs/apis/useCoupon";
+import { bar } from "../../libs/interface/interfaceUseCoupon";
 
 export interface SelectType {
   selected: string;
@@ -14,29 +16,60 @@ export interface SelectType {
   styletype?: "primary" | "secondary";
 }
 
+type strArrayObj = { [prop: string]: string[] };
+
 const UseCoupon = () => {
-  const barList = ["bar1", "bar2", "bar3", "bar4", "bar5", "bar6", "bar7", "bar8"];
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<bar[]>([]);
+
+  const [barNameList, setBarNameList] = useState<string[]>([]);
+  const [cocktailNameList, setCocktailNameList] = useState<strArrayObj>({});
+  // barName : cockList
   const [selectedBar, setSelectedBar] = useState("");
-  const CocktailList: { [prop: string]: string[] } = {
-    bar1: ["cock1", "cock2", "cock3", "cock4", "cock5"],
-    bar2: ["1", "2", "3", "4", "5"],
-    bar3: ["a", "b", "c", "d", "e"],
-    bar4: ["a1", "a2", "a3", "a4", "a5"],
-    bar5: ["q1", "q2", "q3", "q4", "q5"],
-    bar6: ["w1", "w2", "w3", "w4", "w5"],
-    bar7: ["e1", "e2", "e3", "e4", "e5"],
-    bar8: ["r1", "r2", "r3", "r4", "r5"],
-  };
+  // barName
   const [selectedCocktail, setSelectedCocktail] = useState("");
+  // cocktailname
+  const [selectedOption, setSelectedOption] = useState<any>({});
+  // option
+
+  useEffect(() => {
+    (async () => {
+      const getResult: bar[] = await getBarList();
+      setData(getResult);
+      console.log(getResult);
+
+      const cocktailMap: strArrayObj = {};
+      setBarNameList(getResult.map((item) => item.barName));
+      getResult.forEach((item) => {
+        cocktailMap[item.barName] = item.barCocktail.map((cocktail) => cocktail.cocktailName);
+      });
+      setCocktailNameList(cocktailMap);
+      setIsLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
     setSelectedCocktail("");
   }, [selectedBar]);
 
+  useEffect(() => {
+    if (selectedCocktail === "") {
+      setSelectedOption({});
+    } else {
+      const bar = data.find((item) => item.barName === selectedBar);
+      const cocktail = bar?.barCocktail.find((item) => item.cocktailName === selectedCocktail);
+
+      setSelectedOption({
+        ...bar,
+        ...cocktail,
+      });
+    }
+  }, [selectedCocktail]);
+
   const BarOptions: SelectType = {
     selected: selectedBar,
     setSelected: setSelectedBar,
-    data: barList,
+    data: barNameList,
     placeholder: "바 이름을 검색해 보세요",
     nulltext: "바 선택하기",
   };
@@ -44,12 +77,14 @@ const UseCoupon = () => {
   const CocktailOptions: SelectType = {
     selected: selectedCocktail,
     setSelected: setSelectedCocktail,
-    data: CocktailList[selectedBar] || [],
+    data: cocktailNameList[selectedBar],
     placeholder: "칵테일을 선택해 주세요",
     nulltext: "칵테일 선택하기",
   };
 
-  return (
+  return isLoading ? (
+    <div>로딩</div>
+  ) : (
     <Layout>
       <MainContainer>
         <h2>쿠폰 사용하기</h2>
@@ -57,7 +92,7 @@ const UseCoupon = () => {
         <SelectBox {...BarOptions} />
         <h3>어떤 칵테일을 마셨나요?</h3>
         <SelectBox {...CocktailOptions} />
-        <ShowPopupButton bar={selectedBar} cock={selectedCocktail} />
+        <ShowPopupButton option={selectedOption} />
       </MainContainer>
     </Layout>
   );
