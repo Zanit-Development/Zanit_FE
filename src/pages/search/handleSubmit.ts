@@ -16,6 +16,8 @@ const handleSubmit = async (e: FORM_EVENT, inputValue: string, category: SearchC
     requestUrl = `barList?${category}=${value}`;
   }
 
+  console.log(requestUrl);
+
   try {
     const response = await defaultInstance.get(requestUrl);
     return response;
