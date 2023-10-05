@@ -48,6 +48,16 @@ const Search = () => {
         return item.recoUser === tag;
       }) as CocktailProps[];
       setFilteringCocktailData([...filteringItem] as CocktailProps[]);
+    } else if (category === "barLocation") {
+      filteringItem = searchBarData.filter((item: any) => {
+        return item.barLocation === tag;
+      }) as BarProps[];
+      setFilteringBarData([...filteringItem] as BarProps[]);
+    } else if (category === "barMood") {
+      filteringItem = searchBarData.filter((item: any) => {
+        return item.barMood === tag;
+      }) as BarProps[];
+      setFilteringBarData([...filteringItem] as BarProps[]);
     } else {
       filteringItem = searchBarData.filter((item: any) => {
         return item.barMood === tag;
@@ -62,6 +72,20 @@ const Search = () => {
 
   const handleCategory = (e: INPUT_EVENT) => {
     setCategory(e.target.value as SearchCategoryType);
+  };
+
+  const getTagList = (category: string) => {
+    switch (category) {
+      case "barMood":
+        return barMoodTagOption;
+      case "barLocation":
+        return barLocationTagOption;
+      case "cocktail":
+        return cocktailTagOption;
+
+      default:
+        return barBaseTagOptions;
+    }
   };
 
   const inputOptions: InputProps = {
@@ -79,7 +103,8 @@ const Search = () => {
     ["분위기", "barMood"],
     ["위치", "barLocation"],
   ];
-  const barTagOptions = [
+
+  const barBaseTagOptions = [
     [0, "로맨틱한"],
     [1, "데이트장소"],
     [2, "조용한"],
@@ -89,6 +114,23 @@ const Search = () => {
     [6, "힙한"],
     [7, "소개팅"],
   ] as [number, string][];
+
+  const barMoodTagOption = [
+    [0, "로맨틱한"],
+    [1, "데이트장소"],
+    [2, "조용한"],
+    [4, "신나는"],
+    [5, "분위기있는"],
+    [6, "힙한"],
+    [7, "소개팅"],
+  ] as Array<number & string>;
+
+  const barLocationTagOption = [
+    [0, "강동구"],
+    [1, "강서구"],
+    [2, "강남구"],
+    [3, "청담동"],
+  ] as Array<number & string>;
 
   const cocktailTagOption = [
     [0, "칵테일유형1"],
@@ -124,11 +166,7 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          <NewTag
-            typevariants="primary"
-            itemlist={category === "cocktail" ? cocktailTagOption : barTagOptions}
-            settag={setTag}
-          />
+          <NewTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
         </TagSection>
       </CategoryContainer>
       {category === "cocktail" ? (
