@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
-import { Select } from "../../../components/common/select/Select";
 import { styled } from "styled-components";
-import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
-import { BAR_INFO, ButtonOptions, SELECT } from "./ManageInfoOptions";
+import { handleChangeInput, handleChangeInputNumber } from "./handler";
+import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
@@ -16,7 +15,9 @@ export const ManageInfo = () => {
   const [barName, setBarName] = useState<string>("");
   const [barLocation, setBarLocation] = useState<string>("");
   const [barMood, setBarMood] = useState<string>("");
+  const [activeCoverCharge, setActiveCoverCharge] = useState(false);
   const [coverCharge, setCoverCharge] = useState<string>("");
+  const [activeDiscount, setActiveDiscount] = useState(false);
   const [discount, setDiscount] = useState<string>("");
   const [cocktailList, setCocktailList] = useState<string[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
@@ -40,15 +41,19 @@ export const ManageInfo = () => {
       <section>
         <StyledSectionBarInfo>
           <StyledH3>이름</StyledH3>
-          <Input {...BAR_INFO.NAME} value={barName.replaceAll(" ", "")} onChange={(e) => handleChangeInput(e, setBarName)} />
+          <Input
+            {...BAR_INFO.NAME}
+            value={barName.replaceAll(" ", "")}
+            onChange={(e) => handleChangeInput(e, setBarName)}
+          />
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>위치</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={barLocation}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setBarLocation(value);
             }}
             data={["#중랑구 ", "#서대문구 ", "#중구 "]}
             placeholder={"선택"}
@@ -61,9 +66,9 @@ export const ManageInfo = () => {
           <StyledH3>분위기</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={barMood}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setBarMood(value);
             }}
             data={["#캐주얼한", "#고급스러운", "#신나는"]}
             placeholder={"선택"}
@@ -75,23 +80,27 @@ export const ManageInfo = () => {
           <StyledH3>커버차지</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={activeCoverCharge ? "있음" : "없음"}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setActiveCoverCharge(value === "있음" ? true : false);
             }}
             data={["있음", "없음"]}
             placeholder={"선택"}
             nulltext={"선택"}
           ></SelectBox>
-          <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={(e) => handleChangeInputNumber(e, setCoverCharge)} />
+          <Input
+            {...BAR_INFO.COVER_CHARGE}
+            value={coverCharge}
+            onChange={(e) => handleChangeInputNumber(e, setCoverCharge)}
+          />
         </StyledSectionBarInfo>
         <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={activeDiscount ? "있음" : "없음"}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setActiveDiscount(value === "있음" ? true : false);
             }}
             data={["있음", "없음"]}
             placeholder={"선택"}
@@ -150,7 +159,9 @@ export const ManageInfo = () => {
         <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
         <CocktailList>
           {sampleCocktails.map((item, idx) => {
-            return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />;
+            return (
+              <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />
+            );
           })}
         </CocktailList>
         <AddCocktailButton>
@@ -221,7 +232,7 @@ const StyledSectionBarInfo = styled.section`
         content: "인";
         position: absolute;
         top: 15px;
-        right: 9px;
+        right: 15px;
       }
     }
 
