@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
@@ -25,7 +25,7 @@ export const ManageInfo = () => {
   const [barDetail, setBarDetail] = useState("");
 
   // 바 이미지 관련
-  const [barPics, setBarPics] = useState<FileList[]>([]);
+  const [barPics, setBarPics] = useState<File[]>([]);
   const [previewImageList, setPreviewImageList] = useState<string[]>([]);
 
   // 칵테일 리스트 관련
@@ -38,9 +38,12 @@ export const ManageInfo = () => {
     console.log(data);
   };
 
+  useEffect(() => {
+    console.log(barPics);
+  }, [barPics]);
+
   const handleBarPics = (e: INPUT_EVENT) => {
     const selectImage = e.target.files!;
-    setBarPics([...barPics, selectImage].slice(0, 4));
 
     // 미리보기 생성
     const selectPreviewImages = [...previewImageList];
@@ -50,6 +53,7 @@ export const ManageInfo = () => {
       selectPreviewImages.push(selectImageUrl);
     }
 
+    setBarPics([...Array.from(barPics), ...Array.from(selectImage)].slice(0, 4));
     setPreviewImageList(selectPreviewImages.slice(0, 4));
   };
 
@@ -80,6 +84,7 @@ export const ManageInfo = () => {
           discount,
           barOpeningTime,
           barDetail,
+          barPics,
           cocktailList,
         ];
         handleSubmit(e, inputValues);
