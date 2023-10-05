@@ -194,7 +194,6 @@ const Search = () => {
           ) : (
             searchCocktailData.map((item, idx) => {
               const data: any = item;
-              console.log(data.cocktailName);
               return (
                 <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.cocktailName} />
               );
