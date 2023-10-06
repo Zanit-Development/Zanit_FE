@@ -1,9 +1,35 @@
 export interface PopupProps {
-  barimg: string;
-  barname: string;
-  barlocation: string;
-  cocktailname: string;
-  cocktailprice: number;
-  covercharge?: number;
+  barPicture: string;
+  barName: string;
+  barLocation: string;
+  cocktailName: string;
+  cocktailPrice: number;
+  coverCharge?: number;
   onClose: () => void;
 }
+
+// 전체 바 리스트
+// 바별 칵테일 리스트
+
+export interface bar {
+  barUid: number;
+  barPicture: string;
+  barName: string;
+  barLocation: string;
+  coverCharge: string;
+  barCocktail: cocktail[];
+}
+
+// 바 1번 사진
+// 바 이름
+// 바 주소
+// 커버차지
+// 칵테일 리스트
+
+export interface cocktail {
+  cocktailName: string;
+  cocktailPrice: number;
+}
+
+// 칵테일 이름
+// 칵테일 가격

@@ -30,7 +30,7 @@ export const Modal = ({ border, children, onClose }: ModalProps) => {
 
   return createPortal(
     <BackgroundStyle onClick={onClose}>
-      <BoxStyle border={border} onClick={(e) => e.stopPropagation()}>
+      <BoxStyle $border={border} onClick={(e) => e.stopPropagation()}>
         {children}
         <ButtonContainer onClick={onClose}>
           <img src={iconClose} alt="닫기 버튼" />
@@ -52,7 +52,7 @@ const BackgroundStyle = styled.div`
 `;
 
 // dropshadow 추가 필요
-const BoxStyle = styled.div<{ border: boolean }>`
+const BoxStyle = styled.div<{ $border: boolean }>`
   background-color: var(--white-color);
   height: fit-content;
   min-width: 350px;
@@ -65,8 +65,8 @@ const BoxStyle = styled.div<{ border: boolean }>`
   overflow-y: auto;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
-  ${({ border }) =>
-    border &&
+  ${({ $border }) =>
+    $border &&
     css`
       &::before {
         content: "";

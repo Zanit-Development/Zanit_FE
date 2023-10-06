@@ -9,32 +9,35 @@ import { PopupProps } from "../../libs/interface/interfaceUseCoupon";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
 import { Modal } from "../../components/modal/Modal";
+import { postUseCoupon } from "../../libs/apis/useCoupon";
 
 const buttonProps: ButtonProps = {
   typevariants: "fill",
   sizevariants: "small",
   value: "ZAN 쿠폰 승인하기",
   disabled: false,
-  onClick: () => {},
+  onClick: () => {
+    postUseCoupon();
+  },
 };
 
 export const Popup = ({ ...props }: PopupProps) => {
-  const { barimg, barname, barlocation, cocktailname, cocktailprice, covercharge, onClose } = props;
+  const { barPicture, barName, barLocation, cocktailName, cocktailPrice, coverCharge, onClose } = props;
   // 마운트 되면 데이터 요청
   return (
     <Modal border={false} onClose={onClose}>
       <ModalStyle>
         <h2>결제하기</h2>
         <PopupContent>
-          <img src={barimg} alt="바 메인이미지" />
-          <h3>{barname}</h3>
-          <PopupAddress>{barlocation}</PopupAddress>
-          <Price name={cocktailname} price={cocktailprice} />
-          {covercharge && (
+          <img src={barPicture} alt="바 메인이미지" />
+          <h3>{barName}</h3>
+          <PopupAddress>{barLocation}</PopupAddress>
+          <Price name={cocktailName} price={cocktailPrice} />
+          {coverCharge && (
             <>
-              <Price name="커버차지" price={covercharge} />
+              <Price name="커버차지" price={coverCharge} />
               <Line />
-              <Price name="합계" price={cocktailprice + covercharge} />
+              <Price name="합계" price={cocktailPrice + coverCharge} />
             </>
           )}
         </PopupContent>
@@ -49,7 +52,7 @@ const Price = ({ name, price }: { name: string; price: number }) => {
   return (
     <PriceParagraph>
       {name}
-      <strong>{price.toLocaleString()}원</strong>
+      <strong>{typeof price === "number" ? price.toLocaleString() : price}원</strong>
     </PriceParagraph>
   );
 };

@@ -37,7 +37,7 @@ const SelectBox = ({ styletype = "primary", selected, setSelected, data, placeho
   }, []);
 
   return (
-    <SelectWrapper $styletype={styletype} onClick={data.length > 0 ? handleDropDown : undefined} ref={selectRef}>
+    <SelectWrapper $styletype={styletype} onClick={data?.length ?? false ? handleDropDown : undefined} ref={selectRef}>
       <Container>
         {selected || placeholder}
         <Arrow $isopen={isOpen ? "true" : "false"} src={ArrowIcon} alt="" />

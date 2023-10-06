@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
+import React, { useState } from "react";
 import Cocktail from "../../common/cocktail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
+import { styled } from "styled-components";
 import { CocktailItemProps } from "./cocktailItemOptions";
 import { handleCocktailList } from "./handleCocktailItem";
 
@@ -18,7 +18,12 @@ export const CocktailItem = ({ ...props }: CocktailItemProps) => {
         <img src={updateCocktailImg} alt="" />
       </button>
       <Cocktail info={{ ...props.info }} idx={0} />
-      <StyledCheckbox id={props.id} type="checkbox" onChange={() => handleCocktailList(checked, setChecked, props.setShowList)} checked={checked} />
+      <StyledCheckbox
+        id={props.id}
+        type="checkbox"
+        onChange={() => handleCocktailList(checked, setChecked, props.setShowList)}
+        checked={checked}
+      />
       <label htmlFor={props.id}></label>
     </li>
   );
