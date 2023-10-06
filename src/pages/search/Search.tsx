@@ -4,9 +4,9 @@ import Input from "../../components/common/input/Input";
 import Category from "../../components/search/Category";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
-import { getBarListHome, getCocktailListHome } from "./initBarList";
+import SearchTag from "../../components/tag/SearchTag";
 import searchIcon from "../../assets/icon/icon_search.svg";
-import NewTag from "../../components/tag/NewTag";
+import { getBarListHome, getCocktailListHome } from "./initBarList";
 import { CategoryProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
@@ -64,7 +64,7 @@ const Search = () => {
       }) as BarProps[];
       setFilteringBarData([...filteringItem] as BarProps[]);
     }
-  }, [tag]);
+  }, [tag, category, searchCocktailData, searchBarData]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -166,7 +166,7 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          <NewTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
+          <SearchTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
         </TagSection>
       </CategoryContainer>
       {category === "cocktail" ? (

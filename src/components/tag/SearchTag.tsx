@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import { INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import arrow from "../../assets/icon/icon_arrow_down.svg";
@@ -10,7 +10,7 @@ interface NewTagListOption {
   settag?: (value: string) => void;
 }
 
-const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
+const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   const items = itemlist;
   const [selector, setSelector] = useState("");
   const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
@@ -78,7 +78,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
                         value={item[1]}
                         onChange={(e) => handleTag(e, typevariants)}
                       />
-                      <label htmlFor={`select_${idx}`}>{item}</label>
+                      <label htmlFor={`select_${idx}`}>{item[1]}</label>
                     </TagContainer>
                   ) : null;
                 })}
@@ -91,7 +91,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   );
 };
 
-export default NewTag;
+export default SearchTag;
 
 const TagContainer = styled.li`
   display: block;
