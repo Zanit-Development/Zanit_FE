@@ -37,3 +37,15 @@ export const signInAPI = async (formData: FormData): Promise<ApiResponse> => {
     return { status: 500, data: "api 호출 실패" };
   }
 };
+
+export const findPwAPI = async (phoneNumber: string) => {
+  try {
+    const res = await formDataInstance.post("/findPw", phoneNumber);
+    console.log(res);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
