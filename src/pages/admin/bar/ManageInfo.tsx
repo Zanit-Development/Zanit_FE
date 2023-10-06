@@ -1,110 +1,185 @@
 import React, { useState } from "react";
 import Input from "../../../components/common/input/Input";
-import { Select } from "../../../components/common/select/Select";
-import { styled } from "styled-components";
-import { handleChangeInput, handleChangeInputNumber, handleChangeSelect } from "./handler";
-import { BAR_INFO, ButtonOptions, SELECT } from "./ManageInfoOptions";
-
-import sampleImg from "../../../assets/admin_sample_img.svg";
-import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import { CocktailItem } from "../../../components/admin/management/CocktailItem";
-import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
+import sampleImg from "../../../assets/admin_sample_img.svg";
+import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
+import { styled } from "styled-components";
+import { handleChangeInput, handleChangeInputNumber } from "./handler";
+import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
+import { CocktailItem } from "../../../components/admin/management/CocktailItem";
+import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+import { FORM_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
-  const [barName, setBarName] = useState<string>("");
-  const [barLocation, setBarLocation] = useState<string>("");
-  const [barMood, setBarMood] = useState<string>("");
-  const [coverCharge, setCoverCharge] = useState<string>("");
-  const [discount, setDiscount] = useState<string>("");
+  // 바 정보
+  const [barName, setBarName] = useState("");
+  const [barLocation, setBarLocation] = useState("");
+  const [barLocationDetail, setBarLocationDetail] = useState("");
+  const [barMood, setBarMood] = useState("");
+  const [activeCoverCharge, setActiveCoverCharge] = useState("");
+  const [coverCharge, setCoverCharge] = useState("");
+  const [activeDiscount, setActiveDiscount] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [barOpeningTime, setBarOpeningTime] = useState("");
+  const [barDetail, setBarDetail] = useState("");
+
+  // 바 이미지 관련
+  const [barPics, setBarPics] = useState<File[]>([]);
+  const [previewImageList, setPreviewImageList] = useState<string[]>([]);
+
+  // 칵테일 리스트 관련
   const [cocktailList, setCocktailList] = useState<string[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
 
+  const handleSubmit = (e: FORM_EVENT, inputValues: any[]) => {
+    const { ...data } = inputValues;
+
+    console.log(data);
+  };
+
+  const handleBarPics = (e: INPUT_EVENT) => {
+    const selectImage = e.target.files!;
+
+    // 미리보기 생성
+    const selectPreviewImages = [...previewImageList];
+
+    for (let i = 0; i < selectImage.length; i++) {
+      let selectImageUrl = URL.createObjectURL(selectImage[i]);
+      selectPreviewImages.push(selectImageUrl);
+    }
+
+    setBarPics([...Array.from(barPics), ...Array.from(selectImage)].slice(0, 4));
+    setPreviewImageList(selectPreviewImages.slice(0, 4));
+  };
+
+  const deletePreviewImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const deleteItemIdx = parseInt(e.currentTarget.value);
+    setBarPics(barPics.filter((_, idx) => idx !== deleteItemIdx));
+    setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
+  };
+
   const sampleCocktails: { info: CocktailProps }[] = [
     {
-      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
+      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 0, cocktailDetail: "string" },
     },
     {
       info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
     },
     {
-      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
+      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 2, cocktailDetail: "string" },
     },
   ];
 
   return (
-    <StyledForm>
+    <StyledForm
+      onSubmit={(e) => {
+        e.preventDefault();
+        const inputValues = [
+          barName,
+          barLocation,
+          barLocationDetail,
+          barMood,
+          activeCoverCharge,
+          coverCharge,
+          activeDiscount,
+          discount,
+          barOpeningTime,
+          barDetail,
+          barPics,
+          cocktailList,
+        ];
+        handleSubmit(e, inputValues);
+      }}
+    >
       <h2 className="a11y-hidden">정보 관리</h2>
 
       <section>
+        {/** idx, name */}
+        {/** 0. 바 이름(barName) */}
         <StyledSectionBarInfo>
           <StyledH3>이름</StyledH3>
-          <Input {...BAR_INFO.NAME} value={barName.replaceAll(" ", "")} onChange={(e) => handleChangeInput(e, setBarName)} />
+          <Input
+            {...BAR_INFO.NAME}
+            value={barName.replaceAll(" ", "")}
+            onChange={(e) => handleChangeInput(e, setBarName)}
+          />
         </StyledSectionBarInfo>
+        {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
         <StyledSectionBarInfo>
           <StyledH3>위치</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={barLocation}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setBarLocation(value);
             }}
             data={["#중랑구 ", "#서대문구 ", "#중구 "]}
             placeholder={"선택"}
             nulltext={"선택"}
           ></SelectBox>
-          {/* <Select {...SELECT.LOCATION} onChange={handleChangeSelect} /> */}
-          <Input {...BAR_INFO.LOCATION} value={barLocation} onChange={(e) => handleChangeInput(e, setBarLocation)} />
+          <Input
+            {...BAR_INFO.LOCATION}
+            value={barLocationDetail}
+            onChange={(e) => setBarLocationDetail(e.target.value)}
+          />
         </StyledSectionBarInfo>
+        {/** 3. 바 분위기(barMood) */}
         <StyledSectionBarInfo>
           <StyledH3>분위기</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={barMood}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setBarMood(value);
             }}
             data={["#캐주얼한", "#고급스러운", "#신나는"]}
             placeholder={"선택"}
             nulltext={"선택"}
           ></SelectBox>
-          {/* <Select {...SELECT.MOOD} onChange={handleChangeSelect} /> */}
         </StyledSectionBarInfo>
+        {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
         <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={activeCoverCharge}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setActiveCoverCharge(value);
             }}
             data={["있음", "없음"]}
             placeholder={"선택"}
             nulltext={"선택"}
           ></SelectBox>
-          <Input {...BAR_INFO.COVER_CHARGE} value={coverCharge} onChange={(e) => handleChangeInputNumber(e, setCoverCharge)} />
+          <Input
+            {...BAR_INFO.COVER_CHARGE}
+            value={coverCharge}
+            onChange={(e) => handleChangeInputNumber(e, setCoverCharge)}
+          />
         </StyledSectionBarInfo>
+        {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
         <StyledSectionBarInfo>
           <StyledH3>커버차지</StyledH3>
           <SelectBox
             styletype="secondary"
-            selected={""}
+            selected={activeDiscount}
             setSelected={function (value: React.SetStateAction<string>): void {
-              throw new Error("Function not implemented.");
+              setActiveDiscount(value);
             }}
             data={["있음", "없음"]}
             placeholder={"선택"}
             nulltext={"선택"}
           ></SelectBox>
-          {/* <Select {...SELECT.DISCOUNT} onChange={handleChangeSelect} /> */}
           <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
         </StyledSectionBarInfo>
       </section>
       <section>
+        {/** 8. 바 운영시간(barOpeningTime) */}
         <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
         <StyledSectionsBarDesc>
           <StyledTextarea
+            value={barOpeningTime}
+            onChange={(e) => setBarOpeningTime(e.target.value)}
             placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
           ></StyledTextarea>
@@ -114,14 +189,20 @@ export const ManageInfo = () => {
           `}
           </StyledSpan>
         </StyledSectionsBarDesc>
+        {/** 9. 바 설명(barDetail) */}
         <StyledSectionsBarDesc>
           <StyledH3>공간 설명</StyledH3>
-          <StyledTextarea placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
+          <StyledTextarea
+            value={barDetail}
+            onChange={(e) => setBarDetail(e.target.value)}
+            placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
+          ></StyledTextarea>
           <StyledSpan>
             {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}
           </StyledSpan>
         </StyledSectionsBarDesc>
+        {/** 10. 바 사진(barPics) */}
         <StyledSectionsBarDesc>
           <StyledH3>공간 사진</StyledH3>
           <StyledP>
@@ -131,18 +212,33 @@ export const ManageInfo = () => {
             <span>{"(가로 세로 비율 1:1 권장)"}</span>
           </StyledP>
           <PhotoList>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
-            <li>
-              <img src={sampleImg} alt="" />
-            </li>
+            {previewImageList.map((item, idx) => {
+              return (
+                <li key={`barImage_${idx}`}>
+                  <button type="button" value={idx} onClick={deletePreviewImage}>
+                    <svg width={10} height={10}>
+                      <line x1={1} y1={4.5} x2={9} y2={4.5} style={{ stroke: "black", strokeWidth: "2" }} />
+                    </svg>
+                  </button>
+                  <img src={item} alt={`${idx + 1}번째 바 이미지`} />
+                </li>
+              );
+            })}
+            {previewImageList.length < 4 && (
+              <li key="item_1">
+                <input
+                  type="file"
+                  onChange={handleBarPics}
+                  accept="image/*"
+                  id="image_1"
+                  multiple
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="image_1">
+                  <img src={sampleImg} alt="" />
+                </label>
+              </li>
+            )}
           </PhotoList>
         </StyledSectionsBarDesc>
       </section>
@@ -150,7 +246,9 @@ export const ManageInfo = () => {
         <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
         <CocktailList>
           {sampleCocktails.map((item, idx) => {
-            return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />;
+            return (
+              <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />
+            );
           })}
         </CocktailList>
         <AddCocktailButton>
@@ -221,7 +319,7 @@ const StyledSectionBarInfo = styled.section`
         content: "인";
         position: absolute;
         top: 15px;
-        right: 9px;
+        right: 15px;
       }
     }
 
@@ -294,11 +392,13 @@ const StyledP = styled.p`
 
 const PhotoList = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
   margin: 20px 0;
 
   & li {
+    position: relative;
     width: 70px;
     height: 70px;
     border: 1px solid var(--gray200-color);
@@ -306,10 +406,35 @@ const PhotoList = styled.ul`
     overflow: hidden;
   }
 
-  & img {
+  & li > button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    cursor: pointer;
+
+    & > img {
+      width: 8px;
+    }
+  }
+
+  & label {
+    display: block;
     width: 70px;
     height: 70px;
     object-fit: contain;
+    cursor: pointer;
+  }
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 

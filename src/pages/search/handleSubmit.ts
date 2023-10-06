@@ -2,16 +2,19 @@ import { defaultInstance } from "../../libs/apis/axios";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 
-const handleSubmit = async (e: FORM_EVENT, inputValue: string, searchType: SearchCategoryType) => {
+const handleSubmit = async (e: FORM_EVENT, inputValue: string, category: SearchCategoryType) => {
   e.preventDefault();
 
-  searchType = !searchType ? "barName" : searchType;
-  if (!inputValue) {
-    alert("빈값 입력을 막을까요 말까요");
-  }
+  category = !category ? "barName" : category;
 
   const value = inputValue;
-  const requestUrl = `barList?${searchType}=${value}`;
+  let requestUrl;
+
+  if (category === "cocktail") {
+    requestUrl = "getCocktailList";
+  } else {
+    requestUrl = `barList?${category}=${value}`;
+  }
 
   try {
     const response = await defaultInstance.get(requestUrl);

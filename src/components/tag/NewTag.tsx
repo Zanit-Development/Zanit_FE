@@ -5,7 +5,7 @@ import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import arrow from "../../assets/icon/icon_arrow_down.svg";
 
 interface NewTagListOption {
-  itemlist: string[];
+  itemlist: [number, string][];
   typevariants: TAG_TYPE_VARIANTS;
   settag?: (value: string) => void;
 }
@@ -13,12 +13,12 @@ interface NewTagListOption {
 const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   const items = itemlist;
   const [selector, setSelector] = useState("");
-  const [nonSelectors, setNonSelectors] = useState<string[]>(itemlist);
+  const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
   const [showNonSelectors, setShowNonSelectors] = useState(false);
 
   useEffect(() => {
     settag!(selector);
-    setNonSelectors(items.filter((item) => item !== selector));
+    setNonSelectors(items.filter((item) => item[1] !== selector));
   }, [items, selector, settag]);
 
   const handleTag = (e: INPUT_EVENT, typevariants: TAG_TYPE_VARIANTS) => {
@@ -26,7 +26,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
 
     const value = e.currentTarget.value;
     setSelector(selector === value ? "" : value);
-    setNonSelectors(items.filter((item) => item !== selector));
+    setNonSelectors(items.filter((item) => item[1] !== selector));
   };
 
   return (
@@ -37,14 +37,8 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
           {items.map((item, idx) => {
             return (
               <TagContainer key={`select_${idx}`} typevariants={typevariants}>
-                <input
-                  id={`tag_${idx}`}
-                  type="checkbox"
-                  value={item}
-                  onChange={(e) => handleTag(e, typevariants)}
-                  defaultChecked={false}
-                />
-                <label htmlFor={`tag_${idx}`}>{item}</label>
+                <input id={`tag_${idx}`} type="checkbox" value={item[1]} onChange={(e) => handleTag(e, typevariants)} />
+                <label htmlFor={`tag_${idx}`}>{item[1]}</label>
               </TagContainer>
             );
           })}
@@ -76,14 +70,13 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
             {showNonSelectors && (
               <>
                 {nonSelectors.map((item, idx) => {
-                  return item !== selector ? (
+                  return item[1] !== selector ? (
                     <TagContainer key={`nonselect_${idx}`} typevariants={typevariants}>
                       <input
                         id={`select_${idx}`}
                         type="checkbox"
-                        value={item}
+                        value={item[1]}
                         onChange={(e) => handleTag(e, typevariants)}
-                        defaultChecked={true}
                       />
                       <label htmlFor={`select_${idx}`}>{item}</label>
                     </TagContainer>
