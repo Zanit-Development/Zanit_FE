@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import { useRecoilValue } from "recoil";
 import { mainImgState } from "../../recoil/mainImgAtom";
+// import preventZoom from "./util/prevent";
+// import { touchInit } from "./util/touch";
 
 interface mainImageProp {
   defaultImg: string;
@@ -9,7 +11,23 @@ interface mainImageProp {
 
 export default function MainImage({ defaultImg }: mainImageProp) {
   const mainImg = useRecoilValue(mainImgState);
-  return <>{defaultImg !== "" ? <MainImageStyle src={mainImg || defaultImg} /> : <Null />}</>;
+
+  // useEffect(() => {
+  //   preventZoom();
+  //   touchInit(document.querySelector(".screen")!, document.querySelector(".target")!);
+  // }, []);
+
+  return (
+    <>
+      {defaultImg !== "" ? (
+        <div className="screen">
+          <MainImageStyle className="target" src={mainImg || defaultImg} />
+        </div>
+      ) : (
+        <Null />
+      )}
+    </>
+  );
 }
 
 const MainImageStyle = styled.img`
@@ -19,6 +37,7 @@ const MainImageStyle = styled.img`
   /* 확대 축소 기능이 있으니깐 */
   object-fit: contain;
   aspect-ratio: 1/1;
+  border: 1px solid #eee;
 `;
 
 const Null = styled(MainImageStyle)`
