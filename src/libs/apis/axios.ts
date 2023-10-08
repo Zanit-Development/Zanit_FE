@@ -9,7 +9,7 @@ import { getLoginCookie } from "../utils/loginCookie";
 
 const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
-    baseURL: url,
+    baseURL: "/api",
     ...options,
   });
 

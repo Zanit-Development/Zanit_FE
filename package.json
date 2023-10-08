@@ -11,6 +11,7 @@
     "@types/node": "^16.18.39",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
+    "@use-gesture/react": "^10.3.0",
     "axios": "^1.4.0",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
@@ -55,7 +56,8 @@
   "devDependencies": {
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "gh-pages": "^6.0.0"
+    "gh-pages": "^6.0.0",
+    "react-pinch-zoom-pan": "^1.4.5"
   },
   "homepage": "https://zanit-development.github.io/Zanit-Preview/"
 }
