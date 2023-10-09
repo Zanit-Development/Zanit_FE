@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "typeRoots": ["assets"]
   },
-  "include": ["src", "src/custom.d.ts", "src/**/*.ts", "src/**/*.d.ts", "@types/react-pinch-zoom-pan.d.ts"]
+  "include": ["src", "src/custom.d.ts", "@types/react-pinch-zoom-pan.d.ts"]
 }
