@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import { INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import arrow from "../../assets/icon/icon_arrow_down.svg";
@@ -10,7 +10,7 @@ interface NewTagListOption {
   settag?: (value: string) => void;
 }
 
-const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
+const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   const items = itemlist;
   const [selector, setSelector] = useState("");
   const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
@@ -36,7 +36,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
         <ul>
           {items.map((item, idx) => {
             return (
-              <TagContainer key={`select_${idx}`} typevariants={typevariants}>
+              <TagContainer key={`select_${idx}`}>
                 <input id={`tag_${idx}`} type="checkbox" value={item[1]} onChange={(e) => handleTag(e, typevariants)} />
                 <label htmlFor={`tag_${idx}`}>{item[1]}</label>
               </TagContainer>
@@ -60,7 +60,7 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
             </>
           )}
           <ul>
-            <TagContainer key={`select_item`} typevariants={typevariants}>
+            <TagContainer key={`select_item`}>
               <input id={`select_item`} type="checkbox" value={selector} onChange={(e) => handleTag(e, typevariants)} />
               <label className="selected-item" htmlFor={`select_item`}>
                 {selector}
@@ -71,14 +71,14 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
               <>
                 {nonSelectors.map((item, idx) => {
                   return item[1] !== selector ? (
-                    <TagContainer key={`nonselect_${idx}`} typevariants={typevariants}>
+                    <TagContainer key={`nonselect_${idx}`}>
                       <input
                         id={`select_${idx}`}
                         type="checkbox"
                         value={item[1]}
                         onChange={(e) => handleTag(e, typevariants)}
                       />
-                      <label htmlFor={`select_${idx}`}>{item}</label>
+                      <label htmlFor={`select_${idx}`}>{item[1]}</label>
                     </TagContainer>
                   ) : null;
                 })}
@@ -91,37 +91,9 @@ const NewTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   );
 };
 
-export default NewTag;
+export default SearchTag;
 
-const TYPE_VARIANTS = {
-  primary: css`
-    padding: 8px;
-    background-color: var(--gray100-color);
-    font-family: var(--font--Medium);
-    color: var(--black-color);
-  `,
-
-  secondary: css`
-    padding: 3px;
-    background-color: var(--main-color);
-    font-family: var(--font--semibold);
-    color: white;
-  `,
-
-  tertiary: css`
-    padding: 3px;
-    background-color: transparent;
-    outline: 1px solid var(--gray500-color);
-    font-family: var(--font--Bold);
-    color: var(--gray500-color);
-  `,
-};
-
-interface TagContainerOption {
-  typevariants: TAG_TYPE_VARIANTS;
-}
-
-const TagContainer = styled.li<TagContainerOption>`
+const TagContainer = styled.li`
   display: block;
 
   & > input {
@@ -135,14 +107,16 @@ const TagContainer = styled.li<TagContainerOption>`
 
   & > label {
     display: inline-block;
+    padding: 8px;
+    background-color: var(--gray100-color);
     border-radius: 20px;
     box-sizing: border-box;
+    font-family: var(--font--Medium);
     font-size: 12px;
+    color: var(--black-color);
     line-height: 20px;
     user-select: none;
     cursor: pointer;
-
-    ${(props) => TYPE_VARIANTS[props.typevariants]}
   }
 
   & > label::before {
