@@ -4,6 +4,7 @@ import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
 import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
+import Popup from "./Popup";
 import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
@@ -23,13 +24,14 @@ export const ManageInfo = () => {
   const [discount, setDiscount] = useState("");
   const [barOpeningTime, setBarOpeningTime] = useState("");
   const [barDetail, setBarDetail] = useState("");
+  const [isShowPopup, setIsShowPopup] = useState(true); // popup
 
   // 바 이미지 관련
   const [barPics, setBarPics] = useState<File[]>([]);
   const [previewImageList, setPreviewImageList] = useState<string[]>([]);
 
   // 칵테일 리스트 관련
-  const [cocktailList, setCocktailList] = useState<string[]>([]);
+  const [cocktailList, setCocktailList] = useState<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
 
   const handleSubmit = (e: FORM_EVENT, inputValues: any[]) => {
@@ -59,205 +61,202 @@ export const ManageInfo = () => {
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
   };
 
-  const sampleCocktails: { info: CocktailProps }[] = [
-    {
-      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 0, cocktailDetail: "string" },
-    },
-    {
-      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
-    },
-    {
-      info: { cocktailPicture: "string", cocktailName: "string", recoUser: 2, cocktailDetail: "string" },
-    },
+  const sampleCocktails: CocktailProps[] = [
+    { cocktailPicture: "string", cocktailName: "string", recoUser: 0, cocktailDetail: "string" },
+    { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
+    { cocktailPicture: "string", cocktailName: "string", recoUser: 2, cocktailDetail: "string" },
   ];
 
   return (
-    <StyledForm
-      onSubmit={(e) => {
-        e.preventDefault();
-        const inputValues = [
-          barName,
-          barLocation,
-          barLocationDetail,
-          barMood,
-          activeCoverCharge,
-          coverCharge,
-          activeDiscount,
-          discount,
-          barOpeningTime,
-          barDetail,
-          barPics,
-          cocktailList,
-        ];
-        handleSubmit(e, inputValues);
-      }}
-    >
-      <h2 className="a11y-hidden">정보 관리</h2>
+    <>
+      <StyledForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          const inputValues = [
+            barName,
+            barLocation,
+            barLocationDetail,
+            barMood,
+            activeCoverCharge,
+            coverCharge,
+            activeDiscount,
+            discount,
+            barOpeningTime,
+            barDetail,
+            barPics,
+            cocktailList,
+          ];
+          handleSubmit(e, inputValues);
+        }}
+      >
+        <h2 className="a11y-hidden">정보 관리</h2>
 
-      <section>
-        {/** idx, name */}
-        {/** 0. 바 이름(barName) */}
-        <StyledSectionBarInfo>
-          <StyledH3>이름</StyledH3>
-          <Input
-            {...BAR_INFO.NAME}
-            value={barName.replaceAll(" ", "")}
-            onChange={(e) => handleChangeInput(e, setBarName)}
-          />
-        </StyledSectionBarInfo>
-        {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
-        <StyledSectionBarInfo>
-          <StyledH3>위치</StyledH3>
-          <SelectBox
-            styletype="secondary"
-            selected={barLocation}
-            setSelected={function (value: React.SetStateAction<string>): void {
-              setBarLocation(value);
-            }}
-            data={["#중랑구 ", "#서대문구 ", "#중구 "]}
-            placeholder={"선택"}
-            nulltext={"선택"}
-          ></SelectBox>
-          <Input
-            {...BAR_INFO.LOCATION}
-            value={barLocationDetail}
-            onChange={(e) => setBarLocationDetail(e.target.value)}
-          />
-        </StyledSectionBarInfo>
-        {/** 3. 바 분위기(barMood) */}
-        <StyledSectionBarInfo>
-          <StyledH3>분위기</StyledH3>
-          <SelectBox
-            styletype="secondary"
-            selected={barMood}
-            setSelected={function (value: React.SetStateAction<string>): void {
-              setBarMood(value);
-            }}
-            data={["#캐주얼한", "#고급스러운", "#신나는"]}
-            placeholder={"선택"}
-            nulltext={"선택"}
-          ></SelectBox>
-        </StyledSectionBarInfo>
-        {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
-        <StyledSectionBarInfo>
-          <StyledH3>커버차지</StyledH3>
-          <SelectBox
-            styletype="secondary"
-            selected={activeCoverCharge}
-            setSelected={function (value: React.SetStateAction<string>): void {
-              setActiveCoverCharge(value);
-            }}
-            data={["있음", "없음"]}
-            placeholder={"선택"}
-            nulltext={"선택"}
-          ></SelectBox>
-          <Input
-            {...BAR_INFO.COVER_CHARGE}
-            value={coverCharge}
-            onChange={(e) => handleChangeInputNumber(e, setCoverCharge)}
-          />
-        </StyledSectionBarInfo>
-        {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
-        <StyledSectionBarInfo>
-          <StyledH3>커버차지</StyledH3>
-          <SelectBox
-            styletype="secondary"
-            selected={activeDiscount}
-            setSelected={function (value: React.SetStateAction<string>): void {
-              setActiveDiscount(value);
-            }}
-            data={["있음", "없음"]}
-            placeholder={"선택"}
-            nulltext={"선택"}
-          ></SelectBox>
-          <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
-        </StyledSectionBarInfo>
-      </section>
-      <section>
-        {/** 8. 바 운영시간(barOpeningTime) */}
-        <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
-        <StyledSectionsBarDesc>
-          <StyledTextarea
-            value={barOpeningTime}
-            onChange={(e) => setBarOpeningTime(e.target.value)}
-            placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
+        <section>
+          {/** idx, name */}
+          {/** 0. 바 이름(barName) */}
+          <StyledSectionBarInfo>
+            <StyledH3>이름</StyledH3>
+            <Input
+              {...BAR_INFO.NAME}
+              value={barName.replaceAll(" ", "")}
+              onChange={(e) => handleChangeInput(e, setBarName)}
+            />
+          </StyledSectionBarInfo>
+          {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
+          <StyledSectionBarInfo>
+            <StyledH3>위치</StyledH3>
+            <SelectBox
+              styletype="secondary"
+              selected={barLocation}
+              setSelected={function (value: React.SetStateAction<string>): void {
+                setBarLocation(value);
+              }}
+              data={["#중랑구 ", "#서대문구 ", "#중구 "]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            ></SelectBox>
+            <Input
+              {...BAR_INFO.LOCATION}
+              value={barLocationDetail}
+              onChange={(e) => setBarLocationDetail(e.target.value)}
+            />
+          </StyledSectionBarInfo>
+          {/** 3. 바 분위기(barMood) */}
+          <StyledSectionBarInfo>
+            <StyledH3>분위기</StyledH3>
+            <SelectBox
+              styletype="secondary"
+              selected={barMood}
+              setSelected={function (value: React.SetStateAction<string>): void {
+                setBarMood(value);
+              }}
+              data={["#캐주얼한", "#고급스러운", "#신나는"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            ></SelectBox>
+          </StyledSectionBarInfo>
+          {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
+          <StyledSectionBarInfo>
+            <StyledH3>커버차지</StyledH3>
+            <SelectBox
+              styletype="secondary"
+              selected={activeCoverCharge}
+              setSelected={function (value: React.SetStateAction<string>): void {
+                setActiveCoverCharge(value);
+              }}
+              data={["있음", "없음"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            ></SelectBox>
+            <Input
+              {...BAR_INFO.COVER_CHARGE}
+              value={coverCharge}
+              onChange={(e) => handleChangeInputNumber(e, setCoverCharge)}
+            />
+          </StyledSectionBarInfo>
+          {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
+          <StyledSectionBarInfo>
+            <StyledH3>커버차지</StyledH3>
+            <SelectBox
+              styletype="secondary"
+              selected={activeDiscount}
+              setSelected={function (value: React.SetStateAction<string>): void {
+                setActiveDiscount(value);
+              }}
+              data={["있음", "없음"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            ></SelectBox>
+            <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
+          </StyledSectionBarInfo>
+        </section>
+        <section>
+          {/** 8. 바 운영시간(barOpeningTime) */}
+          <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
+          <StyledSectionsBarDesc>
+            <StyledTextarea
+              value={barOpeningTime}
+              onChange={(e) => setBarOpeningTime(e.target.value)}
+              placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
-          ></StyledTextarea>
-          <StyledSpan>
-            {`Ex. 월-금 17:00-24:00
+            ></StyledTextarea>
+            <StyledSpan>
+              {`Ex. 월-금 17:00-24:00
             토-일 15:00-24:00
           `}
-          </StyledSpan>
-        </StyledSectionsBarDesc>
-        {/** 9. 바 설명(barDetail) */}
-        <StyledSectionsBarDesc>
-          <StyledH3>공간 설명</StyledH3>
-          <StyledTextarea
-            value={barDetail}
-            onChange={(e) => setBarDetail(e.target.value)}
-            placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
-          ></StyledTextarea>
-          <StyledSpan>
-            {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
+            </StyledSpan>
+          </StyledSectionsBarDesc>
+          {/** 9. 바 설명(barDetail) */}
+          <StyledSectionsBarDesc>
+            <StyledH3>공간 설명</StyledH3>
+            <StyledTextarea
+              value={barDetail}
+              onChange={(e) => setBarDetail(e.target.value)}
+              placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
+            ></StyledTextarea>
+            <StyledSpan>
+              {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}
-          </StyledSpan>
-        </StyledSectionsBarDesc>
-        {/** 10. 바 사진(barPics) */}
-        <StyledSectionsBarDesc>
-          <StyledH3>공간 사진</StyledH3>
-          <StyledP>
-            {`1) 공간 외부 2) 내부 전경 3) 좌석 배치
+            </StyledSpan>
+          </StyledSectionsBarDesc>
+          {/** 10. 바 사진(barPics) */}
+          <StyledSectionsBarDesc>
+            <StyledH3>공간 사진</StyledH3>
+            <StyledP>
+              {`1) 공간 외부 2) 내부 전경 3) 좌석 배치
               4) 칵테일 메뉴가 적힌 메뉴판 사진을 업로드 해주세요
             `}
-            <span>{"(가로 세로 비율 1:1 권장)"}</span>
-          </StyledP>
-          <PhotoList>
-            {previewImageList.map((item, idx) => {
-              return (
-                <li key={`barImage_${idx}`}>
-                  <button type="button" value={idx} onClick={deletePreviewImage}>
-                    <svg width={10} height={10}>
-                      <line x1={1} y1={4.5} x2={9} y2={4.5} style={{ stroke: "black", strokeWidth: "2" }} />
-                    </svg>
-                  </button>
-                  <img src={item} alt={`${idx + 1}번째 바 이미지`} />
+              <span>{"(가로 세로 비율 1:1 권장)"}</span>
+            </StyledP>
+            <PhotoList>
+              {previewImageList.map((item, idx) => {
+                return (
+                  <li key={`barImage_${idx}`}>
+                    <button type="button" value={idx} onClick={deletePreviewImage}>
+                      <svg width={10} height={10}>
+                        <line x1={1} y1={4.5} x2={9} y2={4.5} style={{ stroke: "black", strokeWidth: "2" }} />
+                      </svg>
+                    </button>
+                    <img src={item} alt={`${idx + 1}번째 바 이미지`} />
+                  </li>
+                );
+              })}
+              {previewImageList.length < 4 && (
+                <li key="item_1">
+                  <input
+                    type="file"
+                    onChange={handleBarPics}
+                    accept="image/*"
+                    id="image_1"
+                    multiple
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="image_1">
+                    <img src={sampleImg} alt="" />
+                  </label>
                 </li>
-              );
+              )}
+            </PhotoList>
+          </StyledSectionsBarDesc>
+        </section>
+        <section>
+          <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
+          <CocktailList>
+            {sampleCocktails.map((item, idx) => {
+              return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item} setShowList={setShowList} />;
             })}
-            {previewImageList.length < 4 && (
-              <li key="item_1">
-                <input
-                  type="file"
-                  onChange={handleBarPics}
-                  accept="image/*"
-                  id="image_1"
-                  multiple
-                  style={{ display: "none" }}
-                />
-                <label htmlFor="image_1">
-                  <img src={sampleImg} alt="" />
-                </label>
-              </li>
-            )}
-          </PhotoList>
-        </StyledSectionsBarDesc>
-      </section>
-      <section>
-        <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
-        <CocktailList>
-          {sampleCocktails.map((item, idx) => {
-            return (
-              <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item.info} setShowList={setShowList} />
-            );
-          })}
-        </CocktailList>
-        <AddCocktailButton>
-          <img src={addCocktailImg} alt="" />
-        </AddCocktailButton>
-      </section>
+          </CocktailList>
+          <AddCocktailButton type="button" onClick={() => setIsShowPopup(true)}>
+            <img src={addCocktailImg} alt="" />
+          </AddCocktailButton>
+        </section>
 
-      <Button {...ButtonOptions} onClick={() => {}}></Button>
-    </StyledForm>
+        <Button {...ButtonOptions} onClick={() => {}}></Button>
+      </StyledForm>
+      {isShowPopup && (
+        <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={setCocktailList} />
+      )}
+    </>
   );
 };
 
