@@ -1,7 +1,6 @@
 // 유저 로그인, 회원가입 API
 
 import { defaultInstance, formDataInstance } from "./axios";
-import axios from "axios";
 
 interface signUpUser {
   userPhone: string;
@@ -35,6 +34,18 @@ export const signInAPI = async (formData: FormData): Promise<ApiResponse> => {
     return { status: res.status, data: res.data };
   } catch (e) {
     console.error(e);
-    throw e;
+    return { status: 500, data: "api 호출 실패" };
+  }
+};
+
+export const findPwAPI = async (phoneNumber: string) => {
+  try {
+    const res = await formDataInstance.post("/findPw", phoneNumber);
+    console.log(res);
+
+    return res;
+  } catch (e) {
+    console.error(e);
+    return e;
   }
 };

@@ -4,8 +4,10 @@ import Footer from "../../layouts/footer/Footer";
 
 import Logo from "../../assets/logo.svg";
 import { SignInForm } from "../../components/sign/SignInForm";
+import { removeLoginCookie } from "../../libs/utils/loginCookie";
 
 const AdminSignIn = () => {
+  removeLoginCookie({ path: "/" });
   return (
     <LayoutWrap>
       <h1>

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { styled } from "styled-components";
-import { getLoginCookie, removeLoginCookie } from "../../libs/utils/loginCookie";
-import { Modal } from "../../components/modal/Modal";
-import Button from "../../components/common/button/Button";
-import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
+import { getLoginCookie } from "../../libs/utils/loginCookie";
+import { PopupLogout } from "../../components/modal/useSignPage/PopupLogout";
 
 const Nav = () => {
-  const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
 
   const deactiveStyle = {
@@ -19,24 +16,15 @@ const Nav = () => {
     color: "var(--Black-color)",
     borderBottom: "1px solid var(--main-color)",
   };
+
   const location = useLocation();
   const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
   const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
   const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
   const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset", "/password-find-ok"].includes(location.pathname);
 
-  const handleLogout = () => {
-    removeLoginCookie({ path: "/" });
-    setIsModal(false);
-    navigate("/signIn");
-  };
-
   const handleOpen = () => {
     setIsModal(true);
-  };
-
-  const handleClose = () => {
-    setIsModal(false);
   };
 
   const token = getLoginCookie();
@@ -96,17 +84,7 @@ const Nav = () => {
           </li>
         </ul>
       </Navbar>
-      {isModal && (
-        <Modal border={true} onClose={handleClose}>
-          <LogoutDiv>
-            <strong>로그아웃 하시겠습니까?</strong>
-            <LogoutBtn>
-              <Button {...BUTTON_OPTIONS.LOGOUT_CANCEL} onClick={handleClose} />
-              <Button {...BUTTON_OPTIONS.LOGOUT} onClick={handleLogout} />
-            </LogoutBtn>
-          </LogoutDiv>
-        </Modal>
-      )}
+      {isModal && <PopupLogout setIsModal={setIsModal} nav="/signIn" />}
     </>
   );
 };
@@ -137,20 +115,4 @@ const Navbar = styled.nav`
       color: var(--gray500-color);
     }
   }
-`;
-
-const LogoutDiv = styled.div`
-  padding: 50px 30px;
-  text-align: center;
-  strong {
-    display: block;
-    margin: 40px 0;
-    font-size: 18px;
-    font-family: var(--font--semibold);
-  }
-`;
-
-const LogoutBtn = styled.div`
-  display: flex;
-  gap: 8px;
 `;
