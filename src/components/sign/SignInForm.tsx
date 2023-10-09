@@ -7,7 +7,7 @@ import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/opt
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signInAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
-import { getLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
+import { getLoginCookie, removeLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
 import { formDataInstance } from "../../libs/apis/axios";
 
 const interceptorHeader = () => {
@@ -29,8 +29,6 @@ export const SignInForm = () => {
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const [hasTokenMSG, setHasTokenMSG] = useState(false);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "userphone") {
@@ -49,8 +47,10 @@ export const SignInForm = () => {
     return !PASSWORD_REGEX.test(password) || password === "";
   };
 
-  const sendSignin = async (e: FORM_EVENT) => {
+  const handleSignin = async (e: FORM_EVENT) => {
     e.preventDefault();
+
+    removeLoginCookie({ path: "/" });
 
     const isPhoneValid = validatePhone(phoneNumValue);
     const isPasswordValid = validatePassword(passwordValue);
@@ -79,14 +79,9 @@ export const SignInForm = () => {
         }
       }
     }
-
-    if (hasToken) {
-      setHasTokenMSG(true);
-    }
   };
   return (
-    <Form onSubmit={sendSignin}>
-      {hasTokenMSG && <ErrorMassage>이미 로그인 되어있어요</ErrorMassage>}
+    <Form onSubmit={handleSignin}>
       <label htmlFor="userphone" className="a11y-hidden">
         핸드폰 번호
       </label>
@@ -116,12 +111,4 @@ const Form = styled.form`
     text-align: center;
   }
   margin-bottom: 24px;
-`;
-
-const ErrorMassage = styled.strong`
-  display: block;
-  font-family: var(--font--semibold);
-  color: red;
-  font-size: 12px;
-  margin-bottom: 15px;
 `;

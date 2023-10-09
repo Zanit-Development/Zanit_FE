@@ -3,10 +3,8 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import { SignInForm } from "../../components/sign/SignInForm";
-import { removeLoginCookie } from "../../libs/utils/loginCookie";
 
 const SignIn = () => {
-  removeLoginCookie({ path: "/" });
   return (
     <Layout>
       <SignInSection>
