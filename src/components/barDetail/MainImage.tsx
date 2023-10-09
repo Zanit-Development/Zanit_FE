@@ -1,7 +1,8 @@
-import React from "react";
+// import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useRecoilValue } from "recoil";
 import { mainImgState } from "../../recoil/mainImgAtom";
+import { PinchView } from "react-pinch-zoom-pan";
 
 interface mainImageProp {
   defaultImg: string;
@@ -9,18 +10,44 @@ interface mainImageProp {
 
 export default function MainImage({ defaultImg }: mainImageProp) {
   const mainImg = useRecoilValue(mainImgState);
-  return <>{defaultImg !== "" ? <MainImageStyle src={mainImg || defaultImg} /> : <Null />}</>;
+
+  return (
+    <>
+      {defaultImg !== "" ? (
+        <Screen id="screen">
+          <ImgWrapper>
+            <PinchView>
+              <img src={mainImg || defaultImg} alt="확대 가능한 이미지" />
+            </PinchView>
+          </ImgWrapper>
+        </Screen>
+      ) : (
+        <Null />
+      )}
+    </>
+  );
 }
 
-const MainImageStyle = styled.img`
-  width: 100%;
+const Screen = styled.div`
+  border: 1px solid #eee;
+  overflow: hidden;
   border-radius: 4px;
-  /* 추후 박스 사이즈에 안맞는 이미지가 들어오면 contain이 적절할듯한 */
-  /* 확대 축소 기능이 있으니깐 */
-  object-fit: contain;
-  aspect-ratio: 1/1;
 `;
 
-const Null = styled(MainImageStyle)`
+const ImgWrapper = styled.div`
+  transition: transform 0.2s ease;
+  div {
+    background-color: white;
+  }
+  img {
+    width: 100%;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+  }
+`;
+
+const Null = styled.div`
+  width: 100%;
+  aspect-ratio: 1/1;
   background-color: #eee;
 `;

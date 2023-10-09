@@ -15,6 +15,7 @@ const ImgContainer = ({ barPics }: { barPics: string }) => {
   return (
     <Section>
       <MainImage defaultImg={imgArr[0]} />
+
       <ImgList>
         {imgArr.map((img, index) => (
           <li key={index}>

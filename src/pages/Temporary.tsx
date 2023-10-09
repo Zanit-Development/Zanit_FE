@@ -20,7 +20,7 @@ export default function Temporary() {
         <Link to="/how-to-use">ZAN 쿠폰 이용방법</Link>
         <Link to="/useCoupon">쿠폰 사용하기</Link>
         <Link to="/404">404</Link>
-        <Link to="/bar-detail">바 상세보기</Link>
+        <Link to="/bar-detail?barUid=1">바 상세보기</Link>
         <Link to="/password-find">비밀번호 찾기</Link>
         <Link to="/password-reset">비밀번호 재설정하기</Link>
       </Inner>
