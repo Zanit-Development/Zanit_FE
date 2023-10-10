@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { styled } from "styled-components";
 import Input from "../../components/common/input/Input";
@@ -16,30 +16,39 @@ const PasswordReset = () => {
   const [changePasswordCheck, setChangePasswordCheck] = useState("");
 
   const [passwordError, setpasswordError] = useState(false);
-  const [passworCheckError, setPasswordCheckError] = useState(false);
+  const [passwordCheckError, setPasswordCheckError] = useState(false);
+
+  const [errorMSG, setErrorMSG] = useState("");
 
   const validatePassword = (password: string): boolean => {
     return !PASSWORD_REGEX.test(password) || password === "";
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    if (id === "userPassword") {
+      setChangePassword(value);
+      setpasswordError(validatePassword(value));
+    } else if (id === "userPasswordCheck") {
+      setChangePasswordCheck(value);
+      setPasswordCheckError(validatePassword(value));
+    }
+  };
+
+  const isButtonDisabled = passwordError || passwordCheckError || changePassword === "" || changePasswordCheck === "";
+
   const handleResetPw = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    const isPasswordValid = validatePassword(changePassword);
-    const isPasswordCheckValid = validatePassword(changePasswordCheck);
+    if (changePassword === changePasswordCheck) {
+      const res = await resetPwAPI("유저 전화번호", changePassword);
 
-    setpasswordError(isPasswordValid);
-    setPasswordCheckError(isPasswordCheckValid);
-
-    if (!passwordError && !passworCheckError) {
-      if (changePassword === changePasswordCheck) {
-        const res = await resetPwAPI("유저 전화번호", changePassword);
-
-        if (res && (res as any).status === 200) {
-          navigate("/password-find-ok");
-        }
-        // 변경 실패하면 어떡하지
+      if (res && (res as any).status === 200) {
+        navigate("/password-find-ok");
       }
+      // 변경 실패하면 어떡하지
+    } else {
+      setErrorMSG("비밀번호가 일치하지 않습니다");
     }
   };
 
@@ -48,9 +57,10 @@ const PasswordReset = () => {
       <PasswordResetSection onSubmit={handleResetPw}>
         <h2>비밀번호 재설정하기</h2>
         <p>새로운 비밀번호를 입력해주세요</p>
-        <Input {...SIGNUP_OPTIONS.PASSWORD} value={changePassword} onChange={(e) => setChangePassword(e.target.value)} className={passwordError ? "error" : ""} />
-        <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} value={changePasswordCheck} onChange={(e) => setChangePasswordCheck(e.target.value)} className={passworCheckError ? "error" : ""} />
-        <Button {...BUTTON_OPTIONS.PASSWORD_RESET} />
+        <Input {...SIGNUP_OPTIONS.PASSWORD} value={changePassword} onChange={handleInputChange} className={passwordError ? "error" : ""} />
+        <Input {...SIGNUP_OPTIONS.PASSWORD_CHECK} value={changePasswordCheck} onChange={handleInputChange} className={passwordCheckError ? "error" : ""} />
+        <p>{errorMSG}</p>
+        <Button {...BUTTON_OPTIONS.PASSWORD_RESET} disabled={isButtonDisabled} />
       </PasswordResetSection>
     </Layout>
   );
@@ -76,7 +86,14 @@ const PasswordResetSection = styled.form`
     }
   }
 
+  p:last-of-type {
+    color: red;
+    margin-top: 20px;
+    font-family: var(--font--semibold);
+    font-size: 12px;
+  }
+
   button {
-    margin-top: 50px;
+    margin-top: 30px;
   }
 `;
