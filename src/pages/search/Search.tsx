@@ -44,8 +44,12 @@ const Search = () => {
     let filteringItem: Array<BarProps | CocktailProps> = [];
 
     if (category === "cocktail") {
+      // 칵테일이 카테고리인 경우 태그 필터링
+      const selectoRecoUser = cocktailTagOption.filter((number) => number[1] === tag)[0] || null;
+      if (!selectoRecoUser) return;
+
       filteringItem = searchCocktailData.filter((item: any) => {
-        return item.recoUser === tag;
+        return item.recoUser === selectoRecoUser[0];
       }) as CocktailProps[];
       setFilteringCocktailData([...filteringItem] as CocktailProps[]);
     } else if (category === "barLocation") {
@@ -133,9 +137,9 @@ const Search = () => {
   ] as Array<number & string>;
 
   const cocktailTagOption = [
-    [0, "칵테일유형1"],
-    [1, "칵테일유형2"],
-    [2, "칵테일유형3"],
+    [0, "입문자용"],
+    [1, "캐주얼드링커용"],
+    [2, "헤비드링커용"],
   ] as [number, string][];
 
   return (
