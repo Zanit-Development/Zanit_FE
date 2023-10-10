@@ -117,7 +117,7 @@ const Search = () => {
     [5, "분위기있는"],
     [6, "힙한"],
     [7, "소개팅"],
-  ] as [number, string][];
+  ] as Array<number & string>;
 
   const barMoodTagOption = [
     [0, "로맨틱한"],
@@ -140,7 +140,7 @@ const Search = () => {
     [0, "입문자용"],
     [1, "캐주얼드링커용"],
     [2, "헤비드링커용"],
-  ] as [number, string][];
+  ] as Array<number & string>;
 
   return (
     <Layout>
