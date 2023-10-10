@@ -21,6 +21,7 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     baseURL: url,
     headers: {
       Authorization: `Bearer ${getLoginCookie()}`,
+      "X-AUTH-TOKEN": getLoginCookie(),
       "Content-Type": "application/json",
     },
     ...options,

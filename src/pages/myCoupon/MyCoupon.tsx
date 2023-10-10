@@ -3,8 +3,16 @@ import { styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import HasCoupon from "../../components/coupon/HasCoupon";
 import NotCoupon from "../../components/coupon/NotCoupon";
+import { couponListAPI } from "../../libs/apis/myCoupon";
 
 const MyCoupon = () => {
+  async function test() {
+    const res = await couponListAPI();
+    console.log("되는중", res);
+  }
+
+  test();
+
   const hasCoupon = true;
   return (
     <Layout>
