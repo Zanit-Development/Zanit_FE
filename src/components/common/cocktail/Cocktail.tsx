@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 import { TagProps } from "../../../libs/interface/interfaceCommon";
 import Tag from "../../tag/Tag";
-import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+import { CocktailProps, ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 
 enum recoUserEnum {
   "입문자용",
@@ -10,17 +10,28 @@ enum recoUserEnum {
   "헤비드링커용",
 }
 
-const Cocktail = (props: { info: CocktailProps; idx: number }) => {
-  const { cocktailName, cocktailDetail, cocktailPicture, recoUser } = props.info;
+type ITEM_TYPE = "primary" | "secondary";
+
+const Cocktail = (props: { type: ITEM_TYPE; info: CocktailProps | ManagementCocktailProps; idx: number }) => {
+  const { cocktailName, cocktailDetail, recoUser } = props?.info;
+  let cocktailPicture: string;
+  let cocktailPreview: string;
+
+  if (props.type === "primary") {
+    cocktailPicture = (props?.info as CocktailProps).cocktailPicture || "";
+  } else if (props.type === "secondary") {
+    cocktailPreview = (props?.info as ManagementCocktailProps).cocktailPreview || "";
+  }
 
   const option = {
     typevariants: "tertiary",
     value: recoUserEnum[recoUser],
     tagid: `tag${props.idx}`,
   };
+
   return (
     <Item>
-      <img src={cocktailPicture} alt="" />
+      <img src={props.type === "primary" ? cocktailPicture! : cocktailPreview!} alt="" />
       <Container>
         <div>
           <strong>{cocktailName}</strong>

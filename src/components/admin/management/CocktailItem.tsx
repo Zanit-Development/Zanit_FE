@@ -3,21 +3,20 @@ import Cocktail from "../../common/cocktail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
 import { styled } from "styled-components";
-import { CocktailItemProps } from "./cocktailItemOptions";
 import { handleCocktailList } from "./handleCocktailItem";
 
-export const CocktailItem = ({ ...props }: CocktailItemProps) => {
+export const CocktailItem = ({ ...props }) => {
   const [checked, setChecked] = useState<boolean>(false);
 
   return (
     <li>
-      <button>
+      <button type="button">
         <img src={closeButton} alt="" />
       </button>
-      <button>
+      <button type="button">
         <img src={updateCocktailImg} alt="" />
       </button>
-      <Cocktail info={{ ...props.info }} idx={0} />
+      <Cocktail type="secondary" info={props.info} idx={0} />
       <StyledCheckbox
         id={props.id}
         type="checkbox"
