@@ -32,7 +32,7 @@ export const ManageInfo = () => {
 
   // 칵테일 리스트 관련
   const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
-  const [showList, setShowList] = useState<string[]>([]);
+  const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
   useEffect(() => {
     console.log(cocktailList);
@@ -65,7 +65,10 @@ export const ManageInfo = () => {
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
   };
 
-  const deleteCocktailList = (idx: number) => {};
+  const deleteCocktailList = (deleteItemIdx: number) => {
+    const filterCoctailList = cocktailList.filter((_, idx) => deleteItemIdx !== idx);
+    setCocktailList(filterCoctailList);
+  };
 
   return (
     <>
@@ -243,7 +246,15 @@ export const ManageInfo = () => {
           <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
           <CocktailList>
             {cocktailList.map((item, idx) => {
-              return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item} setShowList={setShowList} />;
+              return (
+                <CocktailItem
+                  key={`key_${idx}`}
+                  id={`cocktail_${idx}`}
+                  info={item}
+                  setShowList={setShowList}
+                  deleteCocktailList={() => deleteCocktailList(idx)}
+                />
+              );
             })}
           </CocktailList>
           <AddCocktailButton type="button" onClick={() => setIsShowPopup(true)}>

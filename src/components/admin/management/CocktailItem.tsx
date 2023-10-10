@@ -10,11 +10,11 @@ export const CocktailItem = ({ ...props }) => {
 
   return (
     <li>
-      <button type="button">
-        <img src={closeButton} alt="" />
+      <button type="button" onClick={props.deleteCocktailList}>
+        <img src={closeButton} alt="아이템 삭제" />
       </button>
       <button type="button">
-        <img src={updateCocktailImg} alt="" />
+        <img src={updateCocktailImg} alt="아이템 수정" />
       </button>
       <Cocktail type="secondary" info={props.info} idx={0} />
       <StyledCheckbox
