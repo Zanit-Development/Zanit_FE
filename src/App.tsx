@@ -15,7 +15,7 @@ import Bardetail from "./pages/barDetail/Bardetail";
 import PasswordFind from "./pages/sign/PasswordFind";
 import PasswordReset from "./pages/sign/PasswordReset";
 import BarManagement from "./pages/admin/bar/BarManagement";
-import { ManageOrder } from "./pages/admin/bar/ManageOrder";
+import { ManageOrder } from "./pages/admin/order/ManageOrder";
 import { UseHistory } from "./components/coupon/UseHistory";
 import { StopSubscribe } from "./pages/stopSubscribe/StopSubscribe";
 import AdminBardetail from "./pages/admin/bar/AdminBarDetail";

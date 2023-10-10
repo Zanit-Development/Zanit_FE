@@ -1,5 +1,5 @@
-import { ManageInfo } from "./ManageInfo";
 import AdminLayout from "../../../layouts/adminLayout/AdminLayout";
+import { ManageInfo } from "./ManageInfo";
 import { styled } from "styled-components";
 
 const BarManagement = () => {

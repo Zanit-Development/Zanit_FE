@@ -4,9 +4,9 @@ import Input from "../../components/common/input/Input";
 import Category from "../../components/search/Category";
 import Item from "../../components/common/item/Item";
 import handleSubmit from "./handleSubmit";
-import getBarListHome from "./initBarList";
+import SearchTag from "../../components/tag/SearchTag";
 import searchIcon from "../../assets/icon/icon_search.svg";
-import NewTag from "../../components/tag/NewTag";
+import { getBarListHome, getCocktailListHome } from "./initBarList";
 import { CategoryProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
@@ -18,19 +18,25 @@ const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
   const [tag, setTag] = useState("");
-  const [searchData, setSearchData] = useState<Array<BarProps | CocktailProps>>([]);
-  const [filteringData, setFilteringData] = useState<Array<BarProps | CocktailProps>>([]);
+  const [searchBarData, setSearchBarData] = useState<Array<BarProps>>([]);
+  const [searchCocktailData, setSearchCocktailData] = useState<Array<CocktailProps>>([]);
+  const [filteringBarData, setFilteringBarData] = useState<BarProps[]>([]);
+  const [filteringCocktailData, setFilteringCocktailData] = useState<CocktailProps[]>([]);
 
   useEffect(() => {
     // 초기 랜덤 바 요청
-    const initRandomBar = async () => {
-      const response = await getBarListHome();
-      const randomBarList = response?.data as BarProps[];
+    const initSearchData = async () => {
+      const getBarList = await getBarListHome();
+      const randomBarList = getBarList?.data as BarProps[];
 
-      setSearchData(randomBarList);
+      const getCocktailList = await getCocktailListHome();
+      const cocktailList = getCocktailList?.data as CocktailProps[];
+
+      setSearchBarData(randomBarList);
+      setSearchCocktailData(cocktailList);
     };
 
-    initRandomBar();
+    initSearchData();
   }, []);
 
   useEffect(() => {
@@ -38,17 +44,27 @@ const Search = () => {
     let filteringItem: Array<BarProps | CocktailProps> = [];
 
     if (category === "cocktail") {
-      filteringItem = searchData.filter((item: any) => {
+      filteringItem = searchCocktailData.filter((item: any) => {
         return item.recoUser === tag;
       }) as CocktailProps[];
-      setFilteringData([...filteringItem]);
-    } else {
-      filteringItem = searchData.filter((item: any) => {
+      setFilteringCocktailData([...filteringItem] as CocktailProps[]);
+    } else if (category === "barLocation") {
+      filteringItem = searchBarData.filter((item: any) => {
+        return item.barLocation === tag;
+      }) as BarProps[];
+      setFilteringBarData([...filteringItem] as BarProps[]);
+    } else if (category === "barMood") {
+      filteringItem = searchBarData.filter((item: any) => {
         return item.barMood === tag;
       }) as BarProps[];
-      setFilteringData([...filteringItem]);
+      setFilteringBarData([...filteringItem] as BarProps[]);
+    } else {
+      filteringItem = searchBarData.filter((item: any) => {
+        return item.barMood === tag;
+      }) as BarProps[];
+      setFilteringBarData([...filteringItem] as BarProps[]);
     }
-  }, [tag]);
+  }, [tag, category, searchCocktailData, searchBarData]);
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -56,6 +72,20 @@ const Search = () => {
 
   const handleCategory = (e: INPUT_EVENT) => {
     setCategory(e.target.value as SearchCategoryType);
+  };
+
+  const getTagList = (category: string) => {
+    switch (category) {
+      case "barMood":
+        return barMoodTagOption;
+      case "barLocation":
+        return barLocationTagOption;
+      case "cocktail":
+        return cocktailTagOption;
+
+      default:
+        return barBaseTagOptions;
+    }
   };
 
   const inputOptions: InputProps = {
@@ -73,7 +103,8 @@ const Search = () => {
     ["분위기", "barMood"],
     ["위치", "barLocation"],
   ];
-  const barTagOptions = [
+
+  const barBaseTagOptions = [
     [0, "로맨틱한"],
     [1, "데이트장소"],
     [2, "조용한"],
@@ -83,6 +114,23 @@ const Search = () => {
     [6, "힙한"],
     [7, "소개팅"],
   ] as [number, string][];
+
+  const barMoodTagOption = [
+    [0, "로맨틱한"],
+    [1, "데이트장소"],
+    [2, "조용한"],
+    [4, "신나는"],
+    [5, "분위기있는"],
+    [6, "힙한"],
+    [7, "소개팅"],
+  ] as Array<number & string>;
+
+  const barLocationTagOption = [
+    [0, "강동구"],
+    [1, "강서구"],
+    [2, "강남구"],
+    [3, "청담동"],
+  ] as Array<number & string>;
 
   const cocktailTagOption = [
     [0, "칵테일유형1"],
@@ -95,7 +143,7 @@ const Search = () => {
       <InputContainer
         onSubmit={async (e: FORM_EVENT) => {
           const response = await handleSubmit(e, inputValue, category);
-          setSearchData(response?.data);
+          setSearchBarData(response?.data);
         }}
       >
         <StyledTitle>BAR 검색</StyledTitle>
@@ -118,19 +166,33 @@ const Search = () => {
           })}
         </MenuSection>
         <TagSection>
-          <NewTag
-            typevariants="primary"
-            itemlist={category === "cocktail" ? cocktailTagOption : barTagOptions}
-            settag={setTag}
-          />
+          <SearchTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
         </TagSection>
       </CategoryContainer>
       {category === "cocktail" ? (
         <ListContainer>
-          {!filteringData ? (
+          {/** 카테고리 = 칵테일 */}
+          {tag ? (
+            !filteringCocktailData ? (
+              <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
+            ) : (
+              filteringCocktailData.map((item, idx) => {
+                const data: any = item;
+                return (
+                  <Item
+                    key={`search_item_${idx}`}
+                    typevariants={"primary"}
+                    link={""}
+                    url={""}
+                    name={data.cocktailName}
+                  />
+                );
+              })
+            )
+          ) : !searchCocktailData ? (
             <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
           ) : (
-            filteringData.map((item, idx) => {
+            searchCocktailData.map((item, idx) => {
               const data: any = item;
               return (
                 <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.cocktailName} />
@@ -140,21 +202,22 @@ const Search = () => {
         </ListContainer>
       ) : (
         <ListContainer>
+          {/** 카테고리 = 바 */}
           {tag ? (
-            !filteringData ? (
+            !filteringBarData ? (
               <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
             ) : (
-              filteringData.map((item, idx) => {
+              filteringBarData.map((item, idx) => {
                 const data: any = item;
                 return (
                   <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
                 );
               })
             )
-          ) : !searchData ? (
+          ) : !searchBarData ? (
             <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
           ) : (
-            searchData.map((item, idx) => {
+            searchBarData.map((item, idx) => {
               const data: any = item;
               return (
                 <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
@@ -234,5 +297,5 @@ const SearchButton = styled.button`
 `;
 
 const EmptyList = styled.span`
-  font-size: 20px;
+  font-size: 12px;
 `;
