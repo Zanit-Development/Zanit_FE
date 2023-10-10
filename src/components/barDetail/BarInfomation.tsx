@@ -34,7 +34,7 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
           {BarInfo.barsCocktail.length ? (
             BarInfo.barsCocktail.map((cocktail, idx) => (
               <li key={idx}>
-                <Cocktail info={cocktail} idx={idx} />
+                <Cocktail type="primary" info={cocktail} idx={idx} />
               </li>
             ))
           ) : (
@@ -51,7 +51,11 @@ function generateCoverCharge<T extends coverchargeType>(price: T, coverCharge: T
   if (price === undefined) return null;
 
   const priceText = !!coverCharge ? <span>{price}원</span> : `${price}원`;
-  const discountText = !!coverCharge ? <strong>{parseInt(price) - parseInt(coverCharge)}원 (쟈닛 고객 한정 할인)</strong> : "";
+  const discountText = !!coverCharge ? (
+    <strong>{parseInt(price) - parseInt(coverCharge)}원 (쟈닛 고객 한정 할인)</strong>
+  ) : (
+    ""
+  );
 
   return (
     <CoverCharge>
