@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
@@ -9,7 +9,7 @@ import { styled } from "styled-components";
 import { handleChangeInput, handleChangeInputNumber } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
-import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
@@ -24,15 +24,19 @@ export const ManageInfo = () => {
   const [discount, setDiscount] = useState("");
   const [barOpeningTime, setBarOpeningTime] = useState("");
   const [barDetail, setBarDetail] = useState("");
-  const [isShowPopup, setIsShowPopup] = useState(true); // popup
+  const [isShowPopup, setIsShowPopup] = useState(false); // popup
 
   // 바 이미지 관련
   const [barPics, setBarPics] = useState<File[]>([]);
   const [previewImageList, setPreviewImageList] = useState<string[]>([]);
 
   // 칵테일 리스트 관련
-  const [cocktailList, setCocktailList] = useState<CocktailProps[]>([]);
+  const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log(cocktailList);
+  }, [cocktailList]);
 
   const handleSubmit = (e: FORM_EVENT, inputValues: any[]) => {
     const { ...data } = inputValues;
@@ -61,11 +65,7 @@ export const ManageInfo = () => {
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
   };
 
-  const sampleCocktails: CocktailProps[] = [
-    { cocktailPicture: "string", cocktailName: "string", recoUser: 0, cocktailDetail: "string" },
-    { cocktailPicture: "string", cocktailName: "string", recoUser: 1, cocktailDetail: "string" },
-    { cocktailPicture: "string", cocktailName: "string", recoUser: 2, cocktailDetail: "string" },
-  ];
+  const deleteCocktailList = (idx: number) => {};
 
   return (
     <>
@@ -242,7 +242,7 @@ export const ManageInfo = () => {
         <section>
           <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
           <CocktailList>
-            {sampleCocktails.map((item, idx) => {
+            {cocktailList.map((item, idx) => {
               return <CocktailItem key={`key_${idx}`} id={`cocktail_${idx}`} info={item} setShowList={setShowList} />;
             })}
           </CocktailList>
