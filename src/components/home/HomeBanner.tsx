@@ -8,10 +8,11 @@ import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 import Button from "../common/button/Button";
 
 import backgroundImg from "../../assets/home_banner.png";
+import { getLoginCookie } from "../../libs/utils/loginCookie";
 
 const HomeBanner = () => {
   const navigate = useNavigate();
-  const test = false; // 로그인 여부 테스트용 불리언
+  const isToken = getLoginCookie(); // 로그인 여부 테스트용 불리언
   const commonOptions: Pick<ButtonProps, "typevariants" | "sizevariants" | "disabled"> = {
     typevariants: "fill",
     sizevariants: "small",
@@ -36,7 +37,7 @@ const HomeBanner = () => {
       <h2>새로운 칵테일 경험의 시작</h2>
       <p>자닛은 구독형 칵테일 멤버십 서비스입니다.</p>
       <p>월 29,000원으로 매주 한잔의 칵테일을 무료로 즐겨보세요!</p>
-      {test ? null : <Button {...signupOptions} />}
+      {isToken ? null : <Button {...signupOptions} />}
       <Button {...subscribeOptions} />
     </Container>
   );
