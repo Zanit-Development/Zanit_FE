@@ -1,4 +1,4 @@
-import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+import { CocktailProps, ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 
 export interface CocktailItemProps {
   id: string;

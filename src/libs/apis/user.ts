@@ -42,10 +42,20 @@ export const findPwAPI = async (phoneNumber: string) => {
   try {
     const res = await formDataInstance.post("/findPw", phoneNumber);
     console.log(res);
-
     return res;
   } catch (e) {
     console.error(e);
+    return e;
+  }
+};
+
+export const resetPwAPI = async (userUid: string, passWord: string) => {
+  try {
+    const res = await defaultInstance.post("/resetPw", { userUid, passWord });
+    console.log(res);
+    return res;
+  } catch (e) {
+    console.log(e);
     return e;
   }
 };

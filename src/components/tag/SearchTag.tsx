@@ -14,7 +14,7 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   const items = itemlist;
   const [selector, setSelector] = useState("");
   const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
-  const [showNonSelectors, setShowNonSelectors] = useState(false);
+  const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "tertiary" ? true : false);
 
   useEffect(() => {
     settag!(selector);
@@ -22,7 +22,7 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   }, [items, selector, settag]);
 
   const handleTag = (e: INPUT_EVENT, typevariants: TAG_TYPE_VARIANTS) => {
-    if (typevariants !== "primary") return;
+    if (typevariants === "secondary") return;
 
     const value = e.currentTarget.value;
     setSelector(selector === value ? "" : value);
@@ -47,7 +47,7 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
         <>
           {/** 선택한 값이 있는 경우 */}
           {/** 미선택 요소 표시 여부 */}
-          {selector && (
+          {selector && typevariants === "primary" && (
             <>
               <ShowNonSelectorButton
                 type="checkbox"
