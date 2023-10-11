@@ -11,12 +11,10 @@ const handleSubmit = async (e: FORM_EVENT, inputValue: string, category: SearchC
   let requestUrl;
 
   if (category === "cocktail") {
-    requestUrl = "getCocktailList";
+    requestUrl = `barList?barName=${value}`;
   } else {
     requestUrl = `barList?${category}=${value}`;
   }
-
-  console.log(requestUrl);
 
   try {
     const response = await defaultInstance.get(requestUrl);
