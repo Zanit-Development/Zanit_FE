@@ -78,8 +78,6 @@ const ArrowButton = styled.button`
 `;
 
 const ItemContainer = styled.ul`
-  white-space: nowrap;
-  width: calc(100vw - 20px - 10px - 48px);
   overflow: hidden;
 
   li {
@@ -96,6 +94,8 @@ const ItemContainer = styled.ul`
       aspect-ratio: 1/1;
       /* 애매.. */
       object-fit: contain;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
     }
     span {
       text-align: center;

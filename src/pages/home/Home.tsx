@@ -11,8 +11,8 @@ import { HomeBanner, ItemList } from "../../components/home";
 
 import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
-import { itemOptions } from "../../libs/utils/Homedummy";
 import { getRandomDataAPI } from "../../libs/apis/home";
+import searchIcon from "../../assets/icon/icon_search.svg";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -35,6 +35,7 @@ const Home = () => {
 
   const handleSubmit = (e: FORM_EVENT) => {
     e.preventDefault();
+    // 링크 넘기기
   };
 
   const handleSearch = (e: INPUT_EVENT) => {
@@ -58,6 +59,9 @@ const Home = () => {
       <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
         <StyledTitle className="a11y-hidden">BAR 검색</StyledTitle>
         <Input {...inputOptions} />
+        <SearchButton type="submit">
+          <img src={searchIcon} alt="" />
+        </SearchButton>
       </FormContainer>
       <TagList />
       <CocktailContainer>
@@ -84,6 +88,7 @@ const FormContainer = styled.form`
   width: 100%;
   padding: 25px 20px 20px;
   box-sizing: border-box;
+  position: relative;
 
   & > input {
     margin: 0 auto;
@@ -140,4 +145,13 @@ const CocktailContainer = styled.section`
 
 const BarContainer = styled.section`
   margin-bottom: 30px;
+`;
+
+const SearchButton = styled.button`
+  position: absolute;
+  top: 28px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 `;
