@@ -15,18 +15,27 @@ import icon_ticket from "../../assets/icon/icon_ticket.svg";
 import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import icon_used_coupon from "../../assets/icon/icon_used_coupon.svg";
 import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
+import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
 
-const HasCoupon = () => {
+const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
+  console.log(couponInfo);
+
+  const expDate = new Date(couponInfo.expDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
+
   const auto = false;
-  const use = true;
-  let name = "name";
   let subscribeStart = "2023.08.28";
+  // 구독 시작일 필요
+  // 쿠폰 만료일
+  // modifiedDate가 다음 쿠폰 오픈 기간? X => 이건 쿠폰 만료일 +1 하면되나
+  // 자동결제 유저인지, 수동결제 유저인지
+
   let possibility = "9월 3일";
   let impossibility = "9월 4일";
-  let expiration = "9월 25일";
-  const dateInfo = use ? `이 쿠폰은 ${possibility}까지\n사용할 수 있어요` : `다음 쿠폰은\n${impossibility}에 만나요`;
+
+  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${couponInfo.modifiedDate}에 만나요` : `이 쿠폰은 ${possibility}까지\n사용할 수 있어요`;
+
   const navigate = useNavigate();
-  const useCouponPage = (e: BUTTON_EVENT) => {
+  const useCouponPage = () => {
     navigate("/useCoupon");
   };
 
@@ -34,13 +43,13 @@ const HasCoupon = () => {
     <>
       <CouponTopSection auto>
         <p>
-          {name}님은 {subscribeStart}부터 구독중이예요
+          {couponInfo.userView.userName}님은 {subscribeStart}부터 구독중이예요
         </p>
-        {auto || <p>구독 만료일은 {expiration}까지예요</p>}
+        {auto || <p>구독 만료일은 {expDate}까지예요</p>}
         <CouponArticle use>
           <TextDiv>
             <strong>멤버십 이용중</strong>
-            <p>{dateInfo}</p>
+            <p>{couponUsed}</p>
           </TextDiv>
         </CouponArticle>
         {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} /> : <ManualPaymentCoupon />}

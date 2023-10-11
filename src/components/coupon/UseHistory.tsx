@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { UsedCouponList } from "../../libs/interface/interfaceMyCoupon";
+import { usedCouponListAPI } from "../../libs/apis/myCoupon";
 
 export const UseHistory = () => {
   const naivgate = useNavigate();
@@ -12,6 +14,16 @@ export const UseHistory = () => {
   const backMyCoupon = () => {
     naivgate("/myCoupon");
   };
+
+  const [usedCoupon, setUsedCoupon] = useState<UsedCouponList | null>(null);
+
+  useEffect(() => {
+    const myCoupon = async () => {
+      const res = await usedCouponListAPI();
+      console.log(res);
+    };
+    myCoupon();
+  }, []);
 
   const data = [
     ["데이터 1-1", "데이터 1-2", "데이터 1-3", "데이터 1-4"],
