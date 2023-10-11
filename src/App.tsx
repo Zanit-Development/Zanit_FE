@@ -29,7 +29,7 @@ const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={PUB_URL}>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Temporary />} />
