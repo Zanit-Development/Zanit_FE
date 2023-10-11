@@ -41,12 +41,12 @@ const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
 
   return (
     <>
-      <CouponTopSection auto>
+      <CouponTopSection $auto={auto}>
         <p>
           {couponInfo.userView.userName}님은 {subscribeStart}부터 구독중이예요
         </p>
         {auto || <p>구독 만료일은 {expDate}까지예요</p>}
-        <CouponArticle use>
+        <CouponArticle $used={couponInfo.used}>
           <TextDiv>
             <strong>멤버십 이용중</strong>
             <p>{couponUsed}</p>
@@ -66,7 +66,7 @@ const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
 
 export default HasCoupon;
 
-const CouponTopSection = styled.section<{ auto: boolean }>`
+const CouponTopSection = styled.section<{ $auto: boolean }>`
   padding: 0 20px 24px;
 
   & > p {
@@ -85,10 +85,10 @@ const CouponTopSection = styled.section<{ auto: boolean }>`
   }
 `;
 
-const CouponArticle = styled.article<{ use: boolean }>`
+const CouponArticle = styled.article<{ $used: boolean }>`
   width: 100%;
   height: 130px;
-  background: url(${(props) => (props.use ? coupon_bg : coupon_bg_used)}) no-repeat center / 100%;
+  background: url(${(props) => (props.$used ? coupon_bg : coupon_bg_used)}) no-repeat center / 100%;
   position: relative;
   margin-bottom: 20px;
 `;
