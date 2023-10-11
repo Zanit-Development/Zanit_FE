@@ -58,5 +58,5 @@
     "gh-pages": "^6.0.0",
     "react-pinch-zoom-pan": "^1.4.5"
   },
-  "homepage": "."
+  "homepage": "https://zanit.netlify.app/"
 }
