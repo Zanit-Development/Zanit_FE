@@ -2,8 +2,10 @@ import { defaultInstance } from "../../libs/apis/axios";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 
-const handleSubmit = async (e: FORM_EVENT, inputValue: string, category: SearchCategoryType) => {
-  e.preventDefault();
+const handleSubmit = async (e: FORM_EVENT | null, inputValue: string, category: SearchCategoryType) => {
+  if (e) {
+    e.preventDefault();
+  }
 
   category = !category ? "barName" : category;
 

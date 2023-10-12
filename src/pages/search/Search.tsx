@@ -13,6 +13,8 @@ import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { CocktailProps } from "../../libs/interface/interfaceCocktail";
+import { barBaseTagOptions, barLocationTagOption, barMoodTagOption, categoryList, cocktailTagOption } from "./options";
+import { useLocation } from "react-router";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -22,21 +24,47 @@ const Search = () => {
   const [searchCocktailData, setSearchCocktailData] = useState<Array<CocktailProps>>([]);
   const [filteringBarData, setFilteringBarData] = useState<BarProps[]>([]);
   const [filteringCocktailData, setFilteringCocktailData] = useState<CocktailProps[]>([]);
+  const { state } = useLocation();
+
+  const getHomeSearchCocktail = async () => {
+    const getCocktailList = await getCocktailListHome();
+    const cocktailList = getCocktailList?.data as CocktailProps[];
+    setSearchCocktailData(cocktailList);
+    setCategory(state.category);
+    setTag(state.value);
+  };
+
+  const getHomeSearch = async () => {
+    const response = await handleSubmit(null, state.value, state.category);
+    setSearchBarData(response?.data);
+  };
+
+  const initSearchDataBar = async () => {
+    const getBarList = await getBarListHome();
+    const randomBarList = getBarList?.data as BarProps[];
+    setSearchBarData(randomBarList);
+  };
+
+  const initSearchDataCocktail = async () => {
+    const getCocktailList = await getCocktailListHome();
+    const cocktailList = getCocktailList?.data as CocktailProps[];
+    setSearchCocktailData(cocktailList);
+  };
 
   useEffect(() => {
     // 초기 랜덤 바 요청
-    const initSearchData = async () => {
-      const getBarList = await getBarListHome();
-      const randomBarList = getBarList?.data as BarProps[];
-
-      const getCocktailList = await getCocktailListHome();
-      const cocktailList = getCocktailList?.data as CocktailProps[];
-
-      setSearchBarData(randomBarList);
-      setSearchCocktailData(cocktailList);
-    };
-
-    initSearchData();
+    if (state) {
+      // home에서 넘어올 때
+      if (state.category === "cocktail") {
+        getHomeSearchCocktail();
+      } else {
+        getHomeSearch();
+      }
+    } else {
+      setCategory("barName");
+      initSearchDataBar();
+      initSearchDataCocktail();
+    }
   }, []);
 
   useEffect(() => {
@@ -55,11 +83,6 @@ const Search = () => {
     } else if (category === "barLocation") {
       filteringItem = searchBarData.filter((item: any) => {
         return item.barLocation === tag;
-      }) as BarProps[];
-      setFilteringBarData([...filteringItem] as BarProps[]);
-    } else if (category === "barMood") {
-      filteringItem = searchBarData.filter((item: any) => {
-        return item.barMood === tag;
       }) as BarProps[];
       setFilteringBarData([...filteringItem] as BarProps[]);
     } else {
@@ -101,47 +124,6 @@ const Search = () => {
     onChange: handleSearch,
   };
 
-  const categoryList = [
-    ["추천", "barName"],
-    ["칵테일", "cocktail"],
-    ["분위기", "barMood"],
-    ["위치", "barLocation"],
-  ];
-
-  const barBaseTagOptions = [
-    [0, "로맨틱한"],
-    [1, "데이트장소"],
-    [2, "조용한"],
-    [3, "청담동"],
-    [4, "신나는"],
-    [5, "분위기있는"],
-    [6, "힙한"],
-    [7, "소개팅"],
-  ] as Array<number & string>;
-
-  const barMoodTagOption = [
-    [0, "로맨틱한"],
-    [1, "데이트장소"],
-    [2, "조용한"],
-    [4, "신나는"],
-    [5, "분위기있는"],
-    [6, "힙한"],
-    [7, "소개팅"],
-  ] as Array<number & string>;
-
-  const barLocationTagOption = [
-    [0, "강동구"],
-    [1, "강서구"],
-    [2, "강남구"],
-    [3, "청담동"],
-  ] as Array<number & string>;
-
-  const cocktailTagOption = [
-    [0, "입문자용"],
-    [1, "캐주얼드링커용"],
-    [2, "헤비드링커용"],
-  ] as Array<number & string>;
-
   return (
     <Layout>
       <InputContainer
@@ -164,13 +146,27 @@ const Search = () => {
               value: item[1] as SearchCategoryType,
               idx: idx,
               onChange: handleCategory,
+              defaultcheck: state?.category === "cocktail" ? 1 : 0,
             };
 
             return <Category {...categoryOptions} key={idx} />;
           })}
         </MenuSection>
         <TagSection>
-          <SearchTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
+          <SearchTag
+            typevariants="primary"
+            itemlist={getTagList(category)}
+            checked={
+              state?.value === "입문자용"
+                ? [0, "입문자용"]
+                : state?.value === "캐주얼드링커용"
+                ? [1, "캐주얼드링커용"]
+                : state?.value === "헤비드링커용"
+                ? [2, "헤비드링커용"]
+                : null
+            }
+            settag={setTag}
+          />
         </TagSection>
       </CategoryContainer>
       {category === "cocktail" ? (
