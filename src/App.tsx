@@ -26,10 +26,8 @@ import PasswordResetOk from "./pages/sign/PasswordResetOk";
 import AdminSignIn from "./pages/admin/AdminSignIn";
 
 const App = () => {
-  const PUB_URL = process.env.PUBLIC_URL;
-
   return (
-    <BrowserRouter basename={PUB_URL}>
+    <BrowserRouter>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Temporary />} />
