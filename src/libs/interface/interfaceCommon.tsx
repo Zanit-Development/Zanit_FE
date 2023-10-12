@@ -3,16 +3,7 @@
  */
 
 import { SearchCategoryType } from "./interfaceSearch";
-import {
-  BUTTON_TYPE_VARIANTS,
-  BUTTON_SIZE_VARIANTS,
-  INPUT_TYPE_VARIANTS,
-  INPUT_SIZE_VARIANTS,
-  TAG_TYPE_VARIANTS,
-  ITEM_TYPE_VARIANTS,
-  SELECT_TYPE_VARIANTS,
-  SELECT_SIZE_VARIANTS,
-} from "./typeCommon";
+import { BUTTON_TYPE_VARIANTS, BUTTON_SIZE_VARIANTS, INPUT_TYPE_VARIANTS, INPUT_SIZE_VARIANTS, TAG_TYPE_VARIANTS, ITEM_TYPE_VARIANTS, SELECT_TYPE_VARIANTS, SELECT_SIZE_VARIANTS } from "./typeCommon";
 import { BUTTON_EVENT, INPUT_EVENT, MOUSE_EVENT, SELECT_EVENT } from "./typeEvent";
 
 export interface AxiosOptions {
@@ -43,8 +34,7 @@ export interface InputProps {
 export interface TagProps {
   typevariants: TAG_TYPE_VARIANTS;
   value: string;
-  tagid: string;
-  name: string;
+  category?: string;
 }
 
 export interface CategoryProps {

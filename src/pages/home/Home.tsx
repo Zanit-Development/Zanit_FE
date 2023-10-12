@@ -13,12 +13,14 @@ import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 import { getRandomDataAPI } from "../../libs/apis/home";
 import searchIcon from "../../assets/icon/icon_search.svg";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [barData, setBarData] = useState<ItemProps[]>([]);
   const [cockData, setCockData] = useState<ItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -36,6 +38,8 @@ const Home = () => {
   const handleSubmit = (e: FORM_EVENT) => {
     e.preventDefault();
     // 링크 넘기기
+
+    navigate("/search", { state: { category: "barName", value: inputValue } });
   };
 
   const handleSearch = (e: INPUT_EVENT) => {

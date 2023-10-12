@@ -14,6 +14,16 @@ const TagList = () => {
   const citys = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구"];
   const [tagOptions, setTagOptions] = useState<string[]>([]);
 
+  function setCategory(value: string) {
+    if (levels.includes(value)) {
+      return "cocktail";
+    } else if (moods.includes(value)) {
+      return "barMood";
+    } else if (citys.includes(value)) {
+      return "barLocation";
+    }
+  }
+
   useEffect(() => {
     setTagOptions([pickRandom(levels), pickRandom(moods), pickRandom(citys)]);
   }, []);
@@ -22,9 +32,8 @@ const TagList = () => {
       {tagOptions.map((item, idx) => {
         const tagOptions: TagProps = {
           typevariants: "primary",
-          tagid: `tag_${idx}`,
           value: item,
-          name: "searchCategory",
+          category: setCategory(item),
         };
 
         return <Tag {...tagOptions} key={idx} />;
