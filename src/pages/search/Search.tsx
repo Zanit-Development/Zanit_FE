@@ -26,39 +26,19 @@ const Search = () => {
   const [filteringCocktailData, setFilteringCocktailData] = useState<CocktailProps[]>([]);
   const { state } = useLocation();
 
-  const getHomeSearchCocktail = async () => {
-    const getCocktailList = await getCocktailListHome();
-    const cocktailList = getCocktailList?.data as CocktailProps[];
-    setSearchCocktailData(cocktailList);
-    setCategory(state.category);
-    setTag(state.value);
-  };
-
-  const getHomeSearch = async () => {
-    const response = await handleSubmit(null, state.value, state.category);
-    setSearchBarData(response?.data);
-  };
-
-  const initSearchDataBar = async () => {
-    const getBarList = await getBarListHome();
-    const randomBarList = getBarList?.data as BarProps[];
-    setSearchBarData(randomBarList);
-  };
-
-  const initSearchDataCocktail = async () => {
-    const getCocktailList = await getCocktailListHome();
-    const cocktailList = getCocktailList?.data as CocktailProps[];
-    setSearchCocktailData(cocktailList);
-  };
-
   useEffect(() => {
     // 초기 랜덤 바 요청
     if (state) {
       // home에서 넘어올 때
       if (state.category === "cocktail") {
-        getHomeSearchCocktail();
-      } else {
+        // 칵테일 태그 선택
+        getHomeTagCocktail();
+      } else if (state.category === "barName") {
+        // 검색어 입력
         getHomeSearch();
+      } else {
+        // 분위기 or 위치 태그 선택
+        getHomeTagCategory(state.category);
       }
     } else {
       setCategory("barName");
@@ -92,6 +72,61 @@ const Search = () => {
       setFilteringBarData([...filteringItem] as BarProps[]);
     }
   }, [tag, category, searchCocktailData, searchBarData]);
+
+  // 홈에서 칵테일 태그 선택
+  const getHomeTagCocktail = async () => {
+    const getCocktailList = await getCocktailListHome();
+    const cocktailList = getCocktailList?.data as CocktailProps[];
+    setSearchCocktailData(cocktailList);
+    setCategory(state.category);
+    setTag(state.value);
+  };
+
+  // 홈에서 검색
+  const getHomeSearch = async () => {
+    const response = await handleSubmit(null, state.value, state.category);
+    setSearchBarData(response?.data);
+  };
+
+  const getHomeTagCategory = async (category: SearchCategoryType) => {
+    getTagList(category);
+    initSearchDataBar();
+    initSearchDataCocktail();
+    setTag(category);
+    setCategory(category);
+  };
+
+  // 검색페이지 바 초기 목록
+  const initSearchDataBar = async () => {
+    const getBarList = await getBarListHome();
+    const randomBarList = getBarList?.data as BarProps[];
+    setSearchBarData(randomBarList);
+  };
+
+  // 검색페이지 칵테일 초기 목록
+  const initSearchDataCocktail = async () => {
+    const getCocktailList = await getCocktailListHome();
+    const cocktailList = getCocktailList?.data as CocktailProps[];
+    setSearchCocktailData(cocktailList);
+  };
+
+  const handleTagSelected = (category: SearchCategoryType, value: string) => {
+    if (category === "cocktail") {
+      switch (value) {
+        case "입문자용":
+          return [0, "입문자용"];
+        case "캐주얼드링커용":
+          return [1, "캐주얼드링커용"];
+        case "헤비드링커용":
+          return [2, "헤비드링커용"];
+      }
+    } else if (category === "barMood") {
+      console.log(barMoodTagOption.filter((item) => item[1] === value));
+      return barMoodTagOption.filter((item) => item[1] === value);
+    } else if (category === "barLocation") {
+      return barLocationTagOption.filter((item) => item[1] === value);
+    }
+  };
 
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
@@ -156,15 +191,7 @@ const Search = () => {
           <SearchTag
             typevariants="primary"
             itemlist={getTagList(category)}
-            checked={
-              state?.value === "입문자용"
-                ? [0, "입문자용"]
-                : state?.value === "캐주얼드링커용"
-                ? [1, "캐주얼드링커용"]
-                : state?.value === "헤비드링커용"
-                ? [2, "헤비드링커용"]
-                : null
-            }
+            selected={handleTagSelected(state?.category, state?.value)}
             settag={setTag}
           />
         </TagSection>

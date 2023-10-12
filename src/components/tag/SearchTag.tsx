@@ -7,19 +7,20 @@ import arrow from "../../assets/icon/icon_arrow_down.svg";
 interface NewTagListOption {
   itemlist: [number, string][];
   typevariants: TAG_TYPE_VARIANTS;
-  checked?: Array<number | string> | null;
+  selected?: Array<string | number>;
   settag?: (value: string) => void;
 }
 
-const SearchTag = ({ typevariants, itemlist, checked, settag }: NewTagListOption) => {
+const SearchTag = ({ typevariants, itemlist, selected = undefined, settag }: NewTagListOption) => {
   const items = itemlist;
   const [selector, setSelector] = useState("");
   const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
   const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "tertiary" ? true : false);
 
   useEffect(() => {
-    if (checked) {
-      setSelector(checked[1] as string);
+    console.log(1);
+    if (selected) {
+      setSelector(selected[1] as string);
     }
   }, []);
 
@@ -49,7 +50,7 @@ const SearchTag = ({ typevariants, itemlist, checked, settag }: NewTagListOption
                   type="checkbox"
                   value={item[1]}
                   onChange={(e) => handleTag(e, typevariants)}
-                  checked={checked ? checked[0] === idx : false}
+                  checked={selected ? selected[0] === idx : false}
                 />
                 <label htmlFor={`tag_${idx}`}>{item[1]}</label>
               </TagContainer>

@@ -20,10 +20,10 @@ export const barMoodTagOption = [
   [0, "로맨틱한"],
   [1, "데이트장소"],
   [2, "조용한"],
-  [4, "신나는"],
-  [5, "분위기있는"],
-  [6, "힙한"],
-  [7, "소개팅"],
+  [3, "신나는"],
+  [4, "분위기있는"],
+  [5, "힙한"],
+  [6, "소개팅"],
 ] as Array<number & string>;
 
 export const barLocationTagOption = [
