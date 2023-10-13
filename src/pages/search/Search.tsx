@@ -56,11 +56,6 @@ const Search = () => {
     category !== "cocktail" && getFilteringBarList(category, tag);
   }, [category, tag]);
 
-  useEffect(() => {
-    console.log(100);
-    console.log(searchBarList);
-  }, [searchBarList]);
-
   // 바 목록 제너레이터
   const barListGenerator = async (category: string = "", value: string = "") => {
     setIsLoading(true);
@@ -71,8 +66,6 @@ const Search = () => {
     } else {
       requestUrl = `barList?${category}=${value}`;
     }
-
-    console.log(requestUrl);
 
     try {
       const response = await defaultInstance.get(requestUrl);
@@ -126,7 +119,6 @@ const Search = () => {
   const getFilteringCocktail = (tag: string) => {
     const filteringCoctails = tag
       ? cocktailList.filter((item: CocktailProps) => {
-          console.log(item.recoUser, " ", cocktailTagOption.indexOf(tag));
           return item.recoUser === cocktailTagOption.indexOf(tag);
         })
       : cocktailList;
