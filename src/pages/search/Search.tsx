@@ -17,7 +17,7 @@ import { defaultInstance } from "../../libs/apis/axios";
 import { useRecoilState } from "recoil";
 import { filteringBarLocationAtom, filteringBarMoodAtom, filteringBarNameAtom } from "../../recoil/barListAtom";
 import { filteringCocktailListAtom } from "../../recoil/cocktailListAtom";
-import generator from "../../libs/func/generator";
+import generator, { LOCATION_LIST, MOOD_LIST } from "../../libs/func/generator";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -47,8 +47,10 @@ const Search = () => {
   useEffect(() => {
     (async () => {
       setBarBaseTags(generator.randomAllTag(8));
-      setBarLocationTags(generator.randomLocationTag(8));
-      setBarMoodTags(generator.randomMoodTag(8));
+      // setBarLocationTags(generator.randomLocationTag(8));
+      // setBarMoodTags(generator.randomMoodTag(8));
+      setBarLocationTags(LOCATION_LIST);
+      setBarMoodTags(MOOD_LIST);
 
       if (state) {
         setCocktailList(await cocktailListGenerator());
@@ -56,13 +58,12 @@ const Search = () => {
           // 홈에서 검색어를 입력하여 넘어왔을 때
           setInputValue(state.value);
           setSearchBarList(await barListGenerator("barName", state.value));
-        } else if (state.category) {
+        } else {
           // 홈에서 태그를 눌러 넘어왔을 때
           setSearchBarList(await barListGenerator());
 
           !barBaseTags.includes(state.value) && setBarBaseTags([...barBaseTags, state.value]);
           setCategory(state.category);
-          setTag(state.value);
         }
       } else {
         // 그냥 검색페이지 링크로 넘어왔을 때
@@ -156,6 +157,11 @@ const Search = () => {
   // 태그 핸들러
   const handleTagSelected = (category: SearchCategoryType, tag: string | undefined) => {
     let selectedTag;
+
+    // 홈에서 태그 선택으로 넘어왔을 경우
+    if (state && state.category !== "barName") {
+      return state.value;
+    }
 
     if (category === "cocktail") {
       selectedTag = cocktailTagOption.filter((item) => item === tag);
