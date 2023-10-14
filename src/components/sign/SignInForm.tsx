@@ -40,17 +40,21 @@ export const SignInForm = () => {
   };
 
   const validatePhone = (phone: string): boolean => {
-    return !PHONE_REGEX.test(phone) || phone === "";
+    const regResult = !phone.search(PHONE_REGEX);
+    return !regResult || phone === "";
   };
 
   const validatePassword = (password: string): boolean => {
-    return !PASSWORD_REGEX.test(password) || password === "";
+    const regResult = !password.search(PASSWORD_REGEX);
+    return !regResult || password === "";
   };
 
   const handleSignin = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    removeLoginCookie({ path: "/" });
+    if (getLoginCookie()) {
+      removeLoginCookie({ path: "/" });
+    }
 
     const isPhoneValid = validatePhone(phoneNumValue);
     const isPasswordValid = validatePassword(passwordValue);
@@ -59,7 +63,7 @@ export const SignInForm = () => {
     setPasswordError(isPasswordValid);
 
     if (!hasToken) {
-      if (!phoneNumError && !passwordError) {
+      if (!isPhoneValid && !isPasswordValid) {
         const formData = new FormData();
         formData.append("userphone", phoneNumValue);
         formData.append("userpassword", passwordValue);
@@ -81,7 +85,7 @@ export const SignInForm = () => {
     }
   };
   return (
-    <Form onSubmit={handleSignin}>
+    <Form onSubmit={(e) => handleSignin(e)}>
       <label htmlFor="userphone" className="a11y-hidden">
         핸드폰 번호
       </label>
