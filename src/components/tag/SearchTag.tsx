@@ -13,15 +13,9 @@ interface NewTagListOption {
 
 const SearchTag = ({ typevariants, itemlist, selected, settag }: NewTagListOption) => {
   const items = itemlist;
-  const [selector, setSelector] = useState("");
+  const [selector, setSelector] = useState(selected ? selected : "");
   const [nonSelectors, setNonSelectors] = useState<string[]>(itemlist);
   const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "tertiary" ? true : false);
-
-  useEffect(() => {
-    if (selected) {
-      setSelector(selected);
-    }
-  }, []);
 
   useEffect(() => {
     settag!(selector);

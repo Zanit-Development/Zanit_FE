@@ -8,18 +8,22 @@ const SearchList = ({ items }: { items: BarProps[] | CocktailProps[] }) => {
   return (
     <ListContainer>
       {items ? (
-        items.map((item: any, idx) => {
-          const itemName = item?.barName || item?.cocktailName;
-          return (
-            <Item
-              key={`search_item_${idx}`}
-              typevariants={"primary"}
-              link={""}
-              url={item?.barPics || item?.cocktailPicPath || ""}
-              name={itemName}
-            />
-          );
-        })
+        items.length ? (
+          items.map((item: any, idx) => {
+            const itemName = item?.barName || item?.cocktailName;
+            return (
+              <Item
+                key={`search_item_${idx}`}
+                typevariants={"primary"}
+                link={""}
+                url={item?.barPics || item?.cocktailPicPath || ""}
+                name={itemName}
+              />
+            );
+          })
+        ) : (
+          <EmptyList>선택 결과가 없습니다.</EmptyList>
+        )
       ) : (
         <EmptyList>검색 결과가 없습니다.</EmptyList>
       )}
