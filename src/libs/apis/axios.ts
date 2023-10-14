@@ -4,10 +4,10 @@
 
 import axios from "axios";
 import { AxiosOptions } from "../interface/interfaceCommon";
-import { BASE_URL } from "./baseUrl";
+// import { BASE_URL } from "./baseUrl";
 import { getLoginCookie } from "../utils/loginCookie";
 
-// const BASE_URL = "/api";
+const BASE_URL = "/api";
 
 const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
   const instance = axios.create({
