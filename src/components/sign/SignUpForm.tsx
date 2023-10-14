@@ -24,6 +24,9 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
   const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCheckError, setPasswordCheckError] = useState(false);
+  const [authError, setAuthError] = useState(false);
+  const [authButtonColor, setAuthButtonColor] = useState("var(--main-color)");
+  const [authButtonAnimationInProgress, setAuthButtonAnimationInProgress] = useState(false);
 
   const [agreementChecked, setAgreementChecked] = useState(false);
   const [ageLimitChecked, setAgeLimitChecked] = useState(false);
@@ -64,6 +67,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
     setPasswordCheckError(isPassordCheckValid);
 
     if (agreementChecked && ageLimitChecked) {
+      console.log(ageLimitChecked);
       if (!isNameValid && !isPasswordValid && !isPassordCheckValid) {
         // 부트페이 연동 후 다시 처리
         const userData = {
@@ -82,6 +86,28 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
     }
   };
 
+  const throttledHandleAgeLimitChange = (e: any) => {
+    if (authButtonAnimationInProgress) {
+      return;
+    }
+    if (!authError) {
+      setAuthButtonAnimationInProgress(true);
+      const colors = ["var(--gray500-color)", "var(--main-color)"];
+      let currentIndex = 0;
+
+      const colorChangeInterval = setInterval(() => {
+        setAuthButtonColor(colors[currentIndex]);
+        currentIndex = (currentIndex + 1) % colors.length;
+      }, 300);
+      setTimeout(() => {
+        clearInterval(colorChangeInterval);
+        setAuthButtonAnimationInProgress(false);
+      }, 1200);
+    } else {
+      setAgeLimitChecked(e.target.checked);
+    }
+  };
+
   return (
     <Form onSubmit={HandleSignup}>
       <InputGap>
@@ -93,8 +119,8 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
           <label htmlFor="userPhone" className="a11y-hidden">
             핸드폰 번호
           </label>
-          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} />
-          <AuthBtn>인증하기</AuthBtn>
+          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={!authError} />
+          <AuthBtn style={{ background: authButtonColor }}>인증하기</AuthBtn>
         </div>
         <label htmlFor="userPassword" className="a11y-hidden">
           비밀번호
@@ -117,7 +143,15 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
           </a>
         </div>
         <div>
-          <CheckInput type="checkbox" id="ageLimit" checked={ageLimitChecked} onChange={(e) => setAgeLimitChecked(e.target.checked)} />
+          <CheckInput
+            type="checkbox"
+            id="ageLimit"
+            checked={ageLimitChecked}
+            onChange={(e) => {
+              throttledHandleAgeLimitChange(e);
+            }}
+          />
+          {/* <CheckInput type="checkbox" id="ageLimit" checked={ageLimitChecked} onChange={(e) => setAgeLimitChecked(e.target.checked)} /> */}
           <label htmlFor="ageLimit">만18세 이상 확인&#40;필수&#41;</label>
         </div>
         <div>
@@ -167,6 +201,7 @@ const AuthBtn = styled.button`
   text-align: center;
   line-height: 1.3;
   cursor: pointer;
+  transition: background-color 0.3s ease; // 트랜지션 추가
 
   &:disabled {
     background-color: var(--gray500-color);
