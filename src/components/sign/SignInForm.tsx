@@ -85,7 +85,7 @@ export const SignInForm = () => {
     }
   };
   return (
-    <Form onSubmit={(e) => handleSignin(e)}>
+    <Form onSubmit={handleSignin}>
       <label htmlFor="userphone" className="a11y-hidden">
         핸드폰 번호
       </label>
