@@ -59,3 +59,5 @@ export interface UsedCouponList {
   usedTime: null;
   used: boolean;
 }
+
+export type UsedCouponListArr = UsedCouponList[];

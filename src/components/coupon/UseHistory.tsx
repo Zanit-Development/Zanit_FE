@@ -5,7 +5,7 @@ import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { UsedCouponList } from "../../libs/interface/interfaceMyCoupon";
+import { UsedCouponListArr } from "../../libs/interface/interfaceMyCoupon";
 import { usedCouponListAPI } from "../../libs/apis/myCoupon";
 
 export const UseHistory = () => {
@@ -15,22 +15,29 @@ export const UseHistory = () => {
     naivgate("/myCoupon");
   };
 
-  const [usedCoupon, setUsedCoupon] = useState<UsedCouponList | null>(null);
+  const [usedCoupon, setUsedCoupon] = useState<UsedCouponListArr | null>(null);
 
   useEffect(() => {
     const myCoupon = async () => {
       const res = await usedCouponListAPI();
-      console.log(res);
+      setUsedCoupon(res);
     };
     myCoupon();
   }, []);
+  console.log(usedCoupon);
 
-  const data = [
-    ["데이터 1-1", "데이터 1-2", "데이터 1-3", "데이터 1-4"],
-    ["데이터 2-1", "데이터 2-2", "데이터 2-3", "데이터 2-4"],
-    ["데이터 3-1", "데이터 3-2", "데이터 3-3", "데이터 3-4"],
-    ["데이터 4-1", "데이터 4-2", "데이터 4-3", "데이터 4-4"],
-  ];
+  let expDate: string;
+
+  // if (usedCoupon) {
+  //   expDate = new Date(usedCoupon.expDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "/").substring(2);
+  // }
+
+  // const data = [
+  //   [usedCoupon?.usedBar.barName, usedCoupon?.usedCocktail.cocktailName, expDate, usedCoupon?.usedTime || "15:36"],
+  //   ["데이터 2-1", "데이터 2-2", "데이터 2-3", "데이터 2-4"],
+  //   ["데이터 3-1", "데이터 3-2", "데이터 3-3", "데이터 3-4"],
+  //   ["데이터 4-1", "데이터 4-2", "데이터 4-3", "데이터 4-4"],
+  // ];
 
   return (
     <Layout>
@@ -46,13 +53,18 @@ export const UseHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <td key={cellIndex}>{cell}</td>
+            {usedCoupon && (
+              <tr>
+                {usedCoupon.map((i) => (
+                  <>
+                    <td key={i.couponUid}>{i?.usedBar.barName}</td>
+                    <td key={i.couponUid}>{i?.usedCocktail.cocktailName}</td>
+                    <td key={i.couponUid}>{expDate || "23/07/26"}</td>
+                    <td key={i.couponUid}>{i?.usedTime || "15:36"}</td>
+                  </>
                 ))}
               </tr>
-            ))}
+            )}
           </tbody>
         </UsedTable>
 
