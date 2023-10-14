@@ -10,8 +10,15 @@ const SearchList = ({ items }: { items: BarProps[] | CocktailProps[] }) => {
       {items ? (
         items.map((item: any, idx) => {
           const itemName = item?.barName || item?.cocktailName;
-
-          return <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={itemName} />;
+          return (
+            <Item
+              key={`search_item_${idx}`}
+              typevariants={"primary"}
+              link={""}
+              url={item?.barPics || item?.cocktailPicPath || ""}
+              name={itemName}
+            />
+          );
         })
       ) : (
         <EmptyList>검색 결과가 없습니다.</EmptyList>
