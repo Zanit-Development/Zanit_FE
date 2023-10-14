@@ -50,7 +50,7 @@ export interface CategoryProps {
   menu: string;
   value: SearchCategoryType;
   idx: number;
-  defaultcheck: number;
+  defaultcheck: boolean;
   onChange: (e: INPUT_EVENT) => void;
 }
 

@@ -2,7 +2,7 @@
  * 랜덤 태그 생성기
  */
 
-const MOOD_LIST = [
+export const MOOD_LIST = [
   "고즈넉한",
   "고급스러운",
   "데이트장소",
@@ -20,7 +20,7 @@ const MOOD_LIST = [
   "캐주얼한",
   "힙한",
 ];
-const LOCATION_LIST = [
+export const LOCATION_LIST = [
   "강남구",
   "강동구",
   "강북구",
