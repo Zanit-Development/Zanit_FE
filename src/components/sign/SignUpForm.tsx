@@ -86,7 +86,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
     }
   };
 
-  const throttledHandleAgeLimitChange = (e: any) => {
+  const handleAgeLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (authButtonAnimationInProgress) {
       return;
     }
@@ -148,7 +148,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
             id="ageLimit"
             checked={ageLimitChecked}
             onChange={(e) => {
-              throttledHandleAgeLimitChange(e);
+              handleAgeLimitChange(e);
             }}
           />
           {/* <CheckInput type="checkbox" id="ageLimit" checked={ageLimitChecked} onChange={(e) => setAgeLimitChecked(e.target.checked)} /> */}
