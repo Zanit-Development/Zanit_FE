@@ -28,6 +28,7 @@ export const SignInForm = () => {
 
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -81,6 +82,10 @@ export const SignInForm = () => {
             location.pathname === `/signIn` && navigate("/home");
           }
         }
+
+        if (response && (response as any).status === 500) {
+          setLoginError(true);
+        }
       }
     }
   };
@@ -94,7 +99,8 @@ export const SignInForm = () => {
         비밀번호
       </label>
       <Input {...SIGNIN_OPTIONS.PASSWORD} onChange={handleInputChange} value={passwordValue} className={passwordError ? "error" : ""} />
-
+      {/* 맥 OS에서 인풋에 한글 입력 들어왔을 때 + 입력 값이 올바르지 않아 서버에서 500에러 나올때 */}
+      {loginError && <ErrorMassage>전화번호 또는 비밀번호가 일치하지 않습니다</ErrorMassage>}
       <Button {...BUTTON_OPTIONS.SIGNIN} />
     </Form>
   );
@@ -115,4 +121,11 @@ const Form = styled.form`
     text-align: center;
   }
   margin-bottom: 24px;
+`;
+
+const ErrorMassage = styled.p`
+  font-family: var(--font--semibold);
+  margin-top: 15px;
+  color: red;
+  font-size: 12px;
 `;
