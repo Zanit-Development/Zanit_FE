@@ -11,18 +11,24 @@ import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { CocktailProps } from "../../libs/interface/interfaceCocktail";
-import { barBaseTagOptions, barLocationTagOption, barMoodTagOption, categoryList, cocktailTagOption } from "./options";
+import { categoryList, cocktailTagOption } from "./options";
 import { useLocation } from "react-router";
 import { defaultInstance } from "../../libs/apis/axios";
 import { useRecoilState } from "recoil";
 import { filteringBarLocationAtom, filteringBarMoodAtom, filteringBarNameAtom } from "../../recoil/barListAtom";
 import { filteringCocktailListAtom } from "../../recoil/cocktailListAtom";
+import generator from "../../libs/func/generator";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
   const [tag, setTag] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // 태그 리스트
+  const barBaseTagOptions = generator.randomAllTag(8);
+  const barLocationTagOption = generator.randomLocationTag(8);
+  const barMoodTagOption = generator.randomMoodTag(8);
 
   // 검색된 바, 칵테일 목록
   const [searchBarList, setSearchBarList] = useState<BarProps[]>([]);
