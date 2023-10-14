@@ -27,12 +27,12 @@ const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
   // 구독 시작일 필요
   // 쿠폰 만료일
   // modifiedDate가 다음 쿠폰 오픈 기간? X => 이건 쿠폰 만료일 +1 하면되나
-  // 자동결제 유저인지, 수동결제 유저인지
+  // 자동결제 유저인지, 수동결제 유저인지 -> auto
 
   let possibility = "9월 3일";
   let impossibility = "9월 4일";
 
-  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${couponInfo.modifiedDate}에 만나요` : `이 쿠폰은 ${possibility}까지\n사용할 수 있어요`;
+  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${impossibility}에 만나요` : `이 쿠폰은 ${possibility}까지\n사용할 수 있어요`;
 
   const navigate = useNavigate();
   const useCouponPage = () => {

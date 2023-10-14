@@ -4,19 +4,22 @@ import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import speech_bubble from "../../assets/speech_bubble.svg";
 import { useNavigate } from "react-router";
-import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
 const ManualPaymentCoupon = () => {
   let benefit = "25%";
   const navigate = useNavigate();
-  const useCouponPage = (e: BUTTON_EVENT) => {
+  const useCouponPage = () => {
     navigate("/useCoupon");
+  };
+
+  const subscribeStartPage = () => {
+    navigate("/subscribe/start");
   };
 
   return (
     <>
       <ButtonDiv>
-        <Button {...BUTTON_OPTIONS.EXTEND_COUPON} />
+        <Button {...BUTTON_OPTIONS.EXTEND_COUPON} onClick={subscribeStartPage} />
         <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} />
       </ButtonDiv>
       <BenefitNote>
