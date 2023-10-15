@@ -29,7 +29,8 @@ const LayoutWrap = styled.div`
   max-width: 390px;
   margin: 0 auto;
   background-color: var(--white-color);
-  height: 100vh;
+  /* height: 100vh; */
+  height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
 `;
 
@@ -45,7 +46,9 @@ const ScrollMain = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  height: calc(100vh - 112px);
+  /* height: calc(100vh - 112px); */
+  height: calc(var(--vh, 1vh) * 100 - 110px);
+
   overflow-y: auto;
 
   &::-webkit-scrollbar-track {

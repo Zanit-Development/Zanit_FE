@@ -27,6 +27,12 @@ import AdminSignIn from "./pages/admin/AdminSignIn";
 
 const App = () => {
   const PUB_URL = process.env.PUBLIC_URL;
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  setScreenSize();
 
   return (
     <BrowserRouter basename={PUB_URL}>
