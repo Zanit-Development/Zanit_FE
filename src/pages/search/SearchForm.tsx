@@ -1,10 +1,10 @@
 import Input from "../../components/common/input/Input";
 import searchIcon from "../../assets/icon/icon_search.svg";
 import listGenerator from "./listGenerator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { styled } from "styled-components";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { InputProps } from "../../libs/interface/interfaceCommon";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
 import { inputValueState, searchBarListState } from "../../recoil/SearchAtom";

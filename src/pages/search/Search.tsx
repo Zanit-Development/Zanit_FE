@@ -4,13 +4,24 @@ import SearchForm from "./SearchForm";
 import SearchTag from "./SearchTag";
 import styled from "styled-components";
 import SearchList from "./SearchList";
-import { useLocation } from "react-router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
+import { useEffect } from "react";
+import { categoryState, inputValueState, selectTagState } from "../../recoil/SearchAtom";
 
 const Search = () => {
-  const { state } = useLocation();
   const isLoading = useRecoilValue(isLoadingAtom);
+  const resetInputValueState = useResetRecoilState(inputValueState);
+  const resetCategoryState = useResetRecoilState(categoryState);
+  const resetTag = useResetRecoilState(selectTagState);
+
+  useEffect(() => {
+    return () => {
+      resetInputValueState();
+      resetCategoryState();
+      resetTag();
+    };
+  }, []);
 
   return (
     <Layout>
