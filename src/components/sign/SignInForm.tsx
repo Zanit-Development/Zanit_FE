@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 import Input from "./../../components/common/input/Input";
