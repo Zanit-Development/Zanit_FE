@@ -50,8 +50,6 @@ export const filteredListState = selector({
     const cocktailList = get(cocktailListState);
     const tag = get(selectTagState);
 
-    console.log(filter);
-
     switch (filter) {
       case "cocktail":
         return tag ? cocktailList?.filter((item) => item.recoUser === cocktailTagOption.indexOf(tag)) : cocktailList;
