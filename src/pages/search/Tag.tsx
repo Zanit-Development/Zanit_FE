@@ -3,8 +3,8 @@ import { useState } from "react";
 import { styled } from "styled-components";
 import { INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
-import { useRecoilState } from "recoil";
-import { selectTagAtom } from "../../recoil/SearchAtom";
+import { useSetRecoilState } from "recoil";
+import { selectTagState } from "../../recoil/SearchAtom";
 
 interface NewTagListOption {
   itemlist: string[];
@@ -13,12 +13,11 @@ interface NewTagListOption {
 }
 
 const Tag = ({ typevariants, itemlist, selected }: NewTagListOption) => {
-  console.log(itemlist);
   const items = itemlist;
   const [selector, setSelector] = useState(selected ? selected : "");
   const [nonSelectors, setNonSelectors] = useState<string[]>(itemlist);
   const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "tertiary" ? true : false);
-  const [tagState, setTagState] = useRecoilState(selectTagAtom);
+  const setTagState = useSetRecoilState(selectTagState);
 
   const handleTag = (e: INPUT_EVENT, typevariants: TAG_TYPE_VARIANTS) => {
     if (typevariants === "secondary") return;

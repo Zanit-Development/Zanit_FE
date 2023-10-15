@@ -4,17 +4,17 @@ import listGenerator from "./listGenerator";
 import { useState } from "react";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { styled } from "styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { InputProps } from "../../libs/interface/interfaceCommon";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
-import { searchBarListAtom } from "../../recoil/SearchAtom";
+import { inputValueState, searchBarListState } from "../../recoil/SearchAtom";
 
-const SearchForm = ({ ...props }) => {
-  const state = props?.state; // 홈에서 넘어오는 경우 상태
-  const [inputValue, setInputValue] = useState(state && state.category === "barName" ? state.value : "");
+const SearchForm = () => {
+  const inputValueAtHome = useRecoilValue(inputValueState);
+  const [inputValue, setInputValue] = useState(inputValueAtHome || "");
 
   // 검색된 바, 칵테일 목록
-  const [searchBarList, setSearchBarList] = useRecoilState(searchBarListAtom);
+  const setSearchBarList = useSetRecoilState(searchBarListState);
   // 로딩
   const [isLoading, setIsLoading] = useRecoilState(isLoadingAtom);
 
@@ -35,8 +35,8 @@ const SearchForm = ({ ...props }) => {
     <>
       <InputContainer
         onSubmit={async (e: FORM_EVENT) => {
-          setIsLoading(true);
           e.preventDefault();
+          setIsLoading(true);
           const response = await listGenerator.barListGenerator(inputValue);
           setSearchBarList(response);
           setIsLoading(false);

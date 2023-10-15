@@ -5,18 +5,18 @@ import { useState } from "react";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { cocktailTagOption } from "./options";
 import { useRecoilValue } from "recoil";
-import { categoryAtom, selectTagAtom } from "../../recoil/SearchAtom";
+import { categoryState, selectTagState } from "../../recoil/SearchAtom";
 
 const SearchTag = () => {
-  const category = useRecoilValue(categoryAtom);
-  const tag = useRecoilValue(selectTagAtom);
+  const category = useRecoilValue(categoryState);
+  const tag = useRecoilValue(selectTagState);
 
   // 태그 리스트
   const [barBaseTags, setBarBaseTags] = useState(generator.randomAllTag(8));
   const barLocationTags = LOCATION_LIST;
   const barMoodTags = MOOD_LIST;
 
-  // 태그 선택 세팅
+  // 선택된 태그
   const setTagSelected = (category: SearchCategoryType, tag: string | undefined) => {
     let selectedTag = "";
 
@@ -31,6 +31,7 @@ const SearchTag = () => {
     return selectedTag;
   };
 
+  // 카테고리에 맞는 태그 목록
   const getTagList = (category: SearchCategoryType) => {
     switch (category) {
       case "barMood":

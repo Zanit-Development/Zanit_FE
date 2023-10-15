@@ -14,10 +14,10 @@ const Search = () => {
 
   return (
     <Layout>
-      <SearchForm state={state} />
-      <SearchCategory state={state} />
+      <SearchForm />
+      <SearchCategory />
       <SearchTag />
-      <SearchList state={state} />
+      <SearchList />
 
       {isLoading && (
         <Loading>
