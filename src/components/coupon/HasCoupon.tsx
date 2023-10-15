@@ -17,11 +17,11 @@ import icon_used_coupon from "../../assets/icon/icon_used_coupon.svg";
 import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
 import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
 import { useRecoilValue } from "recoil";
-import { myCouponInfoAtom } from "../../recoil/myCouponInfoAtom";
+import { userInfoAtom } from "../../recoil/userInfoAtom";
 
-const HasCoupon = () => {
-  const couponInfo = useRecoilValue(myCouponInfoAtom);
-  console.log(couponInfo);
+const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
+  const userInfo = useRecoilValue(userInfoAtom);
+  console.log(userInfo);
 
   const expDate = new Date(couponInfo.expDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
 

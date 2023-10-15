@@ -5,10 +5,12 @@ import Input from "./../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
-import { signInAPI } from "../../libs/apis/user";
+import { signInAPI, userInfoAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
 import { getLoginCookie, removeLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
 import { formDataInstance } from "../../libs/apis/axios";
+import { useSetRecoilState } from "recoil";
+import { userInfoAtom } from "../../recoil/userInfoAtom";
 
 const interceptorHeader = () => {
   formDataInstance.interceptors.request.use((config) => {
@@ -29,6 +31,8 @@ export const SignInForm = () => {
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [loginError, setLoginError] = useState(false);
+
+  const setUserInfo = useSetRecoilState(userInfoAtom);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -80,6 +84,13 @@ export const SignInForm = () => {
           }
           {
             location.pathname === `/signIn` && navigate("/home");
+          }
+
+          try {
+            const userInfoRes = await userInfoAPI();
+            setUserInfo(userInfoRes);
+          } catch (e) {
+            console.log(e);
           }
         }
 

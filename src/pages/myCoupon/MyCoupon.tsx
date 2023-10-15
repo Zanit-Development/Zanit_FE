@@ -5,24 +5,26 @@ import HasCoupon from "../../components/coupon/HasCoupon";
 import NotCoupon from "../../components/coupon/NotCoupon";
 import { couponListAPI } from "../../libs/apis/myCoupon";
 import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
-import { useRecoilState } from "recoil";
-import { myCouponInfoAtom } from "../../recoil/myCouponInfoAtom";
 
 const MyCoupon = () => {
-  const [couponInfo, setCouponInfo] = useRecoilState(myCouponInfoAtom);
+  const [couponInfo, setCouponInfo] = useState<CouponInfoType | null>(null);
+  const [subscribe, setSubscribe] = useState(false);
 
   useEffect(() => {
     const myCoupon = async () => {
       const res = await couponListAPI();
       setCouponInfo(res[0]);
+      setSubscribe(res[0]?.userView.subscribe);
     };
     myCoupon();
   }, []);
 
+  console.log(couponInfo);
+
   return (
     <Layout>
       <H2>내 쿠폰함</H2>
-      {couponInfo?.userView.subscribe ? couponInfo && <HasCoupon /> : <NotCoupon />}
+      {subscribe ? couponInfo && <HasCoupon couponInfo={couponInfo} /> : <NotCoupon />}
     </Layout>
   );
 };

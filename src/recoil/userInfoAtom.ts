@@ -3,8 +3,8 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export const myCouponInfoAtom = atom({
-  key: "myCouponInfo",
+export const userInfoAtom = atom({
+  key: "userInfoAtom",
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
