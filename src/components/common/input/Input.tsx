@@ -21,7 +21,7 @@ const StyledInput = styled.input<StyledInputOption>`
   font-size: 0.8rem;
   color: var(--black-color);
 
-  &:hover,
+  &:not(:disabled):hover,
   &:focus {
     outline: 1px solid var(--main-color);
   }

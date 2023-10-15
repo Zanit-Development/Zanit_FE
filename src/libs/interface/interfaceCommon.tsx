@@ -37,20 +37,21 @@ export interface InputProps {
   id?: string;
   minlength?: number;
   maxlength?: number;
+  disabled?: boolean
   onChange: (e: INPUT_EVENT) => void;
 }
 
 export interface TagProps {
   typevariants: TAG_TYPE_VARIANTS;
   value: string;
-  tagid: string;
-  name: string;
+  category?: string;
 }
 
 export interface CategoryProps {
   menu: string;
   value: SearchCategoryType;
   idx: number;
+  defaultcheck: boolean;
   onChange: (e: INPUT_EVENT) => void;
 }
 

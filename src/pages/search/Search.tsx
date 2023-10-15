@@ -2,74 +2,179 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import Input from "../../components/common/input/Input";
 import Category from "../../components/search/Category";
-import Item from "../../components/common/item/Item";
-import handleSubmit from "./handleSubmit";
 import SearchTag from "../../components/tag/SearchTag";
 import searchIcon from "../../assets/icon/icon_search.svg";
-import { getBarListHome, getCocktailListHome } from "./initBarList";
+import SearchList from "./SearchList";
 import { CategoryProps, InputProps } from "../../libs/interface/interfaceCommon";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { styled } from "styled-components";
 import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 import { CocktailProps } from "../../libs/interface/interfaceCocktail";
+import { categoryList, cocktailTagOption } from "./options";
+import { useLocation } from "react-router";
+import { defaultInstance } from "../../libs/apis/axios";
+import { useRecoilState } from "recoil";
+import { filteringBarLocationAtom, filteringBarMoodAtom, filteringBarNameAtom } from "../../recoil/barListAtom";
+import { filteringCocktailListAtom } from "../../recoil/cocktailListAtom";
+import generator, { LOCATION_LIST, MOOD_LIST } from "../../libs/func/generator";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<SearchCategoryType>("barName");
   const [tag, setTag] = useState("");
-  const [searchBarData, setSearchBarData] = useState<Array<BarProps>>([]);
-  const [searchCocktailData, setSearchCocktailData] = useState<Array<CocktailProps>>([]);
-  const [filteringBarData, setFilteringBarData] = useState<BarProps[]>([]);
-  const [filteringCocktailData, setFilteringCocktailData] = useState<CocktailProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // 태그 리스트
+  const [barBaseTags, setBarBaseTags] = useState<string[]>([]);
+  const [barLocationTags, setBarLocationTags] = useState<string[]>([]);
+  const [barMoodTags, setBarMoodTags] = useState<string[]>([]);
+
+  // 검색된 바, 칵테일 목록
+  const [searchBarList, setSearchBarList] = useState<BarProps[]>([]);
+  const [cocktailList, setCocktailList] = useState<CocktailProps[]>([]);
+
+  // 필터링된 바, 칵테일 목록
+  const [filteringBarName, setFilteringBarName] = useRecoilState<BarProps[]>(filteringBarNameAtom);
+  const [filteringBarMood, setFilteringBarMood] = useRecoilState<BarProps[]>(filteringBarMoodAtom);
+  const [filteringBarLocation, setFilteringBarLocation] = useRecoilState<BarProps[]>(filteringBarLocationAtom);
+  const [filteringCocktails, setFilteringCocktails] = useRecoilState<CocktailProps[]>(filteringCocktailListAtom);
+
+  // 홈에서 넘어온 태그, 검색 값
+  const { state } = useLocation();
+
+  // 초기값 세팅
   useEffect(() => {
-    // 초기 랜덤 바 요청
-    const initSearchData = async () => {
-      const getBarList = await getBarListHome();
-      const randomBarList = getBarList?.data as BarProps[];
+    (async () => {
+      setBarBaseTags(generator.randomAllTag(8));
+      // setBarLocationTags(generator.randomLocationTag(8));
+      // setBarMoodTags(generator.randomMoodTag(8));
+      setBarLocationTags(LOCATION_LIST);
+      setBarMoodTags(MOOD_LIST);
 
-      const getCocktailList = await getCocktailListHome();
-      const cocktailList = getCocktailList?.data as CocktailProps[];
+      if (state) {
+        setCocktailList(await cocktailListGenerator());
+        if (state.category === "barName") {
+          // 홈에서 검색어를 입력하여 넘어왔을 때
+          setInputValue(state.value);
+          setSearchBarList(await barListGenerator("barName", state.value));
+        } else {
+          // 홈에서 태그를 눌러 넘어왔을 때
+          setSearchBarList(await barListGenerator());
 
-      setSearchBarData(randomBarList);
-      setSearchCocktailData(cocktailList);
-    };
-
-    initSearchData();
+          !barBaseTags.includes(state.value) && setBarBaseTags([...barBaseTags, state.value]);
+          setCategory(state.category);
+        }
+      } else {
+        // 그냥 검색페이지 링크로 넘어왔을 때
+        setSearchBarList(await barListGenerator());
+        setCocktailList(await cocktailListGenerator());
+      }
+    })();
   }, []);
 
+  // 카테고리, 태그 변경
   useEffect(() => {
-    // 태그 선택에 따른 검색값 필터링
-    let filteringItem: Array<BarProps | CocktailProps> = [];
+    category === "cocktail" && getFilteringCocktail(tag);
+    category !== "cocktail" && getFilteringBarList(category, tag);
+  }, [category, tag]);
 
-    if (category === "cocktail") {
-      filteringItem = searchCocktailData.filter((item: any) => {
-        return item.recoUser === tag;
-      }) as CocktailProps[];
-      setFilteringCocktailData([...filteringItem] as CocktailProps[]);
-    } else if (category === "barLocation") {
-      filteringItem = searchBarData.filter((item: any) => {
-        return item.barLocation === tag;
-      }) as BarProps[];
-      setFilteringBarData([...filteringItem] as BarProps[]);
-    } else if (category === "barMood") {
-      filteringItem = searchBarData.filter((item: any) => {
-        return item.barMood === tag;
-      }) as BarProps[];
-      setFilteringBarData([...filteringItem] as BarProps[]);
+  // 바 목록 제너레이터
+  const barListGenerator = async (category: SearchCategoryType | "" = "", value: string = "") => {
+    setIsLoading(true);
+    let requestUrl;
+
+    if (!category) {
+      requestUrl = "barListHome";
     } else {
-      filteringItem = searchBarData.filter((item: any) => {
-        return item.barMood === tag;
-      }) as BarProps[];
-      setFilteringBarData([...filteringItem] as BarProps[]);
+      requestUrl = `barList?${category}=${value}`;
     }
-  }, [tag, category, searchCocktailData, searchBarData]);
 
+    try {
+      const response = await defaultInstance.get(requestUrl);
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 칵테일 목록 제너레이터
+  const cocktailListGenerator = async () => {
+    setIsLoading(true);
+    const requestUrl = "getCocktailList?";
+
+    try {
+      const response = await defaultInstance.get(requestUrl);
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 바 목록 필터링
+  const getFilteringBarList = (category: SearchCategoryType | "" = "", tag = "") => {
+    switch (category) {
+      case "barName" || "":
+        setFilteringBarName(
+          tag
+            ? searchBarList?.filter(
+                (item: BarProps) => item.barName === tag || item.barMood === tag || item.barLocation === tag
+              )
+            : searchBarList
+        );
+        break;
+      case "barMood":
+        setFilteringBarMood(tag ? searchBarList?.filter((item: BarProps) => item.barMood === tag) : searchBarList);
+        break;
+      case "barLocation":
+        setFilteringBarLocation(
+          tag ? searchBarList?.filter((item: BarProps) => item.barLocation === tag) : searchBarList
+        );
+        break;
+    }
+  };
+
+  // 칵테일 목록 필터링
+  const getFilteringCocktail = (tag: string) => {
+    const filteringCoctails = tag
+      ? cocktailList.filter((item: CocktailProps) => {
+          return item.recoUser === cocktailTagOption.indexOf(tag);
+        })
+      : cocktailList;
+
+    setFilteringCocktails(filteringCoctails);
+  };
+
+  // 검색어 핸들러
   const handleSearch = (e: INPUT_EVENT) => {
     setInputValue(e.target.value);
   };
 
+  // 태그 핸들러
+  const handleTagSelected = (category: SearchCategoryType, tag: string | undefined) => {
+    let selectedTag;
+
+    // 홈에서 태그 선택으로 넘어왔을 경우
+    if (state && state.category !== "barName") {
+      return state.value;
+    }
+
+    if (category === "cocktail") {
+      selectedTag = cocktailTagOption.filter((item) => item === tag);
+    } else if (category === "barMood") {
+      selectedTag = barMoodTags.filter((item) => item === tag);
+    } else if (category === "barLocation") {
+      selectedTag = barLocationTags.filter((item) => item === tag);
+    }
+
+    return selectedTag?.join("");
+  };
+
+  // 카테고리 핸들러
   const handleCategory = (e: INPUT_EVENT) => {
     setCategory(e.target.value as SearchCategoryType);
   };
@@ -77,14 +182,14 @@ const Search = () => {
   const getTagList = (category: string) => {
     switch (category) {
       case "barMood":
-        return barMoodTagOption;
+        return barMoodTags;
       case "barLocation":
-        return barLocationTagOption;
+        return barLocationTags;
       case "cocktail":
         return cocktailTagOption;
 
       default:
-        return barBaseTagOptions;
+        return barBaseTags;
     }
   };
 
@@ -97,53 +202,13 @@ const Search = () => {
     onChange: handleSearch,
   };
 
-  const categoryList = [
-    ["추천", "barName"],
-    ["칵테일", "cocktail"],
-    ["분위기", "barMood"],
-    ["위치", "barLocation"],
-  ];
-
-  const barBaseTagOptions = [
-    [0, "로맨틱한"],
-    [1, "데이트장소"],
-    [2, "조용한"],
-    [3, "청담동"],
-    [4, "신나는"],
-    [5, "분위기있는"],
-    [6, "힙한"],
-    [7, "소개팅"],
-  ] as [number, string][];
-
-  const barMoodTagOption = [
-    [0, "로맨틱한"],
-    [1, "데이트장소"],
-    [2, "조용한"],
-    [4, "신나는"],
-    [5, "분위기있는"],
-    [6, "힙한"],
-    [7, "소개팅"],
-  ] as Array<number & string>;
-
-  const barLocationTagOption = [
-    [0, "강동구"],
-    [1, "강서구"],
-    [2, "강남구"],
-    [3, "청담동"],
-  ] as Array<number & string>;
-
-  const cocktailTagOption = [
-    [0, "칵테일유형1"],
-    [1, "칵테일유형2"],
-    [2, "칵테일유형3"],
-  ] as [number, string][];
-
   return (
     <Layout>
       <InputContainer
         onSubmit={async (e: FORM_EVENT) => {
-          const response = await handleSubmit(e, inputValue, category);
-          setSearchBarData(response?.data);
+          e.preventDefault();
+          const response = await barListGenerator(category, inputValue);
+          setSearchBarList(response?.data);
         }}
       >
         <StyledTitle>BAR 검색</StyledTitle>
@@ -153,6 +218,7 @@ const Search = () => {
         </SearchButton>
       </InputContainer>
       <CategoryContainer>
+        {/* 카테고리 목록 표시 */}
         <MenuSection>
           {categoryList?.map((item, idx) => {
             const categoryOptions: CategoryProps = {
@@ -160,71 +226,33 @@ const Search = () => {
               value: item[1] as SearchCategoryType,
               idx: idx,
               onChange: handleCategory,
+              defaultcheck: state ? state.category === item[1] : category === item[1],
             };
 
-            return <Category {...categoryOptions} key={idx} />;
+            return <Category {...categoryOptions} key={"category_" + idx} />;
           })}
         </MenuSection>
         <TagSection>
-          <SearchTag typevariants="primary" itemlist={getTagList(category)} settag={setTag} />
+          {/* 태그 목록 표시 */}
+          <SearchTag
+            typevariants="primary"
+            itemlist={getTagList(category)}
+            selected={handleTagSelected(state?.category, state?.value)}
+            settag={setTag}
+          />
         </TagSection>
       </CategoryContainer>
+      {/* 검색 목록 표시 */}
+      {isLoading && <span>loading...</span>}
       {category === "cocktail" ? (
-        <ListContainer>
-          {/** 카테고리 = 칵테일 */}
-          {tag ? (
-            !filteringCocktailData ? (
-              <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
-            ) : (
-              filteringCocktailData.map((item, idx) => {
-                const data: any = item;
-                return (
-                  <Item
-                    key={`search_item_${idx}`}
-                    typevariants={"primary"}
-                    link={""}
-                    url={""}
-                    name={data.cocktailName}
-                  />
-                );
-              })
-            )
-          ) : !searchCocktailData ? (
-            <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
-          ) : (
-            searchCocktailData.map((item, idx) => {
-              const data: any = item;
-              return (
-                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.cocktailName} />
-              );
-            })
-          )}
-        </ListContainer>
+        <SearchList items={tag ? filteringCocktails : cocktailList} />
+      ) : category === "barMood" ? (
+        <SearchList items={tag ? filteringBarMood : searchBarList} />
+      ) : category === "barLocation" ? (
+        <SearchList items={tag ? filteringBarLocation : searchBarList} />
       ) : (
-        <ListContainer>
-          {/** 카테고리 = 바 */}
-          {tag ? (
-            !filteringBarData ? (
-              <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
-            ) : (
-              filteringBarData.map((item, idx) => {
-                const data: any = item;
-                return (
-                  <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
-                );
-              })
-            )
-          ) : !searchBarData ? (
-            <EmptyList key={"emptyList"}>"검색결과가 없습니다."</EmptyList>
-          ) : (
-            searchBarData.map((item, idx) => {
-              const data: any = item;
-              return (
-                <Item key={`search_item_${idx}`} typevariants={"primary"} link={""} url={""} name={data.barName} />
-              );
-            })
-          )}
-        </ListContainer>
+        // barName
+        <SearchList items={tag ? filteringBarName : searchBarList} />
       )}
     </Layout>
   );
@@ -280,13 +308,6 @@ const TagSection = styled.section`
   }
 `;
 
-const ListContainer = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 10px;
-  padding: 20px;
-`;
-
 const SearchButton = styled.button`
   position: absolute;
   top: 81px;
@@ -294,8 +315,4 @@ const SearchButton = styled.button`
   width: 40px;
   height: 40px;
   cursor: pointer;
-`;
-
-const EmptyList = styled.span`
-  font-size: 12px;
 `;

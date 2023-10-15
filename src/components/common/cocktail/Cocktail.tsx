@@ -49,6 +49,7 @@ const Item = styled.div`
   img {
     width: 70px;
     height: 70px;
+    object-fit: cover;
     border-radius: 4px;
     margin: 7px 0;
   }

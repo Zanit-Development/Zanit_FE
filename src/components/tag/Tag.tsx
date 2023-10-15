@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { css, styled } from "styled-components";
 import { TagProps } from "../../libs/interface/interfaceCommon";
+import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
+import { useNavigate } from "react-router-dom";
 
 const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
-  const tagDisabled = typevariants === "primary" ? false : true;
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChecked = (e: MOUSE_EVENT) => {
-    setIsChecked(!isChecked);
+  const navigate = useNavigate();
+  const handleClick = (e: MOUSE_EVENT) => {
+    navigate("/search", { state: { category: props.category, value: props.value } });
   };
+
+  const TagName = typevariants !== "primary" ? "span" : "button";
   return (
-    <TagContainer typevariants={typevariants} {...props}>
-      <input id={props.tagid} type="radio" {...props} disabled={tagDisabled} checked={isChecked} />
-      <label htmlFor={props.tagid} onClick={!tagDisabled ? handleChecked : undefined}>
-        &#35;{props.value}
-      </label>
+    <TagContainer $typevariants={typevariants} {...props}>
+      <TagName onClick={typevariants === "primary" ? handleClick : undefined}>&#35;{props.value}</TagName>
     </TagContainer>
   );
 };
@@ -23,21 +23,22 @@ export default Tag;
 
 const TYPE_VARIANTS = {
   primary: css`
-    padding: 8px;
+    padding: 8px 12px;
     background-color: var(--gray100-color);
     font-family: var(--font--Medium);
     color: var(--black-color);
+    cursor: pointer;
   `,
 
   secondary: css`
-    padding: 3px;
+    padding: 3px 12px;
     background-color: var(--main-color);
     font-family: var(--font--semibold);
     color: white;
   `,
 
   tertiary: css`
-    padding: 3px;
+    padding: 3px 12px;
     background-color: transparent;
     outline: 1px solid var(--gray500-color);
     font-family: var(--font--Bold);
@@ -45,25 +46,15 @@ const TYPE_VARIANTS = {
   `,
 };
 
-const TagContainer = styled.div<TagProps>`
-  & > input {
-    display: none;
-  }
-
-  & > input:checked + label {
-    background-color: var(--main-color);
-    color: white;
-  }
-
-  & > label {
+const TagContainer = styled.div<{ $typevariants: TAG_TYPE_VARIANTS }>`
+  & > button,
+  & > span {
     display: inline-block;
     border-radius: 20px;
     box-sizing: border-box;
     font-size: 12px;
     line-height: 20px;
-    user-select: none;
-    cursor: pointer;
 
-    ${(props) => TYPE_VARIANTS[props.typevariants]}
+    ${(props) => TYPE_VARIANTS[props.$typevariants]}
   }
 `;

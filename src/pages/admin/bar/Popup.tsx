@@ -29,11 +29,7 @@ const Popup = ({ ...props }) => {
     }
   }, [tag]);
 
-  const tagOption = [
-    [0, "입문자용"],
-    [1, "캐주얼드링커용"],
-    [2, "헤비드링커용"],
-  ] as [number, string][];
+  const tagOption = ["입문자용", "캐주얼드링커용", "헤비드링커용"];
 
   const addImage = (e: INPUT_EVENT) => {
     const inputImage = e.target.files;
@@ -220,7 +216,7 @@ const ImageSection = styled.section`
   & img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   & img.empty-img {
