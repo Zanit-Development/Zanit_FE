@@ -1,69 +1,66 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { CocktailProps } from "../libs/interface/interfaceCocktail";
 import { BarProps } from "../libs/interface/interfaceBarDetail";
 import { SearchCategoryType } from "../libs/interface/interfaceSearch";
-
-const { persistAtom } = recoilPersist();
+import { cocktailTagOption } from "../pages/search/options";
 
 // 검색어
-export const inputValueAtom = atom({
-  key: "inputValueAtom",
+export const inputValueState = atom({
+  key: "inputValueState",
   default: "",
 });
 
 // 카테고리
-export const categoryAtom = atom({
-  key: "selectCategoryAtom",
+export const categoryState = atom({
+  key: "categoryState",
   default: "barName" as SearchCategoryType,
 });
 
 // 태그
-export const selectTagAtom = atom({
-  key: "selectTagAtom",
+export const selectTagState = atom({
+  key: "selectTagState",
   default: "",
 });
 
 // 칵테일 관련
-export const cocktailListAtom = atom({
-  key: "cocktailListAtom",
+export const cocktailListState = atom({
+  key: "cocktailListState",
   default: [] as CocktailProps[],
-  effects_UNSTABLE: [persistAtom],
 });
 
-export const filteringCocktailListAtom = atom({
-  key: "filteringCocktailListAtom",
-  default: [] as CocktailProps[],
-  effects_UNSTABLE: [persistAtom],
-});
-
-// 바 관련
-export const searchBarListAtom = atom({
-  key: "searchBarListAtom",
+// 바 목록
+export const searchBarListState = atom({
+  key: "searchBarListState",
   default: [] as BarProps[],
-  // effects_UNSTABLE: [persistAtom],
 });
 
-export const filteringBarListAtom = atom({
-  key: "filteringBarListAtom",
-  default: [] as BarProps[],
-  effects_UNSTABLE: [persistAtom],
+// 칵테일 목록
+export const listFilterState = atom({
+  key: "listFilterState",
+  default: "barName",
 });
 
-export const filteringBarNameAtom = atom({
-  key: "filteringBarNameAtom",
-  default: [] as BarProps[],
-  effects_UNSTABLE: [persistAtom],
-});
+// 목록 필터링
+export const filteredListState = selector({
+  key: "filteredListState",
+  get: ({ get }) => {
+    const filter = get(listFilterState);
+    const barList = get(searchBarListState);
+    const cocktailList = get(cocktailListState);
+    const tag = get(selectTagState);
 
-export const filteringBarMoodAtom = atom({
-  key: "filteringBarMoodAtom",
-  default: [] as BarProps[],
-  effects_UNSTABLE: [persistAtom],
-});
+    console.log(filter);
 
-export const filteringBarLocationAtom = atom({
-  key: "filteringBarLocationAtom",
-  default: [] as BarProps[],
-  effects_UNSTABLE: [persistAtom],
+    switch (filter) {
+      case "cocktail":
+        return tag ? cocktailList?.filter((item) => item.recoUser === cocktailTagOption.indexOf(tag)) : cocktailList;
+      case "barMood":
+        return tag ? barList?.filter((item) => item.barMood === tag) : barList;
+      case "barLocation":
+        return tag ? barList?.filter((item) => item.barLocation === tag) : barList;
+      case "barName":
+        return tag ? barList?.filter((item) => item.barMood === tag || item.barLocation === tag) : barList;
+    }
+  },
 });
