@@ -4,16 +4,10 @@ import { TagProps } from "../../libs/interface/interfaceCommon";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { selectTagAtom } from "../../recoil/SearchAtom";
 
 const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
   const navigate = useNavigate();
-  const [tagState, setTagState] = useRecoilState(selectTagAtom);
-  const [categoryState, setCategoryState] = useRecoilState(selectTagAtom);
   const handleClick = (e: MOUSE_EVENT) => {
-    setCategoryState(props?.category!);
-    setTagState(props?.value);
     navigate("/search", { state: { category: props.category, value: props.value } });
   };
 

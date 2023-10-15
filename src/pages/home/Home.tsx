@@ -14,8 +14,6 @@ import barImg from "../../assets/icon/icon_store.svg";
 import { getRandomDataAPI } from "../../libs/apis/home";
 import searchIcon from "../../assets/icon/icon_search.svg";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { categoryAtom, inputValueAtom, selectTagAtom } from "../../recoil/SearchAtom";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -23,11 +21,6 @@ const Home = () => {
   const [cockData, setCockData] = useState<ItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-
-  //
-  const [categoryState, setCategoryState] = useRecoilState(categoryAtom);
-  const [tagState, setTagState] = useRecoilState(selectTagAtom);
-  const [inputValueState, setInputValueState] = useRecoilState(inputValueAtom);
 
   useEffect(() => {
     (async () => {
@@ -46,8 +39,6 @@ const Home = () => {
     e.preventDefault();
     // 링크 넘기기
 
-    setCategoryState("barName");
-    setInputValue(inputValue);
     navigate("/search", { state: { category: "barName", value: inputValue } });
   };
 
