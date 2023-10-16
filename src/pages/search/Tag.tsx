@@ -1,44 +1,48 @@
+/**
+ * 검색 태그 아이템
+ */
+
 import React, { useState, useEffect } from "react";
+import arrow from "../../assets/icon/icon_arrow_down.svg";
 import { styled } from "styled-components";
 import { INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
-import arrow from "../../assets/icon/icon_arrow_down.svg";
+import { useRecoilState } from "recoil";
+import { selectedTagState } from "../../recoil/SearchAtom";
 
 interface NewTagListOption {
-  itemlist: [number, string][];
+  itemlist: string[];
   typevariants: TAG_TYPE_VARIANTS;
-  settag?: (value: string) => void;
+  selected?: string | undefined;
 }
 
-const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
+const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
   const items = itemlist;
-  const [selector, setSelector] = useState("");
-  const [nonSelectors, setNonSelectors] = useState<[number, string][]>(itemlist);
-  const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "tertiary" ? true : false);
+  const [selectedTag, setSelectedTag] = useRecoilState(selectedTagState);
+  const [nonSelectors, setNonSelectors] = useState<string[]>(itemlist);
+  const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "secondary");
 
   useEffect(() => {
-    settag!(selector);
-    setNonSelectors(items.filter((item) => item[1] !== selector));
-  }, [items, selector, settag]);
+    selectedTag && setSelectedTag(selectedTag);
+    setNonSelectors(items.filter((item) => item !== selectedTag));
+  }, []);
 
-  const handleTag = (e: INPUT_EVENT, typevariants: TAG_TYPE_VARIANTS) => {
-    if (typevariants === "secondary") return;
-
+  const handleTag = (e: INPUT_EVENT) => {
     const value = e.currentTarget.value;
-    setSelector(selector === value ? "" : value);
-    setNonSelectors(items.filter((item) => item[1] !== selector));
+    setSelectedTag(selectedTag === value ? "" : value);
+    setNonSelectors(items.filter((item) => item !== selectedTag));
   };
 
   return (
     <>
       {/** 선택한 값이 없는 경우 */}
-      {!selector ? (
+      {!selectedTag ? (
         <ul>
           {items.map((item, idx) => {
             return (
               <TagContainer key={`select_${idx}`}>
-                <input id={`tag_${idx}`} type="checkbox" value={item[1]} onChange={(e) => handleTag(e, typevariants)} />
-                <label htmlFor={`tag_${idx}`}>{item[1]}</label>
+                <input id={`tag_${idx}`} type="checkbox" value={item} onChange={(e) => handleTag(e)} />
+                <label htmlFor={`tag_${idx}`}>{item}</label>
               </TagContainer>
             );
           })}
@@ -47,7 +51,7 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
         <>
           {/** 선택한 값이 있는 경우 */}
           {/** 미선택 요소 표시 여부 */}
-          {selector && typevariants === "primary" && (
+          {selectedTag && typevariants === "primary" && (
             <>
               <ShowNonSelectorButton
                 type="checkbox"
@@ -61,24 +65,19 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
           )}
           <ul>
             <TagContainer key={`select_item`}>
-              <input id={`select_item`} type="checkbox" value={selector} onChange={(e) => handleTag(e, typevariants)} />
-              <label className="selected-item" htmlFor={`select_item`}>
-                {selector}
+              <input id={`select_item`} type="checkbox" value={selectedTag} onChange={(e) => handleTag(e)} />
+              <label className={"selected-item"} htmlFor={`select_item`}>
+                {selectedTag}
               </label>
             </TagContainer>
 
             {showNonSelectors && (
               <>
                 {nonSelectors.map((item, idx) => {
-                  return item[1] !== selector ? (
+                  return item !== selectedTag ? (
                     <TagContainer key={`nonselect_${idx}`}>
-                      <input
-                        id={`select_${idx}`}
-                        type="checkbox"
-                        value={item[1]}
-                        onChange={(e) => handleTag(e, typevariants)}
-                      />
-                      <label htmlFor={`select_${idx}`}>{item[1]}</label>
+                      <input id={`select_${idx}`} type="checkbox" value={item} onChange={(e) => handleTag(e)} />
+                      <label htmlFor={`select_${idx}`}>{item}</label>
                     </TagContainer>
                   ) : null;
                 })}
@@ -91,7 +90,7 @@ const SearchTag = ({ typevariants, itemlist, settag }: NewTagListOption) => {
   );
 };
 
-export default SearchTag;
+export default Tag;
 
 const TagContainer = styled.li`
   display: block;

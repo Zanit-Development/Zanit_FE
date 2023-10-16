@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import SearchTag from "../../../components/tag/SearchTag";
 import styled from "styled-components";
+import Tag from "../../search/Tag";
 import closeButton from "../../../assets/icon/icon_close.svg";
 import baseImg from "../../../assets/icon/icon_empty_Image.svg";
 import Button from "../../../components/common/button/Button";
 import { BUTTON_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
+import { useRecoilValue } from "recoil";
+import { adminPopupTagAtom } from "../../../recoil/adminAtom";
+
+export type SelectPopupTagOptions = "입문자용" | "캐주얼드링커용" | "헤비드링커용";
 
 const Popup = ({ ...props }) => {
-  const [tag, setTag] = useState("");
+  const tag = useRecoilValue<SelectPopupTagOptions>(adminPopupTagAtom);
   const [cocktailDetail, setCocktailDetail] = useState("");
   const [cocktailName, setCocktailName] = useState("");
   const [cocktailImg, setCocktailImg] = useState<File>();
@@ -29,11 +33,7 @@ const Popup = ({ ...props }) => {
     }
   }, [tag]);
 
-  const tagOption = [
-    [0, "입문자용"],
-    [1, "캐주얼드링커용"],
-    [2, "헤비드링커용"],
-  ] as [number, string][];
+  const tagOption = ["입문자용", "캐주얼드링커용", "헤비드링커용"];
 
   const addImage = (e: INPUT_EVENT) => {
     const inputImage = e.target.files;
@@ -100,7 +100,7 @@ const Popup = ({ ...props }) => {
             </ImageSection>
             <TagSection>
               <span>어떤 고객을 위한 칵테일인가요?</span>
-              <SearchTag itemlist={tagOption} typevariants={"tertiary"} settag={setTag} />{" "}
+              <Tag itemlist={tagOption} typevariants={"tertiary"} />{" "}
             </TagSection>
           </div>
           <InputSection>
@@ -220,7 +220,7 @@ const ImageSection = styled.section`
   & img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   & img.empty-img {

@@ -4,11 +4,18 @@ import { TagProps } from "../../libs/interface/interfaceCommon";
 import { TAG_TYPE_VARIANTS } from "../../libs/interface/typeCommon";
 import { MOUSE_EVENT } from "../../libs/interface/typeEvent";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { categoryState, selectedTagState } from "../../recoil/SearchAtom";
+import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
 
 const Tag = ({ typevariants = "primary", ...props }: TagProps) => {
   const navigate = useNavigate();
+  const setCategory = useSetRecoilState(categoryState);
+  const setSelectedTag = useSetRecoilState(selectedTagState);
   const handleClick = (e: MOUSE_EVENT) => {
-    navigate("/search", { state: { category: props.category, value: props.value } });
+    setCategory(props.category as SearchCategoryType);
+    setSelectedTag(props.value);
+    navigate("/search");
   };
 
   const TagName = typevariants !== "primary" ? "span" : "button";
@@ -51,6 +58,7 @@ const TagContainer = styled.div<{ $typevariants: TAG_TYPE_VARIANTS }>`
   & > span {
     display: inline-block;
     border-radius: 20px;
+    overflow: hidden;
     box-sizing: border-box;
     font-size: 12px;
     line-height: 20px;

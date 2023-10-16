@@ -35,8 +35,8 @@ export const ManageInfo = () => {
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
   useEffect(() => {
-    console.log(cocktailList);
-  }, [cocktailList]);
+    console.log(showList);
+  }, [showList]);
 
   const handleSubmit = (e: FORM_EVENT, inputValues: any[]) => {
     const { ...data } = inputValues;
@@ -44,6 +44,7 @@ export const ManageInfo = () => {
     console.log(data);
   };
 
+  // 바 사진
   const handleBarPics = (e: INPUT_EVENT) => {
     const selectImage = e.target.files!;
 
@@ -59,12 +60,14 @@ export const ManageInfo = () => {
     setPreviewImageList(selectPreviewImages.slice(0, 4));
   };
 
+  // 바 미리보기 삭제
   const deletePreviewImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const deleteItemIdx = parseInt(e.currentTarget.value);
     setBarPics(barPics.filter((_, idx) => idx !== deleteItemIdx));
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
   };
 
+  // 칵테일삭제
   const deleteCocktailList = (deleteItemIdx: number) => {
     const filterCoctailList = cocktailList.filter((_, idx) => deleteItemIdx !== idx);
     setCocktailList(filterCoctailList);
@@ -444,7 +447,7 @@ const PhotoList = styled.ul`
   & img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
