@@ -1,9 +1,19 @@
+/**
+ * 검색 atoms
+ */
+
 import { atom, selector } from "recoil";
-import { recoilPersist } from "recoil-persist";
 import { CocktailProps } from "../libs/interface/interfaceCocktail";
 import { BarProps } from "../libs/interface/interfaceBarDetail";
 import { SearchCategoryType } from "../libs/interface/interfaceSearch";
-import { cocktailTagOption } from "../pages/search/options";
+import { barLocationTagOption, barMoodTagOption, cocktailTagOption } from "../pages/search/options";
+import generator from "../libs/func/generator";
+
+// 필터링 상태
+export const listFilterState = atom({
+  key: "listFilterState",
+  default: "barName",
+});
 
 // 검색어
 export const inputValueState = atom({
@@ -17,13 +27,38 @@ export const categoryState = atom({
   default: "barName" as SearchCategoryType,
 });
 
+// 태그 목록
+export const tagListState = atom({
+  key: "tagState",
+  default: generator.randomAllTag(8),
+});
+
 // 태그
-export const selectTagState = atom({
-  key: "selectTagState",
+export const selectedTagState = atom({
+  key: "selectedTagState",
   default: "",
 });
 
-// 칵테일 관련
+// 태그 필터링
+export const filteredTagState = selector({
+  key: "filteredTagState",
+  get: ({ get }) => {
+    const filter = get(listFilterState);
+
+    switch (filter) {
+      case "cocktail":
+        return cocktailTagOption;
+      case "barMood":
+        return barMoodTagOption;
+      case "barLocation":
+        return barLocationTagOption;
+      default:
+        return generator.randomAllTag(8);
+    }
+  },
+});
+
+// 칵테일 목록
 export const cocktailListState = atom({
   key: "cocktailListState",
   default: [] as CocktailProps[],
@@ -35,12 +70,6 @@ export const searchBarListState = atom({
   default: [] as BarProps[],
 });
 
-// 칵테일 목록
-export const listFilterState = atom({
-  key: "listFilterState",
-  default: "barName",
-});
-
 // 목록 필터링
 export const filteredListState = selector({
   key: "filteredListState",
@@ -48,7 +77,7 @@ export const filteredListState = selector({
     const filter = get(listFilterState);
     const barList = get(searchBarListState);
     const cocktailList = get(cocktailListState);
-    const tag = get(selectTagState);
+    const tag = get(selectedTagState);
 
     switch (filter) {
       case "cocktail":
