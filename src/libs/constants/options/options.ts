@@ -171,7 +171,6 @@ export const SIGNIN_OPTIONS = {
   PASSWORD: {
     ...INPUT_OPTIONS_BASE,
     id: "userpassword",
-    type: "password",
     placeholder: PLACEHOLDER_SIGN.IN.PASSWORD,
     name: "userpassword",
   },
