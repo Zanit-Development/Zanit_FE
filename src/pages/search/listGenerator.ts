@@ -1,3 +1,7 @@
+/**
+ * 바, 칵테일 목록 생성기
+ */
+
 import { defaultInstance } from "../../libs/apis/axios";
 
 const listGenerator = {

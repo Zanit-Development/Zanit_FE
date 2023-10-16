@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import Layout from "../../layouts/Layout";
 import SearchCategory from "./SearchCategory";
 import SearchForm from "./SearchForm";
@@ -6,16 +7,16 @@ import styled from "styled-components";
 import SearchList from "./SearchList";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
-import { useEffect } from "react";
-import { categoryState, inputValueState, selectTagState } from "../../recoil/SearchAtom";
+import { categoryState, inputValueState, selectedTagState } from "../../recoil/SearchAtom";
 
 const Search = () => {
   const isLoading = useRecoilValue(isLoadingAtom);
   const resetInputValueState = useResetRecoilState(inputValueState);
   const resetCategoryState = useResetRecoilState(categoryState);
-  const resetTag = useResetRecoilState(selectTagState);
+  const resetTag = useResetRecoilState(selectedTagState);
 
   useEffect(() => {
+    // 검색 페이지 벗어날 때 상태 초기화
     return () => {
       resetInputValueState();
       resetCategoryState();

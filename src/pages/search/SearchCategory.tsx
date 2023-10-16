@@ -1,3 +1,8 @@
+/**
+ * 검색 카테고리 컴포넌트
+ */
+
+import React from "react";
 import styled from "styled-components";
 import Category from "../../components/search/Category";
 import { categoryList } from "./options";

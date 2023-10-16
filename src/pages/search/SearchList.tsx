@@ -1,7 +1,13 @@
+/**
+ * 검색 목록 컴포넌트
+ */
+
+import React, { useEffect } from "react";
 import Item from "../../components/common/item/Item";
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isLoadingAtom } from "../../recoil/loadingAtom";
+import listGenerator from "./listGenerator";
 import {
   categoryState,
   cocktailListState,
@@ -9,15 +15,12 @@ import {
   inputValueState,
   listFilterState,
   searchBarListState,
-  selectTagState,
+  selectedTagState,
 } from "../../recoil/SearchAtom";
-import { SearchCategoryType } from "../../libs/interface/interfaceSearch";
-import { isLoadingAtom } from "../../recoil/loadingAtom";
-import listGenerator from "./listGenerator";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
-  const tag = useRecoilValue(selectTagState);
+  const tag = useRecoilValue(selectedTagState);
   const category = useRecoilValue(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
@@ -34,15 +37,16 @@ const SearchList = () => {
 
       setSearchBarList(await listGenerator.barListGenerator(inputValue));
       setCocktailList(await listGenerator.cocktailListGenerator());
+      if (category !== "barName") {
+        setFilter(category);
+      }
 
       setIsLoading(false);
     })();
   }, []);
 
-  const pageGenerator = (category: SearchCategoryType, tag: string) => {
-    setFilter(category);
-
-    return (
+  return (
+    <>
       <ListContainer>
         {filteredList ? (
           filteredList.length ? (
@@ -65,10 +69,8 @@ const SearchList = () => {
           <EmptyList>검색 결과가 없습니다.</EmptyList>
         )}
       </ListContainer>
-    );
-  };
-
-  return <>{pageGenerator(category, tag)}</>;
+    </>
+  );
 };
 
 export default SearchList;
