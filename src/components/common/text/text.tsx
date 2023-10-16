@@ -41,15 +41,27 @@ export const Opening = styled(grayTextWithIcon)`
 
 export const CoverCharge = styled(grayTextWithIcon)`
   & > span {
-    text-decoration: line-through;
     position: relative;
+    display: inline-block;
+    width: fit-content;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 40%;
+      display: inline-block;
+      width: 100%;
+      height: 1px;
+      border-bottom: 1px solid var(--gray500-color);
+    }
 
     &::after {
       content: "";
       position: absolute;
       width: 15px;
       height: 12px;
-      top: 3px;
+      top: 40%;
+      transform: translateY(-4.5px);
       right: -13px;
       background: url(${arrow}) no-repeat right;
     }
