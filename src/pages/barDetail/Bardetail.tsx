@@ -51,14 +51,18 @@ const Bardetail = () => {
     }
   };
 
-  return isLoading ? (
-    <div>로딩중 </div>
-  ) : (
+  return (
     <Layout>
-      <BarInfomation BarInfo={data} />
-      <ButtonContainer>
-        <Button {...btnOption} />
-      </ButtonContainer>
+      {isLoading ? (
+        <div>로딩중</div>
+      ) : (
+        <>
+          <BarInfomation BarInfo={data} />
+          <ButtonContainer>
+            <Button {...btnOption} />
+          </ButtonContainer>
+        </>
+      )}
     </Layout>
   );
 };
