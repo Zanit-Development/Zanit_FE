@@ -33,8 +33,16 @@ const SearchList = () => {
     (async () => {
       setIsLoading(true);
 
-      setSearchBarList(await listGenerator.barListGenerator(inputValue));
-      setCocktailList(await listGenerator.cocktailListGenerator());
+      // setSearchBarList(await listGenerator.barListGenerator(inputValue));
+      // setCocktailList(await listGenerator.cocktailListGenerator());
+
+      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then(
+        (response) => {
+          setSearchBarList(response[0]);
+          setCocktailList(response[1]);
+        }
+      );
+
       if (category !== "barName") {
         setFilter(category);
       }
