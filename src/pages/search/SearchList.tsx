@@ -15,12 +15,10 @@ import {
   inputValueState,
   listFilterState,
   searchBarListState,
-  selectedTagState,
 } from "../../recoil/SearchAtom";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
-  const tag = useRecoilValue(selectedTagState);
   const category = useRecoilValue(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
