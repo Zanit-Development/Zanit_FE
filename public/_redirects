@@ -1,0 +1,2 @@
+/api/*  http://zanit.eastus.cloudapp.azure.com:8080/:splat  200
+/*  /index.html  200
