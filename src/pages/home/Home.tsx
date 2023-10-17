@@ -65,9 +65,7 @@ const Home = () => {
     onChange: handleSearch,
   };
 
-  return isLoading ? (
-    <div>로딩중</div>
-  ) : (
+  return (
     <Layout>
       <HomeBanner />
       <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
@@ -78,20 +76,26 @@ const Home = () => {
         </SearchButton>
       </FormContainer>
       <TagList />
-      <CocktailContainer>
-        <TitleStyle img={cocktailImg}>
-          <h2>Cocktail</h2>
-          <span>지금 당신을 기다리고 있는</span>
-        </TitleStyle>
-        <ItemList itemOptions={cockData} />
-      </CocktailContainer>
-      <BarContainer>
-        <TitleStyle img={barImg}>
-          <h2>Bar</h2>
-          <span>지금 당신을 기다리고 있는</span>
-        </TitleStyle>
-        <ItemList itemOptions={barData} />
-      </BarContainer>
+      {isLoading ? (
+        <div>로딩중</div>
+      ) : (
+        <>
+          <CocktailContainer>
+            <TitleStyle img={cocktailImg}>
+              <h2>Cocktail</h2>
+              <span>지금 당신을 기다리고 있는</span>
+            </TitleStyle>
+            <ItemList itemOptions={cockData} />
+          </CocktailContainer>
+          <BarContainer>
+            <TitleStyle img={barImg}>
+              <h2>Bar</h2>
+              <span>지금 당신을 기다리고 있는</span>
+            </TitleStyle>
+            <ItemList itemOptions={barData} />
+          </BarContainer>
+        </>
+      )}
     </Layout>
   );
 };

@@ -78,7 +78,7 @@ const PopupContent = styled.div`
   img {
     width: 271px;
     height: 271px;
-    object-fit: cover;
+    object-fit: contain;
   }
   h3 {
     font-family: var(--font--Bold);
