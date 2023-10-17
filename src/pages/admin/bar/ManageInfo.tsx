@@ -1,3 +1,7 @@
+/**
+ * 바 관리 페이지
+ */
+
 import React, { useEffect, useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
@@ -6,11 +10,11 @@ import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import Popup from "./Popup";
 import { styled } from "styled-components";
-import { handleChangeInput, handleChangeInputNumber } from "./handler";
+import { handleChangeInput } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
-import { FORM_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
   // 바 정보

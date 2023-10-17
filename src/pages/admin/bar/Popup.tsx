@@ -1,13 +1,17 @@
+/**
+ * 바 칵테일 등록, 수정 팝업
+ */
+
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Tag from "../../search/Tag";
 import closeButton from "../../../assets/icon/icon_close.svg";
 import baseImg from "../../../assets/icon/icon_empty_Image.svg";
 import Button from "../../../components/common/button/Button";
-import { BUTTON_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { cocktailTagOption } from "../../search/options";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { selectedTagState } from "../../../recoil/SearchAtom";
 
 export type SelectPopupTagOptions = "입문자용" | "캐주얼드링커용" | "헤비드링커용";
@@ -15,6 +19,7 @@ export type SelectPopupTagOptions = "입문자용" | "캐주얼드링커용" | "
 const Popup = ({ ...props }) => {
   const tagList = cocktailTagOption;
   const selectedTag = useRecoilValue(selectedTagState);
+  const resetTag = useResetRecoilState(selectedTagState);
   // const [cocktailDetail, setCocktailDetail] = useState("");
   // const [cocktailName, setCocktailName] = useState("");
   const [cocktailImg, setCocktailImg] = useState<File>();
@@ -84,7 +89,12 @@ const Popup = ({ ...props }) => {
       <PopupBg>
         <PopupHeader>
           <h2>칵테일 정보</h2>
-          <button onClick={() => props.setIsShowPopup(false)}>
+          <button
+            onClick={() => {
+              resetTag();
+              props.setIsShowPopup(false);
+            }}
+          >
             <img src={closeButton} alt="팝업 닫기" />
           </button>
         </PopupHeader>
@@ -131,7 +141,8 @@ const Popup = ({ ...props }) => {
               sizevariants={"small"}
               value={"등록하기"}
               disabled={false}
-              onClick={function (e: BUTTON_EVENT): void {
+              onClick={() => {
+                resetTag();
                 const result = addCocktail();
                 result && props.setIsShowPopup(false);
               }}
