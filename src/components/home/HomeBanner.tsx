@@ -72,7 +72,7 @@ const Container = styled.div`
   }
 
   p {
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 16px;
     &:nth-of-type(1) {

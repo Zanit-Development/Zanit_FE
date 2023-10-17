@@ -15,7 +15,7 @@ const Category = ({ ...props }: CategoryProps) => {
         id={`menu_${idx}`}
         value={value}
         name="menu"
-        defaultChecked={idx === 0 ? true : false}
+        defaultChecked={props.defaultcheck}
         onChange={handleMenu}
       />
       <StyledLabel htmlFor={`menu_${idx}`}>{menu}</StyledLabel>

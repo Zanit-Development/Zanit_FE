@@ -13,12 +13,18 @@ import cocktailImg from "../../assets/icon/icon_wine.svg";
 import barImg from "../../assets/icon/icon_store.svg";
 import { getRandomDataAPI } from "../../libs/apis/home";
 import searchIcon from "../../assets/icon/icon_search.svg";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { inputValueState } from "../../recoil/SearchAtom";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [barData, setBarData] = useState<ItemProps[]>([]);
   const [cockData, setCockData] = useState<ItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const setInputValueState = useSetRecoilState(inputValueState);
 
   useEffect(() => {
     (async () => {
@@ -31,11 +37,19 @@ const Home = () => {
         console.error(error);
       }
     })();
+
+    return () => {
+      setBarData([]);
+      setCockData([]);
+      setIsLoading(true);
+    };
   }, []);
 
   const handleSubmit = (e: FORM_EVENT) => {
     e.preventDefault();
     // 링크 넘기기
+    setInputValueState(inputValue);
+    navigate("/search");
   };
 
   const handleSearch = (e: INPUT_EVENT) => {

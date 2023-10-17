@@ -21,7 +21,8 @@ const PasswordReset = () => {
   const [errorMSG, setErrorMSG] = useState("");
 
   const validatePassword = (password: string): boolean => {
-    return !PASSWORD_REGEX.test(password) || password === "";
+    const regResult = !password.search(PASSWORD_REGEX);
+    return !regResult || password === "";
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

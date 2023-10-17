@@ -15,7 +15,6 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
   const tagOption = {
     typevariants: "secondary",
     value: BarInfo.barMood,
-    tagid: BarInfo.barMood,
   };
   return (
     <>
@@ -51,11 +50,7 @@ function generateCoverCharge<T extends coverchargeType>(price: T, coverCharge: T
   if (price === undefined) return null;
 
   const priceText = !!coverCharge ? <span>{price}원</span> : `${price}원`;
-  const discountText = !!coverCharge ? (
-    <strong>{parseInt(price) - parseInt(coverCharge)}원 (쟈닛 고객 한정 할인)</strong>
-  ) : (
-    ""
-  );
+  const discountText = !!coverCharge ? <strong>{parseInt(price) - parseInt(coverCharge)}원 (쟈닛 고객 한정 할인)</strong> : "";
 
   return (
     <CoverCharge>
@@ -91,7 +86,7 @@ const BarInfoContainer = styled.section`
     gap: 12px;
 
     p {
-      font-size: 14px;
+      /* font-size: 14px; */
       font-family: var(--font--Medium);
     }
   }
