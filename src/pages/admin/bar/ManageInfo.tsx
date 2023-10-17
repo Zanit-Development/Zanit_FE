@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+/**
+ * 바 관리 페이지
+ */
+
+import React, { useEffect, useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
@@ -6,58 +10,89 @@ import sampleImg from "../../../assets/admin_sample_img.svg";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import Popup from "./Popup";
 import { styled } from "styled-components";
-import { handleChangeInput, handleChangeInputNumber } from "./handler";
+import { handleChangeInput } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailItem } from "../../../components/admin/management/CocktailItem";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
-import { FORM_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 
 export const ManageInfo = () => {
   // 바 정보
-  const [barName, setBarName] = useState("");
+  // const [barName, setBarName] = useState("");
   const [barLocation, setBarLocation] = useState("");
-  const [barLocationDetail, setBarLocationDetail] = useState("");
+  // const [barLocationDetail, setBarLocationDetail] = useState("");
   const [barMood, setBarMood] = useState("");
-  const [activeCoverCharge, setActiveCoverCharge] = useState("");
-  const [coverCharge, setCoverCharge] = useState("");
-  const [activeDiscount, setActiveDiscount] = useState("");
-  const [discount, setDiscount] = useState("");
-  const [barOpeningTime, setBarOpeningTime] = useState("");
-  const [barDetail, setBarDetail] = useState("");
+  const [activatedCoverCharge, setActivatedCoverCharge] = useState(false);
+  // const [coverCharge, setCoverCharge] = useState("");
+  const [activatedDiscount, setActivatedDiscount] = useState(false);
+  // const [discount, setDiscount] = useState("");
+  // const [barOpeningTime, setBarOpeningTime] = useState("");
+  // const [barDetail, setBarDetail] = useState("");
   const [isShowPopup, setIsShowPopup] = useState(false); // popup
+
+  const barName = useRef("");
+  // const barLocation = useRef("");
+  const barLocationDetail = useRef("");
+  // const barMood = useRef("");
+  // const activatedCoverCharge = useRef(false);
+  const coverCharge = useRef("");
+  // const activatedDiscount = useRef(false);
+  const discount = useRef("");
+  const barOpeningTime = useRef("");
+  const barDetail = useRef("");
 
   // 바 이미지 관련
   const [barPics, setBarPics] = useState<File[]>([]);
   const [previewImageList, setPreviewImageList] = useState<string[]>([]);
+  // const barPics = useRef<File[]>([]);
+  // const previewImageList = useRef<string[]>([]);
 
   // 칵테일 리스트 관련
   const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
+  // const cocktailList = useRef<ManagementCocktailProps[]>([]);
+  // const showList = useRef<string[]>([]);
 
   useEffect(() => {
     console.log(showList);
   }, [showList]);
 
-  const handleSubmit = (e: FORM_EVENT, inputValues: any[]) => {
-    const { ...data } = inputValues;
+  const handleSubmit = () => {
+    const { ...data } = {
+      barName: barName.current,
+      barLocation: barLocation,
+      barLocationDetail: barLocationDetail.current,
+      barMood: barMood,
+      activatedCoverCharge: activatedCoverCharge,
+      coverCharge: coverCharge.current,
+      activatedDiscount: activatedDiscount,
+      discount: discount.current,
+      barOpeningTime: barOpeningTime.current,
+      barDetail: barDetail.current,
+      barPics: barPics,
+      cocktailList: cocktailList,
+    };
 
     console.log(data);
   };
 
   // 바 사진
   const handleBarPics = (e: INPUT_EVENT) => {
-    const selectImage = e.target.files!;
+    const selectedImage = e.target.files!;
 
     // 미리보기 생성
     const selectPreviewImages = [...previewImageList];
+    // const selectPreviewImages = [...previewImageList.current];
 
-    for (let i = 0; i < selectImage.length; i++) {
-      let selectImageUrl = URL.createObjectURL(selectImage[i]);
+    for (let i = 0; i < selectedImage.length; i++) {
+      let selectImageUrl = URL.createObjectURL(selectedImage[i]);
       selectPreviewImages.push(selectImageUrl);
     }
 
-    setBarPics([...Array.from(barPics), ...Array.from(selectImage)].slice(0, 4));
+    setBarPics([...barPics, ...Array.from(selectedImage)].slice(0, 4));
     setPreviewImageList(selectPreviewImages.slice(0, 4));
+    // barPics.current = [...barPics.current, ...Array.from(selectedImage)].slice(0, 4);
+    // previewImageList.current = selectPreviewImages.slice(0, 4);
   };
 
   // 바 미리보기 삭제
@@ -65,12 +100,16 @@ export const ManageInfo = () => {
     const deleteItemIdx = parseInt(e.currentTarget.value);
     setBarPics(barPics.filter((_, idx) => idx !== deleteItemIdx));
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
+    // barPics.current = barPics.current.filter((_, idx) => idx !== deleteItemIdx);
+    // previewImageList.current = previewImageList.current.filter((_, idx) => idx !== deleteItemIdx);
   };
 
   // 칵테일삭제
   const deleteCocktailList = (deleteItemIdx: number) => {
     const filterCoctailList = cocktailList.filter((_, idx) => deleteItemIdx !== idx);
     setCocktailList(filterCoctailList);
+    // const filterCoctailList = cocktailList.current.filter((_, idx) => deleteItemIdx !== idx);
+    // cocktailList.current = filterCoctailList;
   };
 
   return (
@@ -78,21 +117,7 @@ export const ManageInfo = () => {
       <StyledForm
         onSubmit={(e) => {
           e.preventDefault();
-          const inputValues = [
-            barName,
-            barLocation,
-            barLocationDetail,
-            barMood,
-            activeCoverCharge,
-            coverCharge,
-            activeDiscount,
-            discount,
-            barOpeningTime,
-            barDetail,
-            barPics,
-            cocktailList,
-          ];
-          handleSubmit(e, inputValues);
+          handleSubmit();
         }}
       >
         <h2 className="a11y-hidden">정보 관리</h2>
@@ -102,11 +127,7 @@ export const ManageInfo = () => {
           {/** 0. 바 이름(barName) */}
           <StyledSectionBarInfo>
             <StyledH3>이름</StyledH3>
-            <Input
-              {...BAR_INFO.NAME}
-              value={barName.replaceAll(" ", "")}
-              onChange={(e) => handleChangeInput(e, setBarName)}
-            />
+            <Input {...BAR_INFO.NAME} onChange={(e) => handleChangeInput(e, barName)} />
           </StyledSectionBarInfo>
           {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
           <StyledSectionBarInfo>
@@ -116,16 +137,13 @@ export const ManageInfo = () => {
               selected={barLocation}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setBarLocation(value);
+                // barLocation.current = value.toString();
               }}
               data={["#중랑구 ", "#서대문구 ", "#중구 "]}
               placeholder={"선택"}
               nulltext={"선택"}
             ></SelectBox>
-            <Input
-              {...BAR_INFO.LOCATION}
-              value={barLocationDetail}
-              onChange={(e) => setBarLocationDetail(e.target.value)}
-            />
+            <Input {...BAR_INFO.LOCATION} onChange={(e) => handleChangeInput(e, barLocationDetail)} />
           </StyledSectionBarInfo>
           {/** 3. 바 분위기(barMood) */}
           <StyledSectionBarInfo>
@@ -135,6 +153,7 @@ export const ManageInfo = () => {
               selected={barMood}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setBarMood(value);
+                // barMood.current = value.toString();
               }}
               data={["#캐주얼한", "#고급스러운", "#신나는"]}
               placeholder={"선택"}
@@ -146,34 +165,32 @@ export const ManageInfo = () => {
             <StyledH3>커버차지</StyledH3>
             <SelectBox
               styletype="secondary"
-              selected={activeCoverCharge}
+              selected={activatedCoverCharge ? "있음" : "없음"}
               setSelected={function (value: React.SetStateAction<string>): void {
-                setActiveCoverCharge(value);
+                setActivatedCoverCharge(value === "있음" ? true : false);
+                // activatedCoverCharge.current = value === "있음" ? true : false;
               }}
               data={["있음", "없음"]}
               placeholder={"선택"}
               nulltext={"선택"}
             ></SelectBox>
-            <Input
-              {...BAR_INFO.COVER_CHARGE}
-              value={coverCharge}
-              onChange={(e) => handleChangeInputNumber(e, setCoverCharge)}
-            />
+            <Input {...BAR_INFO.COVER_CHARGE} onChange={(e) => handleChangeInput(e, coverCharge)} />
           </StyledSectionBarInfo>
           {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
             <SelectBox
               styletype="secondary"
-              selected={activeDiscount}
+              selected={activatedDiscount ? "있음" : "없음"}
               setSelected={function (value: React.SetStateAction<string>): void {
-                setActiveDiscount(value);
+                setActivatedDiscount(value === "있음" ? true : false);
+                // activatedDiscount.current = value === "있음" ? true : false;
               }}
               data={["있음", "없음"]}
               placeholder={"선택"}
               nulltext={"선택"}
             ></SelectBox>
-            <Input {...BAR_INFO.DISCOUNT} value={discount} onChange={(e) => handleChangeInputNumber(e, setDiscount)} />
+            <Input {...BAR_INFO.DISCOUNT} onChange={(e) => handleChangeInput(e, discount)} />
           </StyledSectionBarInfo>
         </section>
         <section>
@@ -181,8 +198,7 @@ export const ManageInfo = () => {
           <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
           <StyledSectionsBarDesc>
             <StyledTextarea
-              value={barOpeningTime}
-              onChange={(e) => setBarOpeningTime(e.target.value)}
+              onChange={(e) => handleChangeInput(e, barOpeningTime)}
               placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
             ></StyledTextarea>
@@ -196,8 +212,7 @@ export const ManageInfo = () => {
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
             <StyledTextarea
-              value={barDetail}
-              onChange={(e) => setBarDetail(e.target.value)}
+              onChange={(e) => handleChangeInput(e, barDetail)}
               placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
             ></StyledTextarea>
             <StyledSpan>
@@ -254,7 +269,7 @@ export const ManageInfo = () => {
                   key={`key_${idx}`}
                   id={`cocktail_${idx}`}
                   info={item}
-                  setShowList={setShowList}
+                  setShowList={showList}
                   deleteCocktailList={() => deleteCocktailList(idx)}
                 />
               );

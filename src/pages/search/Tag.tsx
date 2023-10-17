@@ -23,6 +23,7 @@ const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
   const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "secondary");
 
   useEffect(() => {
+    // 이미 선택된 태그가 있을 때(홈에서 넘어오는 경우)
     selectedTag && setSelectedTag(selectedTag);
     setNonSelectors(items.filter((item) => item !== selectedTag));
   }, []);
