@@ -15,12 +15,10 @@ import {
   inputValueState,
   listFilterState,
   searchBarListState,
-  selectedTagState,
 } from "../../recoil/SearchAtom";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
-  const tag = useRecoilValue(selectedTagState);
   const category = useRecoilValue(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
@@ -35,8 +33,16 @@ const SearchList = () => {
     (async () => {
       setIsLoading(true);
 
-      setSearchBarList(await listGenerator.barListGenerator(inputValue));
-      setCocktailList(await listGenerator.cocktailListGenerator());
+      // setSearchBarList(await listGenerator.barListGenerator(inputValue));
+      // setCocktailList(await listGenerator.cocktailListGenerator());
+
+      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then(
+        (response) => {
+          setSearchBarList(response[0]);
+          setCocktailList(response[1]);
+        }
+      );
+
       if (category !== "barName") {
         setFilter(category);
       }
