@@ -14,6 +14,8 @@ import barImg from "../../assets/icon/icon_store.svg";
 import { getRandomDataAPI } from "../../libs/apis/home";
 import searchIcon from "../../assets/icon/icon_search.svg";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { inputValueState } from "../../recoil/SearchAtom";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -21,6 +23,8 @@ const Home = () => {
   const [cockData, setCockData] = useState<ItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  const setInputValueState = useSetRecoilState(inputValueState);
 
   useEffect(() => {
     (async () => {
@@ -33,13 +37,19 @@ const Home = () => {
         console.error(error);
       }
     })();
+
+    return () => {
+      setBarData([]);
+      setCockData([]);
+      setIsLoading(true);
+    };
   }, []);
 
   const handleSubmit = (e: FORM_EVENT) => {
     e.preventDefault();
     // 링크 넘기기
-
-    navigate("/search", { state: { category: "barName", value: inputValue } });
+    setInputValueState(inputValue);
+    navigate("/search");
   };
 
   const handleSearch = (e: INPUT_EVENT) => {
@@ -55,9 +65,7 @@ const Home = () => {
     onChange: handleSearch,
   };
 
-  return isLoading ? (
-    <div>로딩중</div>
-  ) : (
+  return (
     <Layout>
       <HomeBanner />
       <FormContainer onSubmit={(e: FORM_EVENT) => handleSubmit(e)}>
@@ -68,20 +76,26 @@ const Home = () => {
         </SearchButton>
       </FormContainer>
       <TagList />
-      <CocktailContainer>
-        <TitleStyle img={cocktailImg}>
-          <h2>Cocktail</h2>
-          <span>지금 당신을 기다리고 있는</span>
-        </TitleStyle>
-        <ItemList itemOptions={cockData} />
-      </CocktailContainer>
-      <BarContainer>
-        <TitleStyle img={barImg}>
-          <h2>Bar</h2>
-          <span>지금 당신을 기다리고 있는</span>
-        </TitleStyle>
-        <ItemList itemOptions={barData} />
-      </BarContainer>
+      {isLoading ? (
+        <div>로딩중</div>
+      ) : (
+        <>
+          <CocktailContainer>
+            <TitleStyle img={cocktailImg}>
+              <h2>Cocktail</h2>
+              <span>지금 당신을 기다리고 있는</span>
+            </TitleStyle>
+            <ItemList itemOptions={cockData} />
+          </CocktailContainer>
+          <BarContainer>
+            <TitleStyle img={barImg}>
+              <h2>Bar</h2>
+              <span>지금 당신을 기다리고 있는</span>
+            </TitleStyle>
+            <ItemList itemOptions={barData} />
+          </BarContainer>
+        </>
+      )}
     </Layout>
   );
 };
