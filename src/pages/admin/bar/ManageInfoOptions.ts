@@ -5,7 +5,6 @@ const inputBase: InputProps = {
   typevariants: "basic",
   sizevariants: "small",
   type: "text",
-  value: "",
   placeholder: "",
   onChange: function (e: INPUT_EVENT): void {
     throw new Error("Function not implemented.");
