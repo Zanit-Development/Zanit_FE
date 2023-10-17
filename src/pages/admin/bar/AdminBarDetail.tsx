@@ -46,7 +46,7 @@ const DeleteButton = styled.button`
   font-family: var(--font--Medium);
   color: ${DeleteColor};
   margin-top: 11px;
-  border-top: 0.7px solid ${DeleteColor};
+  border-bottom: 0.7px solid ${DeleteColor};
 `;
 
 export default AdminBardetail;
