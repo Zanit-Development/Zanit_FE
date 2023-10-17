@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
@@ -8,9 +8,16 @@ import Button from "../../../components/common/button/Button";
 
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../../libs/utils/Bardetaildummy";
+import { getBarInfo } from "./getAdminBar";
 
 const AdminBardetail = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      await getBarInfo();
+    })();
+  }, []);
 
   const btnOption: ButtonProps = {
     typevariants: "fill",
