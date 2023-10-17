@@ -279,7 +279,7 @@ export const ManageInfo = () => {
         <Button {...ButtonOptions} onClick={() => {}}></Button>
       </StyledForm>
       {isShowPopup && (
-        <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={cocktailList} />
+        <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={setCocktailList} />
       )}
     </>
   );
