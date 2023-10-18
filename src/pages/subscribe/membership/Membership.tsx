@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Layout from "../../../layouts/Layout";
-import { css, styled } from "styled-components";
 import Button from "../../../components/common/button/Button";
-import { BUTTON_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
-import { Link } from "react-router-dom";
+import { css, styled } from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import { MEMBERSHIP, membershipOption } from "./membershipOption";
 import { MembershipType } from "../../../components/membership/MembershipType";
 import { handleMembershipType } from "./handleMembership";
+import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 
-type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
+export type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
 
 export const Membership = () => {
-  const [membershipType, setMembershipType] = useState<MEMBERSHIP_TYPE>("TYPE1");
+  const membershipTypeRef = useRef<MEMBERSHIP_TYPE>("TYPE1");
   const [isMember, setIsMember] = useState(false);
+
+  const handleSubmit = (e: FORM_EVENT) => {
+    e.preventDefault();
+    const type = membershipTypeRef.current;
+    // userinfo 불러오기
+    // const userInfo = ;
+    const userUid = "임시UID"; // userInfo.userUid
+    const userPhone = "임시PHONE"; // userInfo.userPhone
+    let bPayUrl;
+
+    switch (type) {
+      case "TYPE1":
+        bPayUrl = `https://l.bootpay.co.kr/l/X7INUc?userUid=${userUid}&userPhone=${userPhone}`;
+        break;
+      case "TYPE2":
+        bPayUrl = `https://l.bootpay.co.kr/l/X7IzOw?userUid=${userUid}&userPhone=${userPhone}`;
+        break;
+      case "TYPE3":
+        bPayUrl = `https://l.bootpay.co.kr/l/X7Ifa8?userUid=userUid=${userUid}&userPhone=${userPhone}`;
+        break;
+    }
+
+    window.location.href = bPayUrl;
+    console.log(bPayUrl);
+  };
 
   return (
     <Layout>
@@ -24,25 +49,31 @@ export const Membership = () => {
           <strong>&#40;*회차 단위는 4주, 28일입니다.&#41;</strong>
         </p>
       </DescContainer>
-      <form>
+      <form onSubmit={handleSubmit}>
         <MembershipContainer>
           <ul>
-            <MembershipType key={"membershipType1"} {...MEMBERSHIP.TYPE1} onChange={(e) => handleMembershipType(e, setMembershipType)} />
-            <MembershipType key={"membershipType2"} {...MEMBERSHIP.TYPE2} onChange={(e) => handleMembershipType(e, setMembershipType)} />
-            <MembershipType key={"membershipType3"} {...MEMBERSHIP.TYPE3} onChange={(e) => handleMembershipType(e, setMembershipType)} />
+            <MembershipType
+              key={"membershipType1"}
+              {...MEMBERSHIP.TYPE1}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
+            <MembershipType
+              key={"membershipType2"}
+              {...MEMBERSHIP.TYPE2}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
+            <MembershipType
+              key={"membershipType3"}
+              {...MEMBERSHIP.TYPE3}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
           </ul>
           <span>
             쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
           </span>
         </MembershipContainer>
         <ButtonContainer>
-          <Button
-            {...membershipOption}
-            value={isMember ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}
-            onClick={function (e: BUTTON_EVENT): void {
-              throw new Error("Function not implemented.");
-            }}
-          ></Button>
+          <Button {...membershipOption} value={isMember ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}></Button>
         </ButtonContainer>
       </form>
     </Layout>
