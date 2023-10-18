@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/stop-subscribe" element={<StopSubscribe />} />
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="/useCoupon" element={<UseCoupon />} />
-        <Route path="/404" element={<NotFound />} />
+
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
         <Route path="/password-find-ok" element={<PasswordResetOk />} />
@@ -58,6 +58,9 @@ const App = () => {
           <Route path="management" element={<BarManagement />} />
           <Route path="manageorder" element={<ManageOrder />} />
         </Route>
+
+        <Route path="/404" element={<NotFound />} />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
