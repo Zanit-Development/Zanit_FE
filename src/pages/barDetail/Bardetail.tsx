@@ -51,11 +51,14 @@ const Bardetail = () => {
 
   const handleClick = () => {
     if (!getLoginCookie()) {
-      navigate("/signIn");
-    } else if (!user?.subscribe || user?.couponUsed) {
-      navigate("/myCoupon");
+      // 비회원
+      navigate("/signIn"); // 로그인 페이지로 이동
+    } else if (!user?.subscribe || !user?.couponUsed) {
+      // 회원이지만 구독하지 않았거나 쿠폰을 사용하지 않음
+      navigate("/myCoupon"); // 내 쿠폰함 페이지로 이동
     } else {
-      navigate("/useCoupon", { state: data.barName });
+      // 회원이며 구독하고 쿠폰이 남아 있음
+      navigate("/useCoupon", { state: data.barName }); // 쿠폰 사용 페이지로 이동
     }
   };
 
