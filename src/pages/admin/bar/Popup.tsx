@@ -83,7 +83,6 @@ const Popup = ({ ...props }) => {
 
     props.registCocktailRef.current = [...registCocktailList, data];
     setRegistCocktailList([...registCocktailList, data]);
-    // props.setCocktailList([...props.cocktailList, data]);
 
     return true;
   };
