@@ -48,7 +48,8 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
   };
 
   const validatePassword = (password: string): boolean => {
-    return !PASSWORD_REGEX.test(password) || password === "";
+    const regResult = !password.search(PASSWORD_REGEX);
+    return !regResult || password === "";
   };
 
   const validatePasswordCheck = (passwordCheck: string): boolean => {
@@ -120,7 +121,9 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
             핸드폰 번호
           </label>
           <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={!authError} />
-          <AuthBtn style={{ background: authButtonColor }}>인증하기</AuthBtn>
+          <AuthBtn type="button" style={{ background: authButtonColor }}>
+            인증하기
+          </AuthBtn>
         </div>
         <label htmlFor="userPassword" className="a11y-hidden">
           비밀번호
