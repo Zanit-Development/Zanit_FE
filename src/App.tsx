@@ -58,7 +58,7 @@ const App = () => {
           <Route path="manageorder" element={<ManageOrder />} />
         </Route>
 
-        <Route path="/temporary" element={<Temporary />} />
+        <Route path="/portal" element={<Temporary />} />
         <Route path="/404" element={<NotFound />} />
         <Route path={"*"} element={<Navigate to="/404" />} />
       </Routes>
