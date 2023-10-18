@@ -32,8 +32,7 @@ const App = () => {
     <BrowserRouter basename={PUB_URL}>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Temporary />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
@@ -59,6 +58,7 @@ const App = () => {
           <Route path="manageorder" element={<ManageOrder />} />
         </Route>
 
+        <Route path="/temporary" element={<Temporary />} />
         <Route path="/404" element={<NotFound />} />
         <Route path={"*"} element={<Navigate to="/404" />} />
       </Routes>
