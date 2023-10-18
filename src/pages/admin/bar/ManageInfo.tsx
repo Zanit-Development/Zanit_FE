@@ -29,7 +29,6 @@ export const ManageInfo = () => {
 
   // 바 이미지 관련
   const barPicsRef = useRef<File[]>([]);
-  const [previewImageList, setPreviewImageList] = useState<string[]>([]);
 
   // 칵테일 리스트 관련
   const registCocktailRef = useRef<CocktailProps[]>([]);
