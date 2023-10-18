@@ -25,13 +25,13 @@ export const Membership = () => {
 
     switch (type) {
       case "TYPE1":
-        bPayUrl = `https://l.bootpay.co.kr/l/X7INUc?userUid=${userUid}&userPhone=${userPhone}`;
+        bPayUrl = `https://l.bootpay.co.kr/l/X7Ifa8?userUid=userUid=${userUid}&userPhone=${userPhone}`;
         break;
       case "TYPE2":
         bPayUrl = `https://l.bootpay.co.kr/l/X7IzOw?userUid=${userUid}&userPhone=${userPhone}`;
         break;
       case "TYPE3":
-        bPayUrl = `https://l.bootpay.co.kr/l/X7Ifa8?userUid=userUid=${userUid}&userPhone=${userPhone}`;
+        bPayUrl = `https://l.bootpay.co.kr/l/X7INUc?userUid=${userUid}&userPhone=${userPhone}`;
         break;
     }
 
