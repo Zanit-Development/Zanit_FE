@@ -1,7 +1,7 @@
 import Input from "../../components/common/input/Input";
 import searchIcon from "../../assets/icon/icon_search.svg";
 import listGenerator from "./listGenerator";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { FORM_EVENT, INPUT_EVENT } from "../../libs/interface/typeEvent";
 import { styled } from "styled-components";
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
@@ -11,7 +11,8 @@ import { inputValueState, searchBarListState } from "../../recoil/SearchAtom";
 
 const SearchForm = () => {
   const inputValueAtHome = useRecoilValue(inputValueState);
-  const [inputValue, setInputValue] = useState(inputValueAtHome || "");
+  // const [inputValue, setInputValue] = useState(inputValueAtHome || "");
+  const inputValue = useRef(inputValueAtHome);
 
   // 검색된 바, 칵테일 목록
   const setSearchBarList = useSetRecoilState(searchBarListState);
@@ -20,13 +21,14 @@ const SearchForm = () => {
 
   // 검색어 핸들러
   const handleSearch = (e: INPUT_EVENT) => {
-    setInputValue(e.target.value);
+    // inputValue(e.target.value);
+    inputValue.current = e.target.value;
   };
 
   const inputOptions: InputProps = {
     typevariants: "search",
     sizevariants: "medium",
-    value: inputValue,
+    // value: inputValue.current,
     type: "text",
     placeholder: "오늘은 어떤 Bar를 방문해 볼까요?",
     onChange: handleSearch,
@@ -37,14 +39,17 @@ const SearchForm = () => {
         onSubmit={async (e: FORM_EVENT) => {
           e.preventDefault();
           setIsLoading(true);
-          const response = await listGenerator.barListGenerator(inputValue);
+
+          const response = await listGenerator.barListGenerator(inputValue.current);
           setSearchBarList(response);
+          inputValue.current = "";
+
           setIsLoading(false);
         }}
       >
         <StyledTitle>BAR 검색</StyledTitle>
         <Input {...inputOptions} />
-        <SearchButton type="submit">
+        <SearchButton type="submit" disabled={isLoading}>
           <img src={searchIcon} alt="검색 버튼" />
         </SearchButton>
       </InputContainer>
@@ -81,4 +86,8 @@ const SearchButton = styled.button`
   width: 40px;
   height: 40px;
   cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
 `;
