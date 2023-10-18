@@ -29,3 +29,17 @@ export interface barPicsPathInterface {
   barUid: number;
   barPicture: string;
 }
+
+// 업데이트 필요
+export interface user {
+  couponUsed: boolean;
+  subScribeType: null;
+  subsEndDate: null;
+  subsStartDate: null;
+  subscribe: boolean;
+  subscribeName: null;
+  userGender: boolean;
+  userName: string;
+  userPhone: string;
+  userUid: number;
+}
