@@ -11,8 +11,9 @@ import Button from "../../../components/common/button/Button";
 import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { cocktailTagOption } from "../../search/options";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState, useRecoilState } from "recoil";
 import { selectedTagState } from "../../../recoil/SearchAtom";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 export type SelectPopupTagOptions = "입문자용" | "캐주얼드링커용" | "헤비드링커용";
 
@@ -20,6 +21,7 @@ const Popup = ({ ...props }) => {
   const tagList = cocktailTagOption;
   const selectedTag = useRecoilValue(selectedTagState);
   const resetTag = useResetRecoilState(selectedTagState);
+  const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
   // const [cocktailDetail, setCocktailDetail] = useState("");
   // const [cocktailName, setCocktailName] = useState("");
   const [cocktailImg, setCocktailImg] = useState<File>();
@@ -79,7 +81,8 @@ const Popup = ({ ...props }) => {
       recoUser: recoUser.current,
     };
 
-    props.setCocktailList([...props.cocktailList, data]);
+    props.registCocktailRef.current = [...registCocktailList, data];
+    setRegistCocktailList([...registCocktailList, data]);
 
     return true;
   };
