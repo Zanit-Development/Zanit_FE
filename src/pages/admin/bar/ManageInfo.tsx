@@ -7,14 +7,14 @@ import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
 import sampleImg from "../../../assets/admin_sample_img.svg";
-import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import Popup from "./Popup";
+import RegistCocktailList from "./RegistCocktailList";
 import { styled } from "styled-components";
 import { handleChangeInput } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
-import { CocktailItem } from "../../../components/admin/management/CocktailItem";
-import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
+import { useRecoilValue } from "recoil";
+import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 
 export const ManageInfo = () => {
   // 바 정보
@@ -28,7 +28,6 @@ export const ManageInfo = () => {
   // const [discount, setDiscount] = useState("");
   // const [barOpeningTime, setBarOpeningTime] = useState("");
   // const [barDetail, setBarDetail] = useState("");
-  const [isShowPopup, setIsShowPopup] = useState(false); // popup
 
   const barName = useRef("");
   // const barLocation = useRef("");
@@ -48,14 +47,11 @@ export const ManageInfo = () => {
   // const previewImageList = useRef<string[]>([]);
 
   // 칵테일 리스트 관련
-  const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
+  // const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
+  const registCocktailRef = useRef<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
   // const cocktailList = useRef<ManagementCocktailProps[]>([]);
   // const showList = useRef<string[]>([]);
-
-  useEffect(() => {
-    console.log(showList);
-  }, [showList]);
 
   const handleSubmit = () => {
     const { ...data } = {
@@ -70,7 +66,7 @@ export const ManageInfo = () => {
       barOpeningTime: barOpeningTime.current,
       barDetail: barDetail.current,
       barPics: barPics,
-      cocktailList: cocktailList,
+      cocktailList: registCocktailRef.current,
     };
 
     console.log(data);
@@ -102,14 +98,6 @@ export const ManageInfo = () => {
     setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
     // barPics.current = barPics.current.filter((_, idx) => idx !== deleteItemIdx);
     // previewImageList.current = previewImageList.current.filter((_, idx) => idx !== deleteItemIdx);
-  };
-
-  // 칵테일삭제
-  const deleteCocktailList = (deleteItemIdx: number) => {
-    const filterCoctailList = cocktailList.filter((_, idx) => deleteItemIdx !== idx);
-    setCocktailList(filterCoctailList);
-    // const filterCoctailList = cocktailList.current.filter((_, idx) => deleteItemIdx !== idx);
-    // cocktailList.current = filterCoctailList;
   };
 
   return (
@@ -262,29 +250,11 @@ export const ManageInfo = () => {
         </section>
         <section>
           <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
-          <CocktailList>
-            {cocktailList.map((item, idx) => {
-              return (
-                <CocktailItem
-                  key={`key_${idx}`}
-                  id={`cocktail_${idx}`}
-                  info={item}
-                  setShowList={showList}
-                  deleteCocktailList={() => deleteCocktailList(idx)}
-                />
-              );
-            })}
-          </CocktailList>
-          <AddCocktailButton type="button" onClick={() => setIsShowPopup(true)}>
-            <img src={addCocktailImg} alt="" />
-          </AddCocktailButton>
+          <RegistCocktailList registCocktailRef={registCocktailRef} />
         </section>
 
         <Button {...ButtonOptions} onClick={() => {}}></Button>
       </StyledForm>
-      {isShowPopup && (
-        <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={setCocktailList} />
-      )}
     </>
   );
 };
@@ -464,46 +434,4 @@ const PhotoList = styled.ul`
     height: 100%;
     object-fit: contain;
   }
-`;
-
-const CocktailList = styled.ul`
-  margin: 20px 0;
-
-  & li {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 8px 10px;
-    background-color: var(--gray100-color);
-    border-radius: 4px;
-    box-sizing: border-box;
-    overflow: hidden;
-
-    & > button {
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-
-      &:first-of-type {
-        float: left;
-      }
-
-      &:last-of-type {
-        float: right;
-      }
-    }
-
-    & > div {
-      margin: 29px 20px 12px;
-    }
-  }
-`;
-
-const AddCocktailButton = styled.button`
-  width: 100%;
-  height: 45px;
-  background-color: white;
-  border: 1px solid var(--gray200-color);
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
 `;
