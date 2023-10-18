@@ -63,7 +63,7 @@ const SearchList = () => {
                   key={`search_item_${idx}`}
                   typevariants={"primary"}
                   link={""}
-                  url={item?.barPics || item?.cocktailPicPath || ""}
+                  url={category !== "cocktail" ? item?.barPicsPath[0]?.barPicture : item?.cocktailPicPath}
                   name={itemName}
                 />
               );
