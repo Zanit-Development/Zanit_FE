@@ -6,6 +6,7 @@ import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 import SelectBox from "../../components/common/selectBox/SelectBox";
 import { getBarList } from "../../libs/apis/useCoupon";
 import { bar } from "../../libs/interface/interfaceUseCoupon";
+import { useLocation } from "react-router";
 
 export interface SelectType {
   selected: string;
@@ -19,6 +20,8 @@ export interface SelectType {
 type strArrayObj = { [prop: string]: string[] };
 
 const UseCoupon = () => {
+  const { state } = useLocation();
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<bar[]>([]);
 
@@ -36,7 +39,6 @@ const UseCoupon = () => {
     (async () => {
       const getResult: bar[] = await getBarList();
       setData(getResult);
-      console.log(getResult);
 
       const cocktailMap: strArrayObj = {};
       setBarNameList(getResult.map((item) => item.barName));
@@ -45,6 +47,8 @@ const UseCoupon = () => {
       });
       setCocktailNameList(cocktailMap);
       setIsLoading(false);
+
+      if (state) setSelectedBar(state);
     })();
   }, []);
 

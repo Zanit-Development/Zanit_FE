@@ -13,15 +13,21 @@ import BarInfomation from "../../components/barDetail/BarInfomation";
 import { getBarInfo } from "../../libs/apis/barDetail";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
 import { getLoginCookie } from "../../libs/utils/loginCookie";
+import { userInfoAPI } from "../../libs/apis/user";
+import { user } from "../../libs/interface/interfaceAPI";
 
 const Bardetail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [data, setData] = useState<BarProps>({} as BarProps);
+  const [user, setUser] = useState<user>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
+      if (getLoginCookie()) {
+        setUser(await userInfoAPI());
+      }
       setData(await getBarInfo(searchParams.get("barUid")!));
       setIsLoading(false);
     })();
@@ -33,11 +39,11 @@ const Bardetail = () => {
     value: "ZAN 쿠폰 사용하기",
     disabled: false,
     onClick() {
-      navigate("/myCoupon");
+      handleClick();
     },
   };
   /**
-   * 비회원 -> go to page [회원가입]
+   * 비회원 -> go to page [로그인]
 회원_구독x -> go to page [내 쿠폰함_구독x]
 회원_구독o_쿠폰 없음 -> go to page [내쿠폰함]
 회원_구독o_쿠폰 남음 -> go to page [쿠폰 사용하기]
@@ -45,11 +51,18 @@ const Bardetail = () => {
 
   const handleClick = () => {
     if (!getLoginCookie()) {
-      navigate("/signup");
+      navigate("/signIn");
+    } else if (!user?.subscribe || user?.couponUsed) {
+      navigate("/myCoupon");
     } else {
-      console.log("!");
+      navigate("/useCoupon", { state: data.barName });
     }
   };
+
+  // 테스트용
+  // const handleClick = () => {
+  //   navigate("/useCoupon", { state: data.barName });
+  // };
 
   return (
     <Layout>
