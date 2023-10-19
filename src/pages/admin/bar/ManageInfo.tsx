@@ -5,7 +5,7 @@
 import React, { useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
-import SelectBox from "../../../components/common/selectBox/SelectBox";
+import SelectBox from "../../../components/common/selectBox/SelectBoxCopy";
 import RegistCocktailList from "./RegistCocktailList";
 import { styled } from "styled-components";
 import { handleChangeInput } from "./handler";
@@ -74,6 +74,7 @@ export const ManageInfo = () => {
           <StyledSectionBarInfo>
             <StyledH3>위치</StyledH3>
             <SelectBox
+              name="location"
               styletype="secondary"
               selected={barLocation}
               setSelected={function (value: React.SetStateAction<string>): void {
@@ -148,10 +149,7 @@ export const ManageInfo = () => {
           {/** 9. 바 설명(barDetail) */}
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
-            <StyledTextarea
-              onChange={(e) => handleChangeInput(e, barDetail)}
-              placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
-            ></StyledTextarea>
+            <StyledTextarea onChange={(e) => handleChangeInput(e, barDetail)} placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
             <StyledSpan>
               {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}
