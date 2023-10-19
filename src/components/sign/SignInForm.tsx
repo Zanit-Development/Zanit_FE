@@ -9,8 +9,6 @@ import { signInAPI, userInfoAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
 import { getLoginCookie, removeLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
 import { formDataInstance } from "../../libs/apis/axios";
-import { useSetRecoilState } from "recoil";
-import { userInfoAtom } from "../../recoil/userInfoAtom";
 import icon_check from "../../assets/icon/check.svg";
 
 const interceptorHeader = () => {
@@ -34,8 +32,6 @@ export const SignInForm = () => {
   const [phoneNumError, setPhoneNumError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
-  const setUserInfo = useSetRecoilState(userInfoAtom);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -92,13 +88,6 @@ export const SignInForm = () => {
           }
           {
             location.pathname === `/signIn` && navigate("/home");
-          }
-
-          try {
-            const userInfoRes = await userInfoAPI();
-            setUserInfo(userInfoRes);
-          } catch (e) {
-            console.log(e);
           }
         }
 
