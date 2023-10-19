@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Layout from "../../../layouts/Layout";
 import Button from "../../../components/common/button/Button";
 import { css, styled } from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MEMBERSHIP, membershipOption } from "./membershipOption";
 import { MembershipType } from "../../../components/membership/MembershipType";
 import { handleMembershipType } from "./handleMembership";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
-import { defaultInstance } from "../../../libs/apis/axios";
 import { userInfoAPI } from "../../../libs/apis/user";
 
 export type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
@@ -21,13 +20,14 @@ export const Membership = () => {
     const type = membershipTypeRef.current;
 
     const userInfo = await userInfoAPI();
+    console.log(userInfo);
 
     if (userInfo === "로그인 x") {
       console.log("회원정보없음");
       return;
     }
 
-    const { userUid, userPhone } = userInfo.data;
+    const { userUid, userPhone } = userInfo;
 
     let bPayUrl;
 
@@ -43,8 +43,7 @@ export const Membership = () => {
         break;
     }
 
-    // window.location.href = bPayUrl;
-    console.log(bPayUrl);
+    window.open(bPayUrl);
   };
 
   return (
