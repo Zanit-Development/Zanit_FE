@@ -2,60 +2,37 @@
  * 바 관리 페이지
  */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import SelectBox from "../../../components/common/selectBox/SelectBox";
-import sampleImg from "../../../assets/admin_sample_img.svg";
-import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
-import Popup from "./Popup";
+import RegistCocktailList from "./RegistCocktailList";
 import { styled } from "styled-components";
 import { handleChangeInput } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
-import { CocktailItem } from "../../../components/admin/management/CocktailItem";
-import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
-import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
+import RegistBarImageList from "./RegistBarImageList";
 
 export const ManageInfo = () => {
   // 바 정보
-  // const [barName, setBarName] = useState("");
   const [barLocation, setBarLocation] = useState("");
-  // const [barLocationDetail, setBarLocationDetail] = useState("");
   const [barMood, setBarMood] = useState("");
   const [activatedCoverCharge, setActivatedCoverCharge] = useState(false);
-  // const [coverCharge, setCoverCharge] = useState("");
   const [activatedDiscount, setActivatedDiscount] = useState(false);
-  // const [discount, setDiscount] = useState("");
-  // const [barOpeningTime, setBarOpeningTime] = useState("");
-  // const [barDetail, setBarDetail] = useState("");
-  const [isShowPopup, setIsShowPopup] = useState(false); // popup
 
   const barName = useRef("");
-  // const barLocation = useRef("");
   const barLocationDetail = useRef("");
-  // const barMood = useRef("");
-  // const activatedCoverCharge = useRef(false);
   const coverCharge = useRef("");
-  // const activatedDiscount = useRef(false);
   const discount = useRef("");
   const barOpeningTime = useRef("");
   const barDetail = useRef("");
 
   // 바 이미지 관련
-  const [barPics, setBarPics] = useState<File[]>([]);
-  const [previewImageList, setPreviewImageList] = useState<string[]>([]);
-  // const barPics = useRef<File[]>([]);
-  // const previewImageList = useRef<string[]>([]);
+  const barPicsRef = useRef<File[]>([]);
 
   // 칵테일 리스트 관련
-  const [cocktailList, setCocktailList] = useState<ManagementCocktailProps[]>([]);
+  const registCocktailRef = useRef<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
-  // const cocktailList = useRef<ManagementCocktailProps[]>([]);
-  // const showList = useRef<string[]>([]);
-
-  useEffect(() => {
-    console.log(showList);
-  }, [showList]);
 
   const handleSubmit = () => {
     const { ...data } = {
@@ -69,47 +46,11 @@ export const ManageInfo = () => {
       discount: discount.current,
       barOpeningTime: barOpeningTime.current,
       barDetail: barDetail.current,
-      barPics: barPics,
-      cocktailList: cocktailList,
+      barPics: barPicsRef.current,
+      cocktailList: registCocktailRef.current,
     };
 
     console.log(data);
-  };
-
-  // 바 사진
-  const handleBarPics = (e: INPUT_EVENT) => {
-    const selectedImage = e.target.files!;
-
-    // 미리보기 생성
-    const selectPreviewImages = [...previewImageList];
-    // const selectPreviewImages = [...previewImageList.current];
-
-    for (let i = 0; i < selectedImage.length; i++) {
-      let selectImageUrl = URL.createObjectURL(selectedImage[i]);
-      selectPreviewImages.push(selectImageUrl);
-    }
-
-    setBarPics([...barPics, ...Array.from(selectedImage)].slice(0, 4));
-    setPreviewImageList(selectPreviewImages.slice(0, 4));
-    // barPics.current = [...barPics.current, ...Array.from(selectedImage)].slice(0, 4);
-    // previewImageList.current = selectPreviewImages.slice(0, 4);
-  };
-
-  // 바 미리보기 삭제
-  const deletePreviewImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const deleteItemIdx = parseInt(e.currentTarget.value);
-    setBarPics(barPics.filter((_, idx) => idx !== deleteItemIdx));
-    setPreviewImageList(previewImageList.filter((_, idx) => idx !== deleteItemIdx));
-    // barPics.current = barPics.current.filter((_, idx) => idx !== deleteItemIdx);
-    // previewImageList.current = previewImageList.current.filter((_, idx) => idx !== deleteItemIdx);
-  };
-
-  // 칵테일삭제
-  const deleteCocktailList = (deleteItemIdx: number) => {
-    const filterCoctailList = cocktailList.filter((_, idx) => deleteItemIdx !== idx);
-    setCocktailList(filterCoctailList);
-    // const filterCoctailList = cocktailList.current.filter((_, idx) => deleteItemIdx !== idx);
-    // cocktailList.current = filterCoctailList;
   };
 
   return (
@@ -137,7 +78,6 @@ export const ManageInfo = () => {
               selected={barLocation}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setBarLocation(value);
-                // barLocation.current = value.toString();
               }}
               data={["#중랑구 ", "#서대문구 ", "#중구 "]}
               placeholder={"선택"}
@@ -153,7 +93,6 @@ export const ManageInfo = () => {
               selected={barMood}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setBarMood(value);
-                // barMood.current = value.toString();
               }}
               data={["#캐주얼한", "#고급스러운", "#신나는"]}
               placeholder={"선택"}
@@ -168,7 +107,6 @@ export const ManageInfo = () => {
               selected={activatedCoverCharge ? "있음" : "없음"}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setActivatedCoverCharge(value === "있음" ? true : false);
-                // activatedCoverCharge.current = value === "있음" ? true : false;
               }}
               data={["있음", "없음"]}
               placeholder={"선택"}
@@ -184,7 +122,6 @@ export const ManageInfo = () => {
               selected={activatedDiscount ? "있음" : "없음"}
               setSelected={function (value: React.SetStateAction<string>): void {
                 setActivatedDiscount(value === "있음" ? true : false);
-                // activatedDiscount.current = value === "있음" ? true : false;
               }}
               data={["있음", "없음"]}
               placeholder={"선택"}
@@ -222,69 +159,16 @@ export const ManageInfo = () => {
           </StyledSectionsBarDesc>
           {/** 10. 바 사진(barPics) */}
           <StyledSectionsBarDesc>
-            <StyledH3>공간 사진</StyledH3>
-            <StyledP>
-              {`1) 공간 외부 2) 내부 전경 3) 좌석 배치
-              4) 칵테일 메뉴가 적힌 메뉴판 사진을 업로드 해주세요
-            `}
-              <span>{"(가로 세로 비율 1:1 권장)"}</span>
-            </StyledP>
-            <PhotoList>
-              {previewImageList.map((item, idx) => {
-                return (
-                  <li key={`barImage_${idx}`}>
-                    <button type="button" value={idx} onClick={deletePreviewImage}>
-                      <svg width={10} height={10}>
-                        <line x1={1} y1={4.5} x2={9} y2={4.5} style={{ stroke: "black", strokeWidth: "2" }} />
-                      </svg>
-                    </button>
-                    <img src={item} alt={`${idx + 1}번째 바 이미지`} />
-                  </li>
-                );
-              })}
-              {previewImageList.length < 4 && (
-                <li key="item_1">
-                  <input
-                    type="file"
-                    onChange={handleBarPics}
-                    accept="image/*"
-                    id="image_1"
-                    multiple
-                    style={{ display: "none" }}
-                  />
-                  <label htmlFor="image_1">
-                    <img src={sampleImg} alt="" />
-                  </label>
-                </li>
-              )}
-            </PhotoList>
+            <RegistBarImageList barPicsRef={barPicsRef} />
           </StyledSectionsBarDesc>
         </section>
         <section>
           <StyledH3>칵테일 등록 &#40;최대 5잔&#41;</StyledH3>
-          <CocktailList>
-            {cocktailList.map((item, idx) => {
-              return (
-                <CocktailItem
-                  key={`key_${idx}`}
-                  id={`cocktail_${idx}`}
-                  info={item}
-                  setShowList={showList}
-                  deleteCocktailList={() => deleteCocktailList(idx)}
-                />
-              );
-            })}
-          </CocktailList>
-          <AddCocktailButton type="button" onClick={() => setIsShowPopup(true)}>
-            <img src={addCocktailImg} alt="" />
-          </AddCocktailButton>
+          <RegistCocktailList registCocktailRef={registCocktailRef} />
         </section>
 
         <Button {...ButtonOptions} onClick={() => {}}></Button>
       </StyledForm>
-      {isShowPopup && (
-        <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={setCocktailList} />
-      )}
     </>
   );
 };
@@ -295,7 +179,7 @@ const StyledForm = styled.form`
   }
 `;
 
-const StyledH3 = styled.h3`
+export const StyledH3 = styled.h3`
   min-width: 60px;
   font-family: var(--font--Bold);
   font-size: 0.875rem;
@@ -403,107 +287,4 @@ const StyledTextarea = styled.textarea`
   &:not(:placeholder-shown) + span {
     display: none;
   }
-`;
-
-const StyledP = styled.p`
-  margin: 10px 0;
-  font-family: var(--font--Medium);
-  font-size: 0.8125rem;
-  line-height: 1rem;
-  color: var(--gray400-color);
-  white-space: pre-line;
-
-  & > span {
-    color: var(--gray300-color);
-  }
-`;
-
-const PhotoList = styled.ul`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
-  margin: 20px 0;
-
-  & li {
-    position: relative;
-    width: 70px;
-    height: 70px;
-    border: 1px solid var(--gray200-color);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  & li > button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    cursor: pointer;
-
-    & > img {
-      width: 8px;
-    }
-  }
-
-  & label {
-    display: block;
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    cursor: pointer;
-  }
-
-  & img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-`;
-
-const CocktailList = styled.ul`
-  margin: 20px 0;
-
-  & li {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 8px 10px;
-    background-color: var(--gray100-color);
-    border-radius: 4px;
-    box-sizing: border-box;
-    overflow: hidden;
-
-    & > button {
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-
-      &:first-of-type {
-        float: left;
-      }
-
-      &:last-of-type {
-        float: right;
-      }
-    }
-
-    & > div {
-      margin: 29px 20px 12px;
-    }
-  }
-`;
-
-const AddCocktailButton = styled.button`
-  width: 100%;
-  height: 45px;
-  background-color: white;
-  border: 1px solid var(--gray200-color);
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
 `;

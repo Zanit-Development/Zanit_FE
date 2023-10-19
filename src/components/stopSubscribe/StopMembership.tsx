@@ -43,7 +43,7 @@ export const StopMembership = () => {
       {showPopupComplete && (
         <PopupComplete
           closeModal={() => {
-            navigate("/home");
+            navigate("/");
           }}
         />
       )}
