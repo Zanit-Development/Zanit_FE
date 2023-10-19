@@ -8,6 +8,7 @@ import { MembershipType } from "../../../components/membership/MembershipType";
 import { handleMembershipType } from "./handleMembership";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { defaultInstance } from "../../../libs/apis/axios";
+import { userInfoAPI } from "../../../libs/apis/user";
 
 export type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
 
@@ -19,19 +20,14 @@ export const Membership = () => {
     e.preventDefault();
     const type = membershipTypeRef.current;
 
-    let userInfo;
-    try {
-      userInfo = await defaultInstance.get("/userInfo");
-    } catch (e) {
-      console.log(e);
-    }
+    const userInfo = await userInfoAPI();
 
-    if (!userInfo?.data.userUid) {
+    if (userInfo === "로그인 x") {
       console.log("회원정보없음");
       return;
     }
 
-    const { userUid, userPhone } = userInfo.data;
+    const { userUid, userPhone } = userInfo;
 
     let bPayUrl;
 
@@ -64,21 +60,9 @@ export const Membership = () => {
       <form onSubmit={handleSubmit}>
         <MembershipContainer>
           <ul>
-            <MembershipType
-              key={"membershipType1"}
-              {...MEMBERSHIP.TYPE1}
-              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-            />
-            <MembershipType
-              key={"membershipType2"}
-              {...MEMBERSHIP.TYPE2}
-              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-            />
-            <MembershipType
-              key={"membershipType3"}
-              {...MEMBERSHIP.TYPE3}
-              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-            />
+            <MembershipType key={"membershipType1"} {...MEMBERSHIP.TYPE1} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
+            <MembershipType key={"membershipType2"} {...MEMBERSHIP.TYPE2} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
+            <MembershipType key={"membershipType3"} {...MEMBERSHIP.TYPE3} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
           </ul>
           <span>
             쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
