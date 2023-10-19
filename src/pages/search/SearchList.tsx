@@ -56,14 +56,20 @@ const SearchList = () => {
       <ListContainer>
         {filteredList ? (
           filteredList.length ? (
-            filteredList.map((item: any, idx: number) => {
-              const itemName = item?.barName || item?.cocktailName;
+            filteredList?.map((item: any, idx: number) => {
+              const itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
               return (
                 <Item
                   key={`search_item_${idx}`}
                   typevariants={"primary"}
                   link={""}
-                  url={category !== "cocktail" ? item?.barPicsPath[0]?.barPicture : item?.cocktailPicPath}
+                  url={
+                    category !== "cocktail"
+                      ? item?.barPicsPath?.length
+                        ? item?.barPicsPath[0].barPicture
+                        : undefined
+                      : item?.cocktailPicPath || undefined
+                  }
                   name={itemName}
                 />
               );
