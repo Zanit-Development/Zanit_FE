@@ -27,7 +27,7 @@ export const Membership = () => {
       return;
     }
 
-    const { userUid, userPhone } = userInfo;
+    const { userUid, userPhone } = userInfo.data;
 
     let bPayUrl;
 
@@ -43,7 +43,7 @@ export const Membership = () => {
         break;
     }
 
-    window.location.href = bPayUrl;
+    // window.location.href = bPayUrl;
     console.log(bPayUrl);
   };
 
@@ -60,9 +60,21 @@ export const Membership = () => {
       <form onSubmit={handleSubmit}>
         <MembershipContainer>
           <ul>
-            <MembershipType key={"membershipType1"} {...MEMBERSHIP.TYPE1} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
-            <MembershipType key={"membershipType2"} {...MEMBERSHIP.TYPE2} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
-            <MembershipType key={"membershipType3"} {...MEMBERSHIP.TYPE3} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
+            <MembershipType
+              key={"membershipType1"}
+              {...MEMBERSHIP.TYPE1}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
+            <MembershipType
+              key={"membershipType2"}
+              {...MEMBERSHIP.TYPE2}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
+            <MembershipType
+              key={"membershipType3"}
+              {...MEMBERSHIP.TYPE3}
+              onChange={(e) => handleMembershipType(e, membershipTypeRef)}
+            />
           </ul>
           <span>
             쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
