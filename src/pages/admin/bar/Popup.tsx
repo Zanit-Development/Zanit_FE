@@ -1,39 +1,54 @@
-import React, { useEffect, useState } from "react";
+/**
+ * 바 칵테일 등록, 수정 팝업
+ */
+
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Tag from "../../search/Tag";
 import closeButton from "../../../assets/icon/icon_close.svg";
 import baseImg from "../../../assets/icon/icon_empty_Image.svg";
 import Button from "../../../components/common/button/Button";
-import { BUTTON_EVENT, INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
 import { ManagementCocktailProps } from "../../../libs/interface/interfaceCocktail";
-import { useRecoilValue } from "recoil";
-import { adminPopupTagAtom } from "../../../recoil/adminAtom";
+import { cocktailTagOption } from "../../search/options";
+import { useRecoilValue, useResetRecoilState, useRecoilState } from "recoil";
+import { selectedTagState } from "../../../recoil/SearchAtom";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 export type SelectPopupTagOptions = "입문자용" | "캐주얼드링커용" | "헤비드링커용";
 
 const Popup = ({ ...props }) => {
-  const tag = useRecoilValue<SelectPopupTagOptions>(adminPopupTagAtom);
-  const [cocktailDetail, setCocktailDetail] = useState("");
-  const [cocktailName, setCocktailName] = useState("");
+  const tagList = cocktailTagOption;
+  const selectedTag = useRecoilValue(selectedTagState);
+  const resetTag = useResetRecoilState(selectedTagState);
+  const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
+  // const [cocktailDetail, setCocktailDetail] = useState("");
+  // const [cocktailName, setCocktailName] = useState("");
   const [cocktailImg, setCocktailImg] = useState<File>();
   const [previewImg, setPreviewImg] = useState("");
-  const [recoUser, setRecoUser] = useState(0);
+  // const [recoUser, setRecoUser] = useState(0);
+
+  const cocktailDetail = useRef("");
+  const cocktailName = useRef("");
+  const recoUser = useRef(0);
 
   useEffect(() => {
-    switch (tag) {
+    switch (selectedTag) {
       case "입문자용":
-        setRecoUser(0);
+        recoUser.current = 0;
         break;
       case "캐주얼드링커용":
-        setRecoUser(1);
+        recoUser.current = 1;
         break;
       case "헤비드링커용":
-        setRecoUser(2);
+        recoUser.current = 2;
         break;
     }
-  }, [tag]);
+  }, [selectedTag]);
 
-  const tagOption = ["입문자용", "캐주얼드링커용", "헤비드링커용"];
+  const setInputValue = (e: React.ChangeEvent<any>, type: React.MutableRefObject<string>) => {
+    type.current = e.target.value;
+  };
 
   const addImage = (e: INPUT_EVENT) => {
     const inputImage = e.target.files;
@@ -50,7 +65,7 @@ const Popup = ({ ...props }) => {
     } else if (!cocktailImg) {
       console.log("칵테일 이미지 미등록");
       return false;
-    } else if (!tag) {
+    } else if (!selectedTag) {
       console.log("칵테일 태그 미선택");
       return false;
     } else if (!cocktailDetail) {
@@ -59,14 +74,15 @@ const Popup = ({ ...props }) => {
     }
 
     const data: ManagementCocktailProps = {
-      cocktailDetail: cocktailDetail,
-      cocktailName: cocktailName,
+      cocktailDetail: cocktailDetail.current,
+      cocktailName: cocktailName.current,
       cocktailPicture: cocktailImg,
       cocktailPreview: previewImg,
-      recoUser: recoUser,
+      recoUser: recoUser.current,
     };
 
-    props.setCocktailList([...props.cocktailList, data]);
+    props.registCocktailRef.current = [...registCocktailList, data];
+    setRegistCocktailList([...registCocktailList, data]);
 
     return true;
   };
@@ -76,7 +92,12 @@ const Popup = ({ ...props }) => {
       <PopupBg>
         <PopupHeader>
           <h2>칵테일 정보</h2>
-          <button onClick={() => props.setIsShowPopup(false)}>
+          <button
+            onClick={() => {
+              resetTag();
+              props.setIsShowPopup(false);
+            }}
+          >
             <img src={closeButton} alt="팝업 닫기" />
           </button>
         </PopupHeader>
@@ -100,22 +121,20 @@ const Popup = ({ ...props }) => {
             </ImageSection>
             <TagSection>
               <span>어떤 고객을 위한 칵테일인가요?</span>
-              <Tag itemlist={tagOption} typevariants={"tertiary"} />{" "}
+              <Tag itemlist={tagList} typevariants={"secondary"} />{" "}
             </TagSection>
           </div>
           <InputSection>
             <input
               type="text"
               placeholder="칵테일의 이름을 입력해주세요."
-              value={cocktailName}
-              onChange={(e) => setCocktailName(e.target.value)}
+              onChange={(e) => setInputValue(e, cocktailName)}
             />
             <textarea
               name="description"
               id="cocktail_description"
               placeholder="해당 칵테일 메뉴에 대한 설명을 적어주세요. (최대 30자)"
-              value={cocktailDetail}
-              onChange={(e) => setCocktailDetail(e.target.value)}
+              onChange={(e) => setInputValue(e, cocktailDetail)}
             ></textarea>
             <span>Ex. 새콤한 맛을 좋아하던 헤밍웨이가 즐겨 마신 칵테일</span>
           </InputSection>
@@ -125,7 +144,8 @@ const Popup = ({ ...props }) => {
               sizevariants={"small"}
               value={"등록하기"}
               disabled={false}
-              onClick={function (e: BUTTON_EVENT): void {
+              onClick={() => {
+                resetTag();
                 const result = addCocktail();
                 result && props.setIsShowPopup(false);
               }}

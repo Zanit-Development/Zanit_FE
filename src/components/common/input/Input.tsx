@@ -4,7 +4,7 @@ import { InputProps } from "../../../libs/interface/interfaceCommon";
 import { StyledInputOption } from "./inputOptions";
 
 const Input = ({ typevariants = "basic", sizevariants = "large", ...props }: InputProps) => {
-  return <StyledInput typevariants={typevariants} sizevariants={sizevariants} {...props} />;
+  return <StyledInput autoComplete="off" typevariants={typevariants} sizevariants={sizevariants} {...props} />;
 };
 
 export default Input;

@@ -1,9 +1,7 @@
-export const handleCocktailList = (checked: boolean, setChecked: Function, setShowList: Function) => {
+export const handleCocktailList = (
+  checked: boolean,
+  setChecked: Function,
+  setShowList: React.MutableRefObject<string>
+) => {
   setChecked(!checked);
-
-  if (checked) {
-    setShowList();
-  } else {
-    setShowList();
-  }
 };

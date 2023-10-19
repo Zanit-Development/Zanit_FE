@@ -22,7 +22,6 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
   const instance = axios.create({
     baseURL: url,
     headers: {
-      Authorization: `Bearer ${getLoginCookie()}`,
       "X-AUTH-TOKEN": getLoginCookie(),
       "Content-Type": "application/json",
     },
@@ -31,6 +30,7 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
 
   instance.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    config.headers["X-AUTH-TOKEN"] = getLoginCookie();
     return config;
   });
 

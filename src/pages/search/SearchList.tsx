@@ -15,12 +15,10 @@ import {
   inputValueState,
   listFilterState,
   searchBarListState,
-  selectedTagState,
 } from "../../recoil/SearchAtom";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
-  const tag = useRecoilValue(selectedTagState);
   const category = useRecoilValue(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
@@ -35,8 +33,16 @@ const SearchList = () => {
     (async () => {
       setIsLoading(true);
 
-      setSearchBarList(await listGenerator.barListGenerator(inputValue));
-      setCocktailList(await listGenerator.cocktailListGenerator());
+      // setSearchBarList(await listGenerator.barListGenerator(inputValue));
+      // setCocktailList(await listGenerator.cocktailListGenerator());
+
+      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then(
+        (response) => {
+          setSearchBarList(response[0]);
+          setCocktailList(response[1]);
+        }
+      );
+
       if (category !== "barName") {
         setFilter(category);
       }
@@ -50,14 +56,20 @@ const SearchList = () => {
       <ListContainer>
         {filteredList ? (
           filteredList.length ? (
-            filteredList.map((item: any, idx: number) => {
-              const itemName = item?.barName || item?.cocktailName;
+            filteredList?.map((item: any, idx: number) => {
+              const itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
               return (
                 <Item
                   key={`search_item_${idx}`}
                   typevariants={"primary"}
                   link={""}
-                  url={item?.barPics || item?.cocktailPicPath || ""}
+                  url={
+                    category !== "cocktail"
+                      ? item?.barPicsPath?.length
+                        ? item?.barPicsPath[0].barPicture
+                        : undefined
+                      : item?.cocktailPicPath || undefined
+                  }
                   name={itemName}
                 />
               );
