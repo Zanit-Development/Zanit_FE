@@ -43,7 +43,7 @@ export const Membership = () => {
         break;
     }
 
-    // window.location.href = bPayUrl;
+    window.location.href = bPayUrl;
     console.log(bPayUrl);
   };
 
