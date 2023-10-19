@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Layout from "../../../layouts/Layout";
 import Button from "../../../components/common/button/Button";
 import { css, styled } from "styled-components";
@@ -7,6 +7,7 @@ import { MEMBERSHIP, membershipOption } from "./membershipOption";
 import { MembershipType } from "../../../components/membership/MembershipType";
 import { handleMembershipType } from "./handleMembership";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
+import { defaultInstance } from "../../../libs/apis/axios";
 
 export type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
 
@@ -14,28 +15,39 @@ export const Membership = () => {
   const membershipTypeRef = useRef<MEMBERSHIP_TYPE>("TYPE1");
   const [isMember, setIsMember] = useState(false);
 
-  const handleSubmit = (e: FORM_EVENT) => {
+  const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
     const type = membershipTypeRef.current;
-    // userinfo 불러오기
-    // const userInfo = ;
-    const userUid = "임시UID"; // userInfo.userUid
-    const userPhone = "임시PHONE"; // userInfo.userPhone
+
+    let userInfo;
+    try {
+      userInfo = await defaultInstance.get("/userInfo");
+    } catch (e) {
+      console.log(e);
+    }
+
+    if (!userInfo?.data.userUid) {
+      console.log("회원정보없음");
+      return;
+    }
+
+    const { userUid, userPhone } = userInfo.data;
+
     let bPayUrl;
 
     switch (type) {
       case "TYPE1":
-        bPayUrl = `https://l.bootpay.co.kr/l/X7INUc?userUid=${userUid}&userPhone=${userPhone}`;
+        bPayUrl = `https://l.bootpay.co.kr/l/X7Ifa8?userUid=${userUid}&userPhone=${userPhone}`;
         break;
       case "TYPE2":
         bPayUrl = `https://l.bootpay.co.kr/l/X7IzOw?userUid=${userUid}&userPhone=${userPhone}`;
         break;
       case "TYPE3":
-        bPayUrl = `https://l.bootpay.co.kr/l/X7Ifa8?userUid=userUid=${userUid}&userPhone=${userPhone}`;
+        bPayUrl = `https://l.bootpay.co.kr/l/X7INUc?userUid=${userUid}&userPhone=${userPhone}`;
         break;
     }
 
-    window.location.href = bPayUrl;
+    // window.location.href = bPayUrl;
     console.log(bPayUrl);
   };
 
