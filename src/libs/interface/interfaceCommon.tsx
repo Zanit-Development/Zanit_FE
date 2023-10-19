@@ -38,7 +38,7 @@ export interface InputProps {
   minlength?: number;
   maxlength?: number;
   disabled?: boolean;
-  onChange: (e: INPUT_EVENT) => void;
+  onChange?: (e: INPUT_EVENT) => void;
 }
 
 export interface TagProps {
