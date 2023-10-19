@@ -8,6 +8,14 @@ import { getBarList } from "../../libs/apis/useCoupon";
 import { bar } from "../../libs/interface/interfaceUseCoupon";
 import { useLocation } from "react-router";
 
+export interface SelectTypeCopy {
+  name: string;
+  data: string[];
+  placeholder: string;
+  nulltext: string;
+  styletype?: "primary" | "secondary";
+}
+
 export interface SelectType {
   selected: string;
   setSelected: React.Dispatch<React.SetStateAction<string>>;
