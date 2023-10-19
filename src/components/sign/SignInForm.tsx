@@ -87,7 +87,7 @@ export const SignInForm = () => {
             location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
           }
           {
-            location.pathname === `/signIn` && navigate("/home");
+            location.pathname === `/signIn` && navigate("/");
           }
         }
 
