@@ -31,7 +31,7 @@ const Bardetail = () => {
       setData(await getBarInfo(searchParams.get("barUid")!));
       setIsLoading(false);
     })();
-  }, []);
+  }, [searchParams]);
 
   const btnOption: ButtonProps = {
     typevariants: "fill",

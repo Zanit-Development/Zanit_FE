@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
-import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
 import Button from "../common/button/Button";
 
