@@ -4,9 +4,9 @@ import { css, styled } from "styled-components";
 
 import ArrowIcon from "../../../assets/icon/icon_arrow_down.svg";
 import SelectItem from "./SelectItem";
-import { SelectType, SelectTypeCopy } from "../../../pages/myCoupon/UseCoupon";
+import { SelectType, FormSelectType } from "../../../pages/myCoupon/UseCoupon";
 
-const SelectBox = ({ name, styletype = "primary", data, placeholder, nulltext }: SelectTypeCopy) => {
+const FormSelectBox = ({ name, styletype = "primary", data, placeholder, nulltext }: FormSelectType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<any>("");
   const selectRef = useRef<HTMLDivElement | null>(null);
@@ -56,7 +56,7 @@ const SelectBox = ({ name, styletype = "primary", data, placeholder, nulltext }:
   );
 };
 
-export default SelectBox;
+export default FormSelectBox;
 
 type styleType = "primary" | "secondary";
 

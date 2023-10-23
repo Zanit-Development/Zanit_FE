@@ -8,7 +8,7 @@ import { getBarList } from "../../libs/apis/useCoupon";
 import { bar } from "../../libs/interface/interfaceUseCoupon";
 import { useLocation } from "react-router";
 
-export interface SelectTypeCopy {
+export interface FormSelectType {
   name: string;
   data: string[];
   placeholder: string;
