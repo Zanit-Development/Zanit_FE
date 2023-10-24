@@ -1,5 +1,6 @@
 // 유저 로그인, 회원가입 API
 
+import { user } from "../interface/interfaceAPI";
 import { getLoginCookie } from "../utils/loginCookie";
 import { authInstance, defaultInstance, formDataInstance } from "./axios";
 
@@ -66,7 +67,7 @@ export const userInfoAPI = async () => {
     if (getLoginCookie()) {
       const res = await authInstance.get("/userInfo");
       console.log(res);
-      return res.data;
+      return res.data as user;
     } else {
       return "로그인 x";
     }

@@ -33,11 +33,11 @@ export interface barPicsPathInterface {
 // 업데이트 필요
 export interface user {
   couponUsed: boolean;
-  subScribeType: null;
-  subsEndDate: null;
-  subsStartDate: null;
+  subScribeType: string | null;
+  subsEndDate: string | null;
+  subsStartDate: string | null;
   subscribe: boolean;
-  subscribeName: null;
+  subscribeName: string | null;
   userGender: boolean;
   userName: string;
   userPhone: string;
