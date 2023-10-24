@@ -82,17 +82,21 @@ const UseCoupon = () => {
     nulltext: "칵테일 선택하기",
   };
 
-  return isLoading ? (
-    <div>로딩</div>
-  ) : (
+  return (
     <Layout>
       <MainContainer>
         <h2>쿠폰 사용하기</h2>
-        <h3>어떤 바를 방문하셨나요?</h3>
-        <SelectBox {...BarOptions} />
-        <h3>어떤 칵테일을 마셨나요?</h3>
-        <SelectBox {...CocktailOptions} />
-        <ShowPopupButton option={selectedOption} />
+        {isLoading ? (
+          <div>로딩</div>
+        ) : (
+          <>
+            <h3>어떤 바를 방문하셨나요?</h3>
+            <SelectBox {...BarOptions} />
+            <h3>어떤 칵테일을 마셨나요?</h3>
+            <SelectBox {...CocktailOptions} />
+            <ShowPopupButton option={selectedOption} />
+          </>
+        )}
       </MainContainer>
     </Layout>
   );

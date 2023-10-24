@@ -31,13 +31,13 @@ export interface InputProps {
   typevariants: INPUT_TYPE_VARIANTS;
   sizevariants: INPUT_SIZE_VARIANTS;
   type: string;
-  value: string;
+  value?: string;
   placeholder: string;
   className?: string;
   id?: string;
   minlength?: number;
   maxlength?: number;
-  disabled?: boolean
+  disabled?: boolean;
   onChange: (e: INPUT_EVENT) => void;
 }
 
