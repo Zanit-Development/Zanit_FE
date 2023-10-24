@@ -4,10 +4,6 @@ import { styled } from "styled-components";
 
 import Button from "../../components/common/button/Button";
 import ManualPaymentCoupon from "./ManualPaymentBtn";
-
-import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
-
 import coupon_bg from "../../assets/coupon_bg.svg";
 import coupon_bg_used from "../../assets/coupon_bg_used.svg";
 import icon_store from "../../assets/icon/icon_store.svg";
@@ -16,42 +12,58 @@ import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import icon_used_coupon from "../../assets/icon/icon_used_coupon.svg";
 import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
 import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
-import { useRecoilValue } from "recoil";
+import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
+import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
-const HasCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
-  const expDate = new Date(couponInfo.expDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
+interface HasCouponProps {
+  couponInfo: CouponInfoType;
+  userInfo: UserInfoType;
+}
 
-  const auto = false;
-  let subscribeStart = "2023.08.28";
-  // 구독 시작일 필요
-  // 쿠폰 만료일
-  // modifiedDate가 다음 쿠폰 오픈 기간? X => 이건 쿠폰 만료일 +1 하면되나
-  // 자동결제 유저인지, 수동결제 유저인지 -> auto
+const HasCoupon = ({ couponInfo, userInfo }: HasCouponProps) => {
+  const subscribeStart = new Date(userInfo.subsStartDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
+  const subscribeEnd = new Date(userInfo.subsEndDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
 
-  let possibility = "9월 3일";
-  let impossibility = "9월 4일";
+  // 이번 쿠폰 만료일
+  const expDate = new Date(couponInfo.expDate);
+  const expDateFormatted = expDate.toLocaleDateString("ko-KR", { month: "long", day: "numeric" });
 
-  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${impossibility}에 만나요` : `이 쿠폰은 ${possibility}까지\n사용할 수 있어요`;
+  // 다음 쿠폰 날짜?
+  const subsEndDate = new Date(couponInfo.expDate);
+  subsEndDate.setDate(subsEndDate.getDate() + 1);
+  const nextCouponDateFormatted = subsEndDate.toLocaleDateString("ko-KR", { month: "long", day: "numeric" });
+
+  // const auto = userInfo.subScribeType;
+  const auto = true;
+
+  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${nextCouponDateFormatted}에 만나요` : `이 쿠폰은 ${expDateFormatted}까지\n사용할 수 있어요`;
 
   const navigate = useNavigate();
-  const useCouponPage = () => {
-    navigate("/useCoupon");
+
+  const btnOption: ButtonProps = {
+    typevariants: "fill",
+    sizevariants: "small",
+    value: "쿠폰 바로 사용하기",
+    disabled: couponInfo.used,
+    onClick() {
+      navigate("/useCoupon");
+    },
   };
 
   return (
     <>
       <CouponTopSection $auto={auto}>
         <p>
-          {couponInfo.userView.userName}님은 {subscribeStart}부터 구독중이예요
+          {userInfo.userName}님은 {subscribeStart}부터 구독중이예요
         </p>
-        {auto || <p>구독 만료일은 {expDate}까지예요</p>}
-        <CouponArticle $used={couponInfo.used}>
+        {auto || <p>구독 만료일은 {subscribeEnd}까지예요</p>}
+        <CouponArticle $used={userInfo.couponUsed}>
           <TextDiv>
             <strong>멤버십 이용중</strong>
             <p>{couponUsed}</p>
           </TextDiv>
         </CouponArticle>
-        {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} /> : <ManualPaymentCoupon />}
+        {auto ? <Button {...btnOption} /> : <ManualPaymentCoupon couponInfo={couponInfo} />}
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
@@ -87,7 +99,7 @@ const CouponTopSection = styled.section<{ $auto: boolean }>`
 const CouponArticle = styled.article<{ $used: boolean }>`
   width: 100%;
   height: 130px;
-  background: url(${(props) => (props.$used ? coupon_bg : coupon_bg_used)}) no-repeat center / 100%;
+  background: url(${(props) => (props.$used ? coupon_bg_used : coupon_bg)}) no-repeat center / 100%;
   position: relative;
   margin-bottom: 20px;
 `;

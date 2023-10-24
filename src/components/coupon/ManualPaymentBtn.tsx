@@ -4,23 +4,32 @@ import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import speech_bubble from "../../assets/speech_bubble.svg";
 import { useNavigate } from "react-router";
+import { ButtonProps } from "../../libs/interface/interfaceCommon";
+import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
 
-const ManualPaymentCoupon = () => {
+const ManualPaymentCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
   let benefit = "25%";
   const navigate = useNavigate();
-  const useCouponPage = () => {
-    navigate("/useCoupon");
-  };
 
   const subscribeStartPage = () => {
     navigate("/subscribe/start");
+  };
+
+  const btnOption: ButtonProps = {
+    typevariants: "fill",
+    sizevariants: "small",
+    value: "쿠폰 바로 사용하기",
+    disabled: couponInfo.used,
+    onClick() {
+      navigate("/useCoupon");
+    },
   };
 
   return (
     <>
       <ButtonDiv>
         <Button {...BUTTON_OPTIONS.EXTEND_COUPON} onClick={subscribeStartPage} />
-        <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} />
+        <Button {...btnOption} />
       </ButtonDiv>
       <BenefitNote>
         <p>{benefit} 저렴한 구독 방법이 있어요!</p>
