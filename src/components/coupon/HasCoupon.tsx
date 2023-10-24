@@ -34,7 +34,7 @@ const HasCoupon = ({ couponInfo, userInfo }: HasCouponProps) => {
   const nextCouponDateFormatted = subsEndDate.toLocaleDateString("ko-KR", { month: "long", day: "numeric" });
 
   // const auto = userInfo.subScribeType;
-  const auto = true;
+  const auto = false;
 
   const couponUsed = couponInfo.used ? `다음 쿠폰은\n${nextCouponDateFormatted}에 만나요` : `이 쿠폰은 ${expDateFormatted}까지\n사용할 수 있어요`;
 

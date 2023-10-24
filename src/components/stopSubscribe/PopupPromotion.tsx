@@ -8,8 +8,7 @@ import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 
 export const PopupPromotion = ({ ...props }) => {
-  const { closeModal, setShowPopupComplete, setIsModalOpen } = props;
-  const name = "name";
+  const { closeModal, setShowPopupComplete, setIsModalOpen, userInfo } = props;
 
   const showPopupComplete = () => {
     setShowPopupComplete(true);
@@ -21,12 +20,15 @@ export const PopupPromotion = ({ ...props }) => {
     navigate("/myCoupon");
   };
 
-  //TODO: 개발자 도구 모바일 환경에서 width 깨짐
+  const discount = 25;
+  const price = 29000;
+  const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   return (
     <Modal border={false} onClose={closeModal}>
       <H3>프로모션</H3>
       <PromotionInfo>
-        <p>지금 {name}님이 받고 있는 혜택을 확인해보세요 </p>
+        <p>지금 {userInfo.userName}님이 받고 있는 혜택을 확인해보세요 </p>
         <strong>
           현재 적용 중인
           <br />
@@ -34,20 +36,20 @@ export const PopupPromotion = ({ ...props }) => {
         </strong>
         <CouponImgArticle>
           <div className="topContent">
-            <span>X 멤버십</span>
-            <p>1개월 25% 할인</p>
+            <span>{userInfo.subscribeName}</span>
+            <p>1개월 {discount}% 할인</p>
           </div>
           <div className="bottomContent">
             <p>
               정상가
               <br />
-              39900원
+              39,900원
             </p>
             <img src={icon_arrow_promotion} alt="오른쪽으로 향한 화살표" />
             <p className="discount">
               할인가
               <br />
-              <strong>29900원</strong>
+              <strong>{formattedPrice}원</strong>
             </p>
           </div>
         </CouponImgArticle>
