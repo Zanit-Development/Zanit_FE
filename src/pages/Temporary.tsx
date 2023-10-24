@@ -8,7 +8,7 @@ export default function Temporary() {
       <Inner>
         <h3>유저페이지</h3>
         <hr />
-        <Link to="/home">홈화면</Link>
+        <Link to="/">홈화면</Link>
         <Link to="/signIn">로그인</Link>
         <Link to="/signUp">회원가입</Link>
         <Link to="/search">검색</Link>

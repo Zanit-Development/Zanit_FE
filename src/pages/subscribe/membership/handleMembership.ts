@@ -1,14 +1,14 @@
 import { INPUT_EVENT } from "../../../libs/interface/typeEvent";
+import { MEMBERSHIP_TYPE } from "./Membership";
 
-export const handleMembershipType = (e: INPUT_EVENT, setMembershipType: Function) => {
+export const handleMembershipType = (e: INPUT_EVENT, membershipTypeRef: React.MutableRefObject<MEMBERSHIP_TYPE>) => {
   const id = e.target.id;
-  console.log(id);
 
   if (id === "membership1") {
-    setMembershipType("TYPE1");
+    membershipTypeRef.current = "TYPE1";
   } else if (id === "membership2") {
-    setMembershipType("TYPE2");
+    membershipTypeRef.current = "TYPE2";
   } else if (id === "membership3") {
-    setMembershipType("TYPE3");
+    membershipTypeRef.current = "TYPE3";
   }
 };
