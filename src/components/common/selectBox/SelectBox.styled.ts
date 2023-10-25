@@ -1,3 +1,4 @@
+import React from "react";
 import { css, styled } from "styled-components";
 
 type styleType = "primary" | "secondary";

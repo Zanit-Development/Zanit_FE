@@ -5,7 +5,7 @@
 import React, { useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
-import FormSelectBox from "../../../components/common/selectBox/FormSelectBox";
+import { FormSelectBox } from "../../../components/common/selectBox/BaseSelectBox";
 import RegistCocktailList from "./RegistCocktailList";
 import RegistBarImageList from "./RegistBarImageList";
 import { styled } from "styled-components";
@@ -77,24 +77,24 @@ export const ManageInfo = () => {
           {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
           <StyledSectionBarInfo>
             <StyledH3>위치</StyledH3>
-            <FormSelectBox name="barLocation" styletype="secondary" data={["#중랑구 ", "#서대문구 ", "#중구 "]} placeholder={"선택"} nulltext={"선택"}></FormSelectBox>
+            <FormSelectBox name="barLocation" data={["중랑구 ", "서대문구 ", "중구 "]} placeholder={"선택"} nulltext={"선택"} />
             <Input {...BAR_INFO.LOCATION_DETAIL} />
           </StyledSectionBarInfo>
           {/** 3. 바 분위기(barMood) */}
           <StyledSectionBarInfo>
             <StyledH3>분위기</StyledH3>
-            <FormSelectBox name="barMood" styletype="secondary" data={["#캐주얼한", "#고급스러운", "#신나는"]} placeholder={"선택"} nulltext={"선택"}></FormSelectBox>
+            <FormSelectBox name="barMood" data={["#캐주얼한", "#고급스러운", "#신나는"]} placeholder={"선택"} nulltext={"선택"} />
           </StyledSectionBarInfo>
           {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <FormSelectBox name="activatedCoverCharge" styletype="secondary" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"}></FormSelectBox>
+            <FormSelectBox name="activatedCoverCharge" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
             <Input {...BAR_INFO.COVER_CHARGE} />
           </StyledSectionBarInfo>
           {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <FormSelectBox name="activatedDiscount" styletype="secondary" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"}></FormSelectBox>
+            <FormSelectBox name="activatedDiscount" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
             <Input {...BAR_INFO.DISCOUNT} />
           </StyledSectionBarInfo>
         </section>

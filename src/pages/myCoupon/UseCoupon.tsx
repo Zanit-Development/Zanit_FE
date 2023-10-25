@@ -3,26 +3,19 @@ import { styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 
-import SelectBox from "../../components/common/selectBox/SelectBox";
+import { SelectBox } from "../../components/common/selectBox/BaseSelectBox";
 import { getBarList } from "../../libs/apis/useCoupon";
 import { bar } from "../../libs/interface/interfaceUseCoupon";
 import { useLocation } from "react-router";
 
-export interface FormSelectType {
-  name: string;
-  data: string[];
-  placeholder: string;
-  nulltext: string;
-  styletype?: "primary" | "secondary";
-}
-
 export interface SelectType {
-  selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  name?: string;
   data: string[];
   placeholder: string;
   nulltext: string;
   styletype?: "primary" | "secondary";
+  selected?: string;
+  setSelected?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type strArrayObj = { [prop: string]: string[] };
