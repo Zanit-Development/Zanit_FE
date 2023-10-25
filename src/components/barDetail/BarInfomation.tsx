@@ -86,7 +86,6 @@ const BarInfoContainer = styled.section`
     gap: 12px;
 
     p {
-      /* font-size: 14px; */
       font-family: var(--font--Medium);
     }
   }
