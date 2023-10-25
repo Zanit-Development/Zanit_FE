@@ -8,18 +8,17 @@ import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/opt
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { signUpAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX } from "../../libs/constants/regex/regex";
+import { PopupSignUpSuccess } from "../modal/useSignPage/PopupSignUpSuccess";
 
-interface SignUpFormProps {
-  setIsModal: (value: boolean) => void;
-}
-
-export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
+export const SignUpForm = () => {
   const [signUpData, setSignUpData] = useState({
     userName: "",
     userPhone: "",
     userPassword: "",
     userPasswordCheck: "",
   });
+
+  const [isModal, setIsModal] = useState(false);
 
   const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -167,6 +166,7 @@ export const SignUpForm = ({ setIsModal }: SignUpFormProps) => {
       </CheckField>
 
       <Button {...BUTTON_OPTIONS.SIGNUP} />
+      {isModal && <PopupSignUpSuccess name={signUpData.userName} />}
     </Form>
   );
 };

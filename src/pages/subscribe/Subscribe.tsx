@@ -96,7 +96,7 @@ export default Subscribe;
 
 const Container = css`
   width: 100%;
-  padding: 10px 20px 40px;
+  padding: 0 20px 40px;
   box-sizing: border-box;
 
   & figure {

@@ -12,7 +12,6 @@ import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import BarInfomation from "../../components/barDetail/BarInfomation";
 import { getBarInfo } from "../../libs/apis/barDetail";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
-import { getLoginCookie } from "../../libs/utils/loginCookie";
 import { userInfoAPI } from "../../libs/apis/user";
 import { user } from "../../libs/interface/interfaceAPI";
 
@@ -20,14 +19,10 @@ const Bardetail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [data, setData] = useState<BarProps>({} as BarProps);
-  const [user, setUser] = useState<user>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      if (getLoginCookie()) {
-        setUser(await userInfoAPI());
-      }
       setData(await getBarInfo(searchParams.get("barUid")!));
       setIsLoading(false);
     })();
@@ -49,11 +44,12 @@ const Bardetail = () => {
 회원_구독o_쿠폰 남음 -> go to page [쿠폰 사용하기]
    */
 
-  const handleClick = () => {
-    if (!getLoginCookie()) {
+  const handleClick = async () => {
+    const user = (await userInfoAPI()) as user | string;
+    if (typeof user === "string") {
       // 비회원
       navigate("/signIn"); // 로그인 페이지로 이동
-    } else if (!user?.subscribe || !user?.couponUsed) {
+    } else if (user.subscribe || user.couponUsed) {
       // 회원이지만 구독하지 않았거나 쿠폰을 사용하지 않음
       navigate("/myCoupon"); // 내 쿠폰함 페이지로 이동
     } else {
