@@ -9,8 +9,6 @@ export const getBarInfo = async (barUid: string) => {
   try {
     const res: bar = (await defaultInstance.get(`/barInfo?barId=${barUid}`)).data;
 
-    console.log(res);
-
     const temp: BarProps = {
       barUid: res.barUid,
       barName: res.barName,
@@ -30,8 +28,6 @@ export const getBarInfo = async (barUid: string) => {
       price: "40000",
       openHours: "평일 8시~11시",
     };
-
-    console.log(temp);
 
     return temp;
   } catch (e) {

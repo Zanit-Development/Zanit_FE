@@ -14,6 +14,7 @@ export interface bar {
 
 export interface cocktail {
   barUid: number;
+  cocktailUid: number;
   cocktailName: string;
   cocktailDetail: string;
   recoUser: number;

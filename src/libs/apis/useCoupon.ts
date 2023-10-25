@@ -1,4 +1,4 @@
-import { defaultInstance } from "./axios";
+import { defaultInstance, authInstance } from "./axios";
 import { bar, cocktail } from "../interface/interfaceAPI";
 import barDummy2 from "../../assets/sample-img/bar2.png";
 
@@ -21,6 +21,7 @@ export const getBarList = async () => {
           })
           .map((cockItem: cocktail) => {
             return {
+              cocktailUid: cockItem.cocktailUid,
               cocktailName: cockItem.cocktailName,
               cocktailPrice: cockItem.cocktailPrice,
             };
@@ -34,9 +35,10 @@ export const getBarList = async () => {
   }
 };
 
-export const postUseCoupon = async () => {
+export const postUseCoupon = async (data: any) => {
   try {
-    const res = await defaultInstance.post("/couponUse");
+    console.log(data);
+    const res = await authInstance.post("/couponUse", data);
     console.log(res);
     return res;
   } catch (e) {
