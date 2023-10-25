@@ -7,9 +7,9 @@ import { useSelectBox } from "./useSelectBox";
 
 const BaseSelectBox = ({ name, styletype, data, placeholder, nulltext, selected, setSelected }: SelectType) => {
   const { isOpen, selectedOption, selectRef, selectOption, handleDropDown } = useSelectBox({
-    initialSelected: "initialValue", // 초기 선택값을 지정하세요.
-    preState: selected, // 선택값을 상태로 관리하는 경우 해당 상태를 여기에 지정하세요.
-    preSetState: setSelected, // 선택값을 상태로 관리하는 경우 해당 상태를 변경하는 함수를 여기에 지정하세요.)
+    initialSelected: "",
+    preState: selected,
+    preSetState: setSelected,
   });
 
   return (
