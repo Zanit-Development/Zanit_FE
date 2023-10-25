@@ -5,7 +5,8 @@ import { SelectType } from "../../../pages/myCoupon/UseCoupon";
 import { Arrow, Container, ItemList, SelectWrapper } from "./SelectBox.styled";
 import { useSelectBox } from "./useSelectBox";
 
-const BaseSelectBox = ({ name, styletype, data, placeholder, nulltext, selected, setSelected }: SelectType) => {
+const BaseSelectBox = (props: SelectType) => {
+  const { name, styletype, data, placeholder, nulltext, selected, setSelected } = props;
   const { isOpen, selectedOption, selectRef, selectOption, handleDropDown } = useSelectBox({
     initialSelected: "",
     preState: selected,
@@ -31,11 +32,13 @@ const BaseSelectBox = ({ name, styletype, data, placeholder, nulltext, selected,
   );
 };
 
-const SelectBox = ({ selected, setSelected, data, placeholder, nulltext }: SelectType) => {
+const SelectBox = (props: SelectType) => {
+  const { selected, setSelected, data, placeholder, nulltext } = props;
   return <BaseSelectBox styletype={"primary"} selected={selected} setSelected={setSelected} data={data} placeholder={placeholder} nulltext={nulltext} />;
 };
 
-const FormSelectBox = ({ name, data, placeholder, nulltext }: SelectType) => {
+const FormSelectBox = (props: SelectType) => {
+  const { name, data, placeholder, nulltext } = props;
   return <BaseSelectBox name={name} styletype={"secondary"} data={data} placeholder={placeholder} nulltext={nulltext} />;
 };
 
