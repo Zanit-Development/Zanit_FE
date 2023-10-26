@@ -23,20 +23,20 @@ export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => 
   const MESSAGE =
     showResult === passNumber ? null : (
       <>
-        쿠폰이 유효한지 확인해주세요
+        쿠폰이 유효한지 확인해주세요!
         <br />
       </>
     );
 
   return (
-    <Modal border={true} onClose={handleClose}>
+    <Modal border={false} onClose={handleClose}>
       <Container>
         <img src={showResult === passNumber ? icon : sad} alt="" />
 
         <strong>{STRONG_MESSAGE}</strong>
         <p>
           {MESSAGE}
-          팝업이 닫히면 내 쿠폰함으로 이동합니다
+          팝업이 닫히면 내 쿠폰함으로 이동합니다.
         </p>
         <Button {...BUTTON_OPTIONS[`USE_COUPON_RESULT${passNumber}`]} onClick={handleClose} />
       </Container>

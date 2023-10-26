@@ -1,4 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
+/* TODO
+  페이지에 들어왔을때, 적절한 권한이 아니면 404로 보내기????
+  any타입 정리하기
+*/
+
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
@@ -25,7 +30,6 @@ const UseCoupon = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<bar[]>([]);
-
   const [barNameList, setBarNameList] = useState<string[]>([]);
   const [cocktailNameList, setCocktailNameList] = useState<strArrayObj>({});
   // barName : cockList
@@ -99,7 +103,7 @@ const UseCoupon = () => {
             <SelectBox {...BarOptions} />
             <h3>어떤 칵테일을 마셨나요?</h3>
             <SelectBox {...CocktailOptions} />
-            <ShowPopupButton option={selectedOption} />
+            <ShowPopupButton {...selectedOption} />
           </>
         )}
       </MainContainer>

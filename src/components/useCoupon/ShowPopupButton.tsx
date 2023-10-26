@@ -43,7 +43,7 @@ const ShowPopupButton = (props: any) => {
     <>
       <Button {...buttonProps} />
       {showPopup && <UseCouponPopup onClose={onClose} setResult={setShowResult} {...PopupOption} />}
-      {showResult && <UseCouponResultPopup showResult={showResult} />}
+      {!!showResult && <UseCouponResultPopup showResult={showResult} />}
     </>
   );
 };
