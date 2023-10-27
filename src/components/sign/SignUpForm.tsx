@@ -23,6 +23,8 @@ export const SignUpForm = () => {
   const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCheckError, setPasswordCheckError] = useState(false);
+  // authError 기본값 true로 설정
+  // false로 해두면 회원가입 가능
   const [authError, setAuthError] = useState(false);
   const [authButtonColor, setAuthButtonColor] = useState("var(--main-color)");
   const [authButtonAnimationInProgress, setAuthButtonAnimationInProgress] = useState(false);
@@ -66,31 +68,32 @@ export const SignUpForm = () => {
     setPasswordError(isPasswordValid);
     setPasswordCheckError(isPassordCheckValid);
 
-    // if (agreementChecked && ageLimitChecked) {
-    //   console.log(ageLimitChecked);
-    if (!isNameValid && !isPasswordValid && !isPassordCheckValid) {
-      // 부트페이 연동 후 다시 처리
-      const userData = {
-        ...signUpData,
-        userGender: true,
-        marketing: marketingChecked,
-      };
+    if (agreementChecked && ageLimitChecked) {
+      console.log(ageLimitChecked);
+      if (!isNameValid && !isPasswordValid && !isPassordCheckValid) {
+        // 부트페이 연동 후 다시 처리
+        const userData = {
+          ...signUpData,
+          userGender: true,
+          marketing: marketingChecked,
+        };
 
-      const response = await signUpAPI(userData);
-      if (response && (response as any).status === 200) {
-        setIsModal(true);
+        const response = await signUpAPI(userData);
+        if (response && (response as any).status === 200) {
+          setIsModal(true);
+        }
       }
+    } else {
+      setAgreeMSG("필수 동의사항을 모두 확인해주세요");
     }
-    // } else {
-    //   setAgreeMSG("필수 동의사항을 모두 확인해주세요");
-    // }
   };
 
   const handleAgeLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (authButtonAnimationInProgress) {
       return;
     }
-    if (!authError) {
+    // authError가 True면 인증하기 깜빡이고 early return
+    if (authError) {
       setAuthButtonAnimationInProgress(true);
       const colors = ["var(--gray500-color)", "var(--main-color)"];
       let currentIndex = 0;
@@ -103,9 +106,9 @@ export const SignUpForm = () => {
         clearInterval(colorChangeInterval);
         setAuthButtonAnimationInProgress(false);
       }, 1200);
-    } else {
-      setAgeLimitChecked(e.target.checked);
+      return;
     }
+    setAgeLimitChecked(e.target.checked);
   };
 
   return (
@@ -119,8 +122,8 @@ export const SignUpForm = () => {
           <label htmlFor="userPhone" className="a11y-hidden">
             핸드폰 번호
           </label>
-          {/* <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={!authError} /> */}
-          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} />
+          {/* authError  true면 입력 못함 */}
+          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={authError} />
           <AuthBtn type="button" style={{ background: authButtonColor }}>
             인증하기
           </AuthBtn>
