@@ -7,13 +7,22 @@ import { useNavigate } from "react-router";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
 
-const ManualPaymentCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => {
-  let benefit = "25%";
+interface ManualPaymentCouponType {
+  couponInfo: CouponInfoType;
+  subsEndDate: string;
+}
+
+const ManualPaymentCoupon = ({ couponInfo, subsEndDate }: ManualPaymentCouponType) => {
   const navigate = useNavigate();
 
   const subscribeStartPage = () => {
     navigate("/subscribe/start");
   };
+
+  const endDateNote = new Date(subsEndDate);
+  endDateNote.setDate(endDateNote.getDate() - 7);
+
+  const currentDate = new Date();
 
   const btnOption: ButtonProps = {
     typevariants: "fill",
@@ -31,9 +40,12 @@ const ManualPaymentCoupon = ({ couponInfo }: { couponInfo: CouponInfoType }) => 
         <Button {...BUTTON_OPTIONS.EXTEND_COUPON} onClick={subscribeStartPage} />
         <Button {...btnOption} />
       </ButtonDiv>
-      <BenefitNote>
-        <p>{benefit} 저렴한 구독 방법이 있어요!</p>
-      </BenefitNote>
+      {/* 수동 결제 만료 7일전 노출 */}
+      {currentDate >= endDateNote ? (
+        <BenefitNote>
+          <p>25% 저렴한 구독 방법이 있어요!</p>
+        </BenefitNote>
+      ) : null}
     </>
   );
 };
