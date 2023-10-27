@@ -5,7 +5,7 @@ import Button from "../../common/button/Button";
 import { BUTTON_OPTIONS } from "../../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 
-export const PopupSignUpSuccess = () => {
+export const PopupSignUpSuccess = ({ name }: { name: string }) => {
   const navigate = useNavigate();
 
   const closeModal = () => {
@@ -23,7 +23,7 @@ export const PopupSignUpSuccess = () => {
   return (
     <Modal border={true} onClose={closeModal}>
       <WelcomeArticle>
-        <strong>{"name"}님 환영합니다 &#58;&#41;</strong>
+        <strong>{name}님 환영합니다 &#58;&#41;</strong>
         <p>
           오늘부터 쟈닛의 멤버가 되셨어요!
           <br />

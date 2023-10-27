@@ -11,7 +11,8 @@ interface itemType {
   reset?: boolean;
 }
 
-const SelectItem = ({ styletype = "primary", option, isSelected, onSelect, reset = false }: itemType) => {
+const SelectItem = ({ styletype = "primary", reset = false, ...props }: itemType) => {
+  const { option, isSelected, onSelect } = props;
   const itemclass = `${isSelected ? "selected" : ""} ${reset ? "reset-item" : ""}`;
 
   return (
