@@ -41,7 +41,7 @@ export const PopupPromotion = ({ ...props }) => {
             <p>
               정상가
               <br />
-              39,900원
+              {priceFormat(membershipPrice("Z 멤버십").price)}원
             </p>
             <img src={icon_arrow_promotion} alt="오른쪽으로 향한 화살표" />
             <p className="discount">
