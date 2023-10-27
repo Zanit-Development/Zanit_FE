@@ -23,6 +23,8 @@ export const SignUpForm = () => {
   const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordCheckError, setPasswordCheckError] = useState(false);
+  // authError 기본값 true로 설정
+  // false로 해두면 회원가입 가능
   const [authError, setAuthError] = useState(false);
   const [authButtonColor, setAuthButtonColor] = useState("var(--main-color)");
   const [authButtonAnimationInProgress, setAuthButtonAnimationInProgress] = useState(false);
@@ -90,7 +92,8 @@ export const SignUpForm = () => {
     if (authButtonAnimationInProgress) {
       return;
     }
-    if (!authError) {
+    // authError가 True면 인증하기 깜빡이고 early return
+    if (authError) {
       setAuthButtonAnimationInProgress(true);
       const colors = ["var(--gray500-color)", "var(--main-color)"];
       let currentIndex = 0;
@@ -103,9 +106,9 @@ export const SignUpForm = () => {
         clearInterval(colorChangeInterval);
         setAuthButtonAnimationInProgress(false);
       }, 1200);
-    } else {
-      setAgeLimitChecked(e.target.checked);
+      return;
     }
+    setAgeLimitChecked(e.target.checked);
   };
 
   return (
@@ -119,7 +122,8 @@ export const SignUpForm = () => {
           <label htmlFor="userPhone" className="a11y-hidden">
             핸드폰 번호
           </label>
-          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={!authError} />
+          {/* authError  true면 입력 못함 */}
+          <Input {...SIGNUP_OPTIONS.PHONE} onChange={handleInputChange} value={signUpData.userPhone} sizevariants={"large"} disabled={authError} />
           <AuthBtn type="button" style={{ background: authButtonColor }}>
             인증하기
           </AuthBtn>
