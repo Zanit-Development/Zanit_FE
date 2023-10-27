@@ -14,10 +14,10 @@ const MyCoupon = () => {
 
   useEffect(() => {
     const myCoupon = async () => {
-      const couponRes = await couponListAPI();
-      const userRes = await userInfoAPI();
-      setCouponInfo(couponRes[0]);
-      setUserInfo(userRes as UserInfoType);
+      await Promise.all([couponListAPI(), userInfoAPI()]).then((res) => {
+        setCouponInfo(res[0][0]);
+        setUserInfo(res[1] as UserInfoType);
+      });
     };
     myCoupon();
   }, []);
