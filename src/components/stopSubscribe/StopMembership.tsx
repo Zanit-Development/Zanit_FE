@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { PopupPromotion } from "./PopupPromotion";
 import { PopupComplete } from "./PopupComplete";
 import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
+import { dateFormat } from "../../libs/utils/dateFormat";
 
 export const StopMembership = ({ userInfo }: { userInfo: UserInfoType }) => {
   const [showPopupComplete, setShowPopupComplete] = useState(false);
@@ -24,18 +25,16 @@ export const StopMembership = ({ userInfo }: { userInfo: UserInfoType }) => {
     setIsModalOpen(false);
   };
 
-  const subscribeEnd = new Date(userInfo.subsEndDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
-
   return (
     <StopMembershipContent>
       <p>
         <strong>{userInfo.subscribeName}</strong> 구독을 해지 신청하시겠습니까?
       </p>
       <ul>
-        <li>&#91;{subscribeEnd}&#93; 사용 후 서비스가 자동 해지됩니다.</li>
+        <li>&#91;{dateFormat(userInfo.subsEndDate)}&#93; 사용 후 서비스가 자동 해지됩니다.</li>
         <li>
           사용중인 멤버십 서비스&#40;ZAN 쿠폰 사용&#41;는
-          <br /> &#91;{subscribeEnd}&#93;까지 이용 가능합니다.
+          <br /> &#91;{dateFormat(userInfo.subsEndDate)}&#93;까지 이용 가능합니다.
         </li>
         <li>
           결제 후 7일 내 서비스 이용 이력이 없는 경우 결제 취소 가능하며, <a href="http://pf.kakao.com/_JxoExhG">여기</a>를 통해 문의하시면 됩니다.

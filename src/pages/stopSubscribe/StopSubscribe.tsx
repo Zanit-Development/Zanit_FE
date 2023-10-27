@@ -12,7 +12,7 @@ export const StopSubscribe = () => {
   useEffect(() => {
     const myCoupon = async () => {
       const userRes = await userInfoAPI();
-      setUserInfo(userRes);
+      setUserInfo(userRes as UserInfoType);
     };
     myCoupon();
   }, []);

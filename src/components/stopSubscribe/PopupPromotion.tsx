@@ -6,6 +6,8 @@ import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
+import { priceFormat } from "../../libs/utils/priceFormat";
+import { membershipPrice } from "../../libs/utils/membershipPrice";
 
 export const PopupPromotion = ({ ...props }) => {
   const { closeModal, setShowPopupComplete, setIsModalOpen, userInfo } = props;
@@ -20,10 +22,6 @@ export const PopupPromotion = ({ ...props }) => {
     navigate("/myCoupon");
   };
 
-  const discount = 25;
-  const price = 29000;
-  const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
   return (
     <Modal border={false} onClose={closeModal}>
       <H3>프로모션</H3>
@@ -37,7 +35,7 @@ export const PopupPromotion = ({ ...props }) => {
         <CouponImgArticle>
           <div className="topContent">
             <span>{userInfo.subscribeName}</span>
-            <p>1개월 {discount}% 할인</p>
+            <p>1개월 {membershipPrice(userInfo.subscribeName).discount}% 할인</p>
           </div>
           <div className="bottomContent">
             <p>
@@ -49,7 +47,7 @@ export const PopupPromotion = ({ ...props }) => {
             <p className="discount">
               할인가
               <br />
-              <strong>{formattedPrice}원</strong>
+              <strong>{priceFormat(membershipPrice(userInfo.subscribeName).price)}원</strong>
             </p>
           </div>
         </CouponImgArticle>

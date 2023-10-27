@@ -14,6 +14,7 @@ import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
 import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
 import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
+import { dateFormat, expDateFormat, nextCouponDateFormat } from "../../libs/utils/dateFormat";
 
 interface HasCouponProps {
   couponInfo: CouponInfoType;
@@ -21,22 +22,10 @@ interface HasCouponProps {
 }
 
 const HasCoupon = ({ couponInfo, userInfo }: HasCouponProps) => {
-  const subscribeStart = new Date(userInfo.subsStartDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
-  const subscribeEnd = new Date(userInfo.subsEndDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, ".");
-
-  // 이번 쿠폰 만료일
-  const expDate = new Date(couponInfo.expDate);
-  const expDateFormatted = expDate.toLocaleDateString("ko-KR", { month: "long", day: "numeric" });
-
-  // 다음 쿠폰 날짜?
-  const subsEndDate = new Date(couponInfo.expDate);
-  subsEndDate.setDate(subsEndDate.getDate() + 1);
-  const nextCouponDateFormatted = subsEndDate.toLocaleDateString("ko-KR", { month: "long", day: "numeric" });
-
   // const auto = userInfo.subScribeType;
-  const auto = false;
+  const auto = true;
 
-  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${nextCouponDateFormatted}에 만나요` : `이 쿠폰은 ${expDateFormatted}까지\n사용할 수 있어요`;
+  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${nextCouponDateFormat(couponInfo.expDate)}에 만나요` : `이 쿠폰은 ${expDateFormat(couponInfo.expDate)}까지\n사용할 수 있어요`;
 
   const navigate = useNavigate();
 
@@ -54,16 +43,16 @@ const HasCoupon = ({ couponInfo, userInfo }: HasCouponProps) => {
     <>
       <CouponTopSection $auto={auto}>
         <p>
-          {userInfo.userName}님은 {subscribeStart}부터 구독중이예요
+          {userInfo.userName}님은 {dateFormat(userInfo.subsStartDate)}부터 구독중이예요
         </p>
-        {auto || <p>구독 만료일은 {subscribeEnd}까지예요</p>}
+        {auto || <p>구독 만료일은 {dateFormat(userInfo.subsEndDate)}까지예요</p>}
         <CouponArticle $used={userInfo.couponUsed}>
           <TextDiv>
             <strong>멤버십 이용중</strong>
             <p>{couponUsed}</p>
           </TextDiv>
         </CouponArticle>
-        {auto ? <Button {...btnOption} /> : <ManualPaymentCoupon couponInfo={couponInfo} />}
+        {auto ? <Button {...btnOption} /> : <ManualPaymentCoupon couponInfo={couponInfo} subsEndDate={userInfo.subsEndDate} />}
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>

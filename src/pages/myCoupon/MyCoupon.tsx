@@ -17,7 +17,7 @@ const MyCoupon = () => {
       const couponRes = await couponListAPI();
       const userRes = await userInfoAPI();
       setCouponInfo(couponRes[0]);
-      setUserInfo(userRes);
+      setUserInfo(userRes as UserInfoType);
     };
     myCoupon();
   }, []);
