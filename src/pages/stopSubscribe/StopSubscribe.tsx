@@ -19,11 +19,12 @@ export const StopSubscribe = () => {
     myCoupon();
   }, []);
 
-  useEffect(() => {
-    if (userInfo && (!userInfo.subScribeType || userInfo.subScribeType === null)) {
-      navigate("/404");
-    }
-  }, [userInfo]);
+  // 수동 결제 시 정기결제 해제 페이지 접근 리디렉션
+  // useEffect(() => {
+  //   if (userInfo && (!userInfo.subScribeType || userInfo.subScribeType === null)) {
+  //     navigate("/404");
+  //   }
+  // }, [userInfo]);
 
   return (
     <Layout>
