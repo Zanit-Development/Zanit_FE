@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Layout from "../../layouts/Layout";
 import HasCoupon from "../../components/coupon/HasCoupon";
 import NotCoupon from "../../components/coupon/NotCoupon";
+import { couponListAPI } from "../../libs/apis/myCoupon";
+import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
+import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
+import { userInfoAPI } from "../../libs/apis/user";
 
 const MyCoupon = () => {
-  const hasCoupon = true;
+  const [couponInfo, setCouponInfo] = useState<CouponInfoType | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+
+  useEffect(() => {
+    const myCoupon = async () => {
+      await Promise.all([couponListAPI(), userInfoAPI()]).then((res) => {
+        setCouponInfo(res[0][0]);
+        setUserInfo(res[1] as UserInfoType);
+      });
+    };
+    myCoupon();
+  }, []);
+
   return (
     <Layout>
       <H2>내 쿠폰함</H2>
-      {hasCoupon ? <HasCoupon /> : <NotCoupon />}
+      {userInfo?.subscribe ? couponInfo && userInfo && <HasCoupon couponInfo={couponInfo} userInfo={userInfo} /> : <NotCoupon />}
     </Layout>
   );
 };

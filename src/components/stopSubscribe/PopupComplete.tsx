@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const PopupComplete = ({ ...props }) => {
-  const { closeModal } = props;
+  const { closeModal, subscribeName } = props;
   return (
     <Modal border={true} onClose={closeModal}>
       <CompleteArticle>
         <strong>See You again &#58;&#41;</strong>
         <p>
-          {"X 멤버십"} 구독 해지신청이 정상적으로 완료되었습니다.
+          {subscribeName} 구독 해지신청이 정상적으로 완료되었습니다.
           <br />
           그 동안 쟈닛을 이용해주셔서 진심으로 감사드립니다.
           <br />

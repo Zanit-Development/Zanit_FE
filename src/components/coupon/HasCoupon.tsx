@@ -4,10 +4,6 @@ import { styled } from "styled-components";
 
 import Button from "../../components/common/button/Button";
 import ManualPaymentCoupon from "./ManualPaymentBtn";
-
-import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
-import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
-
 import coupon_bg from "../../assets/coupon_bg.svg";
 import coupon_bg_used from "../../assets/coupon_bg_used.svg";
 import icon_store from "../../assets/icon/icon_store.svg";
@@ -15,35 +11,48 @@ import icon_ticket from "../../assets/icon/icon_ticket.svg";
 import icon_arrow_right from "../../assets/icon/icon_arrow_right.svg";
 import icon_used_coupon from "../../assets/icon/icon_used_coupon.svg";
 import icon_sad_face from "../../assets/icon/icon_sad_face.svg";
+import { CouponInfoType } from "../../libs/interface/interfaceMyCoupon";
+import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
+import { ButtonProps } from "../../libs/interface/interfaceCommon";
+import { dateFormat, expDateFormat, nextCouponDateFormat } from "../../libs/utils/dateFormat";
 
-const HasCoupon = () => {
-  const auto = false;
-  const use = true;
-  let name = "name";
-  let subscribeStart = "2023.08.28";
-  let possibility = "9월 3일";
-  let impossibility = "9월 4일";
-  let expiration = "9월 25일";
-  const dateInfo = use ? `이 쿠폰은 ${possibility}까지\n사용할 수 있어요` : `다음 쿠폰은\n${impossibility}에 만나요`;
+interface HasCouponProps {
+  couponInfo: CouponInfoType;
+  userInfo: UserInfoType;
+}
+
+const HasCoupon = ({ couponInfo, userInfo }: HasCouponProps) => {
+  // const auto = userInfo.subScribeType;
+  const auto = true;
+
+  const couponUsed = couponInfo.used ? `다음 쿠폰은\n${nextCouponDateFormat(couponInfo.expDate)}에 만나요` : `이 쿠폰은 ${expDateFormat(couponInfo.expDate)}까지\n사용할 수 있어요`;
+
   const navigate = useNavigate();
-  const useCouponPage = (e: BUTTON_EVENT) => {
-    navigate("/useCoupon");
+
+  const btnOption: ButtonProps = {
+    typevariants: "fill",
+    sizevariants: "small",
+    value: "쿠폰 바로 사용하기",
+    disabled: couponInfo.used,
+    onClick() {
+      navigate("/useCoupon");
+    },
   };
 
   return (
     <>
-      <CouponTopSection auto>
+      <CouponTopSection $auto={auto}>
         <p>
-          {name}님은 {subscribeStart}부터 구독중이예요
+          {userInfo.userName}님은 {dateFormat(userInfo.subsStartDate)}부터 구독중이예요
         </p>
-        {auto || <p>구독 만료일은 {expiration}까지예요</p>}
-        <CouponArticle use>
+        {auto || <p>구독 만료일은 {dateFormat(userInfo.subsEndDate)}까지예요</p>}
+        <CouponArticle $used={userInfo.couponUsed}>
           <TextDiv>
             <strong>멤버십 이용중</strong>
-            <p>{dateInfo}</p>
+            <p>{couponUsed}</p>
           </TextDiv>
         </CouponArticle>
-        {auto ? <Button {...BUTTON_OPTIONS.USE_COUPON} onClick={useCouponPage} /> : <ManualPaymentCoupon />}
+        {auto ? <Button {...btnOption} /> : <ManualPaymentCoupon couponInfo={couponInfo} subsEndDate={userInfo.subsEndDate} />}
       </CouponTopSection>
       <CouponBottomSection>
         <Link to="/search">지금 이용 가능한 칵테일 바 찾기</Link>
@@ -57,7 +66,7 @@ const HasCoupon = () => {
 
 export default HasCoupon;
 
-const CouponTopSection = styled.section<{ auto: boolean }>`
+const CouponTopSection = styled.section<{ $auto: boolean }>`
   padding: 0 20px 24px;
 
   & > p {
@@ -76,10 +85,10 @@ const CouponTopSection = styled.section<{ auto: boolean }>`
   }
 `;
 
-const CouponArticle = styled.article<{ use: boolean }>`
+const CouponArticle = styled.article<{ $used: boolean }>`
   width: 100%;
   height: 130px;
-  background: url(${(props) => (props.use ? coupon_bg : coupon_bg_used)}) no-repeat center / 100%;
+  background: url(${(props) => (props.$used ? coupon_bg_used : coupon_bg)}) no-repeat center / 100%;
   position: relative;
   margin-bottom: 20px;
 `;
