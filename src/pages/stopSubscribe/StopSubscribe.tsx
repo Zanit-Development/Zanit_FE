@@ -5,9 +5,11 @@ import { MembershipInfo } from "../../components/stopSubscribe/MembershipInfo";
 import { StopMembership } from "../../components/stopSubscribe/StopMembership";
 import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
 import { userInfoAPI } from "../../libs/apis/user";
+import { useNavigate } from "react-router";
 
 export const StopSubscribe = () => {
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const myCoupon = async () => {
@@ -16,6 +18,12 @@ export const StopSubscribe = () => {
     };
     myCoupon();
   }, []);
+
+  useEffect(() => {
+    if (userInfo && (!userInfo.subScribeType || userInfo.subScribeType === null)) {
+      navigate("/404");
+    }
+  }, [userInfo]);
 
   return (
     <Layout>
