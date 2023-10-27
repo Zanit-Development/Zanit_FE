@@ -2,10 +2,24 @@ export interface PopupProps {
   barPicture: string;
   barName: string;
   barLocation: string;
+  barUid: number;
   cocktailName: string;
   cocktailPrice: number;
+  cocktailUid: number;
   coverCharge?: number;
   onClose: () => void;
+  setResult: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export interface propsType {
+  barPicture: string;
+  barName: string;
+  barLocation: string;
+  barUid: number;
+  coverCharge: string;
+  cocktailName: string;
+  cocktailPrice: number;
+  cocktailUid: number;
 }
 
 // 전체 바 리스트

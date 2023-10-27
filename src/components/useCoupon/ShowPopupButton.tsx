@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 import Button from "../common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
-import { Popup } from "./UseCouponPopup";
-import { PopupProps } from "../../libs/interface/interfaceUseCoupon";
+import { UseCouponPopup } from "./UseCouponPopup";
+import { PopupProps, propsType } from "../../libs/interface/interfaceUseCoupon";
+import { UseCouponResultPopup } from "./UseCouponResultPopup";
 
-const ShowPopupButton = (props: any) => {
+const ShowPopupButton = (props: propsType) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [showResult, setShowResult] = useState(0);
 
-  const { barPicture, barName, barLocation, coverCharge, cocktailName, cocktailPrice } = props;
+  const { barPicture, barName, barLocation, barUid, coverCharge, cocktailName, cocktailPrice, cocktailUid } = props;
 
   // 닫기 esc 필요?
   const onClose = () => {
@@ -26,19 +28,22 @@ const ShowPopupButton = (props: any) => {
     },
   };
 
-  const PopupOption: Omit<PopupProps, "onClose"> = {
-    barPicture: barPicture,
-    barName: barName,
-    barLocation: barLocation,
-    cocktailName: cocktailName,
-    cocktailPrice: cocktailPrice,
+  const PopupOption: Omit<Omit<PopupProps, "onClose">, "setResult"> = {
+    barPicture,
+    barName,
+    barLocation,
+    barUid,
+    cocktailName,
+    cocktailPrice,
+    cocktailUid,
     coverCharge: parseInt(coverCharge),
   };
 
   return (
     <>
       <Button {...buttonProps} />
-      {showPopup && <Popup onClose={onClose} {...PopupOption} />}
+      {showPopup && <UseCouponPopup onClose={onClose} setResult={setShowResult} {...PopupOption} />}
+      {!!showResult && <UseCouponResultPopup showResult={showResult} />}
     </>
   );
 };

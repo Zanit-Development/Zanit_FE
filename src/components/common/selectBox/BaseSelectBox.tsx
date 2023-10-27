@@ -23,7 +23,7 @@ const BaseSelectBox = (props: SelectType) => {
       {isOpen && (
         <ItemList $styletype={styletype!}>
           <SelectItem styletype={styletype} reset={true} key={nulltext} option={nulltext} isSelected={"" === selectedOption} onSelect={selectOption} />
-          {data.map((option: any) => (
+          {data.map((option: string) => (
             <SelectItem styletype={styletype} key={option} option={option} isSelected={option === selectedOption} onSelect={selectOption} />
           ))}
         </ItemList>
