@@ -158,14 +158,14 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.LOGOUT.CANCLE,
   },
 
-  USE_COUPON_RESULT1: {
+  USE_COUPON_RESULT2: {
     ...BUTTON_OPTIONS_BASE,
     typevariants: "stroke",
     sizevariants: "small",
     value: "내 쿠폰함으로 가기",
   },
 
-  USE_COUPON_RESULT2: {
+  USE_COUPON_RESULT1: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
     value: "내 쿠폰함으로 가기",

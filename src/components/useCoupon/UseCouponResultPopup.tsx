@@ -19,26 +19,16 @@ export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => 
   // 334
   const passNumber = 1;
 
-  const STRONG_MESSAGE = showResult === passNumber ? "쿠폰 사용 완료" : null;
-  const MESSAGE =
-    showResult === passNumber ? null : (
-      <>
-        쿠폰이 유효한지 확인해주세요!
-        <br />
-      </>
-    );
+  const STRONG_MESSAGE = showResult === passNumber ? "쿠폰 사용 완료" : "쿠폰 사용 실패";
 
   return (
-    <Modal border={false} onClose={handleClose}>
+    <Modal border={true} onClose={handleClose}>
       <Container>
         <img src={showResult === passNumber ? icon : sad} alt="" />
 
         <strong>{STRONG_MESSAGE}</strong>
-        <p>
-          {MESSAGE}
-          팝업이 닫히면 내 쿠폰함으로 이동합니다.
-        </p>
-        <Button {...BUTTON_OPTIONS[`USE_COUPON_RESULT${passNumber}`]} onClick={handleClose} />
+        <p className={`type${showResult}`}>팝업이 닫히면 내 쿠폰함으로 이동합니다.</p>
+        <Button {...BUTTON_OPTIONS[`USE_COUPON_RESULT${showResult}`]} onClick={handleClose} />
       </Container>
     </Modal>
   );
@@ -47,21 +37,20 @@ export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => 
 const Container = styled.div`
   padding: 50px 0;
   text-align: center;
-  & > div {
-    padding: 20px 0 10px;
-  }
+  padding-bottom: 40px;
   img {
-    margin: 20px 0 10px;
-    width: 80px;
-    height: 80px;
+    margin: 40px 0 10px;
+    width: 60px;
+    height: 60px;
   }
   strong {
-    font-size: 24px;
+    font-size: 20px;
     font-family: var(--font--Medium);
     display: block;
   }
   p {
     color: var(--gray500-color);
+
     font-family: var(--font--Medium);
 
     font-size: 12px;
@@ -69,6 +58,10 @@ const Container = styled.div`
     line-height: 20px;
   }
   button {
+    display: block;
+    margin: 0 auto;
     width: 45%;
+    height: 45px;
+    font-size: 14px;
   }
 `;
