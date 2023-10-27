@@ -1,3 +1,6 @@
+// Todo
+// 바 정보 coverCharge 타입 다시 정리 (bardetail & useCoupon)
+
 import React, { useState } from "react";
 import { styled } from "styled-components";
 
@@ -10,10 +13,6 @@ import { ButtonProps } from "../../libs/interface/interfaceCommon";
 
 import { Modal } from "../../components/modal/Modal";
 import { postUseCoupon } from "../../libs/apis/useCoupon";
-import { UseCouponResultPopup } from "./UseCouponResultPopup";
-
-// TODO
-// popup 작업 필요해보임
 
 export const UseCouponPopup = (props: PopupProps) => {
   const { barPicture, barName, barUid, barLocation, cocktailName, cocktailPrice, cocktailUid, coverCharge, onClose } = props;
@@ -30,10 +29,12 @@ export const UseCouponPopup = (props: PopupProps) => {
       // 요청 대기 시간 0.5초로 일단 둬봄
       setTimeout(async () => {
         try {
-          const data = JSON.stringify({ usedBar: barUid, usedCocktail: cocktailUid });
-          const res: any = await postUseCoupon(data);
-          res.data === 1 ? props.setResult(1) : props.setResult(2);
+          const data = { usedBar: barUid, usedCocktail: cocktailUid };
+          const response: number | undefined = await postUseCoupon(data);
+          if (response === undefined) throw new Error("undefined");
+          response === 1 ? props.setResult(1) : props.setResult(2);
         } catch (error: any) {
+          // 타입 뭐로 해야댐?
           console.log(error.response.status);
           console.log("오류");
           props.setResult(2);

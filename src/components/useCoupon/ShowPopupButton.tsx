@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import Button from "../common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { UseCouponPopup } from "./UseCouponPopup";
-import { PopupProps } from "../../libs/interface/interfaceUseCoupon";
+import { PopupProps, propsType } from "../../libs/interface/interfaceUseCoupon";
 import { UseCouponResultPopup } from "./UseCouponResultPopup";
 
-const ShowPopupButton = (props: any) => {
+const ShowPopupButton = (props: propsType) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showResult, setShowResult] = useState(0);
 

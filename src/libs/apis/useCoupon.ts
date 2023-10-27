@@ -35,13 +35,18 @@ export const getBarList = async () => {
   }
 };
 
-export const postUseCoupon = async (data: any) => {
+interface usedInfo {
+  usedBar: number;
+  usedCocktail: number;
+}
+
+export const postUseCoupon = async (data: usedInfo) => {
   try {
-    console.log(data);
-    const res = await authInstance.post("/couponUse", data);
-    console.log(res);
-    return res;
-  } catch (e) {
-    throw e;
+    const res = await authInstance.post("/couponUse", JSON.stringify(data));
+    if (res.status === 200) {
+      return res.data as number;
+    }
+  } catch (err) {
+    throw err;
   }
 };
