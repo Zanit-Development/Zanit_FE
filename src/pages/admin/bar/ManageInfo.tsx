@@ -5,27 +5,32 @@
 import React, { useState, useRef } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
-import SelectBox from "../../../components/common/selectBox/SelectBox";
+import { FormSelectBox } from "../../../components/common/selectBox/BaseSelectBox";
 import RegistCocktailList from "./RegistCocktailList";
+import RegistBarImageList from "./RegistBarImageList";
 import { styled } from "styled-components";
-import { handleChangeInput } from "./handler";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
-import RegistBarImageList from "./RegistBarImageList";
+import { FORM_EVENT } from "../../../libs/interface/typeEvent";
+
+export interface ManageBarProps {
+  barName: string;
+  barLocation: string;
+  barLocationDetail: string;
+  barMood: string;
+  activatedCoverCharge: boolean;
+  coverCharge: string;
+  activatedDiscount: boolean;
+  discount: string;
+  barOpeningTime: string;
+  barDetail: string;
+  barPics: File[];
+  cocktailList: CocktailProps[];
+}
 
 export const ManageInfo = () => {
   // 바 정보
-  const [barLocation, setBarLocation] = useState("");
-  const [barMood, setBarMood] = useState("");
-  const [activatedCoverCharge, setActivatedCoverCharge] = useState(false);
-  const [activatedDiscount, setActivatedDiscount] = useState(false);
-
-  const barName = useRef("");
-  const barLocationDetail = useRef("");
-  const coverCharge = useRef("");
-  const discount = useRef("");
-  const barOpeningTime = useRef("");
-  const barDetail = useRef("");
+  const formRef = useRef<any>({});
 
   // 바 이미지 관련
   const barPicsRef = useRef<File[]>([]);
@@ -34,18 +39,22 @@ export const ManageInfo = () => {
   const registCocktailRef = useRef<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FORM_EVENT) => {
+    e.preventDefault();
+
+    const formValues = formRef.current?.elements;
+
     const { ...data } = {
-      barName: barName.current,
-      barLocation: barLocation,
-      barLocationDetail: barLocationDetail.current,
-      barMood: barMood,
-      activatedCoverCharge: activatedCoverCharge,
-      coverCharge: coverCharge.current,
-      activatedDiscount: activatedDiscount,
-      discount: discount.current,
-      barOpeningTime: barOpeningTime.current,
-      barDetail: barDetail.current,
+      barName: formValues["barName"].value,
+      barLocation: formValues["barLocation"].value,
+      barLocationDetail: formValues["barLocationDetail"].value,
+      barMood: formValues["barMood"].value,
+      activatedCoverCharge: formValues["activatedCoverCharge"].value,
+      coverCharge: formValues["coverCharge"].value,
+      activatedDiscount: formValues["activatedDiscount"].value,
+      discount: formValues["discount"].value,
+      barOpeningTime: formValues["barOpeningTime"].value,
+      barDetail: formValues["barDetail"].value,
       barPics: barPicsRef.current,
       cocktailList: registCocktailRef.current,
     };
@@ -55,12 +64,7 @@ export const ManageInfo = () => {
 
   return (
     <>
-      <StyledForm
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
+      <StyledForm onSubmit={handleSubmit} ref={formRef}>
         <h2 className="a11y-hidden">정보 관리</h2>
 
         <section>
@@ -68,66 +72,30 @@ export const ManageInfo = () => {
           {/** 0. 바 이름(barName) */}
           <StyledSectionBarInfo>
             <StyledH3>이름</StyledH3>
-            <Input {...BAR_INFO.NAME} onChange={(e) => handleChangeInput(e, barName)} />
+            <Input {...BAR_INFO.NAME} />
           </StyledSectionBarInfo>
           {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
           <StyledSectionBarInfo>
             <StyledH3>위치</StyledH3>
-            <SelectBox
-              styletype="secondary"
-              selected={barLocation}
-              setSelected={function (value: React.SetStateAction<string>): void {
-                setBarLocation(value);
-              }}
-              data={["#중랑구 ", "#서대문구 ", "#중구 "]}
-              placeholder={"선택"}
-              nulltext={"선택"}
-            ></SelectBox>
-            <Input {...BAR_INFO.LOCATION} onChange={(e) => handleChangeInput(e, barLocationDetail)} />
+            <FormSelectBox name="barLocation" data={["중랑구 ", "서대문구 ", "중구 "]} placeholder={"선택"} nulltext={"선택"} />
+            <Input {...BAR_INFO.LOCATION_DETAIL} />
           </StyledSectionBarInfo>
           {/** 3. 바 분위기(barMood) */}
           <StyledSectionBarInfo>
             <StyledH3>분위기</StyledH3>
-            <SelectBox
-              styletype="secondary"
-              selected={barMood}
-              setSelected={function (value: React.SetStateAction<string>): void {
-                setBarMood(value);
-              }}
-              data={["#캐주얼한", "#고급스러운", "#신나는"]}
-              placeholder={"선택"}
-              nulltext={"선택"}
-            ></SelectBox>
+            <FormSelectBox name="barMood" data={["#캐주얼한", "#고급스러운", "#신나는"]} placeholder={"선택"} nulltext={"선택"} />
           </StyledSectionBarInfo>
           {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <SelectBox
-              styletype="secondary"
-              selected={activatedCoverCharge ? "있음" : "없음"}
-              setSelected={function (value: React.SetStateAction<string>): void {
-                setActivatedCoverCharge(value === "있음" ? true : false);
-              }}
-              data={["있음", "없음"]}
-              placeholder={"선택"}
-              nulltext={"선택"}
-            ></SelectBox>
-            <Input {...BAR_INFO.COVER_CHARGE} onChange={(e) => handleChangeInput(e, coverCharge)} />
+            <FormSelectBox name="activatedCoverCharge" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
+            <Input {...BAR_INFO.COVER_CHARGE} />
           </StyledSectionBarInfo>
           {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <SelectBox
-              styletype="secondary"
-              selected={activatedDiscount ? "있음" : "없음"}
-              setSelected={function (value: React.SetStateAction<string>): void {
-                setActivatedDiscount(value === "있음" ? true : false);
-              }}
-              data={["있음", "없음"]}
-              placeholder={"선택"}
-              nulltext={"선택"}
-            ></SelectBox>
-            <Input {...BAR_INFO.DISCOUNT} onChange={(e) => handleChangeInput(e, discount)} />
+            <FormSelectBox name="activatedDiscount" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
+            <Input {...BAR_INFO.DISCOUNT} />
           </StyledSectionBarInfo>
         </section>
         <section>
@@ -135,7 +103,7 @@ export const ManageInfo = () => {
           <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
           <StyledSectionsBarDesc>
             <StyledTextarea
-              onChange={(e) => handleChangeInput(e, barOpeningTime)}
+              name="barOpeningTime"
               placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
             ></StyledTextarea>
@@ -148,10 +116,7 @@ export const ManageInfo = () => {
           {/** 9. 바 설명(barDetail) */}
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
-            <StyledTextarea
-              onChange={(e) => handleChangeInput(e, barDetail)}
-              placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
-            ></StyledTextarea>
+            <StyledTextarea name="barDetail" placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
             <StyledSpan>
               {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}

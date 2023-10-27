@@ -21,7 +21,7 @@ const buttonProps: ButtonProps = {
   },
 };
 
-export const Popup = ({ ...props }: PopupProps) => {
+export const Popup = (props: PopupProps) => {
   const { barPicture, barName, barLocation, cocktailName, cocktailPrice, coverCharge, onClose } = props;
   // 마운트 되면 데이터 요청
   return (
