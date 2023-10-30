@@ -5,6 +5,7 @@ import Input from "../../components/common/input/Input";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import Button from "../../components/common/button/Button";
 import { PopupPasswordFind } from "../../components/modal/useSignPage/PopupPasswordFind";
+import { findPwAPI } from "../../libs/apis/user";
 
 const PasswordFind = () => {
   const [phoneNumValue, setPhoneNumValue] = useState("");
@@ -17,8 +18,16 @@ const PasswordFind = () => {
     }
   };
 
-  const handlePasswordFind = () => {
-    setIsModal(true);
+  const handlePasswordFind = async () => {
+    try {
+      const response = await findPwAPI(phoneNumValue);
+      console.log(response);
+      // 후 처리 필요
+    } catch (error) {
+      setIsModal(true);
+      console.error(error);
+    }
+    setPhoneNumValue("");
   };
 
   const handleClose = () => {
