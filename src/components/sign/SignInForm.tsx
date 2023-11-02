@@ -22,8 +22,6 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hasToken = getLoginCookie();
-
   const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
@@ -60,8 +58,11 @@ export const SignInForm = () => {
 
   const handleSignin = async (e: FORM_EVENT) => {
     e.preventDefault();
+    console.log("로긴");
 
     if (getLoginCookie()) {
+      console.log("쿠키삭제");
+
       removeLoginCookie({ path: "/" });
     }
 
@@ -71,7 +72,7 @@ export const SignInForm = () => {
     setPhoneNumError(isPhoneValid);
     setPasswordError(isPasswordValid);
 
-    if (!hasToken) {
+    if (!getLoginCookie()) {
       if (!isPhoneValid && !isPasswordValid) {
         const formData = new FormData();
         formData.append("userphone", phoneNumValue);
@@ -83,12 +84,10 @@ export const SignInForm = () => {
           const token = response.data;
           setLoginCookie(token, { path: "/" });
           interceptorHeader();
-          {
-            location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
-          }
-          {
-            location.pathname === `/signIn` && navigate("/");
-          }
+
+          location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
+
+          location.pathname === `/signIn` && navigate("/");
         }
 
         if (response && (response as any).status === 500) {
