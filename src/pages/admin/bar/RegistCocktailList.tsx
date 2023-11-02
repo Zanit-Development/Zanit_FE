@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import Popup from "./Popup";
@@ -9,7 +9,7 @@ import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 const RegistCocktailList = ({ ...props }) => {
   const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
   const [isShowPopup, setIsShowPopup] = useState(false); // popup
-  const showList = useRef<string[]>([]); // 보여줄 칵테일\
+  const showCocktailListCount = useRef(0);
 
   // 칵테일삭제
   const deleteCocktailList = (deleteItemIdx: number) => {
@@ -29,6 +29,7 @@ const RegistCocktailList = ({ ...props }) => {
               key={`key_${idx}`}
               id={`cocktail_${idx}`}
               info={item}
+              showCocktailListCount={showCocktailListCount}
               deleteCocktailList={() => deleteCocktailList(idx)}
             />
           );

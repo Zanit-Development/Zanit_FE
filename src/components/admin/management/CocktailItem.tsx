@@ -4,11 +4,15 @@ import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.
 import closeButton from "../../../assets/icon/icon_close.svg";
 import { styled } from "styled-components";
 import { handleCocktailList } from "./handleCocktailItem";
+import { useRecoilState } from "recoil";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 export const CocktailItem = ({ ...props }) => {
+  const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const checked = useRef<boolean>(false);
   const showListCount = props.showCocktailListCount;
+  const cocktailIdx = parseInt(props.id.split("_")[1]);
 
   return (
     <li>
@@ -23,7 +27,6 @@ export const CocktailItem = ({ ...props }) => {
         id={props.id}
         type="checkbox"
         onChange={() => {
-          console.log(checked.current, showListCount.current);
           if (!checked.current && showListCount.current >= 5) {
             console.log("칵테일은 5개까지만 노출됩니다.");
             return;
@@ -37,8 +40,17 @@ export const CocktailItem = ({ ...props }) => {
 
           handleCocktailList(checked);
           setIsChecked(checked.current);
+          const showList = registCocktailList.map((item, idx) => {
+            if (cocktailIdx === idx) {
+              return { ...item, isShowCocktailList: checked.current };
+            } else {
+              return item;
+            }
+          });
+
+          setRegistCocktailList(showList);
         }}
-        checked={checked.current}
+        checked={isChecked}
       />
       <label htmlFor={props.id}></label>
     </li>
