@@ -46,19 +46,17 @@ export const findPwAPI = async (phoneNumber: string) => {
     console.log(res);
     return res;
   } catch (e) {
-    console.error(e);
-    return e;
+    throw new Error();
   }
 };
 
-export const resetPwAPI = async (userUid: string, passWord: string) => {
+export const resetPwAPI = async (userphone: string, passWord: string) => {
   try {
-    const res = await defaultInstance.post("/resetPw", { userUid, passWord });
+    const res = await defaultInstance.post("/resetPw", { userphone, passWord });
     console.log(res);
     return res;
   } catch (e) {
-    console.log(e);
-    return e;
+    throw new Error();
   }
 };
 
