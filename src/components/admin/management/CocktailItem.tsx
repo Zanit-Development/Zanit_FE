@@ -8,6 +8,7 @@ import { handleCocktailList } from "./handleCocktailItem";
 export const CocktailItem = ({ ...props }) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const checked = useRef<boolean>(false);
+  const showListCount = props.showCocktailListCount;
 
   return (
     <li>
@@ -22,6 +23,18 @@ export const CocktailItem = ({ ...props }) => {
         id={props.id}
         type="checkbox"
         onChange={() => {
+          console.log(checked.current, showListCount.current);
+          if (!checked.current && showListCount.current >= 5) {
+            console.log("칵테일은 5개까지만 노출됩니다.");
+            return;
+          }
+
+          if (checked.current) {
+            showListCount.current--;
+          } else {
+            showListCount.current++;
+          }
+
           handleCocktailList(checked);
           setIsChecked(checked.current);
         }}
