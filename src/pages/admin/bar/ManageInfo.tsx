@@ -12,6 +12,7 @@ import { styled } from "styled-components";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
+import { authInstance } from "../../../libs/apis/axios";
 
 export interface ManageBarProps {
   barName: string;
@@ -39,27 +40,49 @@ export const ManageInfo = () => {
   const registCocktailRef = useRef<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
-  const handleSubmit = (e: FORM_EVENT) => {
+  // 바 등록
+  const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
 
     const formValues = formRef.current?.elements;
+    const activatedCoverCharge = formValues["activatedCoverCharge"].value;
+    const activatedCoverChargeOff = formValues["activatedDiscount"].value;
 
     const { ...data } = {
       barName: formValues["barName"].value,
       barLocation: formValues["barLocation"].value,
       barLocationDetail: formValues["barLocationDetail"].value,
       barMood: formValues["barMood"].value,
-      activatedCoverCharge: formValues["activatedCoverCharge"].value,
-      coverCharge: formValues["coverCharge"].value,
-      activatedDiscount: formValues["activatedDiscount"].value,
-      discount: formValues["discount"].value,
-      barOpeningTime: formValues["barOpeningTime"].value,
+      // activatedCoverCharge: formValues["activatedCoverCharge"].value,
+      // coverCharge: formValues["coverCharge"].value,
+      coverCharge: activatedCoverCharge ? formValues["coverCharge"].value : 0,
+      // activatedDiscount: formValues["activatedDiscount"].value,
+      // coverChargeOff: formValues["discount"].value,
+      coverChargeOff: activatedCoverChargeOff ? formValues["discount"].value : 0, // discount
+      barTime: formValues["barOpeningTime"].value, // barOpeningTime
       barDetail: formValues["barDetail"].value,
       barPics: barPicsRef.current,
-      cocktailList: registCocktailRef.current,
     };
 
-    console.log(data);
+    // const response = await authInstance.post("registBar", data);
+    // console.log(response.data);
+    // registCocktail(response.data);
+    // return response.data;
+    registCocktail(1);
+    return 1;
+  };
+
+  // 칵테일 등록
+  const registCocktail = async (barId: number) => {
+    const cocktailList = registCocktailRef.current;
+    const { ...data } = {
+      barId: barId,
+      cocktails: cocktailList,
+    };
+
+    const response = await authInstance.post("registCocktail", data);
+    console.log(response.data);
+    return response.data;
   };
 
   return (
@@ -77,13 +100,23 @@ export const ManageInfo = () => {
           {/** 1, 2. 바 위치, 상세주소(barLocation, barLocationDetail) */}
           <StyledSectionBarInfo>
             <StyledH3>위치</StyledH3>
-            <FormSelectBox name="barLocation" data={["중랑구 ", "서대문구 ", "중구 "]} placeholder={"선택"} nulltext={"선택"} />
+            <FormSelectBox
+              name="barLocation"
+              data={["중랑구 ", "서대문구 ", "중구 "]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            />
             <Input {...BAR_INFO.LOCATION_DETAIL} />
           </StyledSectionBarInfo>
           {/** 3. 바 분위기(barMood) */}
           <StyledSectionBarInfo>
             <StyledH3>분위기</StyledH3>
-            <FormSelectBox name="barMood" data={["#캐주얼한", "#고급스러운", "#신나는"]} placeholder={"선택"} nulltext={"선택"} />
+            <FormSelectBox
+              name="barMood"
+              data={["#캐주얼한", "#고급스러운", "#신나는"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            />
           </StyledSectionBarInfo>
           {/** 4, 5. 커버차지(activeCoverCharge, coverCharge) */}
           <StyledSectionBarInfo>
@@ -116,7 +149,10 @@ export const ManageInfo = () => {
           {/** 9. 바 설명(barDetail) */}
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
-            <StyledTextarea name="barDetail" placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"></StyledTextarea>
+            <StyledTextarea
+              name="barDetail"
+              placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
+            ></StyledTextarea>
             <StyledSpan>
               {`Ex. 따뜻하지만 세련된 분위기를 가진 장소입니다. 전통주 베이스의 칵테일 50여종이 준비되어 있어요. 휴식이 필요한 주말 오후, 방문해보시는 건 어떨까요?  
           `}

@@ -79,6 +79,7 @@ const Popup = ({ ...props }) => {
       cocktailPicture: cocktailImg,
       cocktailPreview: previewImg,
       recoUser: recoUser.current,
+      cocktailShowList: false,
     };
 
     props.registCocktailRef.current = [...registCocktailList, data];
