@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Cocktail from "../../common/cocktail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
@@ -6,7 +6,8 @@ import { styled } from "styled-components";
 import { handleCocktailList } from "./handleCocktailItem";
 
 export const CocktailItem = ({ ...props }) => {
-  const [checked, setChecked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const checked = useRef<boolean>(false);
 
   return (
     <li>
@@ -20,8 +21,11 @@ export const CocktailItem = ({ ...props }) => {
       <StyledCheckbox
         id={props.id}
         type="checkbox"
-        onChange={() => handleCocktailList(checked, setChecked, props.setShowList)}
-        checked={checked}
+        onChange={() => {
+          handleCocktailList(checked);
+          setIsChecked(checked.current);
+        }}
+        checked={checked.current}
       />
       <label htmlFor={props.id}></label>
     </li>
