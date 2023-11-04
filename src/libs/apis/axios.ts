@@ -14,6 +14,7 @@ const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
     baseURL: url,
     ...options,
   });
+  console.log(url);
 
   return instance;
 };
@@ -34,6 +35,8 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     return config;
   });
 
+  console.log(url);
+
   return instance;
 };
 
@@ -47,6 +50,13 @@ const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     },
     ...options,
   });
+
+  instance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    config.headers["X-AUTH-TOKEN"] = getLoginCookie();
+    return config;
+  });
+
   return instance;
 };
 
