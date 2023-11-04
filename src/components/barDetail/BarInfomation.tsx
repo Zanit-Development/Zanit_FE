@@ -1,3 +1,8 @@
+/**
+ * TODO
+ * 할인 금액인지 할인 적용 금액인지?
+ */
+
 import React from "react";
 
 import { styled } from "styled-components";
