@@ -47,6 +47,7 @@ export const SelectWrapper = styled.div<{ $styletype: styleType }>`
   font-family: var(--font--Regular);
 
   position: relative;
+  cursor: pointer;
 `;
 
 export const Arrow = styled.img<{ $isopen: string }>`

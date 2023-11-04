@@ -1,37 +1,38 @@
-import { authInstance, XAuthInstance } from "../../../libs/apis/axios";
+import { authInstance } from "../../../libs/apis/axios";
 import { bar } from "../../../libs/interface/interfaceAPI";
+import { BarProps } from "../../../libs/interface/interfaceBarDetail";
+import { BarInfo } from "../../../libs/utils/Bardetaildummy";
 
 export const getBarInfo = async () => {
   try {
-    const res: bar = (await authInstance.get(`/admin/adminsBar`)).data;
+    const res = await authInstance.get(`/admin/adminsBar`);
 
-    console.log(res);
+    if (res.statusText !== "OK") throw new Error("바 정보 없다");
 
-    // const temp: BarProps = {
-    //   barUid: res.barUid,
-    //   barName: res.barName,
-    //   barLocation: res.barLocation,
-    //   barPics: res.barPicsPath?.map((item) => item.barPicture) ?? [barDummy, barDummy2, barDummy3],
-    //   barMood: res.barMood,
-    //   barDetail: res.barDetail ?? "더미설명",
-    //   barsCocktail: res.barsCocktail!.map((item) => {
-    //     return {
-    //       cocktailPicture: item.cocktailPicPath!,
-    //       cocktailName: item.cocktailName!,
-    //       recoUser: item.recoUser!,
-    //       cocktailDetail: item.cocktailDetail!,
-    //     };
-    //   }),
-    //   coverCharge: res.coverCharge,
-    //   price: "40000",
-    //   openHours: "평일 8시~11시",
-    // };
+    const data: bar = res.data;
 
-    // console.log(temp);
+    const temp: BarProps = {
+      barUid: data.barUid,
+      barName: data.barName,
+      barLocation: data.barLocation,
+      barPics: data.barPicsPath?.map((item) => item.barPicture),
+      barMood: data.barMood,
+      barDetail: data.barDetail ?? "",
+      barTime: data.barTime,
+      barsCocktail: data.barsCocktail!.map((item) => {
+        return {
+          cocktailPicture: item.cocktailPicPath!,
+          cocktailName: item.cocktailName!,
+          recoUser: item.recoUser!,
+          cocktailDetail: item.cocktailDetail!,
+        };
+      }),
+      coverCharge: data.coverCharge,
+      coverChargeOff: data.coverChargeOff,
+    };
 
-    // return temp;
-    return;
+    return temp;
   } catch (e) {
-    throw e;
+    return BarInfo;
   }
 };

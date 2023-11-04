@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
@@ -9,13 +9,21 @@ import Button from "../../../components/common/button/Button";
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../../libs/utils/Bardetaildummy";
 import { getBarInfo } from "./getAdminBar";
+import { BarProps } from "../../../libs/interface/interfaceBarDetail";
+import { getLoginCookie } from "../../../libs/utils/loginCookie";
 
 const AdminBardetail = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [barData, setBarData] = useState<BarProps>(BarInfo);
+
+  if (!getLoginCookie()) navigate("/admin/signIn오");
 
   useEffect(() => {
     (async () => {
-      await getBarInfo();
+      const data = await getBarInfo();
+      setBarData(data);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -31,7 +39,7 @@ const AdminBardetail = () => {
 
   return (
     <AdminLayout>
-      <BarInfomation BarInfo={BarInfo} />
+      {isLoading ? <div>로딩</div> : <BarInfomation BarInfo={barData} />}
       <ButtonContainer>
         <Button {...btnOption} />
         <DeleteButton>전체 정보 삭제하기</DeleteButton>
@@ -54,6 +62,7 @@ const DeleteButton = styled.button`
   color: ${DeleteColor};
   margin-top: 11px;
   border-bottom: 0.7px solid ${DeleteColor};
+  cursor: pointer;
 `;
 
 export default AdminBardetail;

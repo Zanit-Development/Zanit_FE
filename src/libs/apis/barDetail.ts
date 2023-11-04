@@ -25,8 +25,8 @@ export const getBarInfo = async (barUid: string) => {
         };
       }),
       coverCharge: res.coverCharge,
-      price: "40000",
-      openHours: "평일 8시~11시",
+      coverChargeOff: res.coverChargeOff,
+      barTime: res.barTime,
     };
 
     return temp;

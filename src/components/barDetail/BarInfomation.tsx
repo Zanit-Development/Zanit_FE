@@ -26,8 +26,8 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
         </TagContainer>
         <p>{BarInfo.barDetail}</p>
         <Address>{BarInfo.barLocation}</Address>
-        <Opening>{BarInfo.openHours}</Opening>
-        {generateCoverCharge(BarInfo.price, BarInfo.coverCharge)}
+        <Opening>{BarInfo.barTime}</Opening>
+        {generateCoverCharge(BarInfo.coverCharge, BarInfo.coverChargeOff)}
         <h3 className="a11y-hidden">칵테일 목록</h3>
         <ul>
           {BarInfo.barsCocktail.length ? (
@@ -45,17 +45,27 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
   );
 }
 
-type coverchargeType = string | undefined;
-function generateCoverCharge<T extends coverchargeType>(price: T, coverCharge: T) {
-  if (price === undefined) return null;
+type coverchargeType = number | string | undefined;
+function generateCoverCharge<T extends coverchargeType>(coverCharge: T, coverChargeOff: T) {
+  if (coverCharge === undefined) return null;
 
-  const priceText = !!coverCharge ? <span>{price}원</span> : `${price}원`;
-  const discountText = !!coverCharge ? <strong>{parseInt(coverCharge) ? parseInt(price) - parseInt(coverCharge) : coverCharge}원 (쟈닛 고객 한정 할인)</strong> : "";
+  let coverChargeText;
+  let coverChargeOffText;
+
+  if (typeof coverCharge === "number" && typeof coverChargeOff === "number") {
+    coverChargeText = !!coverChargeOff ? <span>{coverCharge}원</span> : `${coverCharge}원`;
+    coverChargeOffText = !!coverChargeOff ? <strong>{coverChargeOff}원 (쟈닛 고객 한정 할인)</strong> : "";
+  }
+
+  if (typeof coverCharge === "string") {
+    coverChargeText = <span>{coverCharge}원</span>;
+    coverChargeOffText = <strong>{coverChargeOff}원 (쟈닛 고객 한정 할인)</strong>;
+  }
 
   return (
     <CoverCharge>
-      커버차지 {priceText}
-      {discountText}
+      커버차지 {coverChargeText}
+      {coverChargeOffText}
     </CoverCharge>
   );
 }

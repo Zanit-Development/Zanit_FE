@@ -41,17 +41,17 @@ const ItemList = (props: { itemOptions: ItemProps[] }) => {
   return (
     <ListContainer>
       <ItemContainer>
-        {itemArray.map((item: ItemProps | string) => {
+        {itemArray.map((item: ItemProps | string, idx) => {
           if (typeof item !== "string") {
-            return <Item key={item.name} {...item} />;
+            return <Item key={item.name + "_" + idx} {...item} />;
           }
           return <li className="empty"></li>;
         })}
       </ItemContainer>
-      <ArrowButton onClick={handleLeft}>
+      <ArrowButton onClick={handleLeft} className={itemArray.includes("empty") ? "disabled" : ""}>
         <img src={arrowImg} alt="더보기(왼쪽)" />
       </ArrowButton>
-      <ArrowButton onClick={handleRight}>
+      <ArrowButton onClick={handleRight} className={itemArray.includes("empty") ? "disabled" : ""}>
         <img src={arrowImg} alt="더보기(오른쪽)" />
       </ArrowButton>
     </ListContainer>
@@ -88,10 +88,16 @@ const ArrowButton = styled.button`
     transform: rotateY(180deg);
     order: 3;
   }
+
+  &.disabled {
+    cursor: initial;
+    pointer-events: none;
+  }
 `;
 
 const ItemContainer = styled.ul`
   overflow: hidden;
+  width: 100%;
 
   li {
     display: inline-block;
@@ -99,10 +105,10 @@ const ItemContainer = styled.ul`
     margin-left: 8px;
 
     &.empty {
-      width: 98px;
-      height: 100px;
+      aspect-ratio: 1/1;
       background-color: var(--gray200-color);
       border-radius: 4px;
+      vertical-align: top;
     }
 
     &:first-of-type {
