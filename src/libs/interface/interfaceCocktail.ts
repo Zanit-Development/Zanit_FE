@@ -9,4 +9,5 @@ export interface ManagementCocktailProps extends Omit<CocktailProps, "cocktailPi
   cocktailUid?: string;
   cocktailPicture: File;
   cocktailPreview?: string;
+  isShowCocktailList: boolean;
 }
