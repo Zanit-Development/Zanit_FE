@@ -4,12 +4,11 @@ import Button from "./../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
-import { BUTTON_EVENT } from "../../libs/interface/typeEvent";
 
 const NotCoupon = () => {
   const navigate = useNavigate();
 
-  const subscribePage = (e: BUTTON_EVENT) => {
+  const subscribePage = () => {
     navigate("/subscribe");
   };
 

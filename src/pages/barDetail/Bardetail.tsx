@@ -12,6 +12,8 @@ import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import BarInfomation from "../../components/barDetail/BarInfomation";
 import { getBarInfo } from "../../libs/apis/barDetail";
 import { BarProps } from "../../libs/interface/interfaceBarDetail";
+import { userInfoAPI } from "../../libs/apis/user";
+import { user } from "../../libs/interface/interfaceAPI";
 
 const Bardetail = () => {
   const navigate = useNavigate();
@@ -21,10 +23,14 @@ const Bardetail = () => {
 
   useEffect(() => {
     (async () => {
-      setData(await getBarInfo(searchParams.get("barUid")!));
-      setIsLoading(false);
+      try {
+        setData(await getBarInfo(searchParams.get("barUid")!));
+        setIsLoading(false);
+      } catch (error) {
+        navigate("/404");
+      }
     })();
-  }, []);
+  }, [searchParams]);
 
   const btnOption: ButtonProps = {
     typevariants: "fill",
@@ -32,18 +38,39 @@ const Bardetail = () => {
     value: "ZAN 쿠폰 사용하기",
     disabled: false,
     onClick() {
-      navigate("/myCoupon");
+      handleClick();
     },
   };
+  /**
+   * 비회원 -> go to page [로그인]
+  회원_구독x -> go to page [내 쿠폰함_구독x]
+  회원_구독o_쿠폰 없음 -> go to page [내쿠폰함]
+  회원_구독o_쿠폰 남음 -> go to page [쿠폰 사용하기]
+   */
+  const handleClick = async () => {
+    const user = (await userInfoAPI()) as user | string;
+    console.log(user);
+    if (typeof user === "string") {
+      navigate("/signIn"); // 비회원 로그인 페이지로 이동
+    } else if (user.subscribe) {
+      user.couponUsed ? navigate("/myCoupon") : navigate("/useCoupon", { state: data.barName });
+    } else {
+      navigate("/myCoupon"); // 내 쿠폰함 페이지로 이동
+    }
+  };
 
-  return isLoading ? (
-    <div>로딩중 </div>
-  ) : (
+  return (
     <Layout>
-      <BarInfomation BarInfo={data} />
-      <ButtonContainer>
-        <Button {...btnOption} />
-      </ButtonContainer>
+      {isLoading ? (
+        <div>로딩중</div>
+      ) : (
+        <>
+          <BarInfomation BarInfo={data} />
+          <ButtonContainer>
+            <Button {...btnOption} />
+          </ButtonContainer>
+        </>
+      )}
     </Layout>
   );
 };

@@ -5,7 +5,7 @@ import Input from "./../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import { BUTTON_OPTIONS, SIGNIN_OPTIONS } from "../../libs/constants/options/options";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
-import { signInAPI } from "../../libs/apis/user";
+import { signInAPI, userInfoAPI } from "../../libs/apis/user";
 import { PASSWORD_REGEX, PHONE_REGEX } from "../../libs/constants/regex/regex";
 import { getLoginCookie, removeLoginCookie, setLoginCookie } from "../../libs/utils/loginCookie";
 import { formDataInstance } from "../../libs/apis/axios";
@@ -21,8 +21,6 @@ const interceptorHeader = () => {
 export const SignInForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const hasToken = getLoginCookie();
 
   const [phoneNumValue, setPhoneNumValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -60,8 +58,11 @@ export const SignInForm = () => {
 
   const handleSignin = async (e: FORM_EVENT) => {
     e.preventDefault();
+    console.log("로긴");
 
     if (getLoginCookie()) {
+      console.log("쿠키삭제");
+
       removeLoginCookie({ path: "/" });
     }
 
@@ -71,7 +72,7 @@ export const SignInForm = () => {
     setPhoneNumError(isPhoneValid);
     setPasswordError(isPasswordValid);
 
-    if (!hasToken) {
+    if (!getLoginCookie()) {
       if (!isPhoneValid && !isPasswordValid) {
         const formData = new FormData();
         formData.append("userphone", phoneNumValue);
@@ -83,12 +84,10 @@ export const SignInForm = () => {
           const token = response.data;
           setLoginCookie(token, { path: "/" });
           interceptorHeader();
-          {
-            location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
-          }
-          {
-            location.pathname === `/signIn` && navigate("/home");
-          }
+
+          location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
+
+          location.pathname === `/signIn` && navigate("/");
         }
 
         if (response && (response as any).status === 500) {

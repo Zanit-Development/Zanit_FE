@@ -57,6 +57,5 @@
     "@types/react-router-dom": "^5.3.3",
     "gh-pages": "^6.0.0",
     "react-pinch-zoom-pan": "^1.4.5"
-  },
-  "homepage": "https://zanit-development.github.io/Zanit-Preview/"
+  }
 }

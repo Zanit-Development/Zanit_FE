@@ -11,10 +11,8 @@ const Footer = () => {
 
   return (
     <FooterContainer>
-      <img src={LogoFoot} alt="Zanit" />
-      <p>대표이사 정태송</p>
       <div>
-        <p>206-55-98984</p>
+        <img src={LogoFoot} alt="Zanit" />
         <a href="http://pf.kakao.com/_JxoExhG">
           <img src={kakao} alt="카카오톡" />
         </a>
@@ -25,6 +23,10 @@ const Footer = () => {
           <img src={cafe} alt="네이버 카페" />
         </a>
       </div>
+      <p>대표이사 정태송 | 사업자 등록 번호 206-55-98984</p>
+      <p>서울특별시 서대문구 통일로 484, B동 204호</p>
+      <p>02-3217-8712 </p>
+
       <UnorderList>
         <li>
           <a href="https://speller05.notion.site/a3dca23eefff49788c9095bd0b38ed0b?pvs=4">이용약관</a>
@@ -56,22 +58,24 @@ const FooterContainer = styled.footer`
   background-color: var(--gray100-color);
   padding: 40px 16px;
 
-  & > img {
-    margin-bottom: 12px;
-  }
-
-  p {
-    font-family: var(--font--Medium);
-    /* padding: 5px 0; */
-    line-height: 24px;
-    font-size: 12px;
-  }
-
   div {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
+    & > img {
+      margin-right: 12px;
+    }
+    & > a {
+      align-self: flex-end;
+    }
+  }
+
+  & > p {
+    font-family: var(--font--Medium);
+    /* padding: 5px 0; */
+    line-height: 16px;
+    font-size: 12px;
   }
 `;
 
@@ -79,4 +83,5 @@ const UnorderList = styled.ul`
   display: flex;
   gap: 12px;
   font-size: 10px;
+  margin-top: 12px;
 `;

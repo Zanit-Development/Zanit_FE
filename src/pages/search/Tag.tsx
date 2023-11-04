@@ -17,20 +17,21 @@ interface NewTagListOption {
 }
 
 const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
-  const items = itemlist;
+  const tagList = itemlist;
   const [selectedTag, setSelectedTag] = useRecoilState(selectedTagState);
-  const [nonSelectors, setNonSelectors] = useState<string[]>(itemlist);
+  const [nonSelectors, setNonSelectors] = useState<string[]>(tagList);
   const [showNonSelectors, setShowNonSelectors] = useState(typevariants === "secondary");
 
   useEffect(() => {
+    // 이미 선택된 태그가 있을 때(홈에서 넘어오는 경우)
     selectedTag && setSelectedTag(selectedTag);
-    setNonSelectors(items.filter((item) => item !== selectedTag));
+    setNonSelectors(tagList.filter((tag) => tag !== selectedTag));
   }, []);
 
   const handleTag = (e: INPUT_EVENT) => {
     const value = e.currentTarget.value;
     setSelectedTag(selectedTag === value ? "" : value);
-    setNonSelectors(items.filter((item) => item !== selectedTag));
+    setNonSelectors(tagList.filter((tag) => tag !== value));
   };
 
   return (
@@ -38,11 +39,11 @@ const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
       {/** 선택한 값이 없는 경우 */}
       {!selectedTag ? (
         <ul>
-          {items.map((item, idx) => {
+          {tagList.map((tag, idx) => {
             return (
               <TagContainer key={`select_${idx}`}>
-                <input id={`tag_${idx}`} type="checkbox" value={item} onChange={(e) => handleTag(e)} />
-                <label htmlFor={`tag_${idx}`}>{item}</label>
+                <input id={`tag_${idx}`} type="checkbox" value={tag} onChange={(e) => handleTag(e)} />
+                <label htmlFor={`tag_${idx}`}>{tag}</label>
               </TagContainer>
             );
           })}
@@ -64,6 +65,7 @@ const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
             </>
           )}
           <ul>
+            {/* 선택된 아이템 */}
             <TagContainer key={`select_item`}>
               <input id={`select_item`} type="checkbox" value={selectedTag} onChange={(e) => handleTag(e)} />
               <label className={"selected-item"} htmlFor={`select_item`}>
@@ -73,6 +75,7 @@ const Tag = ({ typevariants, itemlist }: NewTagListOption) => {
 
             {showNonSelectors && (
               <>
+                {/* 미선택 아이템 */}
                 {nonSelectors.map((item, idx) => {
                   return item !== selectedTag ? (
                     <TagContainer key={`nonselect_${idx}`}>

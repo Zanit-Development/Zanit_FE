@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import { SignUpForm } from "../../components/sign/SignUpForm";
-import { PopupSignUpSuccess } from "../../components/modal/useSignPage/PopupSignUpSuccess";
 
 const SignUp = () => {
-  const [isModal, setIsModal] = useState(false);
-
   return (
     <Layout>
       <SignUpSection>
         <h2>회원가입</h2>
-        <SignUpForm setIsModal={setIsModal} />
+        <SignUpForm />
         <SignUpOther>
           <span>이미 계정이 있으신가요?</span>
           <Link to="/signIn">로그인 하기</Link>
         </SignUpOther>
-        {isModal && <PopupSignUpSuccess />}
       </SignUpSection>
     </Layout>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { styled } from "styled-components";
 import Tag from "./Tag";
 import { TagProps } from "../../libs/interface/interfaceCommon";
@@ -9,9 +9,12 @@ function pickRandom(arr: string[]) {
 }
 
 const TagList = () => {
-  const levels = ["입문자용", "캐주얼드링커용", "헤비드링커용"];
-  const moods = ["고급스러운", "캐주얼한", "신나는", "고즈넉한", "로맨틱한", "아기자기한", "레트로한", "유니크한", "우디한", "모던한", "빈티지한"];
-  const citys = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구"];
+  const levels = useMemo(() => ["입문자용", "캐주얼드링커용", "헤비드링커용"], []);
+  const moods = useMemo(() => ["고급스러운", "캐주얼한", "신나는", "고즈넉한", "로맨틱한", "아기자기한", "레트로한", "유니크한", "우디한", "모던한", "빈티지한"], []);
+  const citys = useMemo(
+    () => ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구"],
+    []
+  );
   const [tagOptions, setTagOptions] = useState<string[]>([]);
 
   function setCategory(value: string) {
@@ -26,7 +29,7 @@ const TagList = () => {
 
   useEffect(() => {
     setTagOptions([pickRandom(levels), pickRandom(moods), pickRandom(citys)]);
-  }, []);
+  }, [levels, moods, citys]);
   return (
     <TagContainer>
       {tagOptions.map((item, idx) => {

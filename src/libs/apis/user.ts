@@ -1,6 +1,8 @@
 // 유저 로그인, 회원가입 API
 
-import { defaultInstance, formDataInstance } from "./axios";
+import { user } from "../interface/interfaceAPI";
+import { getLoginCookie } from "../utils/loginCookie";
+import { authInstance, defaultInstance, formDataInstance } from "./axios";
 
 interface signUpUser {
   userPhone: string;
@@ -44,16 +46,29 @@ export const findPwAPI = async (phoneNumber: string) => {
     console.log(res);
     return res;
   } catch (e) {
-    console.error(e);
-    return e;
+    throw new Error();
   }
 };
 
-export const resetPwAPI = async (userUid: string, passWord: string) => {
+export const resetPwAPI = async (userphone: string, passWord: string) => {
   try {
-    const res = await defaultInstance.post("/resetPw", { userUid, passWord });
+    const res = await defaultInstance.post("/resetPw", { userphone, passWord });
     console.log(res);
     return res;
+  } catch (e) {
+    throw new Error();
+  }
+};
+
+export const userInfoAPI = async () => {
+  try {
+    if (getLoginCookie()) {
+      const res = await authInstance.get("/userInfo");
+      console.log(res);
+      return res.data as user;
+    } else {
+      return "로그인 x";
+    }
   } catch (e) {
     console.log(e);
     return e;

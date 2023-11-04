@@ -8,8 +8,18 @@ import Item from "../../components/common/item/Item";
 import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 
 function pickItem(arr: ItemProps[], idx: number) {
-  const left = (idx - 1 + arr.length) % arr.length;
-  const right = (idx + 1) % arr.length;
+  const len = arr.length;
+
+  if (len < 3) {
+    const temp: (ItemProps | string)[] = arr;
+    while (temp.length < 3) {
+      temp.push("empty");
+    }
+    return temp;
+  }
+
+  const left = (idx - 1 + len) % len;
+  const right = (idx + 1) % len;
 
   return [arr[left], arr[idx], arr[right]];
 }
@@ -20,7 +30,7 @@ const ItemList = (props: { itemOptions: ItemProps[] }) => {
   const dataLength = itemOptions!.length;
 
   const [idx, setIdx] = useState(1);
-  const itemArray = pickItem(itemOptions!, idx);
+  const itemArray = pickItem(itemOptions, idx);
   function handleLeft() {
     setIdx((prev) => (prev - 1 + dataLength) % dataLength);
   }
@@ -31,8 +41,11 @@ const ItemList = (props: { itemOptions: ItemProps[] }) => {
   return (
     <ListContainer>
       <ItemContainer>
-        {itemArray.map((item) => {
-          return <Item key={item.name} {...item} />;
+        {itemArray.map((item: ItemProps | string) => {
+          if (typeof item !== "string") {
+            return <Item key={item.name} {...item} />;
+          }
+          return <li className="empty"></li>;
         })}
       </ItemContainer>
       <ArrowButton onClick={handleLeft}>
@@ -84,6 +97,13 @@ const ItemContainer = styled.ul`
     display: inline-block;
     width: calc((100% - 16px) / 3);
     margin-left: 8px;
+
+    &.empty {
+      width: 98px;
+      height: 100px;
+      background-color: var(--gray200-color);
+      border-radius: 4px;
+    }
 
     &:first-of-type {
       margin-left: 0;

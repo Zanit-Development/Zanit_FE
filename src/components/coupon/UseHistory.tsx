@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { styled } from "styled-components";
 import Button from "../common/button/Button";
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { UsedCouponListArr } from "../../libs/interface/interfaceMyCoupon";
+import { usedCouponListAPI } from "../../libs/apis/myCoupon";
+import { historyDateFormat } from "../../libs/utils/dateFormat";
 
+// TODO: 월별 sort 필요
 export const UseHistory = () => {
   const naivgate = useNavigate();
 
@@ -13,12 +17,15 @@ export const UseHistory = () => {
     naivgate("/myCoupon");
   };
 
-  const data = [
-    ["데이터 1-1", "데이터 1-2", "데이터 1-3", "데이터 1-4"],
-    ["데이터 2-1", "데이터 2-2", "데이터 2-3", "데이터 2-4"],
-    ["데이터 3-1", "데이터 3-2", "데이터 3-3", "데이터 3-4"],
-    ["데이터 4-1", "데이터 4-2", "데이터 4-3", "데이터 4-4"],
-  ];
+  const [usedCoupon, setUsedCoupon] = useState<UsedCouponListArr | null>(null);
+
+  useEffect(() => {
+    const myCoupon = async () => {
+      const res = await usedCouponListAPI();
+      setUsedCoupon(res);
+    };
+    myCoupon();
+  }, []);
 
   return (
     <Layout>
@@ -34,13 +41,16 @@ export const UseHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <td key={cellIndex}>{cell}</td>
-                ))}
-              </tr>
-            ))}
+            <tr>
+              {usedCoupon?.map((i) => (
+                <>
+                  <td key={i.couponUid}>{i?.usedBar.barName}</td>
+                  <td key={i.couponUid}>{i?.usedCocktail.cocktailName}</td>
+                  <td key={i.couponUid}>{historyDateFormat(i?.expDate)}</td>
+                  <td key={i.couponUid}>{i?.usedTime}</td>
+                </>
+              ))}
+            </tr>
           </tbody>
         </UsedTable>
 

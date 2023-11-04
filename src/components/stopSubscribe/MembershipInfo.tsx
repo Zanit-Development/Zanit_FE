@@ -1,22 +1,28 @@
 import React from "react";
 import { styled } from "styled-components";
+import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
+import { dateFormat } from "../../libs/utils/dateFormat";
+import { membershipPrice } from "../../libs/utils/membershipPrice";
+import { priceFormat } from "../../libs/utils/priceFormat";
 
-export const MembershipInfo = () => {
+export const MembershipInfo = ({ userInfo }: { userInfo: UserInfoType }) => {
   return (
     <MembershipInfoCard>
       <InfoHeading>
         <h3>
-          X 멤버십 <span>&#40;이용중&#41;</span>
+          {userInfo.subscribeName} <span>&#40;이용중&#41;</span>
         </h3>
-        <p>정가 대비 25% 할인</p>
+        <p>정가 대비 {membershipPrice(userInfo.subscribeName).discount}% 할인</p>
       </InfoHeading>
       <InfoContent>
-        <p className="infoContent">[구독시작일] &#126; [구독만료일]</p>
-        <strong>29,900원/월</strong>
+        <p className="infoContent">
+          &#91;{dateFormat(userInfo.subsStartDate)}&#93; &#126; &#91;{dateFormat(userInfo.subsEndDate)}&#93;
+        </p>
+        <strong>{priceFormat(membershipPrice(userInfo.subscribeName).price)}원/월</strong>
       </InfoContent>
       <ul className="infoContent">
-        <li>결제 예정 이용권 : X 멤버십</li>
-        <li>다음 결제 예정일 : [구독 만료일]</li>
+        <li>결제 예정 이용권 : {userInfo.subscribeName}</li>
+        <li>다음 결제 예정일 : &#91;{dateFormat(userInfo.subsEndDate)}&#93;</li>
         <li>정기결제 방법 : 구독 시작 시 등록된 신용카드</li>
       </ul>
     </MembershipInfoCard>

@@ -1,4 +1,7 @@
-import React from "react";
+// Todo
+// 바 정보 coverCharge 타입 다시 정리 (bardetail & useCoupon)
+
+import React, { useState } from "react";
 import { styled } from "styled-components";
 
 import { Address } from "../../components/common/text";
@@ -11,40 +14,61 @@ import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { Modal } from "../../components/modal/Modal";
 import { postUseCoupon } from "../../libs/apis/useCoupon";
 
-const buttonProps: ButtonProps = {
-  typevariants: "fill",
-  sizevariants: "small",
-  value: "ZAN 쿠폰 승인하기",
-  disabled: false,
-  onClick: () => {
-    postUseCoupon();
-  },
-};
+export const UseCouponPopup = (props: PopupProps) => {
+  const { barPicture, barName, barUid, barLocation, cocktailName, cocktailPrice, cocktailUid, coverCharge, onClose } = props;
 
-export const Popup = ({ ...props }: PopupProps) => {
-  const { barPicture, barName, barLocation, cocktailName, cocktailPrice, coverCharge, onClose } = props;
+  const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const buttonProps: ButtonProps = {
+    typevariants: "fill",
+    sizevariants: "small",
+    value: "ZAN 쿠폰 승인하기",
+    disabled: btnDisabled,
+    onClick: () => {
+      setBtnDisabled(true);
+      // 요청 대기 시간 0.5초로 일단 둬봄
+      setTimeout(async () => {
+        try {
+          const data = { usedBar: barUid, usedCocktail: cocktailUid };
+          const response: number | undefined = await postUseCoupon(data);
+          if (response === undefined) throw new Error("undefined");
+          response === 1 ? props.setResult(1) : props.setResult(2);
+        } catch (error: any) {
+          // 타입 뭐로 해야댐?
+          console.log(error.response.status);
+          console.log("오류");
+          props.setResult(2);
+        } finally {
+          onClose();
+        }
+      }, 500);
+    },
+  };
+
   // 마운트 되면 데이터 요청
   return (
-    <Modal border={false} onClose={onClose}>
-      <ModalStyle>
-        <h2>결제하기</h2>
-        <PopupContent>
-          <img src={barPicture} alt="바 메인이미지" />
-          <h3>{barName}</h3>
-          <PopupAddress>{barLocation}</PopupAddress>
-          <Price name={cocktailName} price={cocktailPrice} />
-          {coverCharge && (
-            <>
-              <Price name="커버차지" price={coverCharge} />
-              <Line />
-              <Price name="합계" price={cocktailPrice + coverCharge} />
-            </>
-          )}
-        </PopupContent>
-        <Button {...buttonProps} />
-        <Alert content={`[승인하기] 버튼은 Bar 결제 담당자님께서\n직접 눌러주셔야 해요!`} />
-      </ModalStyle>
-    </Modal>
+    <>
+      <Modal border={false} onClose={onClose}>
+        <ModalStyle>
+          <h2>결제하기</h2>
+          <PopupContent>
+            <img src={barPicture} alt="바 메인이미지" />
+            <h3>{barName}</h3>
+            <PopupAddress>{barLocation}</PopupAddress>
+            <Price name={cocktailName} price={cocktailPrice} />
+            {coverCharge && (
+              <>
+                <Price name="커버차지" price={coverCharge} />
+                <Line />
+                <Price name="합계" price={cocktailPrice + coverCharge} />
+              </>
+            )}
+          </PopupContent>
+          <Button {...buttonProps} />
+          <Alert content={`[승인하기] 버튼은 Bar 결제 담당자님께서\n직접 눌러주셔야 해요!`} />
+        </ModalStyle>
+      </Modal>
+    </>
   );
 };
 
@@ -78,7 +102,7 @@ const PopupContent = styled.div`
   img {
     width: 271px;
     height: 271px;
-    object-fit: cover;
+    object-fit: contain;
   }
   h3 {
     font-family: var(--font--Bold);

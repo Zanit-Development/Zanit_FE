@@ -1,6 +1,6 @@
 import React from "react";
 import GlobalStyle from "./style/GlobalStyle";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/home/Home";
 import NotFound from "./pages/notFound/NotFound";
@@ -32,8 +32,7 @@ const App = () => {
     <BrowserRouter basename={PUB_URL}>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Temporary />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
@@ -46,7 +45,7 @@ const App = () => {
         <Route path="/stop-subscribe" element={<StopSubscribe />} />
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="/useCoupon" element={<UseCoupon />} />
-        <Route path="/404" element={<NotFound />} />
+
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
         <Route path="/password-find-ok" element={<PasswordResetOk />} />
@@ -58,6 +57,10 @@ const App = () => {
           <Route path="management" element={<BarManagement />} />
           <Route path="manageorder" element={<ManageOrder />} />
         </Route>
+
+        <Route path="/portal" element={<Temporary />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path={"*"} element={<Navigate to="/404" />} />
       </Routes>
     </BrowserRouter>
   );

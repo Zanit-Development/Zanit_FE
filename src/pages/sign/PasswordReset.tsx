@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import { styled } from "styled-components";
 import Input from "../../components/common/input/Input";
@@ -7,7 +7,8 @@ import { BUTTON_OPTIONS, SIGNUP_OPTIONS } from "../../libs/constants/options/opt
 import { useNavigate } from "react-router";
 import { FORM_EVENT } from "../../libs/interface/typeEvent";
 import { PASSWORD_REGEX } from "../../libs/constants/regex/regex";
-import { resetPwAPI } from "../../libs/apis/user";
+import { resetPwAPI, userInfoAPI } from "../../libs/apis/user";
+import { UserInfoType } from "../../libs/interface/interfaceUserInfo";
 
 const PasswordReset = () => {
   const navigate = useNavigate();
@@ -19,6 +20,16 @@ const PasswordReset = () => {
   const [passwordCheckError, setPasswordCheckError] = useState(false);
 
   const [errorMSG, setErrorMSG] = useState("");
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+
+  useEffect(() => {
+    const myCoupon = async () => {
+      const res = await userInfoAPI();
+      console.log(res);
+      setUserInfo(res as UserInfoType);
+    };
+    myCoupon();
+  }, []);
 
   const validatePassword = (password: string): boolean => {
     const regResult = !password.search(PASSWORD_REGEX);
@@ -42,12 +53,15 @@ const PasswordReset = () => {
     e.preventDefault();
 
     if (changePassword === changePasswordCheck) {
-      const res = await resetPwAPI("유저 전화번호", changePassword);
-
-      if (res && (res as any).status === 200) {
-        navigate("/password-find-ok");
+      try {
+        const res = await resetPwAPI(userInfo?.userPhone as string, changePassword);
+        if (res && (res as any).status === 200) {
+          navigate("/password-find-ok");
+        }
+        // 변경 실패하면 어떡하지
+      } catch (error) {
+        console.error(error);
       }
-      // 변경 실패하면 어떡하지
     } else {
       setErrorMSG("비밀번호가 일치하지 않습니다");
     }
