@@ -10,8 +10,9 @@ export const grayTextWithIcon = styled.span`
   color: var(--gray500-color);
   font-family: var(--font--Medium);
   font-size: 12px;
-  padding: 5px 0 5px 20px;
+  padding: 0 0 0 20px;
 
+  line-height: 22px;
   &::before {
     content: "";
     width: 16px;
