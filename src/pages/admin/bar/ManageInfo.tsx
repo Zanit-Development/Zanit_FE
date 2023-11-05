@@ -12,7 +12,7 @@ import { styled } from "styled-components";
 import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
-import { authInstance } from "../../../libs/apis/axios";
+import { formDataInstance } from "../../../libs/apis/axios";
 
 export interface ManageBarProps {
   barName: string;
@@ -47,40 +47,41 @@ export const ManageInfo = () => {
     const formValues = formRef.current?.elements;
     const activatedCoverCharge = formValues["activatedCoverCharge"].value;
     const activatedCoverChargeOff = formValues["activatedDiscount"].value;
-
-    const { ...data } = {
+    
+    const data = {
       barName: formValues["barName"].value,
       barLocation: formValues["barLocation"].value,
       barLocationDetail: formValues["barLocationDetail"].value,
-      barMood: formValues["barMood"].value,
-      // activatedCoverCharge: formValues["activatedCoverCharge"].value,
-      // coverCharge: formValues["coverCharge"].value,
-      coverCharge: activatedCoverCharge ? formValues["coverCharge"].value : 0,
-      // activatedDiscount: formValues["activatedDiscount"].value,
-      // coverChargeOff: formValues["discount"].value,
-      coverChargeOff: activatedCoverChargeOff ? formValues["discount"].value : 0, // discount
+      barMood: formValues["barMood"].value.slice(1),
+      coverCharge: activatedCoverCharge === "있음" ? formValues["coverCharge"].value : 0,
+      coverChargeOff: activatedCoverChargeOff === "있음" ? formValues["discount"].value : 0, // discount
       barTime: formValues["barOpeningTime"].value, // barOpeningTime
       barDetail: formValues["barDetail"].value,
-      barPics: barPicsRef.current,
+      barPics: barPicsRef.current[0],
+      barPhone: "010-1234-5678",
     };
 
-    // const response = await authInstance.post("registBar", data);
-    // console.log(response.data);
-    // registCocktail(response.data);
-    // return response.data;
-    registCocktail(1);
-    return 1;
+    console.log(data);
+    // registCocktail(0);
+    // return;
+
+    const response = await formDataInstance.post("/registBar", data);
+    registCocktail(response.data);
+    return response.data;
   };
 
   // 칵테일 등록
   const registCocktail = async (barId: number) => {
     const cocktailList = registCocktailRef.current;
-    const { ...data } = {
+    const data = {
       barId: barId,
       cocktails: cocktailList,
     };
 
-    const response = await authInstance.post("registCocktail", data);
+    console.log(data);
+
+    // return;
+    const response = await formDataInstance.post("/registCocktail", data);
     console.log(response.data);
     return response.data;
   };
