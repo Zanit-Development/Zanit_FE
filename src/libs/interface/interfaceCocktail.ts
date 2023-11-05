@@ -7,6 +7,8 @@ export interface CocktailProps {
 
 export interface ManagementCocktailProps extends Omit<CocktailProps, "cocktailPicture"> {
   cocktailUid?: string;
-  cocktailPicture: File;
+  cocktailPic: File;
   cocktailPreview?: string;
+  cocktailPrice: number;
+  activated: boolean;
 }

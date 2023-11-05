@@ -73,12 +73,23 @@ const Popup = ({ ...props }) => {
       return false;
     }
 
+    // const data: ManagementCocktailProps = {
+    //   cocktailDetail: cocktailDetail.current,
+    //   cocktailName: cocktailName.current,
+    //   cocktailPicture: cocktailImg,
+    //   cocktailPreview: previewImg,
+    //   recoUser: recoUser.current,
+    //   isShowCocktailList: false,
+    // };
+
     const data: ManagementCocktailProps = {
-      cocktailDetail: cocktailDetail.current,
       cocktailName: cocktailName.current,
-      cocktailPicture: cocktailImg,
-      cocktailPreview: previewImg,
+      cocktailDetail: cocktailDetail.current,
       recoUser: recoUser.current,
+      cocktailPic: cocktailImg,
+      cocktailPrice: 0,
+      // cocktailPreview: previewImg,
+      activated: false,
     };
 
     props.registCocktailRef.current = [...registCocktailList, data];

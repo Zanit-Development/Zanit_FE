@@ -14,6 +14,7 @@ const axiosApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
     baseURL: url,
     ...options,
   });
+  console.log(url);
 
   return instance;
 };
@@ -34,6 +35,8 @@ const axiosAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     return config;
   });
 
+  console.log(url);
+
   return instance;
 };
 
@@ -47,9 +50,35 @@ const axiosFormApi = (url: string, options: AxiosOptions = { timeout: 8000 }) =>
     },
     ...options,
   });
+
+  instance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${getLoginCookie()}`;
+    config.headers["X-AUTH-TOKEN"] = getLoginCookie();
+    return config;
+  });
+
   return instance;
 };
 
 export const defaultInstance = axiosApi(BASE_URL);
 export const authInstance = axiosAuthApi(BASE_URL);
 export const formDataInstance = axiosFormApi(BASE_URL);
+
+const axiosXAuthApi = (url: string, options: AxiosOptions = { timeout: 8000 }) => {
+  const instance = axios.create({
+    baseURL: url,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...options,
+  });
+
+  instance.interceptors.request.use((config) => {
+    config.headers["X-AUTH-TOKEN"] = getLoginCookie();
+    return config;
+  });
+
+  return instance;
+};
+
+export const XAuthInstance = axiosXAuthApi(BASE_URL);

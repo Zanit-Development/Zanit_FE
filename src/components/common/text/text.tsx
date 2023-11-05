@@ -10,8 +10,9 @@ export const grayTextWithIcon = styled.span`
   color: var(--gray500-color);
   font-family: var(--font--Medium);
   font-size: 12px;
-  padding: 5px 0 5px 20px;
+  padding: 0 0 0 20px;
 
+  line-height: 22px;
   &::before {
     content: "";
     width: 16px;
@@ -48,7 +49,7 @@ export const CoverCharge = styled(grayTextWithIcon)`
     &::before {
       content: "";
       position: absolute;
-      top: 40%;
+      top: 45%;
       display: inline-block;
       width: 100%;
       height: 1px;
@@ -60,7 +61,7 @@ export const CoverCharge = styled(grayTextWithIcon)`
       position: absolute;
       width: 15px;
       height: 12px;
-      top: 40%;
+      top: 45%;
       transform: translateY(-4.5px);
       right: -13px;
       background: url(${arrow}) no-repeat right;

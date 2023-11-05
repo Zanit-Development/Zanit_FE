@@ -36,7 +36,7 @@ const ShowPopupButton = (props: propsType) => {
     cocktailName,
     cocktailPrice,
     cocktailUid,
-    coverCharge: parseInt(coverCharge),
+    coverCharge,
   };
 
   return (
