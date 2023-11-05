@@ -103,12 +103,12 @@ const ItemContainer = styled.ul`
     display: inline-block;
     width: calc((100% - 16px) / 3);
     margin-left: 8px;
+    vertical-align: top;
 
     &.empty {
       aspect-ratio: 1/1;
       background-color: var(--gray200-color);
       border-radius: 4px;
-      vertical-align: top;
     }
 
     &:first-of-type {
