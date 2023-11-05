@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Cocktail from "../../common/cocktail/Cocktail";
 import updateCocktailImg from "../../../assets/icon/icon_update_cocktail_button.svg";
 import closeButton from "../../../assets/icon/icon_close.svg";
 import { styled } from "styled-components";
 import { handleCocktailList } from "./handleCocktailItem";
+import { useRecoilState } from "recoil";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 export const CocktailItem = ({ ...props }) => {
-  const [checked, setChecked] = useState<boolean>(false);
+  const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const checked = useRef<boolean>(false);
+  const showListCount = props.showCocktailListCount;
+  const cocktailIdx = parseInt(props.id.split("_")[1]);
 
   return (
     <li>
@@ -20,8 +26,31 @@ export const CocktailItem = ({ ...props }) => {
       <StyledCheckbox
         id={props.id}
         type="checkbox"
-        onChange={() => handleCocktailList(checked, setChecked, props.setShowList)}
-        checked={checked}
+        onChange={() => {
+          if (!checked.current && showListCount.current >= 5) {
+            console.log("칵테일은 5개까지만 노출됩니다.");
+            return;
+          }
+
+          if (checked.current) {
+            showListCount.current--;
+          } else {
+            showListCount.current++;
+          }
+
+          handleCocktailList(checked);
+          setIsChecked(checked.current);
+          const showList = registCocktailList.map((item, idx) => {
+            if (cocktailIdx === idx) {
+              return { ...item, isShowCocktailList: checked.current };
+            } else {
+              return item;
+            }
+          });
+
+          setRegistCocktailList(showList);
+        }}
+        checked={isChecked}
       />
       <label htmlFor={props.id}></label>
     </li>

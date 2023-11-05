@@ -40,14 +40,14 @@ export const ManageInfo = () => {
   const registCocktailRef = useRef<CocktailProps[]>([]);
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
+  // 바 등록
   const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
 
     const formValues = formRef.current?.elements;
     const activatedCoverCharge = formValues["activatedCoverCharge"].value;
     const activatedCoverChargeOff = formValues["activatedDiscount"].value;
-    console.log(activatedCoverCharge, activatedCoverChargeOff);
-
+    
     const data = {
       barName: formValues["barName"].value,
       barLocation: formValues["barLocation"].value,
