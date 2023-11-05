@@ -47,7 +47,7 @@ export const ManageInfo = () => {
     const formValues = formRef.current?.elements;
     const activatedCoverCharge = formValues["activatedCoverCharge"].value;
     const activatedCoverChargeOff = formValues["activatedDiscount"].value;
-    
+
     const data = {
       barName: formValues["barName"].value,
       barLocation: formValues["barLocation"].value,
@@ -57,7 +57,7 @@ export const ManageInfo = () => {
       coverChargeOff: activatedCoverChargeOff === "있음" ? formValues["discount"].value : 0, // discount
       barTime: formValues["barOpeningTime"].value, // barOpeningTime
       barDetail: formValues["barDetail"].value,
-      barPics: barPicsRef.current[0],
+      barPics: barPicsRef.current,
       barPhone: "010-1234-5678",
     };
 
