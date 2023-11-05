@@ -7,8 +7,8 @@ export interface BarProps {
   barPics: string[];
   barMood: string;
   barDetail: string;
+  barTime: string;
   barsCocktail: CocktailProps[];
-  coverCharge: string;
-  price: string;
-  openHours: string;
+  coverCharge?: number | string;
+  coverChargeOff?: number | string;
 }

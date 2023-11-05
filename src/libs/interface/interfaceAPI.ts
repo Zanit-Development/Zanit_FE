@@ -6,10 +6,12 @@ export interface bar {
   barPicsPath: barPicsPathInterface[];
   barMood: string;
   barDetail: string | null;
+  barTime: string;
   barsCocktail: cocktail[] | null;
-  barOwner: string | null;
+  barOwner: number | null;
   barPhone: string | null;
-  coverCharge: string;
+  coverCharge: number;
+  coverChargeOff: number;
 }
 
 export interface cocktail {

@@ -9,9 +9,9 @@ export const BarInfo: BarProps = {
   barMood: "위치",
   barDetail: `공간 설명`,
   barLocation: "전체 주소",
-  openHours: "쟈닛 쿠폰 사용 가능 요일 및 시간",
-  price: "[기존금액]",
-  coverCharge: "[할인금액]",
+  barTime: "쟈닛 쿠폰 사용 가능 요일 및 시간",
+  coverCharge: "[기존금액]",
+  coverChargeOff: "[할인금액]",
   barsCocktail: [
     {
       cocktailName: "칵테일 이름",

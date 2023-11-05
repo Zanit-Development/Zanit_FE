@@ -16,7 +16,7 @@ export interface propsType {
   barName: string;
   barLocation: string;
   barUid: number;
-  coverCharge: string;
+  coverCharge: number;
   cocktailName: string;
   cocktailPrice: number;
   cocktailUid: number;
@@ -30,8 +30,8 @@ export interface bar {
   barPicture: string;
   barName: string;
   barLocation: string;
-  coverCharge: string;
   barCocktail: cocktail[];
+  coverCharge: number;
 }
 
 // 바 1번 사진
