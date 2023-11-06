@@ -85,9 +85,9 @@ export const SignInForm = () => {
           setLoginCookie(token, { path: "/" });
           interceptorHeader();
 
-          location.pathname === `/admin/signIn` && navigate("/admin/barinfo");
+          location.pathname.toLowerCase() === `/admin/signin` && navigate("/admin/barinfo");
 
-          location.pathname === `/signIn` && navigate("/");
+          location.pathname.toLowerCase() === `/signin` && navigate("/");
         }
 
         if (response && (response as any).status === 500) {
