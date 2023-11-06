@@ -29,7 +29,7 @@ const ItemContainer = styled.li<ItemProps>`
   & span {
     display: block;
     width: 100%;
-    height: 20px;
+    /* height: 20px; */
     margin-top: 10px;
     text-align: center;
     font-family: var(--font--Medium);
