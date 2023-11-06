@@ -9,16 +9,16 @@ export default function Temporary() {
         <h3>유저페이지</h3>
         <hr />
         <Link to="/">홈화면</Link>
-        <Link to="/signIn">로그인</Link>
-        <Link to="/signUp">회원가입</Link>
+        <Link to="/signin">로그인</Link>
+        <Link to="/signup">회원가입</Link>
         <Link to="/search">검색</Link>
         <Link to="/subscribe">구독하기</Link>
         <Link to="/subscribe/start">구독 시작하기</Link>
-        <Link to="/myCoupon">내 쿠폰함</Link>
+        <Link to="/mycoupon">내 쿠폰함</Link>
         <Link to="/use-history">이전 쿠폰 이용 내역</Link>
         <Link to="/stop-subscribe">정기 결제 해지하기</Link>
         <Link to="/how-to-use">ZAN 쿠폰 이용방법</Link>
-        <Link to="/useCoupon">쿠폰 사용하기</Link>
+        <Link to="/usecoupon">쿠폰 사용하기</Link>
         <Link to="/404">404</Link>
         <Link to="/bar-detail?barUid=1">바 상세보기</Link>
         <Link to="/password-find">비밀번호 찾기</Link>
@@ -27,7 +27,7 @@ export default function Temporary() {
       <Inner>
         <h3>admin</h3>
         <hr />
-        <Link to="/admin/signIn">관리자 로그인</Link>
+        <Link to="/admin/signin">관리자 로그인</Link>
         <Link to="/admin/barinfo">관리자 바 정보</Link>
         <Link to="/admin/management">관리자 바 관리하기</Link>
         <Link to="/admin/manageorder">관리자 주문 관리</Link>

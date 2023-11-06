@@ -19,7 +19,7 @@ export const PopupPromotion = ({ ...props }) => {
 
   const navigate = useNavigate();
   const gotoCoupon = () => {
-    navigate("/myCoupon");
+    navigate("/mycoupon");
   };
 
   return (

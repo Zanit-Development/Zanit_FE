@@ -13,7 +13,7 @@ export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => 
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate("/myCoupon");
+    navigate("/mycoupon");
   };
 
   // 334

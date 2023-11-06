@@ -33,18 +33,18 @@ const App = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
         <Route path="/subscribe/*">
           <Route path="" element={<Subscribe />} />
           <Route path="start" element={<Membership />} />
         </Route>
-        <Route path="/myCoupon" element={<MyCoupon />} />
+        <Route path="/mycoupon" element={<MyCoupon />} />
         <Route path="/use-history" element={<UseHistory />} />
         <Route path="/stop-subscribe" element={<StopSubscribe />} />
         <Route path="/how-to-use" element={<HowToUse />} />
-        <Route path="/useCoupon" element={<UseCoupon />} />
+        <Route path="/usecoupon" element={<UseCoupon />} />
 
         <Route path="/bar-detail" element={<Bardetail />} />
         <Route path="/password-find" element={<PasswordFind />} />
@@ -52,7 +52,7 @@ const App = () => {
         <Route path="/password-reset" element={<PasswordReset />} />
 
         <Route path="/admin/*">
-          <Route path="signIn" element={<AdminSignIn />} />
+          <Route path="signin" element={<AdminSignIn />} />
           <Route path="barinfo" element={<AdminBardetail />} />
           <Route path="management" element={<BarManagement />} />
           <Route path="manageorder" element={<ManageOrder />} />

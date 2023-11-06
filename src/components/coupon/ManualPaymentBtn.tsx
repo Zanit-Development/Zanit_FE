@@ -30,7 +30,7 @@ const ManualPaymentCoupon = ({ couponInfo, subsEndDate }: ManualPaymentCouponTyp
     value: "쿠폰 바로 사용하기",
     disabled: couponInfo.used,
     onClick() {
-      navigate("/useCoupon");
+      navigate("/usecoupon");
     },
   };
 
