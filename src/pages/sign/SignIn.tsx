@@ -11,7 +11,7 @@ const SignIn = () => {
         <h2>로그인</h2>
         <SignInForm />
         <SignInOther>
-          <Link to="/signUp">회원가입</Link>
+          <Link to="/signup">회원가입</Link>
           <Link to="/password-find">비밀번호 찾기</Link>
         </SignInOther>
       </SignInSection>

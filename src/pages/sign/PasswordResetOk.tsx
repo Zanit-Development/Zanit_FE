@@ -10,7 +10,7 @@ const PasswordResetOk = () => {
   const navigate = useNavigate();
 
   const goSignin = () => {
-    navigate("/signIn");
+    navigate("/signin");
   };
 
   return (

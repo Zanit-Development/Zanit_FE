@@ -14,7 +14,7 @@ export const UseHistory = () => {
   const naivgate = useNavigate();
 
   const backMyCoupon = () => {
-    naivgate("/myCoupon");
+    naivgate("/mycoupon");
   };
 
   const [usedCoupon, setUsedCoupon] = useState<UsedCouponListArr | null>(null);

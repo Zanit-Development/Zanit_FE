@@ -8,7 +8,7 @@ import Button from "../../common/button/Button";
 export const PopupPasswordFind = ({ closeModal }: { closeModal: () => void }) => {
   const navigate = useNavigate();
   const gotoSignup = () => {
-    navigate("/signUp");
+    navigate("/signup");
   };
 
   return (

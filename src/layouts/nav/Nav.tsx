@@ -55,7 +55,7 @@ const Nav = () => {
           </li>
           <li>
             <NavLink
-              to="/myCoupon"
+              to="/mycoupon"
               style={() => {
                 return isActiveMyCouponPath ? activeStyle : deactiveStyle;
               }}
@@ -70,7 +70,7 @@ const Nav = () => {
           ) : (
             <li>
               <NavLink
-                to="/signIn"
+                to="/signin"
                 style={() => {
                   return isActiveSignInPath ? activeStyle : deactiveStyle;
                 }}

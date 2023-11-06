@@ -96,7 +96,6 @@ const ArrowButton = styled.button`
 `;
 
 const ItemContainer = styled.ul`
-  overflow: hidden;
   width: 100%;
 
   li {

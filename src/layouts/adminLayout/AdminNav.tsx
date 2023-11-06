@@ -54,7 +54,7 @@ export const AdminNav = () => {
           </li>
         </ul>
       </Navbar>
-      {isModal && <PopupLogout setIsModal={setIsModal} nav="/admin/signIn" />}
+      {isModal && <PopupLogout setIsModal={setIsModal} nav="/admin/signin" />}
     </>
   );
 };
