@@ -12,7 +12,7 @@ const SignUp = () => {
         <SignUpForm />
         <SignUpOther>
           <span>이미 계정이 있으신가요?</span>
-          <Link to="/signIn">로그인 하기</Link>
+          <Link to="/signin">로그인 하기</Link>
         </SignUpOther>
       </SignUpSection>
     </Layout>

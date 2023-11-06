@@ -51,11 +51,11 @@ const Bardetail = () => {
     const user = (await userInfoAPI()) as user | string;
     console.log(user);
     if (typeof user === "string") {
-      navigate("/signIn"); // 비회원 로그인 페이지로 이동
+      navigate("/signin"); // 비회원 로그인 페이지로 이동
     } else if (user.subscribe) {
-      user.couponUsed ? navigate("/myCoupon") : navigate("/useCoupon", { state: data.barName });
+      user.couponUsed ? navigate("/mycoupon") : navigate("/usecoupon", { state: data.barName });
     } else {
-      navigate("/myCoupon"); // 내 쿠폰함 페이지로 이동
+      navigate("/mycoupon"); // 내 쿠폰함 페이지로 이동
     }
   };
 

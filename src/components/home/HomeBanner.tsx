@@ -25,7 +25,7 @@ const HomeBanner = () => {
     ...commonOptions,
     value: "회원가입 하기",
     onClick: () => {
-      navigate("/signUp");
+      navigate("/signup");
     },
   };
 
@@ -36,7 +36,7 @@ const HomeBanner = () => {
       const res = (await userInfoAPI()) as user | string;
       let url;
       if (typeof res === "string") {
-        url = "/signIn";
+        url = "/signin";
       } else {
         url = res.subscribe ? "/subscribe/start" : "/subscribe";
       }
