@@ -18,10 +18,10 @@ const Nav = () => {
   };
 
   const location = useLocation();
-  const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname);
-  const isActiveSubscribePath = ["/subscribe"].includes(location.pathname);
-  const isActiveMyCouponPath = ["/myCoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname);
-  const isActiveSignInPath = ["/signIn", "/signUp", "/password-find", "/password-reset", "/password-find-ok"].includes(location.pathname);
+  const isActiveSearchPath = ["/search", "/bar-detail"].includes(location.pathname.toLowerCase());
+  const isActiveSubscribePath = ["/subscribe"].includes(location.pathname.toLowerCase());
+  const isActiveMyCouponPath = ["/mycoupon", "/how-to-use", "/use-history", "/stop-subscribe"].includes(location.pathname.toLowerCase());
+  const isActiveSignInPath = ["/signin", "/signup", "/password-find", "/password-reset", "/password-find-ok"].includes(location.pathname.toLowerCase());
 
   const handleOpen = () => {
     setIsModal(true);

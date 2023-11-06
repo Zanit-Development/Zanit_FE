@@ -19,7 +19,7 @@ export const AdminNav = () => {
   };
 
   const location = useLocation();
-  const isActiveManagementPath = ["/admin/barinfo", "/admin/management"].includes(location.pathname);
+  const isActiveManagementPath = ["/admin/barinfo", "/admin/management"].includes(location.pathname.toLowerCase());
 
   const handleOpen = () => {
     setIsModal(true);
