@@ -10,7 +10,7 @@ import ShowPopupButton from "../../components/useCoupon/ShowPopupButton";
 
 import { SelectBox } from "../../components/common/selectBox/BaseSelectBox";
 import { getBarList } from "../../libs/apis/useCoupon";
-import { bar, propsType } from "../../libs/interface/interfaceUseCoupon";
+import { useCouponBar, useCouponPropsType } from "../../libs/interface/interfaceUseCoupon";
 import { useLocation } from "react-router";
 
 export interface SelectType {
@@ -29,7 +29,7 @@ const UseCoupon = () => {
   const { state } = useLocation();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<bar[]>([]);
+  const [data, setData] = useState<useCouponBar[]>([]);
   const [barNameList, setBarNameList] = useState<string[]>([]);
   const [cocktailNameList, setCocktailNameList] = useState<strArrayObj>({});
   // barName : cockList
@@ -37,12 +37,12 @@ const UseCoupon = () => {
   // barName
   const [selectedCocktail, setSelectedCocktail] = useState("");
   // cocktailname
-  const [selectedOption, setSelectedOption] = useState<propsType | {}>({});
+  const [selectedOption, setSelectedOption] = useState<useCouponPropsType | {}>({});
   // option
 
   useEffect(() => {
     (async () => {
-      const getResult: bar[] = await getBarList();
+      const getResult: useCouponBar[] = await getBarList();
       setData(getResult);
 
       const cocktailMap: strArrayObj = {};
@@ -103,7 +103,7 @@ const UseCoupon = () => {
             <SelectBox {...BarOptions} />
             <h3>어떤 칵테일을 마셨나요?</h3>
             <SelectBox {...CocktailOptions} />
-            <ShowPopupButton {...(selectedOption as propsType)} />
+            <ShowPopupButton {...(selectedOption as useCouponPropsType)} />
           </>
         )}
       </MainContainer>

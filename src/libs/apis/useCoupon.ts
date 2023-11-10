@@ -14,7 +14,8 @@ export const getBarList = async () => {
         barUid: barItem.barUid,
         barName: barItem.barName,
         barLocation: barItem.barLocation,
-        coverCharge: barItem.coverCharge,
+        // coverChargeOff로 변경
+        coverChargeOff: barItem.coverChargeOff,
         barCocktail: cockData.data
           .filter((item: cocktail) => {
             return item.barUid === barItemUid && item.activated;
