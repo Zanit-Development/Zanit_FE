@@ -15,7 +15,7 @@ import { Modal } from "../../components/modal/Modal";
 import { postUseCoupon } from "../../libs/apis/useCoupon";
 
 export const UseCouponPopup = (props: PopupProps) => {
-  const { barPicture, barName, barUid, barLocation, cocktailName, cocktailPrice, cocktailUid, coverCharge, onClose } = props;
+  const { barPicture, barName, barUid, barLocation, cocktailName, cocktailPrice, cocktailUid, coverChargeOff, onClose } = props;
 
   const [btnDisabled, setBtnDisabled] = useState(false);
 
@@ -56,11 +56,11 @@ export const UseCouponPopup = (props: PopupProps) => {
             <h3>{barName}</h3>
             <PopupAddress>{barLocation}</PopupAddress>
             <Price name={cocktailName} price={cocktailPrice} />
-            {coverCharge && (
+            {coverChargeOff && (
               <>
-                <Price name="커버차지" price={coverCharge} />
+                <Price name="커버차지" price={coverChargeOff} />
                 <Line />
-                <Price name="합계" price={cocktailPrice + coverCharge} />
+                <Price name="합계" price={cocktailPrice + coverChargeOff} />
               </>
             )}
           </PopupContent>

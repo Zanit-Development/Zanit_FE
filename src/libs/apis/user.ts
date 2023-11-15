@@ -31,7 +31,7 @@ export const signInAPI = async (formData: FormData): Promise<ApiResponse> => {
   try {
     const res = await formDataInstance.post("/loginOk", formData);
 
-    console.log(res.data);
+    if (res.data === "wrongPw") throw new Error("로그인 실패");
 
     return { status: res.status, data: res.data };
   } catch (e) {

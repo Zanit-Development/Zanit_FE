@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import Button from "../common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { UseCouponPopup } from "./UseCouponPopup";
-import { PopupProps, propsType } from "../../libs/interface/interfaceUseCoupon";
+import { PopupProps, useCouponPropsType } from "../../libs/interface/interfaceUseCoupon";
 import { UseCouponResultPopup } from "./UseCouponResultPopup";
 
-const ShowPopupButton = (props: propsType) => {
+const ShowPopupButton = (props: useCouponPropsType) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showResult, setShowResult] = useState(0);
 
-  const { barPicture, barName, barLocation, barUid, coverCharge, cocktailName, cocktailPrice, cocktailUid } = props;
+  const { barPicture, barName, barLocation, barUid, coverChargeOff, cocktailName, cocktailPrice, cocktailUid } = props;
 
   // 닫기 esc 필요?
   const onClose = () => {
@@ -36,7 +36,7 @@ const ShowPopupButton = (props: propsType) => {
     cocktailName,
     cocktailPrice,
     cocktailUid,
-    coverCharge,
+    coverChargeOff,
   };
 
   return (
