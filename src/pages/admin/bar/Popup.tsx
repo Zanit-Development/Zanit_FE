@@ -30,6 +30,7 @@ const Popup = ({ ...props }) => {
 
   const cocktailDetail = useRef("");
   const cocktailName = useRef("");
+  const cocktailPrice = useRef("");
   const recoUser = useRef(0);
 
   useEffect(() => {
@@ -87,8 +88,8 @@ const Popup = ({ ...props }) => {
       cocktailDetail: cocktailDetail.current,
       recoUser: recoUser.current,
       cocktailPic: cocktailImg,
-      cocktailPrice: 0,
-      // cocktailPreview: previewImg,
+      cocktailPrice: parseInt(cocktailPrice.current),
+      cocktailPreview: previewImg,
       activated: false,
     };
 
@@ -140,6 +141,11 @@ const Popup = ({ ...props }) => {
               type="text"
               placeholder="칵테일의 이름을 입력해주세요."
               onChange={(e) => setInputValue(e, cocktailName)}
+            />
+            <input
+              type="text"
+              placeholder="칵테일 정가 금액을 입력해주세요."
+              onChange={(e) => setInputValue(e, cocktailPrice)}
             />
             <textarea
               name="description"
@@ -320,7 +326,7 @@ const InputSection = styled.section`
 
     & + span {
       position: absolute;
-      top: 85px;
+      top: 130px;
       left: 10px;
       display: block;
       color: var(--gray200-color);
