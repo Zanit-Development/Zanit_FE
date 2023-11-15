@@ -48,7 +48,7 @@ const HomeBanner = () => {
     <Container>
       <h2>새로운 칵테일 경험의 시작</h2>
       <p>자닛은 구독형 칵테일 멤버십 서비스입니다.</p>
-      <p>월 29,000원으로 매주 한잔의 칵테일을 무료로 즐겨보세요!</p>
+      <p>월 29,900원으로 매주 한잔의 칵테일을 무료로 즐겨보세요!</p>
       {isToken ? null : <Button {...optionSignup} />}
       <Button {...optionSubscribe} />
     </Container>
