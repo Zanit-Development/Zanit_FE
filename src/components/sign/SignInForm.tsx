@@ -80,7 +80,9 @@ export const SignInForm = () => {
 
         const response = await signInAPI(formData);
 
-        if (response && (response as any).status === 200) {
+        console.log(response);
+
+        if (response.data && (response as any).status === 200) {
           const token = response.data;
           setLoginCookie(token, { path: "/" });
           interceptorHeader();
@@ -90,7 +92,7 @@ export const SignInForm = () => {
           location.pathname.toLowerCase() === `/signin` && navigate("/");
         }
 
-        if (response && (response as any).status === 500) {
+        if (response.data && (response as any).status === 500) {
           setLoginError(true);
         }
       }
