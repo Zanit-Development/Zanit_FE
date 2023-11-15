@@ -82,7 +82,7 @@ export const SignInForm = () => {
 
         console.log(response);
 
-        if (response.data !== "wrongPw" && (response as any).status === 200) {
+        if (response.data && (response as any).status === 200) {
           const token = response.data;
           setLoginCookie(token, { path: "/" });
           interceptorHeader();
@@ -92,7 +92,7 @@ export const SignInForm = () => {
           location.pathname.toLowerCase() === `/signin` && navigate("/");
         }
 
-        if (response.data === "wrongPw" && (response as any).status === 200) {
+        if (response.data && (response as any).status === 500) {
           setLoginError(true);
         }
       }
