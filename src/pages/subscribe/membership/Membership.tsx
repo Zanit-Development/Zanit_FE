@@ -17,7 +17,7 @@ export const Membership = () => {
   const membershipTypeRef = useRef<MEMBERSHIP_TYPE>("TYPE1");
   const [isMember, setIsMember] = useState(false);
   const [userInfo, setUserInfo] = useState<user | string>("");
-  const [isShowPopup, setIsShowPopup] = useState(true);
+  const [isShowPopup, setIsShowPopup] = useState(false);
 
   useEffect(() => {
     const getUserData = async () => {
