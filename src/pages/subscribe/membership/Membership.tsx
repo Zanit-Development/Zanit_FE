@@ -15,7 +15,6 @@ export type MEMBERSHIP_TYPE = "TYPE1" | "TYPE2" | "TYPE3";
 
 export const Membership = () => {
   const membershipTypeRef = useRef<MEMBERSHIP_TYPE>("TYPE1");
-  const [isMember, setIsMember] = useState(false);
   const [userInfo, setUserInfo] = useState<user | string>("");
   const [isShowPopup, setIsShowPopup] = useState(false);
 
@@ -66,10 +65,18 @@ export const Membership = () => {
   return (
     <>
       <Layout>
-        {isMember ? <StyledH2>쟈닛 멤버십 연장하기</StyledH2> : <StyledH2>쟈닛 멤버십 구독하기</StyledH2>}
+        {(userInfo as user)?.subscribeName ? (
+          <StyledH2>쟈닛 멤버십 연장하기</StyledH2>
+        ) : (
+          <StyledH2>쟈닛 멤버십 구독하기</StyledH2>
+        )}
         <DescContainer>
           <p>
-            <span>{isMember ? "기존 맴버십 만료일을 기준으로 연장됩니다." : "원하는 멤버십을 선택해주세요"}</span>
+            <span>
+              {(userInfo as user)?.subscribeName
+                ? "기존 맴버십 만료일을 기준으로 연장됩니다."
+                : "원하는 멤버십을 선택해주세요"}
+            </span>
             <span>쟈닛을 통해 매주 새로운 칵테일 한 잔을 즐겨봐요 &#58;&#41;</span>
             <strong>&#40;*회차 단위는 4주, 28일입니다.&#41;</strong>
           </p>
@@ -98,7 +105,10 @@ export const Membership = () => {
             </span>
           </MembershipContainer>
           <ButtonContainer>
-            <Button {...membershipOption} value={isMember ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}></Button>
+            <Button
+              {...membershipOption}
+              value={(userInfo as user)?.subscribeName ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}
+            ></Button>
           </ButtonContainer>
         </form>
       </Layout>
