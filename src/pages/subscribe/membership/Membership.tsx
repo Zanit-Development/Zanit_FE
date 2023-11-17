@@ -37,7 +37,7 @@ export const Membership = () => {
       return;
     }
 
-    if (userInfo.subscribeName === "X 멤버십") {
+    if (userInfo.subscribe && userInfo.subscribeName === "X 멤버십") {
       console.log("이미 X멤버십 구독중");
       setIsShowPopup(true);
       return;
@@ -65,18 +65,10 @@ export const Membership = () => {
   return (
     <>
       <Layout>
-        {(userInfo as user)?.subscribeName ? (
-          <StyledH2>쟈닛 멤버십 연장하기</StyledH2>
-        ) : (
-          <StyledH2>쟈닛 멤버십 구독하기</StyledH2>
-        )}
+        {(userInfo as user)?.subscribe ? <StyledH2>쟈닛 멤버십 연장하기</StyledH2> : <StyledH2>쟈닛 멤버십 구독하기</StyledH2>}
         <DescContainer>
           <p>
-            <span>
-              {(userInfo as user)?.subscribeName
-                ? "기존 맴버십 만료일을 기준으로 연장됩니다."
-                : "원하는 멤버십을 선택해주세요"}
-            </span>
+            <span>{(userInfo as user)?.subscribe ? "기존 맴버십 만료일을 기준으로 연장됩니다." : "원하는 멤버십을 선택해주세요"}</span>
             <span>쟈닛을 통해 매주 새로운 칵테일 한 잔을 즐겨봐요 &#58;&#41;</span>
             <strong>&#40;*회차 단위는 4주, 28일입니다.&#41;</strong>
           </p>
@@ -84,31 +76,16 @@ export const Membership = () => {
         <form onSubmit={handleSubmit}>
           <MembershipContainer>
             <ul>
-              <MembershipType
-                key={"membershipType1"}
-                {...MEMBERSHIP.TYPE1}
-                onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-              />
-              <MembershipType
-                key={"membershipType2"}
-                {...MEMBERSHIP.TYPE2}
-                onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-              />
-              <MembershipType
-                key={"membershipType3"}
-                {...MEMBERSHIP.TYPE3}
-                onChange={(e) => handleMembershipType(e, membershipTypeRef)}
-              />
+              <MembershipType key={"membershipType1"} {...MEMBERSHIP.TYPE1} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
+              <MembershipType key={"membershipType2"} {...MEMBERSHIP.TYPE2} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
+              <MembershipType key={"membershipType3"} {...MEMBERSHIP.TYPE3} onChange={(e) => handleMembershipType(e, membershipTypeRef)} />
             </ul>
             <span>
               쿠폰사용 방법에 관한 자세한 설명은 <Link to={"/"}>여기</Link> 를 참고해주세요
             </span>
           </MembershipContainer>
           <ButtonContainer>
-            <Button
-              {...membershipOption}
-              value={(userInfo as user)?.subscribeName ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}
-            ></Button>
+            <Button {...membershipOption} value={(userInfo as user)?.subscribe ? "멤버십 연장하기" : "지금 결제하고 구독 시작하기"}></Button>
           </ButtonContainer>
         </form>
       </Layout>
