@@ -114,6 +114,12 @@ export const BUTTON_OPTIONS: {
     value: BUTTON_VALUE.MEMBERSHIP_STOP.CANCLE,
   },
 
+  MEMBERSHIP_IS_ACTIVATED: {
+    ...BUTTON_OPTIONS_BASE,
+    sizevariants: "small",
+    value: BUTTON_VALUE.ACTIVATED_MEMBERSHIP,
+  },
+
   PROMOTION: {
     ...BUTTON_OPTIONS_BASE,
     sizevariants: "small",
