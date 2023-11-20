@@ -6,6 +6,7 @@ export const BUTTON_VALUE = {
   OK: "확인",
   PASSWORD_RESET: "재설정하기",
   BACK_MYCOUPON: "내 쿠폰함으로 돌아가기",
+  ACTIVATED_MEMBERSHIP: "Bar 둘러보기",
 
   SIGN: {
     IN: "로그인",
