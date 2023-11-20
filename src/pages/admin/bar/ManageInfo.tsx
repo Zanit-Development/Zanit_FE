@@ -1,8 +1,11 @@
 /**
  * 바 관리 페이지
+ * @TODO
+ * 1. 바 사진은 4개 등록하도록 변경하기
+ * 2. 칵테일 이미지 등록 취소시 에러발생 -> 이미지 없는경우 확인 안되도록 변경하기
  */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import { FormSelectBox } from "../../../components/common/selectBox/BaseSelectBox";
@@ -13,6 +16,8 @@ import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { formDataInstance } from "../../../libs/apis/axios";
+import { useRecoilValue } from "recoil";
+import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 export interface ManageBarProps {
   barName: string;
@@ -37,7 +42,13 @@ export const ManageInfo = () => {
   const barPicsRef = useRef<File[]>([]);
 
   // 칵테일 리스트 관련
-  const registCocktailRef = useRef<CocktailProps[]>([]);
+  const registCocktailList = useRecoilValue(registCocktailListStateAtom);
+  const registCocktailRef = useRef<FormData>(null);
+
+  useEffect(() => {
+    console.log(registCocktailList);
+  }, [registCocktailList]);
+
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
   // 바 등록
@@ -48,40 +59,72 @@ export const ManageInfo = () => {
     const activatedCoverCharge = formValues["activatedCoverCharge"].value;
     const activatedCoverChargeOff = formValues["activatedDiscount"].value;
 
-    const data = {
-      barName: formValues["barName"].value,
-      barLocation: formValues["barLocation"].value,
-      barLocationDetail: formValues["barLocationDetail"].value,
-      barMood: formValues["barMood"].value.slice(1),
-      coverCharge: activatedCoverCharge === "있음" ? formValues["coverCharge"].value : 0,
-      coverChargeOff: activatedCoverChargeOff === "있음" ? formValues["discount"].value : 0, // discount
-      barTime: formValues["barOpeningTime"].value, // barOpeningTime
-      barDetail: formValues["barDetail"].value,
-      barPics: barPicsRef.current,
-      barPhone: "010-1234-5678",
-    };
+    const formData = new FormData();
+    formData.append("barName", formValues["barName"].value);
+    formData.append("barLocation", formValues["barLocation"].value);
+    formData.append("barLocationDetail", formValues["barLocationDetail"].value);
+    formData.append("barMood", formValues["barMood"].value.slice(1));
+    formData.append("coverCharge", activatedCoverCharge === "있음" ? formValues["coverCharge"].value : "0");
+    formData.append("coverChargeOff", activatedCoverChargeOff === "있음" ? formValues["discount"].value : "0");
+    formData.append("barTime", formValues["barOpeningTime"].value);
+    formData.append("barContents", formValues["barDetail"].value);
+    barPicsRef.current.forEach((item) => {
+      console.log(item);
+      formData.append("barPics", item, item.name);
+    });
 
-    console.log(data);
-    // registCocktail(0);
-    // return;
+    // console.log(formData);
+    registCocktail(35);
+    return;
 
-    const response = await formDataInstance.post("/registBar", data);
+    const response = await formDataInstance.post("/admin/registBar", formData);
     registCocktail(response.data);
     return response.data;
   };
 
   // 칵테일 등록
   const registCocktail = async (barId: number) => {
-    const cocktailList = registCocktailRef.current;
-    const data = {
-      barId: barId,
-      cocktails: cocktailList,
-    };
+    const formData = new FormData();
+    formData.append("barUid", barId + "");
 
-    console.log(data);
+    // registCocktailList.forEach((item, idx) => {
+    //   formData.append(`cocktails[${idx}].cocktailName`, item.cocktailName);
+    //   formData.append(`cocktails[${idx}].cocktailDetail`, item.cocktailDetail);
+    //   formData.append(`cocktails[${idx}].recoUser`, item.recoUser + "");
+    //   formData.append(`cocktails[${idx}].cocktailPrice`, "100");
+    //   formData.append(`cocktails[${idx}].cocktailPreview`, item?.cocktailPreview!);
+    //   formData.append(`cocktails[${idx}].cocktailPic`, item.cocktailPic);
+    //   formData.append(`cocktails[${idx}].activated`, item.activated + "");
+    // });
+
+    // const cocktails: any = {};
+    // registCocktailList.forEach((item, idx) => {
+    //   cocktails[`cocktails[${idx}].cocktailName`] = item.cocktailName;
+    //   cocktails[`cocktails[${idx}].cocktailDetail`] = item.cocktailDetail;
+    //   cocktails[`cocktails[${idx}].recoUser`] = item.recoUser + "";
+    //   cocktails[`cocktails[${idx}].cocktailPrice`] = item.cocktailPrice;
+    //   cocktails[`cocktails[${idx}].cocktailPreview`] = item.cocktailPreview;
+    //   cocktails[`cocktails[${idx}].cocktailPic`] = item.cocktailPic;
+    //   cocktails[`cocktails[${idx}].activated`] = item.activated;
+    // });
+    // formData.append("cocktails", cocktails);
+
+    registCocktailList.forEach((item) => {
+      formData.append(`cocktailName`, item.cocktailName);
+      formData.append(`cocktailDetail`, item.cocktailDetail);
+      formData.append(`recoUser`, item.recoUser + "");
+      formData.append(`cocktailPrice`, item.cocktailPrice + "");
+      formData.append(`cocktails.cocktailPreview`, item?.cocktailPreview!);
+      formData.append(`cocktailPic`, item.cocktailPic);
+      formData.append(`activated`, item.activated + "");
+    });
+
+    for (const [key, value] of formData) {
+      console.log(key, value);
+    }
 
     // return;
-    const response = await formDataInstance.post("/registCocktail", data);
+    const response = await formDataInstance.post("admin/registCocktail2", formData);
     console.log(response.data);
     return response.data;
   };
