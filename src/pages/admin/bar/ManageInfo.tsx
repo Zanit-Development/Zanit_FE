@@ -17,7 +17,7 @@ import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { formDataInstance } from "../../../libs/apis/axios";
 import { useRecoilValue } from "recoil";
-import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
+import { registCocktailListStateAtom, registCocktailImagesStateAtom } from "../../../recoil/barManageAtom";
 
 export interface ManageBarProps {
   barName: string;
@@ -43,10 +43,12 @@ export const ManageInfo = () => {
 
   // 칵테일 리스트 관련
   const registCocktailList = useRecoilValue(registCocktailListStateAtom);
+  const registCocktailImages = useRecoilValue(registCocktailImagesStateAtom);
   const registCocktailRef = useRef<FormData>(null);
 
   useEffect(() => {
     console.log(registCocktailList);
+    console.log(registCocktailImages);
   }, [registCocktailList]);
 
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
@@ -86,12 +88,13 @@ export const ManageInfo = () => {
   const registCocktail = async (barId: number) => {
     const formData = new FormData();
     formData.append("barUid", barId + "");
+    formData.append("cocktails", new Blob([JSON.stringify(registCocktailList)], { type: "application/json" }));
 
     // registCocktailList.forEach((item, idx) => {
     //   formData.append(`cocktails[${idx}].cocktailName`, item.cocktailName);
     //   formData.append(`cocktails[${idx}].cocktailDetail`, item.cocktailDetail);
     //   formData.append(`cocktails[${idx}].recoUser`, item.recoUser + "");
-    //   formData.append(`cocktails[${idx}].cocktailPrice`, "100");
+    //   formData.append(`cocktails[${idx}].cocktailPrice`, item.cocktailPrice + "");
     //   formData.append(`cocktails[${idx}].cocktailPreview`, item?.cocktailPreview!);
     //   formData.append(`cocktails[${idx}].cocktailPic`, item.cocktailPic);
     //   formData.append(`cocktails[${idx}].activated`, item.activated + "");
@@ -109,22 +112,22 @@ export const ManageInfo = () => {
     // });
     // formData.append("cocktails", cocktails);
 
-    registCocktailList.forEach((item) => {
-      formData.append(`cocktailName`, item.cocktailName);
-      formData.append(`cocktailDetail`, item.cocktailDetail);
-      formData.append(`recoUser`, item.recoUser + "");
-      formData.append(`cocktailPrice`, item.cocktailPrice + "");
-      formData.append(`cocktails.cocktailPreview`, item?.cocktailPreview!);
-      formData.append(`cocktailPic`, item.cocktailPic);
-      formData.append(`activated`, item.activated + "");
-    });
+    // registCocktailList.forEach((item) => {
+    //   formData.append(`cocktailName`, item.cocktailName);
+    //   formData.append(`cocktailDetail`, item.cocktailDetail);
+    //   formData.append(`recoUser`, item.recoUser + "");
+    //   formData.append(`cocktailPrice`, item.cocktailPrice + "");
+    //   formData.append(`cocktails.cocktailPreview`, item?.cocktailPreview!);
+    //   formData.append(`cocktailPic`, item.cocktailPic);
+    //   formData.append(`activated`, item.activated + "");
+    // });
 
     for (const [key, value] of formData) {
       console.log(key, value);
     }
 
     // return;
-    const response = await formDataInstance.post("admin/registCocktail2", formData);
+    const response = await formDataInstance.post("admin/registCocktail5", formData);
     console.log(response.data);
     return response.data;
   };
