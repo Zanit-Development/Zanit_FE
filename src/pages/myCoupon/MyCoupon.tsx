@@ -22,6 +22,8 @@ const MyCoupon = () => {
     myCoupon();
   }, []);
 
+  console.log(couponInfo);
+
   return (
     <Layout>
       <H2>내 쿠폰함</H2>
