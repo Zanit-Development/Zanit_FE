@@ -26,9 +26,7 @@ function pickItem(arr: ItemProps[], idx: number) {
 
 const ItemList = (props: { itemOptions: ItemProps[] }) => {
   const { itemOptions } = props;
-  // console.log(itemOptions);
   const dataLength = itemOptions!.length;
-
   const [idx, setIdx] = useState(1);
   const itemArray = pickItem(itemOptions, idx);
   function handleLeft() {
@@ -48,10 +46,10 @@ const ItemList = (props: { itemOptions: ItemProps[] }) => {
           return <li className="empty"></li>;
         })}
       </ItemContainer>
-      <ArrowButton onClick={handleLeft} className={itemArray.includes("empty") ? "disabled" : ""}>
+      <ArrowButton onClick={handleLeft} className={dataLength <= 3 ? "disabled" : ""}>
         <img src={arrowImg} alt="더보기(왼쪽)" />
       </ArrowButton>
-      <ArrowButton onClick={handleRight} className={itemArray.includes("empty") ? "disabled" : ""}>
+      <ArrowButton onClick={handleRight} className={dataLength <= 3 ? "disabled" : ""}>
         <img src={arrowImg} alt="더보기(오른쪽)" />
       </ArrowButton>
     </ListContainer>

@@ -3,7 +3,7 @@ import { bar } from "../../../libs/interface/interfaceAPI";
 import { BarProps } from "../../../libs/interface/interfaceBarDetail";
 import { BarInfo } from "../../../libs/utils/Bardetaildummy";
 
-export const getBarInfo = async () => {
+export const getAdminBarInfo = async () => {
   try {
     const res = await authInstance.get(`/admin/adminsBar`);
 
@@ -15,6 +15,7 @@ export const getBarInfo = async () => {
       barUid: data.barUid,
       barName: data.barName,
       barLocation: data.barLocation,
+      barLocationDetail: data.barLocationDetail,
       barPics: data.barPicsPath?.map((item) => item.barPicture),
       barMood: data.barMood,
       barDetail: data.barDetail ?? "",
