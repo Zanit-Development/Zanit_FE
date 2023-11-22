@@ -30,7 +30,7 @@ export default function BarInfomation({ BarInfo }: { BarInfo: BarProps }) {
           <Tag {...(tagOption as TagProps)} />
         </TagContainer>
         <p>{BarInfo.barDetail}</p>
-        <Address>{BarInfo.barLocation}</Address>
+        <Address>{`${BarInfo.barLocation} ${BarInfo.barLocationDetail}`}</Address>
         <Opening>{BarInfo.barTime}</Opening>
         {generateCoverCharge(BarInfo.coverCharge, BarInfo.coverChargeOff)}
         <h3 className="a11y-hidden">칵테일 목록</h3>

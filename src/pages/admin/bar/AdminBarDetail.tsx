@@ -8,7 +8,7 @@ import Button from "../../../components/common/button/Button";
 
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
 import { BarInfo } from "../../../libs/utils/Bardetaildummy";
-import { getBarInfo } from "./getAdminBar";
+import { getAdminBarInfo } from "./getAdminBar";
 import { BarProps } from "../../../libs/interface/interfaceBarDetail";
 import { getLoginCookie } from "../../../libs/utils/loginCookie";
 
@@ -21,7 +21,7 @@ const AdminBardetail = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getBarInfo();
+      const data = await getAdminBarInfo();
       setBarData(data);
       setIsLoading(false);
     })();
