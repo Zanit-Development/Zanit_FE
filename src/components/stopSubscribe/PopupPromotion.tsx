@@ -18,13 +18,11 @@ export const PopupPromotion = ({ ...props }) => {
       // 확인 필요
       const res = await unsubscribeAPI();
       console.log(res);
-      setShowPopupComplete(true);
-      setIsModalOpen(false);
     } catch (error) {
-      setShowPopupComplete(true);
-      setIsModalOpen(false);
       console.log(error);
     }
+    setShowPopupComplete(true);
+    setIsModalOpen(false);
   };
 
   const navigate = useNavigate();
