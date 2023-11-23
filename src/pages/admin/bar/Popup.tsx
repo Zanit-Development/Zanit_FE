@@ -81,43 +81,34 @@ const Popup = ({ ...props }) => {
   };
 
   const addCocktail = () => {
-    if (!cocktailName) {
-      console.log("칵테일 이름 미작성");
+    if (!cocktailName.current) {
+      alert("칵테일의 이름을 입력해주세요.");
       return false;
     } else if (!cocktailImg) {
-      console.log("칵테일 이미지 미등록");
+      alert("칵테일의 이미지를 등록해주세요.");
       return false;
     } else if (!selectedTag) {
-      console.log("칵테일 태그 미선택");
+      alert("어떤 고객을 위한 칵테일인가요?");
       return false;
-    } else if (!cocktailDetail) {
-      console.log("칵테일 설명 미등록");
+    } else if (!cocktailDetail.current) {
+      alert("칵테에 대한 설명을 입력해주세요.");
+      return false;
+    } else if (!cocktailPrice.current) {
+      alert("칵테일 정가 금액을 입력해주세요.");
       return false;
     }
-
-    // const formData = new FormData();
-    // formData.append("cocktailName", cocktailName.current);
-    // formData.append("cocktailDetail", cocktailDetail.current);
-    // formData.append("recoUser", recoUser.current + "");
-    // formData.append("cocktailPic", cocktailImg);
-    // formData.append("cocktailPrice", cocktailPrice.current);
-    // formData.append("previewImg", previewImg);
-    // formData.append("activated", false + "");
 
     const cocktail: ManagementCocktailProps = {
       cocktailName: cocktailName.current,
       cocktailDetail: cocktailDetail.current,
       recoUser: recoUser.current,
-      // cocktailPic: cocktailImg,
       cocktailPrice: parseInt(cocktailPrice.current as string),
       cocktailPreview: previewImg,
       activated: false,
     };
 
-    // props.registCocktailRef.current = [...registCocktailList, data];
     setRegistCocktailList([...registCocktailList, cocktail]);
     setRegistCocktailImages([...registCocktailImages, cocktailImg]);
-    // setRegistCocktailList([...registCocktailList, formData]);
 
     return true;
   };

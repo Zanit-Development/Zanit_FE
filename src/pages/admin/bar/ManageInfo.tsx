@@ -16,7 +16,7 @@ import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { formDataInstance } from "../../../libs/apis/axios";
-import { useRecoilValue } from "recoil";
+import { useRecoilTransaction_UNSTABLE, useRecoilValue } from "recoil";
 import { registCocktailListStateAtom, registCocktailImagesStateAtom } from "../../../recoil/barManageAtom";
 
 export interface ManageBarProps {
@@ -57,72 +57,35 @@ export const ManageInfo = () => {
   const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    console.log(e.currentTarget);
+    if (barPicsRef.current.length < 4) {
+      alert("바 이미지 4개 등록은 필수입니다!");
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
+
     barPicsRef.current.forEach((item) => {
-      console.log(item);
       formData.append("barPics", item, item.name);
     });
 
-    // console.log(formData);
-    // registCocktail(35);
-    // return;
-
-    const response = await formDataInstance.post("/admin/registBar", formData);
-    // registCocktail(response.data);
+    const response = await formDataInstance.post("/admin/registBar", formData); // barUid
+    registCocktail(response.data);
     return response.data;
   };
 
   // 칵테일 등록
   const registCocktail = async (barId: number) => {
     const formData = new FormData();
-    formData.append("barUid", barId + "");
-    // formData.append("cocktails", JSON.stringify(registCocktailList));
+    formData.append("barUid", new Blob([JSON.stringify(barId)], { type: "application/json" }));
+    formData.append("cocktails", new Blob([JSON.stringify(registCocktailList)], { type: "application/json" }));
     registCocktailImages.forEach((item, idx) => {
-      formData.append(`cocktailPic[${idx}]`, item);
+      formData.append("cocktailPic", item);
     });
-
-    // formData.append("cocktails", JSON.stringify(registCocktailList));
-    // formData.append("cocktailPic", new Blob([...registCocktailImages]));
-
-    // registCocktailList.forEach((item, idx) => {
-    //   formData.append(`cocktails[${idx}].cocktailName`, item.cocktailName);
-    //   formData.append(`cocktails[${idx}].cocktailDetail`, item.cocktailDetail);
-    //   formData.append(`cocktails[${idx}].recoUser`, item.recoUser + "");
-    //   formData.append(`cocktails[${idx}].cocktailPrice`, item.cocktailPrice + "");
-    //   formData.append(`cocktails[${idx}].cocktailPreview`, item?.cocktailPreview!);
-    //   formData.append(`cocktails[${idx}].cocktailPic`, item.cocktailPic);
-    //   formData.append(`cocktails[${idx}].activated`, item.activated + "");
-    // });
-
-    // const cocktails: any = {};
-    // registCocktailList.forEach((item, idx) => {
-    //   cocktails[`cocktails[${idx}].cocktailName`] = item.cocktailName;
-    //   cocktails[`cocktails[${idx}].cocktailDetail`] = item.cocktailDetail;
-    //   cocktails[`cocktails[${idx}].recoUser`] = item.recoUser + "";
-    //   cocktails[`cocktails[${idx}].cocktailPrice`] = item.cocktailPrice;
-    //   cocktails[`cocktails[${idx}].cocktailPreview`] = item.cocktailPreview;
-    //   cocktails[`cocktails[${idx}].cocktailPic`] = item.cocktailPic;
-    //   cocktails[`cocktails[${idx}].activated`] = item.activated;
-    // });
-    // formData.append("cocktails", cocktails);
-
-    // registCocktailList.forEach((item) => {
-    //   formData.append(`cocktailName`, item.cocktailName);
-    //   formData.append(`cocktailDetail`, item.cocktailDetail);
-    //   formData.append(`recoUser`, item.recoUser + "");
-    //   formData.append(`cocktailPrice`, item.cocktailPrice + "");
-    //   formData.append(`cocktails.cocktailPreview`, item?.cocktailPreview!);
-    //   formData.append(`cocktailPic`, item.cocktailPic);
-    //   formData.append(`activated`, item.activated + "");
-    // });
 
     for (const [key, value] of formData) {
       console.log(key, value);
     }
 
-    // return;
     const response = await formDataInstance.post("admin/registCocktail2", formData);
     console.log(response.data);
     return response.data;
