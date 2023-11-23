@@ -57,30 +57,20 @@ export const ManageInfo = () => {
   const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    const formValues = formRef.current?.elements;
-    const activatedCoverCharge = formValues["activatedCoverCharge"].value;
-    const activatedCoverChargeOff = formValues["activatedDiscount"].value;
+    console.log(e.currentTarget);
 
-    const formData = new FormData();
-    formData.append("barName", formValues["barName"].value);
-    formData.append("barLocation", formValues["barLocation"].value);
-    formData.append("barLocationDetail", formValues["barLocationDetail"].value);
-    formData.append("barMood", formValues["barMood"].value.slice(1));
-    formData.append("coverCharge", activatedCoverCharge === "있음" ? formValues["coverCharge"].value : "0");
-    formData.append("coverChargeOff", activatedCoverChargeOff === "있음" ? formValues["discount"].value : "0");
-    formData.append("barTime", formValues["barOpeningTime"].value);
-    formData.append("barContents", formValues["barDetail"].value);
+    const formData = new FormData(e.currentTarget);
     barPicsRef.current.forEach((item) => {
       console.log(item);
       formData.append("barPics", item, item.name);
     });
 
     // console.log(formData);
-    registCocktail(35);
-    return;
+    // registCocktail(35);
+    // return;
 
     const response = await formDataInstance.post("/admin/registBar", formData);
-    registCocktail(response.data);
+    // registCocktail(response.data);
     return response.data;
   };
 
@@ -88,7 +78,13 @@ export const ManageInfo = () => {
   const registCocktail = async (barId: number) => {
     const formData = new FormData();
     formData.append("barUid", barId + "");
-    formData.append("cocktails", new Blob([JSON.stringify(registCocktailList)], { type: "application/json" }));
+    // formData.append("cocktails", JSON.stringify(registCocktailList));
+    registCocktailImages.forEach((item, idx) => {
+      formData.append(`cocktailPic[${idx}]`, item);
+    });
+
+    // formData.append("cocktails", JSON.stringify(registCocktailList));
+    // formData.append("cocktailPic", new Blob([...registCocktailImages]));
 
     // registCocktailList.forEach((item, idx) => {
     //   formData.append(`cocktails[${idx}].cocktailName`, item.cocktailName);
@@ -127,7 +123,7 @@ export const ManageInfo = () => {
     }
 
     // return;
-    const response = await formDataInstance.post("admin/registCocktail5", formData);
+    const response = await formDataInstance.post("admin/registCocktail2", formData);
     console.log(response.data);
     return response.data;
   };
@@ -174,8 +170,13 @@ export const ManageInfo = () => {
           {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <FormSelectBox name="activatedDiscount" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
-            <Input {...BAR_INFO.DISCOUNT} />
+            <FormSelectBox
+              name="activatedCoverChargeOff"
+              data={["있음", "없음"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            />
+            <Input {...BAR_INFO.COVER_CHARGE_OFF} />
           </StyledSectionBarInfo>
         </section>
         <section>
@@ -183,7 +184,7 @@ export const ManageInfo = () => {
           <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
           <StyledSectionsBarDesc>
             <StyledTextarea
-              name="barOpeningTime"
+              name="barTime"
               placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
             ></StyledTextarea>
@@ -197,7 +198,7 @@ export const ManageInfo = () => {
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
             <StyledTextarea
-              name="barDetail"
+              name="barContents"
               placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
             ></StyledTextarea>
             <StyledSpan>
