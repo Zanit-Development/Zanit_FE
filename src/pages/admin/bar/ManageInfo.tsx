@@ -1,8 +1,5 @@
 /**
  * 바 관리 페이지
- * @TODO
- * 1. 바 사진은 4개 등록하도록 변경하기
- * 2. 칵테일 이미지 등록 취소시 에러발생 -> 이미지 없는경우 확인 안되도록 변경하기
  */
 
 import React, { useState, useRef, useEffect } from "react";
@@ -16,7 +13,7 @@ import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { formDataInstance } from "../../../libs/apis/axios";
-import { useRecoilTransaction_UNSTABLE, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { registCocktailListStateAtom, registCocktailImagesStateAtom } from "../../../recoil/barManageAtom";
 
 export interface ManageBarProps {
