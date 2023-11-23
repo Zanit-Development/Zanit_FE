@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { useRecoilValue } from "recoil";
 import { mainImgState } from "../../recoil/mainImgAtom";
-import { PinchView } from "react-pinch-zoom-pan";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 interface mainImageProp {
   defaultImg: string;
@@ -14,11 +14,13 @@ export default function MainImage({ defaultImg }: mainImageProp) {
   return (
     <>
       {defaultImg !== "" ? (
-        <Screen id="screen">
+        <Screen>
           <ImgWrapper>
-            <PinchView>
-              <img src={mainImg || defaultImg} alt="확대 가능한 이미지" />
-            </PinchView>
+            <TransformWrapper>
+              <TransformComponent>
+                <img src={mainImg || defaultImg} alt="확대 가능한 이미지" />
+              </TransformComponent>
+            </TransformWrapper>
           </ImgWrapper>
         </Screen>
       ) : (
@@ -36,9 +38,12 @@ const Screen = styled.div`
 
 const ImgWrapper = styled.div`
   transition: transform 0.2s ease;
+
+  aspect-ratio: 1/1;
   div {
-    background-color: white;
+    width: 100%;
   }
+
   img {
     width: 100%;
     object-fit: contain;
