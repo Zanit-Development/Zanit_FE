@@ -2,7 +2,7 @@
  * 바 관리 페이지
  */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Input from "../../../components/common/input/Input";
 import Button from "../../../components/common/button/Button";
 import { FormSelectBox } from "../../../components/common/selectBox/BaseSelectBox";
@@ -13,6 +13,8 @@ import { BAR_INFO, ButtonOptions } from "./ManageInfoOptions";
 import { CocktailProps } from "../../../libs/interface/interfaceCocktail";
 import { FORM_EVENT } from "../../../libs/interface/typeEvent";
 import { formDataInstance } from "../../../libs/apis/axios";
+import { useRecoilValue } from "recoil";
+import { registCocktailListStateAtom, registCocktailImagesStateAtom } from "../../../recoil/barManageAtom";
 
 export interface ManageBarProps {
   barName: string;
@@ -37,51 +39,51 @@ export const ManageInfo = () => {
   const barPicsRef = useRef<File[]>([]);
 
   // 칵테일 리스트 관련
-  const registCocktailRef = useRef<CocktailProps[]>([]);
+  const registCocktailList = useRecoilValue(registCocktailListStateAtom);
+  const registCocktailImages = useRecoilValue(registCocktailImagesStateAtom);
+  const registCocktailRef = useRef<FormData>(null);
+
+  useEffect(() => {
+    console.log(registCocktailList);
+    console.log(registCocktailImages);
+  }, [registCocktailList]);
+
   const [showList, setShowList] = useState<string[]>([]); // 보여줄 칵테일
 
   // 바 등록
   const handleSubmit = async (e: FORM_EVENT) => {
     e.preventDefault();
 
-    const formValues = formRef.current?.elements;
-    const activatedCoverCharge = formValues["activatedCoverCharge"].value;
-    const activatedCoverChargeOff = formValues["activatedDiscount"].value;
+    if (barPicsRef.current.length < 4) {
+      alert("바 이미지 4개 등록은 필수입니다!");
+      return;
+    }
 
-    const data = {
-      barName: formValues["barName"].value,
-      barLocation: formValues["barLocation"].value,
-      barLocationDetail: formValues["barLocationDetail"].value,
-      barMood: formValues["barMood"].value.slice(1),
-      coverCharge: activatedCoverCharge === "있음" ? formValues["coverCharge"].value : 0,
-      coverChargeOff: activatedCoverChargeOff === "있음" ? formValues["discount"].value : 0, // discount
-      barTime: formValues["barOpeningTime"].value, // barOpeningTime
-      barDetail: formValues["barDetail"].value,
-      barPics: barPicsRef.current,
-      barPhone: "010-1234-5678",
-    };
+    const formData = new FormData(e.currentTarget);
 
-    console.log(data);
-    // registCocktail(0);
-    // return;
+    barPicsRef.current.forEach((item) => {
+      formData.append("barPics", item, item.name);
+    });
 
-    const response = await formDataInstance.post("/registBar", data);
+    const response = await formDataInstance.post("/admin/registBar", formData); // barUid
     registCocktail(response.data);
     return response.data;
   };
 
   // 칵테일 등록
   const registCocktail = async (barId: number) => {
-    const cocktailList = registCocktailRef.current;
-    const data = {
-      barId: barId,
-      cocktails: cocktailList,
-    };
+    const formData = new FormData();
+    formData.append("barUid", new Blob([JSON.stringify(barId)], { type: "application/json" }));
+    formData.append("cocktails", new Blob([JSON.stringify(registCocktailList)], { type: "application/json" }));
+    registCocktailImages.forEach((item, idx) => {
+      formData.append("cocktailPic", item);
+    });
 
-    console.log(data);
+    for (const [key, value] of formData) {
+      console.log(key, value);
+    }
 
-    // return;
-    const response = await formDataInstance.post("/registCocktail", data);
+    const response = await formDataInstance.post("admin/registCocktail2", formData);
     console.log(response.data);
     return response.data;
   };
@@ -128,8 +130,13 @@ export const ManageInfo = () => {
           {/** 6, 7. 커버차지 할인(activeDicount, discount) */}
           <StyledSectionBarInfo>
             <StyledH3>커버차지</StyledH3>
-            <FormSelectBox name="activatedDiscount" data={["있음", "없음"]} placeholder={"선택"} nulltext={"선택"} />
-            <Input {...BAR_INFO.DISCOUNT} />
+            <FormSelectBox
+              name="activatedCoverChargeOff"
+              data={["있음", "없음"]}
+              placeholder={"선택"}
+              nulltext={"선택"}
+            />
+            <Input {...BAR_INFO.COVER_CHARGE_OFF} />
           </StyledSectionBarInfo>
         </section>
         <section>
@@ -137,7 +144,7 @@ export const ManageInfo = () => {
           <StyledH3>쟈닛 쿠폰 사용가능 요일 및 시간</StyledH3>
           <StyledSectionsBarDesc>
             <StyledTextarea
-              name="barOpeningTime"
+              name="barTime"
               placeholder="쟈닛 고객님들께서 Bar에 방문하여 쿠폰을 사용할 수 있는 
 요일과 시간을 입력해주세요"
             ></StyledTextarea>
@@ -151,7 +158,7 @@ export const ManageInfo = () => {
           <StyledSectionsBarDesc>
             <StyledH3>공간 설명</StyledH3>
             <StyledTextarea
-              name="barDetail"
+              name="barContents"
               placeholder="우리 매장에 대한 설명을 적어주세요. (최대 50자)"
             ></StyledTextarea>
             <StyledSpan>

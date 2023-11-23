@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import addCocktailImg from "../../../assets/icon/icon_add_cocktail_button.svg";
 import Popup from "./Popup";
@@ -8,7 +8,9 @@ import { registCocktailListStateAtom } from "../../../recoil/barManageAtom";
 
 const RegistCocktailList = ({ ...props }) => {
   const [registCocktailList, setRegistCocktailList] = useRecoilState(registCocktailListStateAtom);
-  const [isShowPopup, setIsShowPopup] = useState(false); // popup
+  const [isShowPopup, setIsShowPopup] = useState(false); // show popup
+  const [popupState, setPopupState] = useState(false); // true : 신규, false : 수정
+  const [selectIdx, setSelectIdx] = useState<number>(0);
   const showCocktailListCount = useRef(0);
 
   // 칵테일삭제
@@ -31,16 +33,30 @@ const RegistCocktailList = ({ ...props }) => {
               info={item}
               showCocktailListCount={showCocktailListCount}
               deleteCocktailList={() => deleteCocktailList(idx)}
+              setPopupState={setPopupState}
+              setIsShowPopup={setIsShowPopup}
+              setSelectIdx={setSelectIdx}
             />
           );
         })}
       </CocktailList>
-      <AddCocktailButton type="button" onClick={() => setIsShowPopup(true)}>
+      <AddCocktailButton
+        type="button"
+        onClick={() => {
+          setPopupState(true);
+          setIsShowPopup(true);
+        }}
+      >
         <img src={addCocktailImg} alt="" />
       </AddCocktailButton>
       {isShowPopup && (
         // <Popup setIsShowPopup={setIsShowPopup} cocktailList={cocktailList} setCocktailList={setCocktailList} />
-        <Popup setIsShowPopup={setIsShowPopup} registCocktailRef={props.registCocktailRef} />
+        <Popup
+          setIsShowPopup={setIsShowPopup}
+          registCocktailRef={props.registCocktailRef}
+          popupState={popupState}
+          selectIdx={selectIdx}
+        />
       )}
     </>
   );
