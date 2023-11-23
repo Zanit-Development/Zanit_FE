@@ -10,3 +10,8 @@ export const registCocktailListStateAtom = atom({
   key: "registCocktailListStateAtom",
   default: [] as ManagementCocktailProps[],
 });
+
+export const registCocktailImagesStateAtom = atom({
+  key: "registCocktailImagesStateAtom",
+  default: [] as File[],
+});

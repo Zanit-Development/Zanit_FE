@@ -17,7 +17,7 @@ const AdminBardetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [barData, setBarData] = useState<BarProps>(BarInfo);
 
-  if (!getLoginCookie()) navigate("/admin/signIn오");
+  if (!getLoginCookie()) navigate("/admin/signIn");
 
   useEffect(() => {
     (async () => {

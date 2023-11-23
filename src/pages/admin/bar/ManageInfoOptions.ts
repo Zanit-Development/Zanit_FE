@@ -27,11 +27,13 @@ export const BAR_INFO = {
     ...inputBase,
     name: "coverCharge",
     placeholder: "기존 금액",
+    defaultValue: 0,
   },
-  DISCOUNT: {
+  COVER_CHARGE_OFF: {
     ...inputBase,
-    name: "discount",
+    name: "coverChargeOff",
     placeholder: "쟈닛 고객의 할인된 커버차지 금액",
+    defaultValue: 0,
   },
 };
 

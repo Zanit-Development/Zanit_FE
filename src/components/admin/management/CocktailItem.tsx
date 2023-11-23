@@ -16,13 +16,22 @@ export const CocktailItem = ({ ...props }) => {
 
   return (
     <li>
+      {/* 아이템 삭제 */}
       <button type="button" onClick={props.deleteCocktailList}>
         <img src={closeButton} alt="아이템 삭제" />
       </button>
-      <button type="button">
+      {/* 아이템 수정 */}
+      <button
+        type="button"
+        onClick={() => {
+          props.setPopupState(false);
+          props.setIsShowPopup(true);
+          props.setSelectIdx(cocktailIdx);
+        }}
+      >
         <img src={updateCocktailImg} alt="아이템 수정" />
       </button>
-      <Cocktail type="secondary" info={props.info} idx={0} />
+      <Cocktail type="secondary" info={props.info} idx={cocktailIdx} />
       <StyledCheckbox
         id={props.id}
         type="checkbox"
