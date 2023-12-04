@@ -2,6 +2,7 @@ export interface bar {
   barUid: number;
   barName: string;
   barLocation: string;
+  barLocationDetail: string;
   barPics: string[] | null;
   barPicsPath: barPicsPathInterface[];
   barMood: string;

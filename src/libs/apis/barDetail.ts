@@ -13,6 +13,7 @@ export const getBarInfo = async (barUid: string) => {
       barUid: res.barUid,
       barName: res.barName,
       barLocation: res.barLocation,
+      barLocationDetail: res.barLocationDetail,
       barPics: res.barPicsPath?.map((item) => item.barPicture) ?? [barDummy, barDummy2, barDummy3],
       barMood: res.barMood,
       barDetail: res.barDetail ?? "더미설명",
