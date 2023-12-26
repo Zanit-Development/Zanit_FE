@@ -65,9 +65,15 @@ const FooterContainer = styled.footer`
     margin-bottom: 12px;
     & > img {
       margin-right: 12px;
+      width: 29px;
+      aspect-ratio: 29/43;
     }
     & > a {
       align-self: flex-end;
+      & > img {
+        width: 16px;
+        aspect-ratio: 1/1;
+      }
     }
   }
 
