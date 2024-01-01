@@ -13,6 +13,7 @@ import { categoryState, cocktailListState, filteredListState, inputValueState, l
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
   const category = useRecoilValue(categoryState);
+  const setCategory = useSetRecoilState(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
   const setCocktailList = useSetRecoilState(cocktailListState);
@@ -41,6 +42,13 @@ const SearchList = () => {
 
       setIsLoading(false);
     })();
+    // unmount : reset recoil state
+    return () => {
+      setCategory("barName");
+      setFilter("barName");
+      setSearchBarList([]);
+      setCocktailList([]);
+    };
   }, []);
 
   return (
