@@ -20,7 +20,9 @@ const listGenerator = {
       const response = await defaultInstance.get(requestUrl, { timeout: 100 });
       return response.data;
     } catch (e) {
-      console.log(e);
+      if (inputValue) {
+        return BarInfoList.filter((e) => e.barName.includes(inputValue));
+      }
       return BarInfoList;
     }
   },
@@ -32,7 +34,6 @@ const listGenerator = {
       const response = await defaultInstance.get(requestUrl, { timeout: 100 });
       return response.data;
     } catch (e) {
-      console.log(e);
       return searchCocktailItems;
     }
   },

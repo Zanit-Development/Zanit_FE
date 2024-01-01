@@ -30,7 +30,7 @@ export const BarInfoList: BarProps[] = [
     barPics: [1, 2, 3, 4].map((e) => require(`../../assets/sample-img/bar1/bar${e}.png`)),
     barMood: "고급스러운",
     barDetail: `전체적인 밸런스가 괜찮은 한식 다이닝바`,
-    barLocation: "서울 중구",
+    barLocation: "중구",
     barLocationDetail: "충무로5길 18",
     barTime: `목 18:00 - 24:00
     금 18:00 - 24:00
@@ -69,7 +69,7 @@ export const BarInfoList: BarProps[] = [
     barMood: "고즈넉한",
     barDetail: `Music Pub 허밍은 지역별 다양한 싱글몰트 위스키와 50가지 칵테일을 전문 바텐더를 통해 합리적인 가격에 맛 보실 수 있습니다. 
     또, 수천장의 LP 앨범이 소장되어 있어, 듣고 싶은 곡을 직접 신청하여 40년된 빈티지 오디오시스템과 6개의 명품스피커를 통해 감상하실 수도 있습니다.`,
-    barLocation: "서울 강남구",
+    barLocation: "강남구",
     barLocationDetail: "언주로 605",
     barTime: `목 19:00 - 01:00
     금 19:00 - 01:00
@@ -184,7 +184,7 @@ export const BarInfoList: BarProps[] = [
     barPics: [1, 2, 3, 4].map((e) => require(`../../assets/sample-img/bar5/bar${e}.png`)),
     barMood: "캐주얼한",
     barDetail: `20년 전통의 이문동 터줏대감`,
-    barLocation: "서울 동대문구",
+    barLocation: "동대문구",
     barLocationDetail: "휘경로2길 5-10 지하 1층",
     barTime: `목 18:00 - 02:00
     금 18:00 - 02:00
