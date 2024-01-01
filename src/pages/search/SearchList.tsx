@@ -49,9 +49,18 @@ const SearchList = () => {
         {filteredList ? (
           filteredList.length ? (
             filteredList?.map((item: any, idx: number) => {
-              const itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
-              const picUrl = category !== "cocktail" ? (item?.barPicsPath?.length ? item?.barPicsPath[0].barPicture : item.barPics[0]) : item?.cocktailPicPath || item.cocktailPicture;
-              return <Item key={`search_item_${idx}`} typevariants={"primary"} link={item.link} url={picUrl} name={itemName ?? item.name} />;
+              let itemName;
+              let picUrl;
+              // dummy code
+              try {
+                itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
+                picUrl = category !== "cocktail" ? (item?.barPicsPath?.length ? item?.barPicsPath[0].barPicture : item.barPics[0]) : item?.cocktailPicPath || item.cocktailPicture;
+              } catch (e) {
+                // recoil bug
+                itemName = item?.cocktailName;
+                picUrl = item?.cocktailPicPath || item.cocktailPicture;
+              }
+              return <Item key={`search_item_${idx}`} typevariants={"primary"} link={`/bar-detail?barUid=${item.barUid}`} url={picUrl} name={itemName ?? item.name} />;
             })
           ) : (
             <EmptyList>선택 결과가 없습니다.</EmptyList>
