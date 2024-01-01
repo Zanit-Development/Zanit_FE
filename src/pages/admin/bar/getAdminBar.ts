@@ -1,7 +1,7 @@
 import { authInstance } from "../../../libs/apis/axios";
 import { bar } from "../../../libs/interface/interfaceAPI";
 import { BarProps } from "../../../libs/interface/interfaceBarDetail";
-import { BarInfo } from "../../../libs/utils/Bardetaildummy";
+import { BarInfo } from "../../../libs/dummy/Bardetaildummy";
 
 export const getAdminBarInfo = async () => {
   try {

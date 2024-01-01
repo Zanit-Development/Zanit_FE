@@ -1,4 +1,4 @@
-import { BarProps } from "../../libs/interface/interfaceBarDetail";
+import { BarProps } from "../interface/interfaceBarDetail";
 
 import sample from "../../assets/sample-img/sampleImg.png";
 

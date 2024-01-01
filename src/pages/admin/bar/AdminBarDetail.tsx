@@ -7,7 +7,7 @@ import AdminLayout from "../../../layouts/adminLayout/AdminLayout";
 import Button from "../../../components/common/button/Button";
 
 import { ButtonProps } from "../../../libs/interface/interfaceCommon";
-import { BarInfo } from "../../../libs/utils/Bardetaildummy";
+import { BarInfo } from "../../../libs/dummy/Bardetaildummy";
 import { getAdminBarInfo } from "./getAdminBar";
 import { BarProps } from "../../../libs/interface/interfaceBarDetail";
 import { getLoginCookie } from "../../../libs/utils/loginCookie";
