@@ -8,14 +8,7 @@ import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
 import listGenerator from "./listGenerator";
-import {
-  categoryState,
-  cocktailListState,
-  filteredListState,
-  inputValueState,
-  listFilterState,
-  searchBarListState,
-} from "../../recoil/SearchAtom";
+import { categoryState, cocktailListState, filteredListState, inputValueState, listFilterState, searchBarListState } from "../../recoil/SearchAtom";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
@@ -36,12 +29,11 @@ const SearchList = () => {
       // setSearchBarList(await listGenerator.barListGenerator(inputValue));
       // setCocktailList(await listGenerator.cocktailListGenerator());
 
-      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then(
-        (response) => {
-          setSearchBarList(response[0]);
-          setCocktailList(response[1]);
-        }
-      );
+      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then((response) => {
+        setSearchBarList(response[0]);
+        setCocktailList(response[1]);
+        console.log(response);
+      });
 
       if (category !== "barName") {
         setFilter(category);
@@ -58,21 +50,8 @@ const SearchList = () => {
           filteredList.length ? (
             filteredList?.map((item: any, idx: number) => {
               const itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
-              return (
-                <Item
-                  key={`search_item_${idx}`}
-                  typevariants={"primary"}
-                  link={""}
-                  url={
-                    category !== "cocktail"
-                      ? item?.barPicsPath?.length
-                        ? item?.barPicsPath[0].barPicture
-                        : undefined
-                      : item?.cocktailPicPath || undefined
-                  }
-                  name={itemName}
-                />
-              );
+              const picUrl = category !== "cocktail" ? (item?.barPicsPath?.length ? item?.barPicsPath[0].barPicture : item.barPics[0]) : item?.cocktailPicPath || item.cocktailPicture;
+              return <Item key={`search_item_${idx}`} typevariants={"primary"} link={item.link} url={picUrl} name={itemName ?? item.name} />;
             })
           ) : (
             <EmptyList>선택 결과가 없습니다.</EmptyList>

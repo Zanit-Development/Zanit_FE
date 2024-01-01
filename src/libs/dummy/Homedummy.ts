@@ -10,13 +10,13 @@ export const barItemOptions: ItemProps[] = [
     typevariants: "primary",
     link: `/bar-detail?barUid=1`,
     url: require("../../assets/sample-img/bar2/bar1.png"),
-    name: "성지술례",
+    name: "허밍",
   },
   {
     typevariants: "primary",
     link: `/bar-detail?barUid=2`,
     url: require("../../assets/sample-img/bar3/bar1.png"),
-    name: "허밍",
+    name: "성지술례",
   },
   {
     typevariants: "primary",

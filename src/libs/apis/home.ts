@@ -28,7 +28,7 @@ export const getRandomDataAPI = async () => {
 
     return { barList, cockList };
   } catch (e) {
-    return { barList: barItemOptions, cockList: shuffleArray(cocktailItemOptions).slice(0, 10) };
+    return { barList: shuffleArray(barItemOptions), cockList: shuffleArray(cocktailItemOptions).slice(0, 10) };
   }
 };
 
