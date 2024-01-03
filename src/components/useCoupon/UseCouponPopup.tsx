@@ -14,7 +14,10 @@ import { ButtonProps } from "../../libs/interface/interfaceCommon";
 import { Modal } from "../../components/modal/Modal";
 import { postUseCoupon } from "../../libs/apis/useCoupon";
 
-export const UseCouponPopup = (props: PopupProps) => {
+const success = 1;
+const fail = 2;
+
+const UseCouponPopup = (props: PopupProps) => {
   const { barPicture, barName, barUid, barLocation, cocktailName, cocktailPrice, cocktailUid, coverChargeOff, onClose } = props;
 
   const [btnDisabled, setBtnDisabled] = useState(false);
@@ -37,7 +40,7 @@ export const UseCouponPopup = (props: PopupProps) => {
           // 타입 뭐로 해야댐?
           console.log(error.response.status);
           console.log("오류");
-          props.setResult(2);
+          props.setResult(fail);
         } finally {
           onClose();
         }
@@ -56,7 +59,7 @@ export const UseCouponPopup = (props: PopupProps) => {
             <h3>{barName}</h3>
             <PopupAddress>{barLocation}</PopupAddress>
             <Price name={cocktailName} price={cocktailPrice} />
-            {coverChargeOff && (
+            {typeof coverChargeOff === "number" && (
               <>
                 <Price name="커버차지" price={coverChargeOff} />
                 <Line />
@@ -71,6 +74,8 @@ export const UseCouponPopup = (props: PopupProps) => {
     </>
   );
 };
+
+export default UseCouponPopup;
 
 const Price = ({ name, price }: { name: string; price: number }) => {
   return (
@@ -103,11 +108,16 @@ const PopupContent = styled.div`
     width: 271px;
     height: 271px;
     object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 5px;
   }
   h3 {
     font-family: var(--font--Bold);
     font-size: 20px;
     margin: 17px 0 10px;
+  }
+  span {
+    width: 251px;
   }
 `;
 
