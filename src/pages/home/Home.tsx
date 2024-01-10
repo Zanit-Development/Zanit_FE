@@ -16,6 +16,7 @@ import searchIcon from "../../assets/icon/icon_search.svg";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { inputValueState } from "../../recoil/SearchAtom";
+import { defaultInstance } from "../../libs/apis/axios";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -28,7 +29,8 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
-      await fetch("/post");
+      await defaultInstance.get("./post");
+      // await fetch("api/post");
       try {
         const { barList, cockList } = await getRandomDataAPI();
         setBarData(barList);
