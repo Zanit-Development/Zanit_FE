@@ -28,6 +28,7 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
+      await fetch("/post");
       try {
         const { barList, cockList } = await getRandomDataAPI();
         setBarData(barList);
