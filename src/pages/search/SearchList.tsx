@@ -8,18 +8,12 @@ import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isLoadingAtom } from "../../recoil/loadingAtom";
 import listGenerator from "./listGenerator";
-import {
-  categoryState,
-  cocktailListState,
-  filteredListState,
-  inputValueState,
-  listFilterState,
-  searchBarListState,
-} from "../../recoil/SearchAtom";
+import { categoryState, cocktailListState, filteredListState, inputValueState, listFilterState, searchBarListState } from "../../recoil/SearchAtom";
 
 const SearchList = () => {
   const inputValue = useRecoilValue(inputValueState);
   const category = useRecoilValue(categoryState);
+  const setCategory = useSetRecoilState(categoryState);
   // 목록 필터
   const setSearchBarList = useSetRecoilState(searchBarListState);
   const setCocktailList = useSetRecoilState(cocktailListState);
@@ -36,12 +30,11 @@ const SearchList = () => {
       // setSearchBarList(await listGenerator.barListGenerator(inputValue));
       // setCocktailList(await listGenerator.cocktailListGenerator());
 
-      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then(
-        (response) => {
-          setSearchBarList(response[0]);
-          setCocktailList(response[1]);
-        }
-      );
+      await Promise.all([listGenerator.barListGenerator(inputValue), listGenerator.cocktailListGenerator()]).then((response) => {
+        setSearchBarList(response[0]);
+        setCocktailList(response[1]);
+        console.log(response);
+      });
 
       if (category !== "barName") {
         setFilter(category);
@@ -49,6 +42,13 @@ const SearchList = () => {
 
       setIsLoading(false);
     })();
+    // unmount : reset recoil state
+    return () => {
+      setCategory("barName");
+      setFilter("barName");
+      setSearchBarList([]);
+      setCocktailList([]);
+    };
   }, []);
 
   return (
@@ -57,22 +57,18 @@ const SearchList = () => {
         {filteredList ? (
           filteredList.length ? (
             filteredList?.map((item: any, idx: number) => {
-              const itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
-              return (
-                <Item
-                  key={`search_item_${idx}`}
-                  typevariants={"primary"}
-                  link={""}
-                  url={
-                    category !== "cocktail"
-                      ? item?.barPicsPath?.length
-                        ? item?.barPicsPath[0].barPicture
-                        : undefined
-                      : item?.cocktailPicPath || undefined
-                  }
-                  name={itemName}
-                />
-              );
+              let itemName;
+              let picUrl;
+              // dummy code
+              try {
+                itemName = category !== "cocktail" ? item?.barName : item?.cocktailName;
+                picUrl = category !== "cocktail" ? (item?.barPicsPath?.length ? item?.barPicsPath[0].barPicture : item.barPics[0]) : item?.cocktailPicPath || item.cocktailPicture;
+              } catch (e) {
+                // recoil bug
+                itemName = item?.cocktailName;
+                picUrl = item?.cocktailPicPath || item.cocktailPicture;
+              }
+              return <Item key={`search_item_${idx}`} typevariants={"primary"} link={`/bar-detail?barUid=${item.barUid}`} url={picUrl} name={itemName ?? item.name} />;
             })
           ) : (
             <EmptyList>선택 결과가 없습니다.</EmptyList>

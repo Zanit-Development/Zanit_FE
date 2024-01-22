@@ -16,6 +16,7 @@ import searchIcon from "../../assets/icon/icon_search.svg";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { inputValueState } from "../../recoil/SearchAtom";
+import { defaultInstance } from "../../libs/apis/axios";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
@@ -28,6 +29,8 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
+      await defaultInstance.get("./post");
+      // await fetch("api/post");
       try {
         const { barList, cockList } = await getRandomDataAPI();
         setBarData(barList);
@@ -76,26 +79,20 @@ const Home = () => {
         </SearchButton>
       </FormContainer>
       <TagList />
-      {isLoading ? (
-        <div>로딩중</div>
-      ) : (
-        <>
-          <CocktailContainer>
-            <TitleStyle img={cocktailImg}>
-              <h2>Cocktail</h2>
-              <span>지금 당신을 기다리고 있는</span>
-            </TitleStyle>
-            <ItemList itemOptions={cockData} />
-          </CocktailContainer>
-          <BarContainer>
-            <TitleStyle img={barImg}>
-              <h2>Bar</h2>
-              <span>지금 당신을 기다리고 있는</span>
-            </TitleStyle>
-            <ItemList itemOptions={barData} />
-          </BarContainer>
-        </>
-      )}
+      <CocktailContainer>
+        <TitleStyle img={cocktailImg}>
+          <h2>Cocktail</h2>
+          <span>지금 당신을 기다리고 있는</span>
+        </TitleStyle>
+        <ItemList itemOptions={cockData} />
+      </CocktailContainer>
+      <BarContainer>
+        <TitleStyle img={barImg}>
+          <h2>Bar</h2>
+          <span>지금 당신을 기다리고 있는</span>
+        </TitleStyle>
+        <ItemList itemOptions={barData} />
+      </BarContainer>
     </Layout>
   );
 };

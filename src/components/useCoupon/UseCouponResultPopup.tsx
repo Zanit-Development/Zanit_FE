@@ -9,7 +9,7 @@ import sad from "../../assets/icon/icon_sad_face.svg";
 
 import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 
-export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => {
+const UseCouponResultPopup = ({ showResult }: { showResult: number }) => {
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -33,6 +33,7 @@ export const UseCouponResultPopup = ({ showResult }: { showResult: number }) => 
     </Modal>
   );
 };
+export default UseCouponResultPopup;
 
 const Container = styled.div`
   padding: 50px 0;

@@ -146,6 +146,10 @@ const StyledSectionTop = styled.section`
 
   figure {
     margin-bottom: 24px;
+    img {
+      width: 370px;
+      aspect-ratio: 37/18;
+    }
   }
 
   & > section {

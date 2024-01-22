@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 
 import Button from "../common/button/Button";
 import { ButtonProps } from "../../libs/interface/interfaceCommon";
-import { UseCouponPopup } from "./UseCouponPopup";
 import { PopupProps, useCouponPropsType } from "../../libs/interface/interfaceUseCoupon";
-import { UseCouponResultPopup } from "./UseCouponResultPopup";
+
+const UseCouponPopup = lazy(() => import("./UseCouponPopup"));
+const UseCouponResultPopup = lazy(() => import("./UseCouponResultPopup"));
+
+interface couponButtonProps extends ButtonProps {
+  onMouseOver?: (e: MouseEvent) => void;
+  onTouchStart?: (e: TouchEvent) => void;
+}
 
 const ShowPopupButton = (props: useCouponPropsType) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -17,7 +23,12 @@ const ShowPopupButton = (props: useCouponPropsType) => {
     setShowPopup(false);
   };
 
-  const buttonProps: ButtonProps = {
+  const handlePreLoad = () => {
+    const img = new Image();
+    img.src = barPicture;
+  };
+
+  const buttonProps: couponButtonProps = {
     typevariants: "fill",
     sizevariants: "small",
     value: "ZAN 쿠폰 사용하기",
@@ -26,7 +37,14 @@ const ShowPopupButton = (props: useCouponPropsType) => {
       // 누르면 popup 마운트
       setShowPopup(true);
     },
+    onMouseOver: handlePreLoad,
+    onTouchStart: handlePreLoad,
   };
+
+  useEffect(() => {
+    import("./UseCouponPopup");
+    import("./UseCouponResultPopup");
+  }, []);
 
   const PopupOption: Omit<Omit<PopupProps, "onClose">, "setResult"> = {
     barPicture,
@@ -42,8 +60,10 @@ const ShowPopupButton = (props: useCouponPropsType) => {
   return (
     <>
       <Button {...buttonProps} />
-      {showPopup && <UseCouponPopup onClose={onClose} setResult={setShowResult} {...PopupOption} />}
-      {!!showResult && <UseCouponResultPopup showResult={showResult} />}
+      <Suspense fallback={null}>
+        {showPopup && <UseCouponPopup onClose={onClose} setResult={setShowResult} {...PopupOption} />}
+        {!!showResult && <UseCouponResultPopup showResult={showResult} />}
+      </Suspense>
     </>
   );
 };

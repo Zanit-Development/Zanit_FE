@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { mainImgState } from "../../recoil/mainImgAtom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 

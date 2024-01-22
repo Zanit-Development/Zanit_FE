@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 import { ItemProps } from "../../libs/interface/interfaceCommon";
@@ -7,9 +7,7 @@ import Item from "../../components/common/item/Item";
 
 import arrowImg from "../../assets/icon/icon_arrow_left.svg";
 
-function pickItem(arr: ItemProps[], idx: number) {
-  const len = arr.length;
-
+function pickItem(arr: ItemProps[], idx: number, len: number) {
   if (len < 3) {
     const temp: (ItemProps | string)[] = arr;
     while (temp.length < 3) {
@@ -26,9 +24,11 @@ function pickItem(arr: ItemProps[], idx: number) {
 
 const ItemList = (props: { itemOptions: ItemProps[] }) => {
   const { itemOptions } = props;
+  const optionLength = itemOptions.length;
   const dataLength = itemOptions!.length;
   const [idx, setIdx] = useState(1);
-  const itemArray = pickItem(itemOptions, idx);
+  const itemArray = pickItem(itemOptions, idx, optionLength);
+
   function handleLeft() {
     setIdx((prev) => (prev - 1 + dataLength) % dataLength);
   }
@@ -115,8 +115,6 @@ const ItemContainer = styled.ul`
     img {
       height: 100%;
       aspect-ratio: 1/1;
-      /* 애매.. */
-      object-fit: contain;
       box-sizing: border-box;
       border: 1px solid #ddd;
     }

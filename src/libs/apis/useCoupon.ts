@@ -1,10 +1,11 @@
 import { defaultInstance, authInstance } from "./axios";
 import { bar, cocktail } from "../interface/interfaceAPI";
 import barDummy2 from "../../assets/sample-img/bar2.png";
+import { barLists } from "../dummy/useCoupondummy";
 
 export const getBarList = async () => {
   try {
-    const [barData, cockData] = await Promise.all([defaultInstance.get("/barListHome"), defaultInstance.get("/getCocktailList")]);
+    const [barData, cockData] = await Promise.all([defaultInstance.get("/barListHome", { timeout: 100 }), defaultInstance.get("/getCocktailList", { timeout: 100 })]);
 
     const temp = barData.data.map((barItem: bar) => {
       const barItemUid = barItem.barUid;
@@ -32,7 +33,7 @@ export const getBarList = async () => {
 
     return temp;
   } catch (e) {
-    throw e;
+    return barLists;
   }
 };
 
@@ -44,6 +45,7 @@ interface usedInfo {
 export const postUseCoupon = async (data: usedInfo) => {
   try {
     const res = await authInstance.post("/couponUse", JSON.stringify(data));
+    console.log(res);
     if (res.status === 200) {
       return res.data as number;
     }

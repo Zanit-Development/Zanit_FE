@@ -4,10 +4,11 @@ import barDummy2 from "../../assets/sample-img/bar2.png";
 import barDummy3 from "../../assets/sample-img/bar3.png";
 import { BarProps } from "../interface/interfaceBarDetail";
 import { bar } from "../interface/interfaceAPI";
+import { BarInfoList } from "../dummy/Bardetaildummy";
 
 export const getBarInfo = async (barUid: string) => {
   try {
-    const res: bar = (await defaultInstance.get(`/barInfo?barId=${barUid}`)).data;
+    const res: bar = (await defaultInstance.get(`/barInfo?barId=${barUid}`, { timeout: 100 })).data;
 
     const temp: BarProps = {
       barUid: res.barUid,
@@ -32,6 +33,9 @@ export const getBarInfo = async (barUid: string) => {
 
     return temp;
   } catch (e) {
-    throw e;
+    const idx = Number(barUid);
+    return BarInfoList[idx];
+
+    // throw e;
   }
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import empty from "../../assets/icon/icon_empty_Image.svg";
@@ -15,6 +15,12 @@ const ImageItem = ({ image }: ImageItemProps) => {
     const target = event.target as HTMLImageElement;
     setMainImg(target.src);
   };
+
+  useEffect(() => {
+    return () => {
+      setMainImg("");
+    };
+  });
 
   return (
     <ImgBtn $img={image} onClick={image ? (e) => changeMain(e) : undefined}>

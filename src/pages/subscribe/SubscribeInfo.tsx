@@ -34,6 +34,8 @@ const InfoContainer = styled.section`
       & img {
         margin-top: 50%;
         transform: translateY(-50%);
+        width: 25px;
+        aspect-ratio: 1/1;
       }
     }
 

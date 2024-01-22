@@ -16,6 +16,10 @@ const Header = () => {
 
 const H1 = styled.h1`
   padding: 13px;
+  img {
+    width: 60px;
+    height: 26px;
+  }
 `;
 
 export default Header;

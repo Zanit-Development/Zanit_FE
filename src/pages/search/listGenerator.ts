@@ -3,6 +3,8 @@
  */
 
 import { defaultInstance } from "../../libs/apis/axios";
+import { BarInfoList } from "../../libs/dummy/Bardetaildummy";
+import { searchCocktailItems } from "../../libs/dummy/Searchdummy";
 
 const listGenerator = {
   barListGenerator: async (inputValue: string = "") => {
@@ -15,10 +17,13 @@ const listGenerator = {
     }
 
     try {
-      const response = await defaultInstance.get(requestUrl);
+      const response = await defaultInstance.get(requestUrl, { timeout: 100 });
       return response.data;
     } catch (e) {
-      console.log(e);
+      if (inputValue) {
+        return BarInfoList.filter((e) => e.barName.includes(inputValue));
+      }
+      return BarInfoList;
     }
   },
 
@@ -26,10 +31,10 @@ const listGenerator = {
     const requestUrl = "getCocktailList?";
 
     try {
-      const response = await defaultInstance.get(requestUrl);
+      const response = await defaultInstance.get(requestUrl, { timeout: 100 });
       return response.data;
     } catch (e) {
-      console.log(e);
+      return searchCocktailItems;
     }
   },
 };
