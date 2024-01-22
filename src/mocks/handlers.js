@@ -66,4 +66,12 @@ export const handlers = [
       ]);
     }
   }),
+
+  http.post("api/couponUse", async ({ request }) => {
+    const data = await request.json();
+    console.log(data);
+
+    // 성공
+    return new HttpResponse(1);
+  }),
 ];

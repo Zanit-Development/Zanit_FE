@@ -45,6 +45,7 @@ interface usedInfo {
 export const postUseCoupon = async (data: usedInfo) => {
   try {
     const res = await authInstance.post("/couponUse", JSON.stringify(data));
+    console.log(res);
     if (res.status === 200) {
       return res.data as number;
     }
