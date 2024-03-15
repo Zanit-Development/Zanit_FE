@@ -19,3 +19,13 @@ export const usedCouponListAPI = async () => {
     return e;
   }
 };
+
+export const unsubscribeAPI = async () => {
+  try {
+    const res = await authInstance.post("/unsubscribe");
+    return res;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+};

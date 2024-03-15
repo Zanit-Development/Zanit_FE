@@ -8,11 +8,19 @@ import { BUTTON_OPTIONS } from "../../libs/constants/options/options";
 import { useNavigate } from "react-router";
 import { priceFormat } from "../../libs/utils/priceFormat";
 import { membershipPrice } from "../../libs/utils/membershipPrice";
+import { unsubscribeAPI } from "../../libs/apis/myCoupon";
 
 export const PopupPromotion = ({ ...props }) => {
   const { closeModal, setShowPopupComplete, setIsModalOpen, userInfo } = props;
 
-  const showPopupComplete = () => {
+  const showPopupComplete = async () => {
+    try {
+      // 확인 필요
+      const res = await unsubscribeAPI();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     setShowPopupComplete(true);
     setIsModalOpen(false);
   };
